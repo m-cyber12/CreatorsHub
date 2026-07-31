@@ -6,47 +6,66 @@
   body {
     @apply bg-background text-foreground antialiased selection:bg-purple-500/30 selection:text-purple-200 overflow-x-hidden;
     font-feature-settings: "rlig" 1, "calt" 1;
-    background-color: #050508;
+    background-color: #030305;
   }
 }
 
-/* 3D and MotionSites.ai Inspired Keyframes & Animations */
+/* ====================================================
+   CINEMATIC MOTIONSITES.AI / SKY ESTATE INSPIRED CSS
+   ==================================================== */
 
-@keyframes float-slow {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg) scale(1);
-  }
-  50% {
-    transform: translateY(-12px) rotate(2deg) scale(1.02);
-  }
+/* Smooth Cinematic Scroll Bar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #030305;
+}
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #7c3aed;
 }
 
-@keyframes float-reverse {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(14px) rotate(-3deg);
-  }
-}
+/* Keyframes for Marquee, Floating 3D, and Lens Flares */
 
-@keyframes pulse-glow {
-  0%, 100% {
-    opacity: 0.4;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.8;
-    transform: scale(1.08);
-  }
-}
-
-@keyframes grid-move {
+@keyframes marquee {
   0% {
-    background-position: 0 0;
+    transform: translateX(0%);
   }
   100% {
-    background-position: 40px 40px;
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes float-cinematic-1 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotateX(10deg) rotateY(-8deg);
+  }
+  50% {
+    transform: translate3d(0, -18px, 10px) rotateX(12deg) rotateY(-4deg);
+  }
+}
+
+@keyframes float-cinematic-2 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotateX(-8deg) rotateY(10deg);
+  }
+  50% {
+    transform: translate3d(0, 20px, -10px) rotateX(-5deg) rotateY(12deg);
+  }
+}
+
+@keyframes lens-flare {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(1.15) translate3d(-10px, 10px, 0);
   }
 }
 
@@ -62,60 +81,69 @@
   }
 }
 
-/* Custom Animation Classes */
-.animate-float-slow {
-  animation: float-slow 7s ease-in-out infinite;
+/* Cinematic Utilities */
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
 }
 
-.animate-float-reverse {
-  animation: float-reverse 8s ease-in-out infinite;
+.animate-float-c1 {
+  animation: float-cinematic-1 8s ease-in-out infinite;
 }
 
-.animate-pulse-glow {
-  animation: pulse-glow 4s ease-in-out infinite;
+.animate-float-c2 {
+  animation: float-cinematic-2 9s ease-in-out infinite;
 }
 
-/* Cyber / Linear Grid Background */
-.bg-animated-grid {
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-  background-size: 40px 40px;
-  animation: grid-move 20s linear infinite;
+.animate-lens {
+  animation: lens-flare 6s ease-in-out infinite;
 }
 
-/* 3D Glassmorphism Cards with Shimmering Glow */
-.glass-card-3d {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.08) 0%,
-    rgba(255, 255, 255, 0.02) 100%
-  );
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+/* 3D Perspective Stage for Scroll Parallax */
+.stage-3d {
+  perspective: 1200px;
   transform-style: preserve-3d;
 }
 
-.glass-card-3d:hover {
-  transform: translateY(-6px) scale(1.015);
-  border-color: rgba(168, 85, 247, 0.45);
+/* Cinematic Glass Card with Deep Bokeh & Spotlight Hover */
+.cinematic-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.015) 100%
+  );
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 
-    0 20px 40px -15px rgba(168, 85, 247, 0.25),
-    0 0 25px -5px rgba(236, 72, 153, 0.2),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
+    0 15px 35px -10px rgba(0, 0, 0, 0.7),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
 }
 
-/* Glowing text gradients */
-.text-gradient-neon {
-  background: linear-gradient(135deg, #fff 0%, #c084fc 40%, #f472b6 80%, #38bdf8 100%);
+.cinematic-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: rgba(168, 85, 247, 0.55);
+  box-shadow: 
+    0 25px 50px -12px rgba(168, 85, 247, 0.35),
+    0 0 30px -5px rgba(236, 72, 153, 0.25),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Neon Shimmer Gradient Text */
+.text-cinematic-neon {
+  background: linear-gradient(135deg, #ffffff 0%, #d8b4fe 40%, #f472b6 75%, #38bdf8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Shimmer CTA Button */
-.btn-shimmer-border {
+/* Glow CTA Button */
+.btn-cinematic-glow {
   background: linear-gradient(90deg, #9333ea, #ec4899, #3b82f6, #9333ea);
   background-size: 300% 300%;
-  animation: shimmer-border 5s ease infinite;
+  animation: shimmer-border 6s ease infinite;
 }
