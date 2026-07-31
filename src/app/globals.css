@@ -1,0 +1,186 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-background text-foreground antialiased selection:bg-purple-500/30 selection:text-purple-200 overflow-x-hidden;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    background-color: #030305;
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+}
+
+/* Light mode overrides */
+html:not(.dark) body {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+/* ====================================================
+   CINEMATIC MOTIONSITES.AI / BOLD STUDIO INSPIRED CSS
+   ==================================================== */
+
+/* Smooth Cinematic Scroll Bar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #030305;
+}
+html:not(.dark) ::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 4px;
+}
+html:not(.dark) ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #7c3aed;
+}
+
+/* Keyframes for Marquee, Floating 3D, and Lens Flares */
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes float-cinematic-1 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotateX(12deg) rotateY(-10deg);
+  }
+  50% {
+    transform: translate3d(0, -20px, 15px) rotateX(15deg) rotateY(-5deg);
+  }
+}
+
+@keyframes float-cinematic-2 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotateX(-10deg) rotateY(12deg);
+  }
+  50% {
+    transform: translate3d(0, 20px, -15px) rotateX(-6deg) rotateY(15deg);
+  }
+}
+
+@keyframes lens-flare {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(1.15) translate3d(-10px, 10px, 0);
+  }
+}
+
+@keyframes shimmer-border {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Cinematic Utilities */
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+.animate-float-c1 {
+  animation: float-cinematic-1 8s ease-in-out infinite;
+}
+
+.animate-float-c2 {
+  animation: float-cinematic-2 9s ease-in-out infinite;
+}
+
+.animate-lens {
+  animation: lens-flare 6s ease-in-out infinite;
+}
+
+/* 3D Perspective Stage for Scroll Parallax */
+.stage-3d {
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
+
+/* Cinematic Glass Card with Deep Bokeh & Spotlight Hover (Dark Mode Default) */
+.dark .cinematic-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.015) 100%
+  );
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 15px 35px -10px rgba(0, 0, 0, 0.8),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+}
+
+.dark .cinematic-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: rgba(168, 85, 247, 0.6);
+  box-shadow: 
+    0 25px 50px -12px rgba(168, 85, 247, 0.35),
+    0 0 30px -5px rgba(236, 72, 153, 0.25),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Luxury Light Mode Silver Glass Card */
+html:not(.dark) .cinematic-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.7) 100%
+  );
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 
+    0 15px 35px -10px rgba(148, 163, 184, 0.25),
+    inset 0 1px 0 0 rgba(255, 255, 255, 1);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+}
+
+html:not(.dark) .cinematic-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: rgba(147, 51, 234, 0.5);
+  box-shadow: 
+    0 25px 50px -12px rgba(147, 51, 234, 0.25),
+    0 10px 20px -5px rgba(236, 72, 153, 0.15);
+}
+
+/* Neon Shimmer Gradient Text */
+.text-cinematic-neon {
+  background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Glow CTA Button */
+.btn-cinematic-glow {
+  background: linear-gradient(90deg, #9333ea, #ec4899, #3b82f6, #9333ea);
+  background-size: 300% 300%;
+  animation: shimmer-border 6s ease infinite;
+}
