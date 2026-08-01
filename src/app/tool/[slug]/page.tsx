@@ -72,7 +72,6 @@ export default function ToolDetailPage() {
               ))}
             </div>
 
-            {/* ۳ دکمه ویژه درخواست‌شده: Try Now، Compare، و Ask AI */}
             <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3 border-t border-white/10 pt-8">
               <a href={affiliateUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-purple-600 via-indigo-600 to-pink-600 px-6 py-4 text-sm font-extrabold text-white shadow-xl hover:scale-102">
                 <span>Try {tool.name} Now</span> <ExternalLink className="h-4 w-4" />
@@ -96,4 +95,4 @@ export default function ToolDetailPage() {
       <AIChatAssistant tools={INITIAL_TOOLS} />
     </div>
   );
-}
+                        }
