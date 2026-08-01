@@ -13,7 +13,7 @@ export async function POST(request: Request) {
   if (!supabase) return NextResponse.json({ error: 'Supabase not configured' }, { status: 500 });
   try {
     const body = await request.json();
-    const { name, slug, tagline, description, url, affiliate_url, category, pricing, is_featured, has_founder_badge } = body;
+    const { name, slug, tagline, description, url, affiliate_url, logo, cover_image, category, pricing, is_featured, has_founder_badge, tags, metrics } = body;
     const { data, error } = await supabase
       .from('tools')
       .insert([
@@ -24,13 +24,14 @@ export async function POST(request: Request) {
           description,
           url,
           affiliate_url: affiliate_url || null,
-          logo: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=120&auto=format&fit=crop&q=80',
-          cover_image: 'https://images.unsplash.com/photo-1626544827763-d516dce335e2?w=800&auto=format&fit=crop&q=80',
+          logo: logo || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=120&auto=format&fit=crop&q=80',
+          cover_image: cover_image || 'https://images.unsplash.com/photo-1626544827763-d516dce335e2?w=800&auto=format&fit=crop&q=80',
           category: category || 'Video Editing',
           pricing: pricing || 'Freemium',
           is_featured: !!is_featured,
           has_founder_badge: !!has_founder_badge,
-          tags: ['AI Tool', 'Video'],
+          tags: tags || ['AI Tool', 'Video'],
+          metrics: metrics || '10x Speed',
           status: 'approved',
         },
       ])
@@ -64,4 +65,4 @@ export async function DELETE(request: Request) {
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 400 });
   }
-      }
+}
