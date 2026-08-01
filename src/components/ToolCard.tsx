@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Tool } from '@/data/tools';
-import { ExternalLink, Star, Award, Sparkles, Zap, Video, Film, Image as ImageIcon, Mic, ArrowRight } from 'lucide-react';
+import { ExternalLink, Star, Award, Zap, Video, Film, Image as ImageIcon, Mic, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 interface ToolCardProps {
@@ -38,7 +38,6 @@ export const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
       <div className="absolute -right-16 -top-16 h-32 w-32 rounded-full bg-purple-600/10 blur-2xl transition-all duration-500 group-hover:scale-125" />
 
       <div>
-        {/* کلیک روی عکس صفحه اختصاصی ابزار را باز می‌کند */}
         <Link href={`/tool/${tool.slug}`} className="block relative overflow-hidden rounded-2xl h-44 w-full bg-zinc-950 mb-5 border border-white/5">
           {!coverError ? (
             <img
@@ -124,7 +123,6 @@ export const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
         </div>
 
         <div className="flex items-center gap-2">
-          {/* دکمه اصلی به صفحه اختصاصی می‌رود */}
           <Link
             href={`/tool/${tool.slug}`}
             className="group/btn flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 px-3.5 py-2 text-xs font-bold text-white shadow-lg transition-all hover:from-purple-500 hover:to-indigo-500"
@@ -133,7 +131,6 @@ export const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
             <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/btn:translate-x-0.5" />
           </Link>
 
-          {/* آیکون لینک مستقیم افیلیت */}
           <a
             href={affiliateUrl}
             target="_blank"
