@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Header } from '@/components/Header';
 import { CustomSelect } from '@/components/CustomSelect';
 import { INITIAL_TOOLS, Tool } from '@/data/tools';
-import { Sparkles, CheckCircle2, Star, ExternalLink, ArrowRight, Zap, Trophy } from 'lucide-react';
+import { Sparkles, Star, ExternalLink } from 'lucide-react';
 
 export default function ComparePage() {
   const [toolA, setToolA] = useState<Tool>(INITIAL_TOOLS[0]); // OpusClip
@@ -19,13 +19,8 @@ export default function ComparePage() {
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col justify-between">
       <div>
-        <Header
-          onOpenSubmitModal={() => {}}
-          searchQuery=""
-          onSearchChange={() => {}}
-        />
+        <Header onOpenSubmitModal={() => {}} searchQuery="" onSearchChange={() => {}} />
 
-        {/* Header */}
         <section className="relative overflow-hidden pt-12 pb-16 sm:pt-20 sm:pb-24 border-b border-white/10 text-center">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-1.5 text-xs font-bold text-purple-400">
@@ -35,11 +30,7 @@ export default function ComparePage() {
             <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-white sm:text-6xl">
               AI Tools <span className="text-cinematic-neon">Head-to-Head</span>
             </h1>
-            <p className="mx-auto mt-4 max-w-2xl text-sm text-zinc-400 sm:text-lg">
-              Compare pricing, virality scores, and CTR features before you subscribe.
-            </p>
 
-            {/* Custom Selectors */}
             <div className="mt-10 mx-auto max-w-3xl grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div className="rounded-2xl border border-purple-500/30 bg-zinc-900/60 p-5 backdrop-blur-xl">
                 <CustomSelect
@@ -70,7 +61,6 @@ export default function ComparePage() {
           </div>
         </section>
 
-        {/* Comparison Table */}
         <main className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="rounded-3xl border border-white/10 bg-zinc-900 overflow-hidden shadow-2xl">
             <div className="grid grid-cols-3 border-b border-white/10 bg-zinc-950/60 p-6 text-center text-xs sm:text-sm font-extrabold">
@@ -104,38 +94,16 @@ export default function ComparePage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 p-5 items-center">
-                <span className="font-bold text-zinc-400">Core Metric / Speed</span>
-                <span className="text-center font-bold text-purple-300">{toolA.metrics || '10x Speed'}</span>
-                <span className="text-center font-bold text-pink-300">{toolB.metrics || '10x Speed'}</span>
-              </div>
-
-              <div className="grid grid-cols-3 p-5 items-start">
-                <span className="font-bold text-zinc-400">Best Used For</span>
-                <p className="text-center text-xs text-zinc-400 px-2">{toolA.description}</p>
-                <p className="text-center text-xs text-zinc-400 px-2">{toolB.description}</p>
-              </div>
-
               <div className="grid grid-cols-3 p-6 items-center bg-zinc-950/40">
                 <span className="font-extrabold text-white">Direct Link</span>
                 <div className="text-center">
-                  <a
-                    href={toolA.affiliateUrl || toolA.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-xl bg-purple-600 px-4 py-2.5 text-xs font-bold text-white shadow-lg hover:bg-purple-500"
-                  >
+                  <a href={toolA.affiliateUrl || toolA.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-xl bg-purple-600 px-4 py-2.5 text-xs font-bold text-white shadow-lg hover:bg-purple-500">
                     <span>Try {toolA.name}</span>
                     <ExternalLink className="h-3.5 w-3.5" />
                   </a>
                 </div>
                 <div className="text-center">
-                  <a
-                    href={toolB.affiliateUrl || toolB.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-xl bg-pink-600 px-4 py-2.5 text-xs font-bold text-white shadow-lg hover:bg-pink-500"
-                  >
+                  <a href={toolB.affiliateUrl || toolB.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-xl bg-pink-600 px-4 py-2.5 text-xs font-bold text-white shadow-lg hover:bg-pink-500">
                     <span>Try {toolB.name}</span>
                     <ExternalLink className="h-3.5 w-3.5" />
                   </a>
