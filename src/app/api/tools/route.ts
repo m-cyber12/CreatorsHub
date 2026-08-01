@@ -10,7 +10,12 @@ export async function GET() {
       .select('*')
       .order('created_at', { ascending: false });
     if (error || !data || data.length === 0) return NextResponse.json(INITIAL_TOOLS, { status: 200 });
-    return NextResponse.json(data, { status: 200 });
+
+    // ترکیب هوشمند ابزارهای دیتابیس با ۲۰ ابزار اصلی سایت
+    const dbSlugs = new Set(data.map((t: any) => t.slug));
+    const merged = [...data, ...INITIAL_TOOLS.filter((t) => !dbSlugs.has(t.slug))];
+
+    return NextResponse.json(merged, { status: 200 });
   } catch (err) {
     return NextResponse.json(INITIAL_TOOLS, { status: 200 });
   }
@@ -20,11 +25,7 @@ export async function POST(request: Request) {
   if (!supabase) return NextResponse.json({ error: 'Supabase not configured' }, { status: 500 });
   try {
     const body = await request.json();
-    const {
-      name, slug, tagline, description, url, affiliate_url, logo,
-      cover_image, category, pricing, is_featured, has_founder_badge, tags, metrics,
-    } = body;
-
+    const { name, slug, tagline, description, url, affiliate_url, logo, cover_image, category, pricing, is_featured, has_founder_badge, tags, metrics } = body;
     const { data, error } = await supabase.from('tools').insert([{
       name,
       slug: slug || name.toLowerCase().replace(/[^a-z0-9]/g, '-'),
