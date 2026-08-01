@@ -3,17 +3,28 @@ import { supabase } from '@/lib/supabase';
 import { INITIAL_TOOLS } from '@/data/tools';
 
 export async function GET() {
-  if (!supabase) return NextResponse.json(INITIAL_TOOLS);
-  const { data, error } = await supabase.from('tools').select('*').order('created_at', { ascending: false });
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-  return NextResponse.json(data || []);
+  if (!supabase) return NextResponse.json(INITIAL_TOOLS, { status: 200 });
+  try {
+    const { data, error } = await supabase
+      .from('tools')
+      .select('*')
+      .order('created_at', { ascending: false });
+    if (error || !data || data.length === 0) return NextResponse.json(INITIAL_TOOLS, { status: 200 });
+    return NextResponse.json(data, { status: 200 });
+  } catch (err) {
+    return NextResponse.json(INITIAL_TOOLS, { status: 200 });
+  }
 }
 
 export async function POST(request: Request) {
   if (!supabase) return NextResponse.json({ error: 'Supabase not configured' }, { status: 500 });
   try {
     const body = await request.json();
-    const { name, slug, tagline, description, url, affiliate_url, logo, cover_image, category, pricing, is_featured, has_founder_badge, tags, metrics } = body;
+    const {
+      name, slug, tagline, description, url, affiliate_url, logo,
+      cover_image, category, pricing, is_featured, has_founder_badge, tags, metrics,
+    } = body;
+
     const { data, error } = await supabase.from('tools').insert([{
       name,
       slug: slug || name.toLowerCase().replace(/[^a-z0-9]/g, '-'),
@@ -29,7 +40,8 @@ export async function POST(request: Request) {
       metrics: metrics || '10x Speed',
       status: 'approved',
     }]).select();
-    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+
+    if (error) return NextResponse.json({ error: error.message }, { status: 400 });
     return NextResponse.json({ success: true, data }, { status: 201 });
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 400 });
@@ -41,8 +53,8 @@ export async function PATCH(request: Request) {
   try {
     const { id, ...updates } = await request.json();
     const { data, error } = await supabase.from('tools').update(updates).eq('id', id).select();
-    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-    return NextResponse.json({ success: true, data });
+    if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+    return NextResponse.json({ success: true, data }, { status: 200 });
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 400 });
   }
@@ -52,9 +64,10 @@ export async function DELETE(request: Request) {
   if (!supabase) return NextResponse.json({ error: 'Supabase not configured' }, { status: 500 });
   try {
     const id = new URL(request.url).searchParams.get('id');
+    if (!id) return NextResponse.json({ error: 'Missing ID' }, { status: 400 });
     const { error } = await supabase.from('tools').delete().eq('id', id);
-    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-    return NextResponse.json({ success: true });
+    if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+    return NextResponse.json({ success: true }, { status: 200 });
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 400 });
   }
