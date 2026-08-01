@@ -37,9 +37,7 @@ export async function POST(request: Request) {
   if (!supabase) return NextResponse.json({ success: true, mode: 'fallback' }, { status: 200 });
   try {
     const { key, value } = await request.json();
-    if (!key || value === undefined) {
-      return NextResponse.json({ success: true }, { status: 200 });
-    }
+    if (!key || value === undefined) return NextResponse.json({ error: 'Missing key or value' }, { status: 200 });
 
     const { error } = await supabase
       .from('site_settings')
