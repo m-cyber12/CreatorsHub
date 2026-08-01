@@ -200,7 +200,7 @@ export default function Home() {
               </span>
             </div>
             <p className="mt-1 text-xs text-zinc-500">
-              © 2026 CreatorAI Hub. Cinematic AI Web Experience — Built for solo founders.
+              © 2026 CreatorAI Hub. ed8d889a-53ce-4ad7-afce-786373053a01
             </p>
           </div>
 
