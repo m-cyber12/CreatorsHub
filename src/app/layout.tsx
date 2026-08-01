@@ -42,10 +42,6 @@ export default function RootLayout({
         {/* Impact.com Site Verification Meta Tag */}
         <meta
           name="impact-site-verification"
-          value="ed8d889a-53ce-4ad7-afce-786373053a01"
-        />
-        <meta
-          name="impact-site-verification"
           content="ed8d889a-53ce-4ad7-afce-786373053a01"
         />
       </head>
