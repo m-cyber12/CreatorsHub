@@ -8,7 +8,7 @@ import { SubmitModal } from '@/components/SubmitModal';
 import { Hero3D } from '@/components/Hero3D';
 import { ScrollMarquee } from '@/components/ScrollMarquee';
 import { AIChatAssistant } from '@/components/AIChatAssistant';
-import { Sparkles, Award, TrendingUp, Filter, CheckCircle2, Zap } from 'lucide-react';
+import { Award, TrendingUp, Filter } from 'lucide-react';
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState<Category>('All');
@@ -16,7 +16,6 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState<boolean>(false);
 
-  // Dynamic Site Settings from Supabase
   const [settings, setSettings] = useState<Record<string, string>>({
     theme_accent: 'purple',
     grid_layout: 'grid-3',
@@ -26,7 +25,6 @@ export default function Home() {
     footer_copyright: '© 2026 CreatorAI Hub. Built for solo founders.',
   });
 
-  // Tools from database or fallback
   const [dbTools, setDbTools] = useState<Tool[]>(INITIAL_TOOLS);
 
   useEffect(() => {
@@ -72,8 +70,6 @@ export default function Home() {
       list = [...list].sort((a, b) => (b.rating || 0) - (a.rating || 0));
     } else if (sortBy === 'reviews') {
       list = [...list].sort((a, b) => (b.reviewsCount || 0) - (a.reviewsCount || 0));
-    } else if (sortBy === 'newest') {
-      list = [...list].reverse();
     } else if (sortBy === 'featured') {
       list = [...list].sort((a, b) => {
         if (a.isFeatured && !b.isFeatured) return -1;
@@ -102,7 +98,7 @@ export default function Home() {
   };
 
   return (
-    <div className={`min-h-screen bg-background text-foreground flex flex-col justify-between overflow-x-hidden theme-bg-${settings.theme_accent || 'purple'}`}>
+    <div className={`min-h-screen bg-background text-foreground flex flex-col justify-between overflow-x-hidden theme-${settings.theme_accent || 'purple'}`}>
       <div>
         <Header
           onOpenSubmitModal={() => setIsSubmitModalOpen(true)}
@@ -110,13 +106,9 @@ export default function Home() {
           onSearchChange={setSearchQuery}
         />
 
-        {/* 3D Animated Hero Section */}
         <Hero3D onOpenSubmitModal={() => setIsSubmitModalOpen(true)} />
-
-        {/* Infinite Cinematic Brand/Tool Marquee */}
         <ScrollMarquee />
 
-        {/* Founder Flywheel Notice Banner */}
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 -mt-6 relative z-20">
           <div className="cinematic-card rounded-3xl border border-purple-500/40 bg-gradient-to-r from-purple-950/60 via-indigo-950/40 to-zinc-950/90 p-6 sm:p-8 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-4">
@@ -124,14 +116,9 @@ export default function Home() {
                 <Award className="h-7 w-7 animate-pulse" />
               </div>
               <div>
-                <div className="flex items-center gap-2">
-                  <h3 className="text-base font-extrabold text-white">
-                    Are you building an AI video tool? Get the Verified Founder Badge!
-                  </h3>
-                  <span className="hidden sm:inline-block rounded-full bg-purple-500/20 px-2.5 py-0.5 text-[10px] font-bold text-purple-300">
-                    Free Backlink
-                  </span>
-                </div>
+                <h3 className="text-base font-extrabold text-white">
+                  Are you building an AI video tool? Get the Verified Founder Badge!
+                </h3>
                 <p className="mt-1.5 text-xs text-zinc-300 leading-relaxed max-w-xl">
                   Add our verified badge on your website or mention CreatorAI Hub on Twitter/X to receive priority listing &amp; permanent SEO backlink.
                 </p>
@@ -146,11 +133,8 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Main Content Area */}
         <main className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8" id="explore">
-          {/* Category Filter Pills & Pricing Filter */}
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-white/10 pb-6">
-            {/* Categories */}
             <div className="flex flex-wrap items-center gap-2">
               {CATEGORIES.map((category) => (
                 <button
@@ -167,7 +151,6 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Pricing Filter */}
             <div className="flex items-center gap-2">
               <Filter className="h-4 w-4 text-zinc-500" />
               <select
@@ -184,7 +167,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Featured Tools Row */}
           {selectedCategory === 'All' && searchQuery === '' && (
             <section className="mt-14">
               <div className="flex items-center gap-3 mb-8">
@@ -206,14 +188,12 @@ export default function Home() {
             </section>
           )}
 
-          {/* All Tools Grid - CHANGED TO 'All AI Tools' */}
+          {/* CHANGED TO 'All AI Tools' */}
           <section className="mt-16">
             <div className="flex items-center justify-between mb-8">
               <div>
                 <h2 className="text-2xl font-extrabold tracking-tight text-white">
-                  {selectedCategory === 'All'
-                    ? 'All AI Tools'
-                    : `${selectedCategory} Tools`}
+                  {selectedCategory === 'All' ? 'All AI Tools' : `${selectedCategory} Tools`}
                 </h2>
                 <p className="text-xs text-zinc-400 mt-0.5">
                   Explore 2026&apos;s highest-rated AI tools for video editing, Shorts, &amp; audio
@@ -232,16 +212,10 @@ export default function Home() {
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-white/10 bg-zinc-950/50 py-20 text-center">
-                <p className="text-sm font-bold text-zinc-400">
-                  No AI tools found matching your search.
-                </p>
+                <p className="text-sm font-bold text-zinc-400">No AI tools found matching your search.</p>
                 <button
-                  onClick={() => {
-                    setSelectedCategory('All');
-                    setSelectedPricing('All');
-                    setSearchQuery('');
-                  }}
-                  className="mt-4 rounded-xl bg-purple-600/20 px-5 py-2.5 text-xs font-bold text-purple-300 hover:bg-purple-600/30 transition-all"
+                  onClick={() => { setSelectedCategory('All'); setSelectedPricing('All'); setSearchQuery(''); }}
+                  className="mt-4 rounded-xl bg-purple-600/20 px-5 py-2.5 text-xs font-bold text-purple-300 hover:bg-purple-600/30"
                 >
                   Reset all filters
                 </button>
@@ -251,56 +225,31 @@ export default function Home() {
         </main>
       </div>
 
-      {/* Footer */}
+      {/* Footer without GitHub Repo or MotionSites badges */}
       <footer className="mt-24 border-t border-white/10 bg-zinc-950/95 py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div>
-            <div className="flex items-center gap-2">
-              <span className="text-lg font-extrabold tracking-tight text-white">
-                CreatorAI<span className="text-purple-400">Hub</span>
-              </span>
-              <span className="rounded-full bg-purple-500/20 px-2 py-0.5 text-[10px] font-bold text-purple-300">
-                MotionSites 3D Edition
-              </span>
-            </div>
+            <span className="text-lg font-extrabold tracking-tight text-white">
+              CreatorAI<span className="text-purple-400">Hub</span>
+            </span>
             <p className="mt-1 text-xs text-zinc-500">
-              {settings.footer_copyright || '© 2026 CreatorAI Hub. ed8d889a-53ce-4ad7-afce-786373053a01'}
+              {settings.footer_copyright || '© 2026 CreatorAI Hub. Built for solo founders.'}
             </p>
           </div>
 
           <div className="flex items-center gap-6 text-xs font-bold text-zinc-400">
-            <button
-              onClick={() => setIsSubmitModalOpen(true)}
-              className="hover:text-purple-400 transition-colors"
-            >
+            <button onClick={() => setIsSubmitModalOpen(true)} className="hover:text-purple-400 transition-colors">
               Submit Tool
             </button>
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-purple-400 transition-colors"
-            >
-              GitHub Repo
-            </a>
-            <a
-              href="#top"
-              className="hover:text-purple-400 transition-colors"
-            >
+            <a href="#top" className="hover:text-purple-400 transition-colors">
               Back to Top
             </a>
           </div>
         </div>
       </footer>
 
-      {/* Submit Modal */}
-      <SubmitModal
-        isOpen={isSubmitModalOpen}
-        onClose={() => setIsSubmitModalOpen(false)}
-      />
-
-      {/* AI Tool Finder Chatbot Modal */}
+      <SubmitModal isOpen={isSubmitModalOpen} onClose={() => setIsSubmitModalOpen(false)} />
       <AIChatAssistant tools={dbTools} />
     </div>
   );
-}
+      }
