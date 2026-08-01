@@ -2,10 +2,17 @@ import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 
 export async function GET() {
-  if (!supabase) return NextResponse.json([]);
-  const { data, error } = await supabase.from('submissions').select('*').order('created_at', { ascending: false });
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-  return NextResponse.json(data || []);
+  if (!supabase) return NextResponse.json([], { status: 200 });
+  try {
+    const { data, error } = await supabase
+      .from('submissions')
+      .select('*')
+      .order('created_at', { ascending: false });
+    if (error || !data) return NextResponse.json([], { status: 200 });
+    return NextResponse.json(data, { status: 200 });
+  } catch (err) {
+    return NextResponse.json([], { status: 200 });
+  }
 }
 
 export async function POST(request: Request) {
@@ -30,10 +37,10 @@ export async function POST(request: Request) {
         tags: ['Community', 'AI Tool'],
         status: 'approved',
       }]);
-      return NextResponse.json({ success: true, message: 'Approved!' });
+      return NextResponse.json({ success: true, message: 'Approved!' }, { status: 200 });
     } else if (action === 'reject') {
       await supabase.from('submissions').update({ status: 'rejected' }).eq('id', submission.id);
-      return NextResponse.json({ success: true, message: 'Rejected' });
+      return NextResponse.json({ success: true, message: 'Rejected' }, { status: 200 });
     }
     return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
   } catch (err: any) {
