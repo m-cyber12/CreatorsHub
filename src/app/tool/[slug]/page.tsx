@@ -95,4 +95,4 @@ export default function ToolDetailPage() {
       <AIChatAssistant tools={INITIAL_TOOLS} />
     </div>
   );
-                        }
+              }
