@@ -8,7 +8,7 @@ import { SubmitModal } from '@/components/SubmitModal';
 import { Hero3D } from '@/components/Hero3D';
 import { ScrollMarquee } from '@/components/ScrollMarquee';
 import { AIChatAssistant } from '@/components/AIChatAssistant';
-import { Sparkles, Award, TrendingUp, Filter, CheckCircle2, Zap } from 'lucide-react';
+import { Award, TrendingUp, Filter } from 'lucide-react';
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState<Category>('All');
@@ -16,7 +16,6 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState<boolean>(false);
 
-  // Dynamic Site Settings from Supabase
   const [settings, setSettings] = useState<Record<string, string>>({
     theme_accent: 'purple',
     grid_layout: 'grid-3',
@@ -26,7 +25,6 @@ export default function Home() {
     footer_copyright: '© 2026 CreatorAI Hub. Built for solo founders.',
   });
 
-  // Tools from database or fallback
   const [dbTools, setDbTools] = useState<Tool[]>(INITIAL_TOOLS);
 
   useEffect(() => {
@@ -101,8 +99,76 @@ export default function Home() {
     }
   };
 
+  const getThemeStyle = () => {
+    switch (settings.theme_accent) {
+      case 'blue':
+        return {
+          '--accent-neon': 'linear-gradient(135deg, #60a5fa 0%, #38bdf8 50%, #818cf8 100%)',
+          '--glow-1': 'rgba(37, 99, 235, 0.28)',
+          '--glow-2': 'rgba(6, 182, 212, 0.22)',
+        } as React.CSSProperties;
+      case 'emerald':
+        return {
+          '--accent-neon': 'linear-gradient(135deg, #34d399 0%, #10b981 50%, #06b6d4 100%)',
+          '--glow-1': 'rgba(16, 185, 129, 0.26)',
+          '--glow-2': 'rgba(5, 150, 105, 0.20)',
+        } as React.CSSProperties;
+      case 'amber':
+        return {
+          '--accent-neon': 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #eab308 100%)',
+          '--glow-1': 'rgba(245, 158, 11, 0.26)',
+          '--glow-2': 'rgba(217, 119, 6, 0.20)',
+        } as React.CSSProperties;
+      case 'rose':
+        return {
+          '--accent-neon': 'linear-gradient(135deg, #fb7185 0%, #f43f5e 50%, #c084fc 100%)',
+          '--glow-1': 'rgba(244, 63, 94, 0.26)',
+          '--glow-2': 'rgba(225, 29, 72, 0.20)',
+        } as React.CSSProperties;
+      case 'sunset':
+        return {
+          '--accent-neon': 'linear-gradient(135deg, #fb923c 0%, #f97316 50%, #ef4444 100%)',
+          '--glow-1': 'rgba(249, 115, 22, 0.26)',
+          '--glow-2': 'rgba(239, 68, 68, 0.20)',
+        } as React.CSSProperties;
+      case 'ocean':
+        return {
+          '--accent-neon': 'linear-gradient(135deg, #22d3ee 0%, #06b6d4 50%, #3b82f6 100%)',
+          '--glow-1': 'rgba(6, 182, 212, 0.26)',
+          '--glow-2': 'rgba(14, 116, 144, 0.20)',
+        } as React.CSSProperties;
+      case 'aurora':
+        return {
+          '--accent-neon': 'linear-gradient(135deg, #34d399 0%, #a855f7 50%, #38bdf8 100%)',
+          '--glow-1': 'rgba(16, 185, 129, 0.24)',
+          '--glow-2': 'rgba(139, 92, 246, 0.24)',
+        } as React.CSSProperties;
+      case 'monochrome':
+        return {
+          '--accent-neon': 'linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%)',
+          '--glow-1': 'rgba(148, 163, 184, 0.20)',
+          '--glow-2': 'rgba(100, 116, 139, 0.16)',
+        } as React.CSSProperties;
+      case 'crimson':
+        return {
+          '--accent-neon': 'linear-gradient(135deg, #f87171 0%, #ef4444 50%, #b91c1c 100%)',
+          '--glow-1': 'rgba(220, 38, 38, 0.26)',
+          '--glow-2': 'rgba(153, 27, 27, 0.20)',
+        } as React.CSSProperties;
+      default:
+        return {
+          '--accent-neon': 'linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #3b82f6 100%)',
+          '--glow-1': 'rgba(147, 51, 234, 0.25)',
+          '--glow-2': 'rgba(236, 72, 153, 0.20)',
+        } as React.CSSProperties;
+    }
+  };
+
   return (
-    <div className={`min-h-screen bg-background text-foreground flex flex-col justify-between overflow-x-hidden theme-bg-${settings.theme_accent || 'purple'}`}>
+    <div
+      style={getThemeStyle()}
+      className={`min-h-screen bg-background text-foreground flex flex-col justify-between overflow-x-hidden theme-${settings.theme_accent || 'purple'}`}
+    >
       <div>
         <Header
           onOpenSubmitModal={() => setIsSubmitModalOpen(true)}
@@ -110,13 +176,9 @@ export default function Home() {
           onSearchChange={setSearchQuery}
         />
 
-        {/* 3D Animated Hero Section */}
         <Hero3D onOpenSubmitModal={() => setIsSubmitModalOpen(true)} />
-
-        {/* Infinite Cinematic Brand/Tool Marquee */}
         <ScrollMarquee />
 
-        {/* Founder Flywheel Notice Banner */}
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 -mt-6 relative z-20">
           <div className="cinematic-card rounded-3xl border border-purple-500/40 bg-gradient-to-r from-purple-950/60 via-indigo-950/40 to-zinc-950/90 p-6 sm:p-8 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-4">
@@ -146,11 +208,8 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Main Content Area */}
         <main className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8" id="explore">
-          {/* Category Filter Pills & Pricing Filter */}
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-white/10 pb-6">
-            {/* Categories */}
             <div className="flex flex-wrap items-center gap-2">
               {CATEGORIES.map((category) => (
                 <button
@@ -167,7 +226,6 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Pricing Filter */}
             <div className="flex items-center gap-2">
               <Filter className="h-4 w-4 text-zinc-500" />
               <select
@@ -184,7 +242,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Featured Tools Row */}
           {selectedCategory === 'All' && searchQuery === '' && (
             <section className="mt-14">
               <div className="flex items-center gap-3 mb-8">
@@ -206,7 +263,6 @@ export default function Home() {
             </section>
           )}
 
-          {/* All Tools Grid - CHANGED TO 'All AI Tools' */}
           <section className="mt-16">
             <div className="flex items-center justify-between mb-8">
               <div>
@@ -251,20 +307,14 @@ export default function Home() {
         </main>
       </div>
 
-      {/* Footer */}
       <footer className="mt-24 border-t border-white/10 bg-zinc-950/95 py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div>
-            <div className="flex items-center gap-2">
-              <span className="text-lg font-extrabold tracking-tight text-white">
-                CreatorAI<span className="text-purple-400">Hub</span>
-              </span>
-              <span className="rounded-full bg-purple-500/20 px-2 py-0.5 text-[10px] font-bold text-purple-300">
-                MotionSites 3D Edition
-              </span>
-            </div>
+            <span className="text-lg font-extrabold tracking-tight text-white">
+              CreatorAI<span className="text-purple-400">Hub</span>
+            </span>
             <p className="mt-1 text-xs text-zinc-500">
-              {settings.footer_copyright || '© 2026 CreatorAI Hub. ed8d889a-53ce-4ad7-afce-786373053a01'}
+              {settings.footer_copyright || '© 2026 CreatorAI Hub. Built for solo founders.'}
             </p>
           </div>
 
@@ -276,14 +326,6 @@ export default function Home() {
               Submit Tool
             </button>
             <a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-purple-400 transition-colors"
-            >
-              GitHub Repo
-            </a>
-            <a
               href="#top"
               className="hover:text-purple-400 transition-colors"
             >
@@ -293,14 +335,12 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* Submit Modal */}
       <SubmitModal
         isOpen={isSubmitModalOpen}
         onClose={() => setIsSubmitModalOpen(false)}
       />
 
-      {/* AI Tool Finder Chatbot Modal */}
       <AIChatAssistant tools={dbTools} />
     </div>
   );
-}
+              }
