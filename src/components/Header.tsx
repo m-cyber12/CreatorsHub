@@ -14,6 +14,9 @@ import {
   Layers,
   ShoppingBag,
   Briefcase,
+  ChevronDown,
+  ChevronRight,
+  FolderOpen,
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -30,6 +33,8 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const [isDark, setIsDark] = useState<boolean>(true);
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+  // Accordion state for Directory sub-menu inside drawer
+  const [isDirectoryOpen, setIsDirectoryOpen] = useState<boolean>(true);
 
   useEffect(() => {
     setIsDark(document.documentElement.classList.contains('dark'));
@@ -48,6 +53,7 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header className="sticky top-0 z-40 w-full border-b border-zinc-200/80 dark:border-zinc-800/80 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl transition-colors duration-300">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
+        {/* Brand Identity */}
         <div className="flex items-center gap-3">
           <Link href="/" className="flex items-center gap-3 group">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 via-indigo-600 to-pink-500 shadow-lg shadow-purple-500/25 transition-transform group-hover:scale-105">
@@ -69,6 +75,7 @@ export const Header: React.FC<HeaderProps> = ({
           </Link>
         </div>
 
+        {/* Search Bar */}
         <div className="relative hidden flex-1 max-w-md lg:block">
           <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" />
           <input
@@ -76,14 +83,16 @@ export const Header: React.FC<HeaderProps> = ({
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="Search AI video tools, captions, voices..."
-            className="w-full rounded-full border border-zinc-300 dark:border-zinc-800 bg-zinc-100/80 dark:bg-zinc-900/80 py-2 pl-10 pr-4 text-sm text-zinc-900 dark:text-zinc-200 placeholder-zinc-500 focus:border-purple-500 focus:outline-none"
+            className="w-full rounded-full border border-zinc-300 dark:border-zinc-800 bg-zinc-100/80 dark:bg-zinc-900/80 py-2 pl-10 pr-4 text-sm text-zinc-900 dark:text-zinc-200 placeholder-zinc-500 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500/50 transition-colors"
           />
         </div>
 
+        {/* Actions */}
         <div className="flex items-center gap-2 sm:gap-3">
           <button
             onClick={toggleTheme}
-            className="flex items-center gap-2 rounded-full border border-zinc-300 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-900 px-3.5 py-2 text-xs font-bold text-zinc-800 dark:text-zinc-200 shadow-sm hover:border-purple-500"
+            title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            className="flex items-center gap-2 rounded-full border border-zinc-300 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-900 px-3.5 py-2 text-xs font-bold text-zinc-800 dark:text-zinc-200 shadow-sm hover:border-purple-500 transition-all active:scale-95"
           >
             {isDark ? (
               <> <Sun className="h-4 w-4 text-amber-400" /> <span className="hidden sm:inline">Light</span> </>
@@ -94,70 +103,111 @@ export const Header: React.FC<HeaderProps> = ({
 
           <button
             onClick={onOpenSubmitModal}
-            className="group flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-2 text-xs sm:text-sm font-extrabold text-white shadow-lg shadow-purple-600/25"
+            className="group flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-2 text-xs sm:text-sm font-extrabold text-white shadow-lg shadow-purple-600/25 transition-all hover:from-purple-500 hover:to-indigo-500 hover:shadow-purple-500/30 active:scale-95"
           >
-            <PlusCircle className="h-4 w-4" />
+            <PlusCircle className="h-4 w-4 transition-transform group-hover:rotate-90" />
             <span className="hidden sm:inline">Submit Tool</span>
           </button>
 
           <button
             onClick={() => setIsDrawerOpen(!isDrawerOpen)}
             className="flex h-10 w-10 items-center justify-center rounded-2xl border border-zinc-300 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 text-zinc-800 dark:text-white transition-transform hover:scale-105 active:scale-95"
+            aria-label="Toggle Navigation Menu"
           >
             {isDrawerOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
       </div>
 
+      {/* FUTURISTIC VERTICAL GLASS HAMBURGER DRAWER (3 CORE BUSINESSES WITH ACCORDION SUB-MENU) */}
       {isDrawerOpen && (
         <div className="fixed inset-x-0 top-16 z-50 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-zinc-950/95 p-6 shadow-2xl backdrop-blur-2xl animate-drawer">
           <div className="mx-auto max-w-xl">
             <div className="mb-4 flex items-center justify-between border-b border-zinc-200 dark:border-white/10 pb-3">
               <span className="text-xs font-extrabold uppercase tracking-wider text-purple-500">
-                Navigation &amp; Platforms
+                CreatorAI Hub — 3 Core Business Platforms
               </span>
               <span className="text-[11px] font-semibold text-zinc-500">
-                MotionSites Interactive Drawer
+                MotionSites Interactive Menu
               </span>
             </div>
 
+            {/* 3 TOP-LEVEL BUSINESS MODULES */}
             <div className="flex flex-col space-y-3">
-              <Link
-                href="/"
-                onClick={() => setIsDrawerOpen(false)}
-                className="group flex items-center gap-4 rounded-2xl border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-zinc-900/80 p-4 transition-all hover:border-purple-500 hover:bg-purple-500/10"
-              >
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-purple-500/20 text-purple-500 dark:text-purple-400 group-hover:scale-110 transition-transform">
-                  <Layers className="h-5 w-5" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-sm font-extrabold text-zinc-900 dark:text-white group-hover:text-purple-400">
-                    Directory
-                  </h3>
-                  <p className="text-xs text-zinc-500">
-                    Explore all tested AI video &amp; creator tools
-                  </p>
-                </div>
-              </Link>
+              {/* BUSINESS 1: DIRECTORY MODULE (With Expandable Accordion for Compare & Blog) */}
+              <div className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-zinc-900/80 overflow-hidden transition-all">
+                <button
+                  onClick={() => setIsDirectoryOpen(!isDirectoryOpen)}
+                  className="w-full flex items-center justify-between p-4 text-left transition-colors hover:bg-purple-500/10"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-purple-500/20 text-purple-500 dark:text-purple-400">
+                      <Layers className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-extrabold text-zinc-900 dark:text-white">
+                        1. AI Tools Directory Platform
+                      </h3>
+                      <p className="text-xs text-zinc-500">
+                        50+ Curated Tools, Head-to-Head Compare &amp; SEO Blog
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-bold text-purple-400 bg-purple-500/15 px-2 py-0.5 rounded-full">
+                      3 Sections
+                    </span>
+                    <ChevronDown
+                      className={`h-4 w-4 text-zinc-400 transition-transform duration-200 ${
+                        isDirectoryOpen ? 'rotate-180 text-purple-400' : ''
+                      }`}
+                    />
+                  </div>
+                </button>
 
-              <Link
-                href="/compare"
-                onClick={() => setIsDrawerOpen(false)}
-                className="group flex items-center gap-4 rounded-2xl border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-zinc-900/80 p-4 transition-all hover:border-pink-500 hover:bg-pink-500/10"
-              >
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-pink-500/20 text-pink-500 dark:text-pink-400 group-hover:scale-110 transition-transform">
-                  <Repeat className="h-5 w-5" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-sm font-extrabold text-zinc-900 dark:text-white group-hover:text-pink-400">
-                    Head-to-Head Compare
-                  </h3>
-                  <p className="text-xs text-zinc-500">
-                    Compare features, CTR &amp; pricing side-by-side
-                  </p>
-                </div>
-              </Link>
+                {/* EXPANDABLE ACCORDION SUB-MENU */}
+                {isDirectoryOpen && (
+                  <div className="border-t border-zinc-200 dark:border-white/5 bg-zinc-100/50 dark:bg-zinc-950/60 p-3 space-y-1.5 animate-in fade-in slide-in-from-top-1 duration-200">
+                    <Link
+                      href="/"
+                      onClick={() => setIsDrawerOpen(false)}
+                      className="flex items-center justify-between rounded-xl p-3 text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-purple-500/15 hover:text-purple-400 transition-colors"
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <FolderOpen className="h-4 w-4 text-purple-400" />
+                        <span>All AI Tools (Directory Index)</span>
+                      </div>
+                      <ChevronRight className="h-3.5 w-3.5 opacity-50" />
+                    </Link>
 
+                    <Link
+                      href="/compare"
+                      onClick={() => setIsDrawerOpen(false)}
+                      className="flex items-center justify-between rounded-xl p-3 text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-pink-500/15 hover:text-pink-400 transition-colors"
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <Repeat className="h-4 w-4 text-pink-400" />
+                        <span>Head-to-Head Compare Engine</span>
+                      </div>
+                      <ChevronRight className="h-3.5 w-3.5 opacity-50" />
+                    </Link>
+
+                    <Link
+                      href="/blog"
+                      onClick={() => setIsDrawerOpen(false)}
+                      className="flex items-center justify-between rounded-xl p-3 text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-blue-500/15 hover:text-blue-400 transition-colors"
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <BookOpen className="h-4 w-4 text-blue-400" />
+                        <span>SEO Guides &amp; Blog</span>
+                      </div>
+                      <ChevronRight className="h-3.5 w-3.5 opacity-50" />
+                    </Link>
+                  </div>
+                )}
+              </div>
+
+              {/* BUSINESS 2: NOTION & PROMPT TEMPLATES SHOP */}
               <Link
                 href="/templates"
                 onClick={() => setIsDrawerOpen(false)}
@@ -167,15 +217,21 @@ export const Header: React.FC<HeaderProps> = ({
                   <ShoppingBag className="h-5 w-5" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-sm font-extrabold text-zinc-900 dark:text-white group-hover:text-emerald-400">
-                    Notion &amp; Prompt Templates
-                  </h3>
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-sm font-extrabold text-zinc-900 dark:text-white group-hover:text-emerald-400">
+                      2. Notion &amp; Prompt Templates Shop
+                    </h3>
+                    <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-bold text-emerald-400">
+                      Zero Marginal Cost
+                    </span>
+                  </div>
                   <p className="text-xs text-zinc-500">
-                    Creator Notion OS, Prompt Kits &amp; Profit Google Sheets
+                    YouTube Creator Notion OS, 50 Viral Midjourney Prompts &amp; Google Sheets
                   </p>
                 </div>
               </Link>
 
+              {/* BUSINESS 3: AI EDITOR JOB BOARD */}
               <Link
                 href="/jobs"
                 onClick={() => setIsDrawerOpen(false)}
@@ -185,29 +241,16 @@ export const Header: React.FC<HeaderProps> = ({
                   <Briefcase className="h-5 w-5" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-sm font-extrabold text-zinc-900 dark:text-white group-hover:text-amber-400">
-                    AI Editor Job Board
-                  </h3>
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-sm font-extrabold text-zinc-900 dark:text-white group-hover:text-amber-400">
+                      3. AI Creator &amp; Editor Job Board
+                    </h3>
+                    <span className="rounded-full bg-amber-500/15 px-2 py-0.5 text-[10px] font-bold text-amber-400">
+                      $49 Featured Slots
+                    </span>
+                  </div>
                   <p className="text-xs text-zinc-500">
-                    Hiring AI video creators ($49 Featured Job Slots)
-                  </p>
-                </div>
-              </Link>
-
-              <Link
-                href="/blog"
-                onClick={() => setIsDrawerOpen(false)}
-                className="group flex items-center gap-4 rounded-2xl border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-zinc-900/80 p-4 transition-all hover:border-blue-500 hover:bg-blue-500/10"
-              >
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-500/20 text-blue-500 dark:text-blue-400 group-hover:scale-110 transition-transform">
-                  <BookOpen className="h-5 w-5" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-sm font-extrabold text-zinc-900 dark:text-white group-hover:text-blue-400">
-                    SEO Blog &amp; Guides
-                  </h3>
-                  <p className="text-xs text-zinc-500">
-                    In-depth creator growth strategies &amp; reviews
+                    Hiring ElevenLabs, Midjourney &amp; OpusClip video editors &amp; artists
                   </p>
                 </div>
               </Link>
