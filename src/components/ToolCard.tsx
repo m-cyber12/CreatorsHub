@@ -2,18 +2,7 @@
 
 import React, { useState } from 'react';
 import { Tool } from '@/data/tools';
-import {
-  ExternalLink,
-  Star,
-  Award,
-  Zap,
-  Video,
-  Film,
-  Image as ImageIcon,
-  Mic,
-  ArrowRight,
-  ShieldCheck,
-} from 'lucide-react';
+import { ExternalLink, Star, Award, Sparkles, Zap, Video, Film, Image as ImageIcon, Mic, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 interface ToolCardProps {
@@ -42,9 +31,9 @@ export const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
 
   const getCategoryIcon = (cat: string) => {
     switch (cat) {
-      case 'Shorts & Reels Automation':
+      case 'Shorts & Reels':
         return <Video className="h-6 w-6 text-purple-400" />;
-      case 'Voice & Multilingual Dubbing':
+      case 'Voice & Audio':
         return <Mic className="h-6 w-6 text-pink-400" />;
       case 'Thumbnails & Design':
         return <ImageIcon className="h-6 w-6 text-blue-400" />;
@@ -55,14 +44,13 @@ export const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
 
   return (
     <div className="cinematic-card group relative flex flex-col justify-between rounded-3xl p-5 overflow-hidden">
-      <div className="absolute -right-16 -top-16 h-32 w-32 rounded-full bg-purple-600/10 blur-2xl transition-all duration-500 group-hover:scale-125" />
+      {/* Ambient glow */}
+      <div className="absolute -right-16 -top-16 h-32 w-32 rounded-full bg-glow-primary blur-2xl transition-all duration-500 group-hover:scale-125" />
 
+      {/* Top Section */}
       <div>
         {/* Cinematic 16:9 Visual Preview Image linking to dedicated /tool/[slug] */}
-        <Link
-          href={`/tool/${tool.slug}`}
-          className="block relative overflow-hidden rounded-2xl h-44 w-full bg-zinc-950 mb-5 border border-white/5"
-        >
+        <Link href={`/tool/${tool.slug}`} className="block relative overflow-hidden rounded-2xl h-44 w-full bg-zinc-950 mb-5 border border-white/5">
           {!coverError ? (
             <img
               src={tool.coverImage}
@@ -76,12 +64,8 @@ export const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
               <div className="z-10 flex h-12 w-12 items-center justify-center rounded-2xl bg-purple-500/20 border border-purple-500/30 mb-2">
                 {getCategoryIcon(tool.category)}
               </div>
-              <span className="z-10 text-xs font-extrabold text-white">
-                {tool.name} Studio
-              </span>
-              <span className="z-10 text-[10px] text-purple-300/80">
-                {tool.category}
-              </span>
+              <span className="z-10 text-xs font-extrabold text-white">{tool.name} Studio</span>
+              <span className="z-10 text-[10px] text-purple-300/80">{tool.category}</span>
             </div>
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent pointer-events-none" />
@@ -109,10 +93,7 @@ export const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
         {/* Header row: Logo, Name, Founder Badges */}
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <Link
-              href={`/tool/${tool.slug}`}
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-zinc-900 p-1.5 shadow-md"
-            >
+            <Link href={`/tool/${tool.slug}`} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-zinc-900 p-1.5 shadow-md">
               {!logoError ? (
                 <img
                   src={tool.logo}
@@ -121,17 +102,14 @@ export const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
                   className="h-full w-full object-cover rounded-lg"
                 />
               ) : (
-                <div className="flex h-full w-full items-center justify-center rounded-lg bg-gradient-to-br from-purple-600 to-pink-600">
-                  {getCategoryIcon(tool.category)}
+                <div className="flex h-full w-full items-center justify-center rounded-lg bg-gradient-to-br from-purple-600 to-pink-600 text-xs font-extrabold text-white">
+                  {tool.name.slice(0, 2).toUpperCase()}
                 </div>
               )}
             </Link>
             <div>
               <div className="flex items-center gap-2">
-                <Link
-                  href={`/tool/${tool.slug}`}
-                  className="text-base font-bold tracking-tight text-white group-hover:text-purple-300 transition-colors"
-                >
+                <Link href={`/tool/${tool.slug}`} className="text-base font-bold tracking-tight text-white group-hover:text-purple-300 transition-colors">
                   {tool.name}
                 </Link>
                 {tool.hasFounderBadge && (
@@ -190,18 +168,18 @@ export const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
             {tool.rating.toFixed(1)}
           </span>
           <span className="text-xs font-medium text-zinc-500">
-            ({tool.reviewsCount} • {tool.ratingLabel || 'Editorial Score'})
+            ({tool.reviewsCount})
           </span>
         </div>
 
         <div className="flex items-center gap-2">
-          {/* Main Action: Go to detailed tool page */}
+          {/* Main Action: Go to detailed tool page with photo, tags, compare, AI ask */}
           <Link
             href={`/tool/${tool.slug}`}
             className="group/btn flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 px-3.5 py-2 text-xs font-bold text-white shadow-lg shadow-purple-600/20 transition-all hover:from-purple-500 hover:to-indigo-500 hover:shadow-purple-500/30 active:scale-95"
           >
-            <span>Details &amp; AI</span>
-            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+            <span>Details</span>
+            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/btn:translate-x-0.5" />
           </Link>
 
           {/* Quick Direct Affiliate Jump */}
