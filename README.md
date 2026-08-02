@@ -1,89 +1,49 @@
-# 🚀 CreatorAI Hub — مرجع تخصصی ابزارهای هوش مصنوعی ویدیو و تولید محتوا
+# 🚀 CreatorAI Hub — مرجع تخصصی ابزارهای هوش مصنوعی ویدیو (Bold Studio Edition)
 
-این پروژه یک وب‌سایت دایرکتوری تخصصی (Curated Niche Directory) آماده برای اجراست که با **Next.js 15 (App Router)**، **Tailwind CSS**، **TypeScript** و **Lucide Icons** ساخته شده و مخصوص یک کارآفرین تک‌نفره (Solo Founder) طراحی شده است.
-
----
-
-## 🎨 هویت برند (Brand Identity)
-* **نام برند:** **`CreatorAI Hub`** (`creatoraihub.com` یا `creatorai.io`)
-* **شعار (Tagline):** *«بهترین ابزارهای تست‌شده هوش مصنوعی برای یوتیوبرها، ادیتورها و تولیدکنندگان محتوا»* (*The Curated AI Toolbox for YouTubers & Editors*)
-* **مزیت رقابتی نیش (Niche Advantage):**
-  1. یوتیوبرها و ادیتورها برای ابزارهای خوب پول پرداخت می‌کنند چون باعث افزایش درآمدشان می‌شود.
-  2. ابزارهای جدید این حوزه بودجه تبلیغاتی بالایی دارند و مشتاق اسپانسرینگ هستند.
-  3. با مدل **Founder Badge Flywheel (نشان تایید بنیان‌گذار)** صاحبان ابزارها خودشان شما را تبلیغ می‌کنند.
+این پروژه یک وب‌سایت دایرکتوری تخصصی آماده با **Next.js 15 (App Router)**، **Tailwind CSS**، **TypeScript** و اتصال به دیتابیس **Supabase** است که مخصوص کارآفرینان تک‌نفره (Solo Founder) طراحی شده است.
 
 ---
 
-## 🛠️ ساختار فایل‌های پروژه
-
-```
-creator-ai-hub/
-├── public/
-│   ├── logo.svg              # لوگوی برداری برند
-│   └── brand-cover.png       # تصویر کاور و برندینگ
-├── src/
-│   ├── app/
-│   │   ├── globals.css       # استایل‌های Tailwind و افکت‌های Glow
-│   │   ├── layout.tsx        # متادیتای سئو و ساختار Root
-│   │   └── page.tsx          # صفحه اصلی (Hero + فیلتر دسته‌ها + ابزارها + مودال ثبت)
-│   ├── components/
-│   │   ├── Header.tsx        # هدر واکنش‌گرا به همراه جستجو و دکمه Submit
-│   │   ├── ToolCard.tsx      # کارت نمایش ابزار با بج‌های قیمت، ریتینگ و لینک افیلیت
-│   │   └── SubmitModal.tsx   # مودال تعاملی ثبت ابزار توسط بنیان‌گذاران
-│   └── data/
-│       └── tools.ts          # دیتابیس اولیه ۱۰ ابزار معتبر (OpusClip, ElevenLabs, Descript و...)
-├── next.config.js
-├── tailwind.config.ts
-├── tsconfig.json
-└── package.json
-```
+## 🎨 ویژگی‌های نسخه Bold Studio 3D Edition
+1. **تایپوگرافی غول‌پیکر سرمقاله‌ای (Inspired by MotionSites.ai Bold Studio):** عنوان اصلی با حروف بزرگ و افکت نئونی طراحی شده است.
+2. **کلید تغییر تم شب و روز (Dark / Light Mode Toggle):** امکان تغییر ظاهر سایت از تم مشکی سایبری به تم نقره‌ای لوکس.
+3. **نوار متحرک بی‌نهایت (Infinite Scroll Marquee):** نمایش لوگو و نام ابزارهای برتر در یک نوار لغزان.
+4. **کارت‌های شیشه‌ای ۳ بعدی (3D Glassmorphism Showcase):** به همراه تصاویر ۱۶:۹ باکیفیت و زوم سینمایی.
 
 ---
 
-## 🚀 راهنمای سریع: چطور روی گیت‌هاب (GitHub) آپلود کنیم؟
+## 🗄️ راهنمای اتصال به دیتابیس Supabase (در ۴ کلیک!)
 
-برای ارسال کدها به مخزن گیت‌هاب شخصی خودتان، مراحل زیر را در ترمینال اجرا کنید:
+برای اینکه فرم ارسال ابزار (`Submit Tool`) اطلاعات را به طور واقعی در دیتابیس ذخیره کند:
 
-### ۱. مقداردهی اولیه گیت (Git Init)
+### مرحله ۱: ساخت پروژه رایگان در Supabase
+1. وارد سایت [supabase.com](https://supabase.com) شوید و با اکانت گیت‌هاب ورود کنید.
+2. روی دکمه **"New Project"** کلیک کنید و نامی مثل `creator-ai-hub` برای آن بگذارید.
+
+### مرحله ۲: اجرای اسکریپت ساخت جدول‌ها (SQL Schema)
+1. در پنل Supabase به منوی **SQL Editor** در ستون سمت چپ بروید.
+2. کل متن موجود در فایل **`supabase-schema.sql`** (که در همین پوشه پروژه است) را کپی کنید و در کادر SQL Editor پیست کنید.
+3. دکمه سبز رنگ **Run** را بزنید!
+   * ✅ جدول‌های `tools` و `submissions` ساخته می‌شوند.
+   * ✅ قوانین امنیتی (RLS Policies) فعال می‌شوند.
+   * ✅ ۱۰ ابزار اولیه و تست‌شده به صورت اتوماتیک در دیتابیس وارد می‌شوند!
+
+### مرحله ۳: اتصال کلیدها به Vercel
+1. در پنل Supabase به مسیر **Project Settings ➔ API** بروید.
+2. مقادیر `Project URL` و `anon / public key` را کپی کنید.
+3. وارد پنل پروژه در [Vercel.com](https://vercel.com) شوید و به مسیر **Settings ➔ Environment Variables** بروید.
+4. دو متغیر زیر را اضافه و دکمه Save را بزنید:
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here
+   ```
+5. در Vercel روی دکمه **Redeploy** کلیک کنید تا سایت با اتصال کامل به دیتابیس آنلاین شود!
+
+---
+
+## 🤖 استفاده از ربات دستیار جمع‌آوری ابزارها (AI Auto-Curator)
+برای اضافه کردن سریع ابزارهای جدید بدون تایپ دستی:
 ```bash
-cd creator-ai-hub
-git init
-git add .
-git commit -m "feat: initial commit for CreatorAI Hub directory"
+node scripts/auto-curate.mjs "https://elevenlabs.io"
 ```
-
-### ۲. اتصال به مخزن گیت‌هاب و پوش (Push)
-یک مخزن جدید (Repository) خالی در GitHub بسازید و دستورات زیر را وارد کنید:
-```bash
-git branch -M main
-git remote add origin https://github.com/{username}/creator-ai-hub.git
-git push -u origin main
-```
-
----
-
-## 🌐 نحوه استقرار رایگان روی Vercel (در ۱ دقیقه)
-1. وارد حساب [Vercel.com](https://vercel.com) شوید.
-2. روی **"Add New Project"** کلیک کنید و مخزن `creator-ai-hub` را از GitHub انتخاب کنید.
-3. دکمه **"Deploy"** را بزنید! سایت شما در کمتر از ۴۰ ثانیه روی یک دامنه `.vercel.app` (و دامنه اختصاصی شما) بالا می‌آید.
-
----
-
-## 💰 چطور از روز اول از این سایت درآمدزایی کنیم؟
-
-1. **لینک‌های افیلیت (Affiliate Marketing):**
-   * در فایل `src/data/tools.ts`، فیلد `affiliateUrl` را برای ابزارهایی مثل *OpusClip*، *ElevenLabs* یا *VidIQ* با لینک افیلیت خودتان جایگزین کنید. کاربر روی **"Visit Website"** کلیک می‌کند و کمیسیون ارزی به حساب شما واریز می‌شود.
-2. **آگهی‌های ویژه (Featured Listings):**
-   * با تغییر فیلد `isFeatured: true`، ابزار مربوطه در بالاترین بخش سایت (Featured AI Tools) با افکت برجسته نمایش داده می‌شود. می‌توانید برای این جایگاه ماهیانه ۴۹ تا ۹۹ دلار از استارتاپ‌ها دریافت کنید.
-3. **نشان تایید بنیان‌گذار (Founder Badge Flywheel):**
-   * ابزارهایی که دارای `hasFounderBadge: true` هستند، بج اختصاصی **Verified** می‌گیرند و صاحبان آن‌ها در سایت یا توییترشان به شما بک‌لینک می‌دهند.
-
----
-
-## 📦 نصب و اجرای آفلاین (Local Development)
-
-```bash
-npm install
-npm run dev
-```
-سپس آدرس `http://localhost:3000` را در مرورگر باز کنید.
+این دستور اطلاعات متا و عکس سایت مقصد را اسکرپ می‌کند و کد SQL آماده را به شما می‌دهد تا با ۱ کلیک در Supabase اضافه کنید!

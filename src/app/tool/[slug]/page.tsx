@@ -72,6 +72,7 @@ export default function ToolDetailPage() {
               ))}
             </div>
 
+            {/* THREE REQUESTED CTAs */}
             <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3 border-t border-white/10 pt-8">
               <a href={affiliateUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-purple-600 via-indigo-600 to-pink-600 px-6 py-4 text-sm font-extrabold text-white shadow-xl hover:scale-102">
                 <span>Try {tool.name} Now</span> <ExternalLink className="h-4 w-4" />
@@ -81,7 +82,8 @@ export default function ToolDetailPage() {
                 <Repeat className="h-4 w-4 text-purple-400" /> <span>Compare {tool.name}</span>
               </Link>
 
-              <Link href="/" className="flex items-center justify-center gap-2 rounded-2xl border border-purple-500/30 bg-purple-500/10 px-6 py-4 text-sm font-bold text-purple-300 hover:bg-purple-500/20">
+              {/* وقتی روی این دکمه می‌زنید، چت‌بات در صفحه اصلی باز می‌شود و ابزار را معرفی می‌کند */}
+              <Link href={`/?ask=${tool.slug}`} className="flex items-center justify-center gap-2 rounded-2xl border border-purple-500/30 bg-purple-500/10 px-6 py-4 text-sm font-bold text-purple-300 hover:bg-purple-500/20">
                 <Bot className="h-4 w-4 text-purple-400" /> <span>Ask AI About {tool.name}</span>
               </Link>
             </div>
@@ -95,4 +97,4 @@ export default function ToolDetailPage() {
       <AIChatAssistant tools={INITIAL_TOOLS} />
     </div>
   );
-              }
+}

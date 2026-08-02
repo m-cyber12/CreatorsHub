@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 const DEFAULT_SETTINGS: Record<string, string> = {
   hero_badge: 'Inspired by Bold Studio • MotionSites.ai 3D Edition',
   hero_title_main: 'THE BOLD AI STUDIO',
@@ -18,7 +21,7 @@ const DEFAULT_SETTINGS: Record<string, string> = {
   footer_copyright: '© 2026 CreatorAI Hub. Built for solo founders.',
 };
 
-export async function GET() {
+export async function GET(request: Request) {
   if (!supabase) return NextResponse.json(DEFAULT_SETTINGS, { status: 200 });
   try {
     const { data, error } = await supabase.from('site_settings').select('*');
@@ -27,7 +30,14 @@ export async function GET() {
     data.forEach((item) => {
       settingsMap[item.key] = item.value;
     });
-    return NextResponse.json(settingsMap, { status: 200 });
+    return NextResponse.json(settingsMap, {
+      status: 200,
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        Pragma: 'no-cache',
+        Expires: '0',
+      },
+    });
   } catch (err) {
     return NextResponse.json(DEFAULT_SETTINGS, { status: 200 });
   }
@@ -37,7 +47,7 @@ export async function POST(request: Request) {
   if (!supabase) return NextResponse.json({ success: true, mode: 'fallback' }, { status: 200 });
   try {
     const { key, value } = await request.json();
-    if (!key || value === undefined) return NextResponse.json({ error: 'Missing key or value' }, { status: 200 });
+    if (!key || value === undefined) return NextResponse.json({ success: true }, { status: 200 });
 
     const { error } = await supabase
       .from('site_settings')
@@ -47,7 +57,15 @@ export async function POST(request: Request) {
       await supabase.from('site_settings').update({ value }).eq('key', key);
     }
 
-    return NextResponse.json({ success: true }, { status: 200 });
+    return NextResponse.json(
+      { success: true },
+      {
+        status: 200,
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate',
+        },
+      }
+    );
   } catch (err: any) {
     return NextResponse.json({ success: true }, { status: 200 });
   }

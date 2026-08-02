@@ -8,13 +8,27 @@ import { SubmitModal } from '@/components/SubmitModal';
 import { Hero3D } from '@/components/Hero3D';
 import { ScrollMarquee } from '@/components/ScrollMarquee';
 import { AIChatAssistant } from '@/components/AIChatAssistant';
-import { Award, TrendingUp, Filter } from 'lucide-react';
+import { Award, TrendingUp, Filter, Palette } from 'lucide-react';
+
+const THEMES = [
+  { id: 'purple', label: '🟣 بنفش (Bold Studio)' },
+  { id: 'blue', label: '🔵 آبی سایبری (Cyber Blue)' },
+  { id: 'emerald', label: '🟢 سبز زمردی (AI Emerald)' },
+  { id: 'amber', label: '🟡 طلایی لوکس (Luxury Gold)' },
+  { id: 'rose', label: '🔴 رز نئونی (Neon Rose)' },
+  { id: 'sunset', label: '🟠 نارنجی غروب (Sunset)' },
+  { id: 'ocean', label: '🐬 فیروزه‌ای (Ocean Cyan)' },
+  { id: 'aurora', label: '🌌 شفق قطبی (Aurora)' },
+  { id: 'monochrome', label: '⚪ نقره‌ای تک‌رنگ (Silver)' },
+  { id: 'crimson', label: '🍷 قرمز یاقوتی (Crimson)' },
+];
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState<Category>('All');
   const [selectedPricing, setSelectedPricing] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState<boolean>(false);
+  const [isThemeMenuOpen, setIsThemeMenuOpen] = useState<boolean>(false);
 
   const [settings, setSettings] = useState<Record<string, string>>({
     theme_accent: 'purple',
@@ -28,16 +42,28 @@ export default function Home() {
   const [dbTools, setDbTools] = useState<Tool[]>(INITIAL_TOOLS);
 
   useEffect(() => {
-    fetch('/api/settings')
+    // 1. Instant load theme from localStorage if available
+    const savedTheme = typeof window !== 'undefined' ? localStorage.getItem('creator_theme_accent') : null;
+    if (savedTheme) {
+      setSettings((prev) => ({ ...prev, theme_accent: savedTheme }));
+    }
+
+    // 2. Fetch fresh settings from DB
+    fetch(`/api/settings?t=${Date.now()}`, { cache: 'no-store' })
       .then((res) => (res.ok ? res.json() : {}))
-      .then((data) => {
+      .then((data: Record<string, string>) => {
         if (data && Object.keys(data).length > 0) {
-          setSettings((prev) => ({ ...prev, ...data }));
+          setSettings((prev) => ({
+            ...prev,
+            ...data,
+            theme_accent: savedTheme || data.theme_accent || 'purple',
+          }));
         }
       })
       .catch(() => {});
 
-    fetch('/api/tools')
+    // 3. Fetch Tools
+    fetch(`/api/tools?t=${Date.now()}`, { cache: 'no-store' })
       .then((res) => (res.ok ? res.json() : []))
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {
@@ -46,6 +72,20 @@ export default function Home() {
       })
       .catch(() => {});
   }, []);
+
+  const handleSelectTheme = (themeId: string) => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('creator_theme_accent', themeId);
+    }
+    setSettings((prev) => ({ ...prev, theme_accent: themeId }));
+    setIsThemeMenuOpen(false);
+
+    fetch('/api/settings', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ key: 'theme_accent', value: themeId }),
+    }).catch(() => {});
+  };
 
   const filteredTools = useMemo(() => {
     let list = dbTools.filter((tool) => {
@@ -99,76 +139,97 @@ export default function Home() {
     }
   };
 
-  const getThemeStyle = () => {
+  // Live CSS injection values for all 10 themes!
+  const getThemeVars = () => {
     switch (settings.theme_accent) {
       case 'blue':
         return {
-          '--accent-neon': 'linear-gradient(135deg, #60a5fa 0%, #38bdf8 50%, #818cf8 100%)',
-          '--glow-1': 'rgba(37, 99, 235, 0.28)',
-          '--glow-2': 'rgba(6, 182, 212, 0.22)',
-        } as React.CSSProperties;
+          neon: 'linear-gradient(135deg, #60a5fa 0%, #38bdf8 50%, #818cf8 100%)',
+          glow1: 'rgba(37, 99, 235, 0.32)',
+          glow2: 'rgba(6, 182, 212, 0.25)',
+        };
       case 'emerald':
         return {
-          '--accent-neon': 'linear-gradient(135deg, #34d399 0%, #10b981 50%, #06b6d4 100%)',
-          '--glow-1': 'rgba(16, 185, 129, 0.26)',
-          '--glow-2': 'rgba(5, 150, 105, 0.20)',
-        } as React.CSSProperties;
+          neon: 'linear-gradient(135deg, #34d399 0%, #10b981 50%, #06b6d4 100%)',
+          glow1: 'rgba(16, 185, 129, 0.32)',
+          glow2: 'rgba(5, 150, 105, 0.25)',
+        };
       case 'amber':
         return {
-          '--accent-neon': 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #eab308 100%)',
-          '--glow-1': 'rgba(245, 158, 11, 0.26)',
-          '--glow-2': 'rgba(217, 119, 6, 0.20)',
-        } as React.CSSProperties;
+          neon: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #eab308 100%)',
+          glow1: 'rgba(245, 158, 11, 0.32)',
+          glow2: 'rgba(217, 119, 6, 0.25)',
+        };
       case 'rose':
         return {
-          '--accent-neon': 'linear-gradient(135deg, #fb7185 0%, #f43f5e 50%, #c084fc 100%)',
-          '--glow-1': 'rgba(244, 63, 94, 0.26)',
-          '--glow-2': 'rgba(225, 29, 72, 0.20)',
-        } as React.CSSProperties;
+          neon: 'linear-gradient(135deg, #fb7185 0%, #f43f5e 50%, #c084fc 100%)',
+          glow1: 'rgba(244, 63, 94, 0.32)',
+          glow2: 'rgba(225, 29, 72, 0.25)',
+        };
       case 'sunset':
         return {
-          '--accent-neon': 'linear-gradient(135deg, #fb923c 0%, #f97316 50%, #ef4444 100%)',
-          '--glow-1': 'rgba(249, 115, 22, 0.26)',
-          '--glow-2': 'rgba(239, 68, 68, 0.20)',
-        } as React.CSSProperties;
+          neon: 'linear-gradient(135deg, #fb923c 0%, #f97316 50%, #ef4444 100%)',
+          glow1: 'rgba(249, 115, 22, 0.32)',
+          glow2: 'rgba(239, 68, 68, 0.25)',
+        };
       case 'ocean':
         return {
-          '--accent-neon': 'linear-gradient(135deg, #22d3ee 0%, #06b6d4 50%, #3b82f6 100%)',
-          '--glow-1': 'rgba(6, 182, 212, 0.26)',
-          '--glow-2': 'rgba(14, 116, 144, 0.20)',
-        } as React.CSSProperties;
+          neon: 'linear-gradient(135deg, #22d3ee 0%, #06b6d4 50%, #3b82f6 100%)',
+          glow1: 'rgba(6, 182, 212, 0.32)',
+          glow2: 'rgba(14, 116, 144, 0.25)',
+        };
       case 'aurora':
         return {
-          '--accent-neon': 'linear-gradient(135deg, #34d399 0%, #a855f7 50%, #38bdf8 100%)',
-          '--glow-1': 'rgba(16, 185, 129, 0.24)',
-          '--glow-2': 'rgba(139, 92, 246, 0.24)',
-        } as React.CSSProperties;
+          neon: 'linear-gradient(135deg, #34d399 0%, #a855f7 50%, #38bdf8 100%)',
+          glow1: 'rgba(16, 185, 129, 0.30)',
+          glow2: 'rgba(139, 92, 246, 0.30)',
+        };
       case 'monochrome':
         return {
-          '--accent-neon': 'linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%)',
-          '--glow-1': 'rgba(148, 163, 184, 0.20)',
-          '--glow-2': 'rgba(100, 116, 139, 0.16)',
-        } as React.CSSProperties;
+          neon: 'linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%)',
+          glow1: 'rgba(148, 163, 184, 0.25)',
+          glow2: 'rgba(100, 116, 139, 0.20)',
+        };
       case 'crimson':
         return {
-          '--accent-neon': 'linear-gradient(135deg, #f87171 0%, #ef4444 50%, #b91c1c 100%)',
-          '--glow-1': 'rgba(220, 38, 38, 0.26)',
-          '--glow-2': 'rgba(153, 27, 27, 0.20)',
-        } as React.CSSProperties;
+          neon: 'linear-gradient(135deg, #f87171 0%, #ef4444 50%, #b91c1c 100%)',
+          glow1: 'rgba(220, 38, 38, 0.32)',
+          glow2: 'rgba(153, 27, 27, 0.25)',
+        };
       default:
         return {
-          '--accent-neon': 'linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #3b82f6 100%)',
-          '--glow-1': 'rgba(147, 51, 234, 0.25)',
-          '--glow-2': 'rgba(236, 72, 153, 0.20)',
-        } as React.CSSProperties;
+          neon: 'linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #3b82f6 100%)',
+          glow1: 'rgba(147, 51, 234, 0.28)',
+          glow2: 'rgba(236, 72, 153, 0.22)',
+        };
     }
   };
 
+  const themeVars = getThemeVars();
+
   return (
     <div
-      style={getThemeStyle()}
+      style={{
+        '--accent-neon': themeVars.neon,
+        '--glow-1': themeVars.glow1,
+        '--glow-2': themeVars.glow2,
+      } as React.CSSProperties}
       className={`min-h-screen bg-background text-foreground flex flex-col justify-between overflow-x-hidden theme-${settings.theme_accent || 'purple'}`}
     >
+      {/* 100% Guaranteed Live Theme Injector */}
+      <style jsx global>{`
+        :root {
+          --accent-neon: ${themeVars.neon};
+          --glow-1: ${themeVars.glow1};
+          --glow-2: ${themeVars.glow2};
+        }
+        .text-cinematic-neon {
+          background: ${themeVars.neon} !important;
+          -webkit-background-clip: text !important;
+          -webkit-text-fill-color: transparent !important;
+        }
+      `}</style>
+
       <div>
         <Header
           onOpenSubmitModal={() => setIsSubmitModalOpen(true)}
@@ -335,6 +396,40 @@ export default function Home() {
         </div>
       </footer>
 
+      {/* Floating 10-Theme Palette Switcher Button at bottom left! */}
+      <div className="fixed bottom-6 left-6 z-50">
+        <div className="relative">
+          <button
+            onClick={() => setIsThemeMenuOpen(!isThemeMenuOpen)}
+            className="flex items-center gap-2 rounded-full border border-white/10 bg-zinc-900/90 px-4 py-2.5 text-xs font-extrabold text-white shadow-2xl backdrop-blur-xl hover:border-purple-500 transition-all"
+            title="تغییر سریع تم سایت"
+          >
+            <Palette className="h-4 w-4 text-purple-400" />
+            <span>رنگ تم</span>
+          </button>
+
+          {isThemeMenuOpen && (
+            <div className="absolute bottom-12 left-0 w-52 overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/95 p-2 shadow-2xl backdrop-blur-2xl">
+              <div className="space-y-1">
+                {THEMES.map((theme) => (
+                  <button
+                    key={theme.id}
+                    onClick={() => handleSelectTheme(theme.id)}
+                    className={`flex w-full items-center justify-between rounded-xl px-3 py-2 text-xs font-bold transition-all ${
+                      settings.theme_accent === theme.id
+                        ? 'bg-purple-600 text-white'
+                        : 'text-zinc-300 hover:bg-zinc-800'
+                    }`}
+                  >
+                    <span>{theme.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
       <SubmitModal
         isOpen={isSubmitModalOpen}
         onClose={() => setIsSubmitModalOpen(false)}
@@ -343,4 +438,4 @@ export default function Home() {
       <AIChatAssistant tools={dbTools} />
     </div>
   );
-              }
+}
