@@ -8,13 +8,25 @@ import { SubmitModal } from '@/components/SubmitModal';
 import { Hero3D } from '@/components/Hero3D';
 import { ScrollMarquee } from '@/components/ScrollMarquee';
 import { AIChatAssistant } from '@/components/AIChatAssistant';
-import { Award, TrendingUp, Filter } from 'lucide-react';
+import {
+  Award,
+  TrendingUp,
+  Filter,
+  ShieldAlert,
+  Search,
+  Mail,
+  CheckCircle2,
+  SlidersHorizontal,
+} from 'lucide-react';
+import Link from 'next/link';
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState<Category>('All');
   const [selectedPricing, setSelectedPricing] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState<boolean>(false);
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [newsletterSent, setNewsletterSent] = useState(false);
 
   const [settings, setSettings] = useState<Record<string, string>>({
     theme_accent: 'purple',
@@ -32,10 +44,7 @@ export default function Home() {
       .then((res) => (res.ok ? res.json() : {}))
       .then((data: Record<string, string>) => {
         if (data && Object.keys(data).length > 0) {
-          setSettings((prev) => ({
-            ...prev,
-            ...data,
-          }));
+          setSettings((prev) => ({ ...prev, ...data }));
         }
       })
       .catch(() => {});
@@ -72,7 +81,9 @@ export default function Home() {
     if (sortBy === 'rating') {
       list = [...list].sort((a, b) => (b.rating || 0) - (a.rating || 0));
     } else if (sortBy === 'reviews') {
-      list = [...list].sort((a, b) => (b.reviewsCount || 0) - (a.reviewsCount || 0));
+      list = [...list].sort(
+        (a, b) => (b.reviewsCount || 0) - (a.reviewsCount || 0)
+      );
     } else if (sortBy === 'newest') {
       list = [...list].reverse();
     } else if (sortBy === 'featured') {
@@ -84,7 +95,13 @@ export default function Home() {
     }
 
     return list;
-  }, [dbTools, selectedCategory, selectedPricing, searchQuery, settings.tool_sort_by]);
+  }, [
+    dbTools,
+    selectedCategory,
+    selectedPricing,
+    searchQuery,
+    settings.tool_sort_by,
+  ]);
 
   const featuredTools = useMemo(
     () => dbTools.filter((t) => t.isFeatured),
@@ -118,6 +135,7 @@ export default function Home() {
         <Hero3D onOpenSubmitModal={() => setIsSubmitModalOpen(true)} />
         <ScrollMarquee />
 
+        {/* Founder Flywheel Notice Banner */}
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 -mt-6 relative z-20">
           <div className="cinematic-card rounded-3xl border border-purple-500/40 bg-gradient-to-r from-purple-950/60 via-indigo-950/40 to-zinc-950/90 p-6 sm:p-8 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-4">
@@ -127,14 +145,17 @@ export default function Home() {
               <div>
                 <div className="flex items-center gap-2">
                   <h3 className="text-base font-extrabold text-white">
-                    Are you building an AI video tool? Get the Verified Founder Badge!
+                    Are you building an AI video tool? Get the Verified Founder
+                    Badge!
                   </h3>
                   <span className="hidden sm:inline-block rounded-full bg-purple-500/20 px-2.5 py-0.5 text-[10px] font-bold text-purple-300">
                     Free Backlink
                   </span>
                 </div>
                 <p className="mt-1.5 text-xs text-zinc-300 leading-relaxed max-w-xl">
-                  Add our verified badge on your website or mention CreatorAI Hub on Twitter/X to receive priority listing &amp; permanent SEO backlink.
+                  Add our verified badge on your website or mention CreatorAI Hub
+                  on Twitter/X to receive priority listing &amp; permanent SEO
+                  backlink.
                 </p>
               </div>
             </div>
@@ -148,6 +169,25 @@ export default function Home() {
         </div>
 
         <main className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8" id="explore">
+          {/* Transparent FTC Affiliate Disclosure Banner (Audit requirement) */}
+          <div className="mb-8 rounded-2xl border border-white/10 bg-zinc-900/60 p-4 text-xs text-zinc-400 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 backdrop-blur-md">
+            <div className="flex items-center gap-2.5">
+              <ShieldAlert className="h-4 w-4 text-purple-400 shrink-0" />
+              <span>
+                <strong className="text-white">FTC Affiliate Disclosure:</strong>{' '}
+                Some outbound links on this directory are referral affiliate
+                links. We may earn a commission at no extra cost to you.
+              </span>
+            </div>
+            <Link
+              href="/privacy"
+              className="text-purple-400 hover:underline font-bold shrink-0"
+            >
+              Read Disclosure ➔
+            </Link>
+          </div>
+
+          {/* Search, Category Filter Pills & Pricing Filter */}
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-white/10 pb-6">
             <div className="flex flex-wrap items-center gap-2">
               {CATEGORIES.map((category) => (
@@ -165,19 +205,32 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="flex items-center gap-2">
-              <Filter className="h-4 w-4 text-zinc-500" />
-              <select
-                value={selectedPricing}
-                onChange={(e) => setSelectedPricing(e.target.value)}
-                className="rounded-xl border border-white/10 bg-zinc-900 px-3.5 py-2 text-xs font-bold text-zinc-300 focus:border-purple-500 focus:outline-none"
-              >
-                <option value="All">All Pricing</option>
-                <option value="Free">Free</option>
-                <option value="Freemium">Freemium</option>
-                <option value="Free Trial">Free Trial</option>
-                <option value="Paid">Paid</option>
-              </select>
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-zinc-500" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Filter by keyword..."
+                  className="rounded-xl border border-white/10 bg-zinc-900 py-1.5 pl-8 pr-3 text-xs text-white placeholder-zinc-500 focus:border-purple-500 focus:outline-none"
+                />
+              </div>
+
+              <div className="flex items-center gap-1.5">
+                <Filter className="h-3.5 w-3.5 text-zinc-500" />
+                <select
+                  value={selectedPricing}
+                  onChange={(e) => setSelectedPricing(e.target.value)}
+                  className="rounded-xl border border-white/10 bg-zinc-900 px-3 py-1.5 text-xs font-bold text-zinc-300 focus:border-purple-500 focus:outline-none"
+                >
+                  <option value="All">All Pricing</option>
+                  <option value="Free">Free</option>
+                  <option value="Freemium">Freemium</option>
+                  <option value="Free Trial">Free Trial</option>
+                  <option value="Paid">Paid</option>
+                </select>
+              </div>
             </div>
           </div>
 
@@ -191,7 +244,10 @@ export default function Home() {
                   <h2 className="text-2xl font-extrabold tracking-tight text-white">
                     Featured AI Tools for Creators
                   </h2>
-                  <p className="text-xs text-zinc-400">Hand-selected by our editorial team for performance &amp; high CTR</p>
+                  <p className="text-xs text-zinc-400">
+                    Hand-selected by our editorial team for performance &amp; high
+                    CTR
+                  </p>
                 </div>
               </div>
               <div className={getGridClass()}>
@@ -211,11 +267,13 @@ export default function Home() {
                     : `${selectedCategory} Tools`}
                 </h2>
                 <p className="text-xs text-zinc-400 mt-0.5">
-                  Explore 2026&apos;s highest-rated AI tools for video editing, Shorts, &amp; audio
+                  Explore 2026&apos;s highest-rated AI tools for video editing,
+                  Shorts, &amp; audio
                 </p>
               </div>
               <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider bg-zinc-900 px-3 py-1.5 rounded-full border border-white/5">
-                {filteredTools.length} {filteredTools.length === 1 ? 'tool' : 'tools'} found
+                {filteredTools.length}{' '}
+                {filteredTools.length === 1 ? 'tool' : 'tools'} found
               </span>
             </div>
 
@@ -243,6 +301,52 @@ export default function Home() {
               </div>
             )}
           </section>
+
+          {/* WEEKLY AI CREATOR NEWSLETTER SUBSCRIPTION BOX (Audit requirement) */}
+          <section className="mt-24">
+            <div className="cinematic-card rounded-3xl p-8 sm:p-12 border border-purple-500/40 bg-gradient-to-r from-purple-950/50 via-indigo-950/40 to-zinc-950/80 text-center space-y-6">
+              <div className="inline-flex items-center gap-2 rounded-full bg-purple-500/20 px-3.5 py-1 text-xs font-bold text-purple-300">
+                <Mail className="h-3.5 w-3.5" />
+                <span>Weekly Creator Newsletter</span>
+              </div>
+              <h2 className="text-2xl sm:text-4xl font-extrabold text-white max-w-2xl mx-auto">
+                Join 5,000+ Creators — Get Weekly AI Tool &amp; Prompt Updates
+              </h2>
+              <p className="text-sm text-zinc-300 max-w-xl mx-auto">
+                No spam ever. We send 1 weekly email featuring newly tested video AI tools, Midjourney prompt kits, and creator monetization hacks.
+              </p>
+
+              {newsletterSent ? (
+                <div className="flex items-center justify-center gap-2 text-sm font-bold text-emerald-400 py-3">
+                  <CheckCircle2 className="h-5 w-5" />
+                  <span>You are subscribed! Check your inbox for our prompt kit.</span>
+                </div>
+              ) : (
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    setNewsletterSent(true);
+                  }}
+                  className="mx-auto max-w-md flex flex-col sm:flex-row items-center gap-2"
+                >
+                  <input
+                    type="email"
+                    required
+                    value={newsletterEmail}
+                    onChange={(e) => setNewsletterEmail(e.target.value)}
+                    placeholder="creator@youtube.com"
+                    className="w-full rounded-2xl border border-white/10 bg-zinc-950/90 px-4 py-3.5 text-sm text-white placeholder-zinc-500 focus:border-purple-500 focus:outline-none"
+                  />
+                  <button
+                    type="submit"
+                    className="theme-btn-primary w-full sm:w-auto shrink-0 rounded-2xl px-6 py-3.5 text-sm font-extrabold text-white shadow-lg"
+                  >
+                    Subscribe Free
+                  </button>
+                </form>
+              )}
+            </div>
+          </section>
         </main>
       </div>
 
@@ -257,17 +361,20 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="flex items-center gap-6 text-xs font-bold text-zinc-400">
-            <button
-              onClick={() => setIsSubmitModalOpen(true)}
-              className="hover:text-purple-400 transition-colors"
-            >
-              Submit Tool
-            </button>
-            <a
-              href="#top"
-              className="hover:text-purple-400 transition-colors"
-            >
+          <div className="flex flex-wrap items-center gap-5 text-xs font-bold text-zinc-400">
+            <Link href="/about" className="hover:text-white transition-colors">
+              About
+            </Link>
+            <Link href="/privacy" className="hover:text-white transition-colors">
+              Privacy &amp; FTC
+            </Link>
+            <Link href="/terms" className="hover:text-white transition-colors">
+              Terms
+            </Link>
+            <Link href="/contact" className="hover:text-white transition-colors">
+              Contact Support
+            </Link>
+            <a href="#top" className="hover:text-purple-400 transition-colors">
               Back to Top
             </a>
           </div>

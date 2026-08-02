@@ -17,6 +17,11 @@ import {
   ChevronDown,
   ChevronRight,
   FolderOpen,
+  ShieldCheck,
+  HelpCircle,
+  Mail,
+  FileText,
+  Compass,
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -33,7 +38,6 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const [isDark, setIsDark] = useState<boolean>(true);
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
-  // Accordion state for Directory sub-menu inside drawer
   const [isDirectoryOpen, setIsDirectoryOpen] = useState<boolean>(true);
 
   useEffect(() => {
@@ -82,12 +86,12 @@ export const Header: React.FC<HeaderProps> = ({
             type="text"
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
-            placeholder="Search AI video tools, captions, voices..."
+            placeholder="Search 50+ AI video tools, captions, voices..."
             className="w-full rounded-full border border-zinc-300 dark:border-zinc-800 bg-zinc-100/80 dark:bg-zinc-900/80 py-2 pl-10 pr-4 text-sm text-zinc-900 dark:text-zinc-200 placeholder-zinc-500 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500/50 transition-colors"
           />
         </div>
 
-        {/* Actions */}
+        {/* Actions: Theme Toggle + PRIMARY CTA (Explore) + SECONDARY (Submit) + HAMBURGER */}
         <div className="flex items-center gap-2 sm:gap-3">
           <button
             onClick={toggleTheme}
@@ -101,14 +105,25 @@ export const Header: React.FC<HeaderProps> = ({
             )}
           </button>
 
+          {/* PRIMARY CTA: Explore AI Tools (as recommended by audit) */}
+          <a
+            href="/#explore"
+            className="hidden sm:flex items-center gap-1.5 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-2 text-xs font-extrabold text-white shadow-lg shadow-purple-600/25 transition-all hover:from-purple-500 hover:to-indigo-500 active:scale-95"
+          >
+            <Compass className="h-4 w-4" />
+            <span>Explore Tools</span>
+          </a>
+
+          {/* SECONDARY CTA: Submit Tool */}
           <button
             onClick={onOpenSubmitModal}
-            className="group flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-2 text-xs sm:text-sm font-extrabold text-white shadow-lg shadow-purple-600/25 transition-all hover:from-purple-500 hover:to-indigo-500 hover:shadow-purple-500/30 active:scale-95"
+            className="flex items-center gap-1.5 rounded-full border border-purple-500/40 bg-purple-500/10 px-3.5 py-2 text-xs font-bold text-purple-300 hover:bg-purple-500/20 active:scale-95"
           >
-            <PlusCircle className="h-4 w-4 transition-transform group-hover:rotate-90" />
+            <PlusCircle className="h-4 w-4" />
             <span className="hidden sm:inline">Submit Tool</span>
           </button>
 
+          {/* HAMBURGER MENU BUTTON */}
           <button
             onClick={() => setIsDrawerOpen(!isDrawerOpen)}
             className="flex h-10 w-10 items-center justify-center rounded-2xl border border-zinc-300 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 text-zinc-800 dark:text-white transition-transform hover:scale-105 active:scale-95"
@@ -119,22 +134,21 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
 
-      {/* FUTURISTIC VERTICAL GLASS HAMBURGER DRAWER (3 CORE BUSINESSES WITH ACCORDION SUB-MENU) */}
+      {/* FUTURISTIC VERTICAL GLASS HAMBURGER DRAWER */}
       {isDrawerOpen && (
         <div className="fixed inset-x-0 top-16 z-50 border-b border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-zinc-950/95 p-6 shadow-2xl backdrop-blur-2xl animate-drawer">
-          <div className="mx-auto max-w-xl">
+          <div className="mx-auto max-w-2xl">
             <div className="mb-4 flex items-center justify-between border-b border-zinc-200 dark:border-white/10 pb-3">
               <span className="text-xs font-extrabold uppercase tracking-wider text-purple-500">
-                CreatorAI Hub — 3 Core Business Platforms
+                CreatorAI Hub — All Platforms &amp; Trust Pages
               </span>
               <span className="text-[11px] font-semibold text-zinc-500">
-                MotionSites Interactive Menu
+                Independent AI Curation
               </span>
             </div>
 
-            {/* 3 TOP-LEVEL BUSINESS MODULES */}
             <div className="flex flex-col space-y-3">
-              {/* BUSINESS 1: DIRECTORY MODULE (With Expandable Accordion for Compare & Blog) */}
+              {/* BUSINESS 1: DIRECTORY MODULE */}
               <div className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-zinc-900/80 overflow-hidden transition-all">
                 <button
                   onClick={() => setIsDirectoryOpen(!isDirectoryOpen)}
@@ -149,7 +163,7 @@ export const Header: React.FC<HeaderProps> = ({
                         1. AI Tools Directory Platform
                       </h3>
                       <p className="text-xs text-zinc-500">
-                        50+ Curated Tools, Head-to-Head Compare &amp; SEO Blog
+                        50+ Hand-Curated Tools, Compare Engine &amp; SEO Blog
                       </p>
                     </div>
                   </div>
@@ -165,9 +179,8 @@ export const Header: React.FC<HeaderProps> = ({
                   </div>
                 </button>
 
-                {/* EXPANDABLE ACCORDION SUB-MENU */}
                 {isDirectoryOpen && (
-                  <div className="border-t border-zinc-200 dark:border-white/5 bg-zinc-100/50 dark:bg-zinc-950/60 p-3 space-y-1.5 animate-in fade-in slide-in-from-top-1 duration-200">
+                  <div className="border-t border-zinc-200 dark:border-white/5 bg-zinc-100/50 dark:bg-zinc-950/60 p-3 space-y-1.5">
                     <Link
                       href="/"
                       onClick={() => setIsDrawerOpen(false)}
@@ -254,6 +267,47 @@ export const Header: React.FC<HeaderProps> = ({
                   </p>
                 </div>
               </Link>
+
+              {/* TRUST & LEGAL COMPLIANCE PAGES (AUDIT PRIORITY) */}
+              <div className="pt-3 border-t border-zinc-200 dark:border-white/10">
+                <span className="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-2">
+                  Trust, Legal &amp; Compliance Pages
+                </span>
+                <div className="grid grid-cols-2 gap-2 text-xs font-bold text-zinc-500 dark:text-zinc-400">
+                  <Link
+                    href="/about"
+                    onClick={() => setIsDrawerOpen(false)}
+                    className="flex items-center gap-1.5 rounded-xl p-2.5 hover:bg-white/5 hover:text-white transition-colors"
+                  >
+                    <ShieldCheck className="h-4 w-4 text-purple-400" />
+                    <span>About Us</span>
+                  </Link>
+                  <Link
+                    href="/privacy"
+                    onClick={() => setIsDrawerOpen(false)}
+                    className="flex items-center gap-1.5 rounded-xl p-2.5 hover:bg-white/5 hover:text-white transition-colors"
+                  >
+                    <FileText className="h-4 w-4 text-purple-400" />
+                    <span>Privacy &amp; FTC</span>
+                  </Link>
+                  <Link
+                    href="/terms"
+                    onClick={() => setIsDrawerOpen(false)}
+                    className="flex items-center gap-1.5 rounded-xl p-2.5 hover:bg-white/5 hover:text-white transition-colors"
+                  >
+                    <FileText className="h-4 w-4 text-purple-400" />
+                    <span>Terms of Service</span>
+                  </Link>
+                  <Link
+                    href="/contact"
+                    onClick={() => setIsDrawerOpen(false)}
+                    className="flex items-center gap-1.5 rounded-xl p-2.5 hover:bg-white/5 hover:text-white transition-colors"
+                  >
+                    <Mail className="h-4 w-4 text-purple-400" />
+                    <span>Contact Founder</span>
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>
