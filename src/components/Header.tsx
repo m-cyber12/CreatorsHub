@@ -18,11 +18,10 @@ import {
   ChevronRight,
   FolderOpen,
   ShieldCheck,
+  HelpCircle,
   Mail,
   FileText,
   Compass,
-  Zap,
-  Tag,
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -92,7 +91,7 @@ export const Header: React.FC<HeaderProps> = ({
           />
         </div>
 
-        {/* Actions */}
+        {/* Actions: Theme Toggle + PRIMARY CTA (Explore) + SECONDARY (Submit) + HAMBURGER */}
         <div className="flex items-center gap-2 sm:gap-3">
           <button
             onClick={toggleTheme}
@@ -170,7 +169,7 @@ export const Header: React.FC<HeaderProps> = ({
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] font-bold text-purple-400 bg-purple-500/15 px-2 py-0.5 rounded-full">
-                      5 Sections
+                      3 Sections
                     </span>
                     <ChevronDown
                       className={`h-4 w-4 text-zinc-400 transition-transform duration-200 ${
@@ -195,18 +194,6 @@ export const Header: React.FC<HeaderProps> = ({
                     </Link>
 
                     <Link
-                      href="/stack-builder"
-                      onClick={() => setIsDrawerOpen(false)}
-                      className="flex items-center justify-between rounded-xl p-3 text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-amber-500/15 hover:text-amber-400 transition-colors"
-                    >
-                      <div className="flex items-center gap-2.5">
-                        <Zap className="h-4 w-4 text-amber-400" />
-                        <span>Creator Stack Builder ⚡ (Goal + Budget)</span>
-                      </div>
-                      <ChevronRight className="h-3.5 w-3.5 opacity-50" />
-                    </Link>
-
-                    <Link
                       href="/compare"
                       onClick={() => setIsDrawerOpen(false)}
                       className="flex items-center justify-between rounded-xl p-3 text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-pink-500/15 hover:text-pink-400 transition-colors"
@@ -214,18 +201,6 @@ export const Header: React.FC<HeaderProps> = ({
                       <div className="flex items-center gap-2.5">
                         <Repeat className="h-4 w-4 text-pink-400" />
                         <span>Head-to-Head Compare Engine</span>
-                      </div>
-                      <ChevronRight className="h-3.5 w-3.5 opacity-50" />
-                    </Link>
-
-                    <Link
-                      href="/deals"
-                      onClick={() => setIsDrawerOpen(false)}
-                      className="flex items-center justify-between rounded-xl p-3 text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/15 hover:text-emerald-400 transition-colors"
-                    >
-                      <div className="flex items-center gap-2.5">
-                        <Tag className="h-4 w-4 text-emerald-400" />
-                        <span>Creator Deals &amp; Free Trials 🎁</span>
                       </div>
                       <ChevronRight className="h-3.5 w-3.5 opacity-50" />
                     </Link>
