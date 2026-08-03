@@ -1,183 +1,130 @@
 "use client";
 
-import React from 'react';
-import { useParams } from 'next/navigation';
-import { INITIAL_TOOLS } from '@/data/tools';
+import React, { useState, useMemo } from 'react';
 import { Header } from '@/components/Header';
-import { AIChatAssistant } from '@/components/AIChatAssistant';
-import {
-  Star,
-  ExternalLink,
-  ArrowLeft,
-  Award,
-  Zap,
-  Repeat,
-  Bot,
-  ShieldCheck,
-} from 'lucide-react';
-import Link from 'next/link';
+import { ToolCard } from '@/components/ToolCard';
+import { INITIAL_TOOLS, CATEGORIES, PRICING_OPTIONS, type Category, type PricingOption } from '@/data/tools';
+import { Search, X, Grid3X3, List } from 'lucide-react';
 
-export default function ToolDetailPage() {
-  const params = useParams();
-  const slug = params?.slug as string;
-  const tool = INITIAL_TOOLS.find((t) => t.slug === slug) || INITIAL_TOOLS[0];
-  const affiliateUrl = tool.affiliateUrl || tool.url;
+export default function ToolsPage() {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<Category>('All');
+  const [selectedPricing, setSelectedPricing] = useState<PricingOption>('All');
+  const [sortBy, setSortBy] = useState<'rating' | 'newest' | 'price-low' | 'price-high'>('rating');
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
-  // Schema.org SoftwareApplication JSON-LD for rich star ratings in Google search!
-  const schemaJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    name: tool.name,
-    description: tool.description,
-    applicationCategory: tool.category,
-    operatingSystem: 'Web, Windows, macOS, iOS',
-    image: tool.coverImage,
-    offers: {
-      '@type': 'Offer',
-      price: tool.startingPrice ? tool.startingPrice.replace(/[^0-9.]/g, '') || '0' : '0',
-      priceCurrency: 'USD',
-    },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: tool.rating,
-      ratingCount: tool.reviewsCount,
-      bestRating: '5',
-      worstRating: '1',
-    },
-  };
+  const filteredTools = useMemo(() => {
+    let result = INITIAL_TOOLS;
+    if (selectedCategory !== 'All') {
+      result = result.filter((t) => t.category === selectedCategory);
+    }
+    if (selectedPricing !== 'All') {
+      result = result.filter((t) => t.pricing === selectedPricing);
+    }
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      result = result.filter(
+        (t) =>
+          t.name.toLowerCase().includes(q) ||
+          t.tagline.toLowerCase().includes(q) ||
+          t.description.toLowerCase().includes(q) ||
+          t.tags.some((tag) => tag.toLowerCase().includes(q))
+      );
+    }
+    result = [...result].sort((a, b) => {
+      switch (sortBy) {
+        case 'rating': return b.rating - a.rating;
+        case 'newest': return (b.launchDate || '').localeCompare(a.launchDate || '');
+        case 'price-low': return (a.startingPrice || '').localeCompare(b.startingPrice || '');
+        case 'price-high': return (b.startingPrice || '').localeCompare(a.startingPrice || '');
+        default: return 0;
+      }
+    });
+    return result;
+  }, [searchQuery, selectedCategory, selectedPricing, sortBy]);
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col justify-between">
-      {/* Schema.org JSON-LD Script */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJsonLd) }}
-      />
+    <div className="min-h-screen bg-[#030305] text-white">
+      <Header />
+      <div className="px-4 pt-8 pb-20">
+        <div className="mx-auto max-w-7xl">
+          <h1 className="text-3xl font-bold mb-2">All AI Tools</h1>
+          <p className="text-sm text-zinc-500 mb-8">Browse all 50 curated AI tools for video creators</p>
 
-      <div>
-        <Header onOpenSubmitModal={() => {}} searchQuery="" onSearchChange={() => {}} />
-
-        <div className="mx-auto max-w-5xl px-4 pt-8 sm:px-6 lg:px-8">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-xs font-bold text-zinc-400 hover:text-purple-400 transition-colors"
-          >
-            <ArrowLeft className="h-4 w-4" /> <span>Back to All AI Tools</span>
-          </Link>
-        </div>
-
-        <section className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-          <div className="cinematic-card rounded-3xl p-6 sm:p-10 border border-white/10 shadow-2xl">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
-              <div className="flex items-center gap-4">
-                <img
-                  src={tool.logo}
-                  alt={tool.name}
-                  className="h-16 w-16 rounded-2xl object-cover border border-white/10 bg-zinc-950 p-2 shadow-lg"
-                />
-                <div>
-                  <div className="flex items-center gap-2.5">
-                    <h1 className="text-2xl sm:text-3xl font-extrabold text-white">
-                      {tool.name}
-                    </h1>
-                    {tool.hasFounderBadge && (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-purple-500/20 border border-purple-500/40 px-2.5 py-0.5 text-xs font-bold text-purple-300">
-                        <Award className="h-3.5 w-3.5 text-purple-400" />
-                        Verified Founder
-                      </span>
-                    )}
-                  </div>
-                  <p className="mt-1 text-sm font-bold text-purple-400">
-                    {tool.category} • {tool.pricing} ({tool.startingPrice || 'Free'})
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1.5 rounded-2xl bg-amber-500/10 border border-amber-500/20 px-3.5 py-1.5 text-sm font-extrabold text-amber-400">
-                  <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
-                  <span>{tool.rating}</span>
-                  <span className="text-xs text-zinc-500 font-normal">
-                    ({tool.reviewsCount} reviews • {tool.ratingLabel || 'Editorial Score'})
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-8 relative overflow-hidden rounded-3xl h-64 sm:h-96 w-full bg-zinc-950 border border-white/5">
-              <img
-                src={tool.coverImage}
-                alt={`${tool.name} Cover`}
-                className="h-full w-full object-cover"
+          <div className="flex flex-wrap items-center gap-3 mb-6 p-4 rounded-2xl bg-zinc-900/50 border border-white/5">
+            <div className="relative flex-1 min-w-[200px]">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search tools..."
+                className="w-full rounded-xl border border-white/10 bg-zinc-900 py-2.5 pl-9 pr-4 text-sm text-white placeholder-zinc-500 focus:border-purple-500 focus:outline-none"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent" />
-              {tool.metrics && (
-                <div className="absolute bottom-4 left-4 flex items-center gap-2 rounded-full bg-zinc-900/90 border border-white/10 px-3.5 py-1.5 text-xs font-bold text-white shadow-lg backdrop-blur-md">
-                  <Zap className="h-4 w-4 text-amber-400" />
-                  <span>{tool.metrics}</span>
-                </div>
+              {searchQuery && (
+                <button onClick={() => setSearchQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-white">
+                  <X className="h-3.5 w-3.5" />
+                </button>
               )}
             </div>
-
-            <div className="mt-8 space-y-4">
-              <h2 className="text-xl sm:text-2xl font-extrabold text-white">
-                {tool.tagline}
-              </h2>
-              <p className="text-sm sm:text-base leading-relaxed text-zinc-300">
-                {tool.description}
-              </p>
-              <p className="text-xs sm:text-sm leading-relaxed text-zinc-400">
-                Whether you are automating YouTube Shorts, dubbing videos in 29+ languages, or designing high-CTR thumbnails, <strong>{tool.name}</strong> provides a streamlined workflow designed for high retention and speed. Evaluated and tested by real creators in 2026.
-              </p>
-            </div>
-
-            <div className="mt-6 flex flex-wrap items-center gap-2">
-              {tool.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-xl border border-white/10 bg-zinc-950 px-3 py-1.5 text-xs font-bold text-zinc-300"
-                >
-                  #{tag}
-                </span>
-              ))}
-            </div>
-
-            {/* THREE REQUESTED CTAs */}
-            <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3 border-t border-white/10 pt-8">
-              <a
-                href={affiliateUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-purple-600 via-indigo-600 to-pink-600 px-6 py-4 text-sm font-extrabold text-white shadow-xl hover:scale-102 transition-all"
-              >
-                <span>Try {tool.name} Now</span>
-                <ExternalLink className="h-4 w-4" />
-              </a>
-
-              <Link
-                href={`/compare`}
-                className="flex items-center justify-center gap-2 rounded-2xl border border-white/10 bg-zinc-900 px-6 py-4 text-sm font-bold text-zinc-200 hover:border-purple-500 hover:text-white transition-all"
-              >
-                <Repeat className="h-4 w-4 text-purple-400" />
-                <span>Compare {tool.name}</span>
-              </Link>
-
-              <Link
-                href={`/?ask=${tool.slug}`}
-                className="flex items-center justify-center gap-2 rounded-2xl border border-purple-500/30 bg-purple-500/10 px-6 py-4 text-sm font-bold text-purple-300 hover:bg-purple-500/20 transition-all"
-              >
-                <Bot className="h-4 w-4 text-purple-400" />
-                <span>Ask AI About {tool.name}</span>
-              </Link>
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value as Category)}
+              className="rounded-xl border border-white/10 bg-zinc-900 px-3 py-2.5 text-sm text-white focus:border-purple-500 focus:outline-none"
+            >
+              {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
+            </select>
+            <select
+              value={selectedPricing}
+              onChange={(e) => setSelectedPricing(e.target.value as PricingOption)}
+              className="rounded-xl border border-white/10 bg-zinc-900 px-3 py-2.5 text-sm text-white focus:border-purple-500 focus:outline-none"
+            >
+              {PRICING_OPTIONS.map((p) => <option key={p} value={p}>{p}</option>)}
+            </select>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
+              className="rounded-xl border border-white/10 bg-zinc-900 px-3 py-2.5 text-sm text-white focus:border-purple-500 focus:outline-none"
+            >
+              <option value="rating">Highest Rated</option>
+              <option value="newest">Newest</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+            </select>
+            <div className="flex items-center gap-1 ml-auto">
+              <button onClick={() => setViewMode('grid')} className={`p-2 rounded-lg ${viewMode === 'grid' ? 'bg-purple-600 text-white' : 'text-zinc-500 hover:text-white'}`}>
+                <Grid3X3 className="h-4 w-4" />
+              </button>
+              <button onClick={() => setViewMode('list')} className={`p-2 rounded-lg ${viewMode === 'list' ? 'bg-purple-600 text-white' : 'text-zinc-500 hover:text-white'}`}>
+                <List className="h-4 w-4" />
+              </button>
             </div>
           </div>
-        </section>
-      </div>
 
-      <footer className="mt-24 border-t border-white/10 bg-zinc-950 py-12 text-center text-xs text-zinc-500">
-        <p>© 2026 CreatorAI Hub. The Bold AI Studio for Video Creators.</p>
-      </footer>
-      <AIChatAssistant tools={INITIAL_TOOLS} />
+          <p className="text-sm text-zinc-500 mb-4">
+            Showing <span className="text-white font-semibold">{filteredTools.length}</span> tools
+          </p>
+
+          {filteredTools.length > 0 ? (
+            <div className={`grid gap-5 ${viewMode === 'grid' ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' : 'grid-cols-1'}`}>
+              {filteredTools.map((tool, i) => (
+                <ToolCard key={tool.id} tool={tool} index={i} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-20">
+              <div className="text-4xl mb-4">🔍</div>
+              <h3 className="text-lg font-bold text-white mb-2">No tools found</h3>
+              <button
+                onClick={() => { setSearchQuery(''); setSelectedCategory('All'); setSelectedPricing('All'); }}
+                className="mt-4 rounded-xl bg-purple-600 px-4 py-2 text-sm font-semibold text-white hover:bg-purple-500"
+              >
+                Clear All Filters
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
