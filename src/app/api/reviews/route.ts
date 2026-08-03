@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
+import { supabaseAdmin } from '@/lib/supabaseAdmin';
 import { ALL_TOOLS } from '@/data/tools';
 import { rateLimit, clientIp } from '@/lib/rateLimit';
 
@@ -48,7 +49,7 @@ export async function POST(request: Request) {
     }
     const safeName = String(author_name || 'Anonymous Creator').slice(0, 40);
 
-    if (!supabase) {
+    if (!supabaseAdmin) {
       // mock mode — echo back so the UI still works pre-Supabase
       return NextResponse.json({
         success: true,
@@ -60,7 +61,7 @@ export async function POST(request: Request) {
       }, { status: 201 });
     }
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('reviews')
       .insert([{
         tool_slug, rating: r, title: title.trim(), body: body.trim(),
@@ -84,8 +85,8 @@ export async function PATCH(request: Request) {
   try {
     const { id, action } = await request.json();
     if (action !== 'helpful' || !id) return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
-    if (!supabase) return NextResponse.json({ success: true }, { status: 200 });
-    await supabase.rpc('increment_helpful', { review_id: id });
+    if (!supabaseAdmin) return NextResponse.json({ success: true }, { status: 200 });
+    await supabaseAdmin.rpc('increment_helpful', { review_id: id });
     return NextResponse.json({ success: true }, { status: 200 });
   } catch {
     return NextResponse.json({ error: 'Invalid request' }, { status: 400 });

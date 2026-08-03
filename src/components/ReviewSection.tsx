@@ -106,8 +106,8 @@ export function ReviewSection({ toolSlug, toolName }: { toolSlug: string; toolNa
             </p>
           )}
           <div>
-            <label className="mb-1.5 block text-xs font-bold text-zinc-300">Your rating</label>
-            <div className="flex items-center gap-1">
+            <span id="rating-label" className="mb-1.5 block text-xs font-bold text-zinc-300">Your rating</span>
+            <div className="flex items-center gap-1" role="group" aria-labelledby="rating-label">
               {[1, 2, 3, 4, 5].map((s) => (
                 <button
                   type="button"

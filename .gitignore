@@ -29,3 +29,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# but keep the documented template
+!.env.example

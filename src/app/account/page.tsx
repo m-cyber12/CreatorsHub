@@ -19,7 +19,7 @@ export default function AccountPage() {
     .filter((t): t is NonNullable<typeof t> => Boolean(t));
 
   return (
-    <div className="min-h-screen bg-[#030305] text-white">
+    <div className="min-h-screen bg-surface-0 text-white">
       <Header />
       <main className="mx-auto max-w-7xl px-4 py-12">
         <div className="mb-10 flex flex-wrap items-center justify-between gap-4">

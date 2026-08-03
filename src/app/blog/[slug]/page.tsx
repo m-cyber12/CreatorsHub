@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { SmartImage } from '@/components/SmartImage';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { BLOG_POSTS } from '@/data/posts';
@@ -54,7 +55,7 @@ export default async function BlogPostDetail({ params }: { params: Promise<{ slu
   };
 
   return (
-    <div className="min-h-screen bg-[#030305] text-white flex flex-col justify-between">
+    <div className="min-h-screen bg-surface-0 text-white flex flex-col justify-between">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }} />
       <div>
         <Header />
@@ -83,13 +84,13 @@ export default async function BlogPostDetail({ params }: { params: Promise<{ slu
           </h1>
 
           <div className="mt-8 overflow-hidden rounded-3xl h-72 sm:h-96 w-full bg-zinc-950 border border-white/10">
-            <img src={post.coverImage} alt={post.title} className="h-full w-full object-cover" />
+            <SmartImage src={post.coverImage} alt="" fill priority sizes="(max-width: 896px) 100vw, 896px" className="object-cover" />
           </div>
 
           {tool && (
             <div className="mt-10 rounded-3xl border border-purple-500/40 bg-gradient-to-r from-purple-900/40 via-indigo-900/30 to-zinc-900/90 p-6 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-6">
               <div className="flex items-center gap-4">
-                <img src={tool.logo} alt={tool.name} className="h-14 w-14 rounded-2xl object-cover border border-white/10" />
+                <SmartImage src={tool.logo} alt="" width={56} height={56} className="h-14 w-14 rounded-2xl object-cover border border-white/10" />
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="rounded-full bg-purple-500/20 px-2 py-0.5 text-[10px] font-bold text-purple-300">

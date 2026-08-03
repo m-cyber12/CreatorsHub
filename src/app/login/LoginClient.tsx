@@ -51,7 +51,7 @@ export function LoginClient() {
   };
 
   return (
-    <div className="min-h-screen bg-[#030305] text-white flex flex-col">
+    <div className="min-h-screen bg-surface-0 text-white flex flex-col">
       <Header />
       <main className="flex flex-1 items-center justify-center px-4 py-16">
         <div className="w-full max-w-md">

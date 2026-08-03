@@ -55,16 +55,18 @@ export function SubmitForm() {
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label className="mb-1.5 block text-xs font-bold text-zinc-300">Tool Name *</label>
+          <label htmlFor="sf-name" className="mb-1.5 block text-xs font-bold text-zinc-300">Tool Name *</label>
           <input
+            id="sf-name"
             type="text" required maxLength={60} value={formData.name} onChange={(e) => set('name', e.target.value)}
             placeholder="e.g. ClipGenius AI"
             className="w-full rounded-xl border border-white/10 bg-zinc-900 px-4 py-3 text-sm text-white placeholder-zinc-500 focus:border-purple-500 focus:outline-none"
           />
         </div>
         <div>
-          <label className="mb-1.5 block text-xs font-bold text-zinc-300">Website URL *</label>
+          <label htmlFor="sf-url" className="mb-1.5 block text-xs font-bold text-zinc-300">Website URL *</label>
           <input
+            id="sf-url"
             type="url" required value={formData.url} onChange={(e) => set('url', e.target.value)}
             placeholder="https://yourtool.com"
             className="w-full rounded-xl border border-white/10 bg-zinc-900 px-4 py-3 text-sm text-white placeholder-zinc-500 focus:border-purple-500 focus:outline-none"
@@ -73,8 +75,9 @@ export function SubmitForm() {
       </div>
 
       <div>
-        <label className="mb-1.5 block text-xs font-bold text-zinc-300">One-line Tagline *</label>
+        <label htmlFor="sf-tagline" className="mb-1.5 block text-xs font-bold text-zinc-300">One-line Tagline *</label>
         <input
+            id="sf-tagline"
           type="text" required maxLength={90} value={formData.tagline} onChange={(e) => set('tagline', e.target.value)}
           placeholder="What does it do, in one sentence?"
           className="w-full rounded-xl border border-white/10 bg-zinc-900 px-4 py-3 text-sm text-white placeholder-zinc-500 focus:border-purple-500 focus:outline-none"
@@ -83,8 +86,9 @@ export function SubmitForm() {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label className="mb-1.5 block text-xs font-bold text-zinc-300">Category *</label>
+          <label htmlFor="sf-category" className="mb-1.5 block text-xs font-bold text-zinc-300">Category *</label>
           <select
+            id="sf-category"
             value={formData.category} onChange={(e) => set('category', e.target.value)}
             className="w-full rounded-xl border border-white/10 bg-zinc-900 px-4 py-3 text-sm text-white focus:border-purple-500 focus:outline-none"
           >
@@ -92,8 +96,9 @@ export function SubmitForm() {
           </select>
         </div>
         <div>
-          <label className="mb-1.5 block text-xs font-bold text-zinc-300">Pricing Model *</label>
+          <label htmlFor="sf-pricing" className="mb-1.5 block text-xs font-bold text-zinc-300">Pricing Model *</label>
           <select
+            id="sf-pricing"
             value={formData.pricing} onChange={(e) => set('pricing', e.target.value)}
             className="w-full rounded-xl border border-white/10 bg-zinc-900 px-4 py-3 text-sm text-white focus:border-purple-500 focus:outline-none"
           >
@@ -103,8 +108,9 @@ export function SubmitForm() {
       </div>
 
       <div>
-        <label className="mb-1.5 block text-xs font-bold text-zinc-300">Founder / Contact Email *</label>
+        <label htmlFor="sf-email" className="mb-1.5 block text-xs font-bold text-zinc-300">Founder / Contact Email *</label>
         <input
+            id="sf-email"
           type="email" required value={formData.founderEmail} onChange={(e) => set('founderEmail', e.target.value)}
           placeholder="you@yourtool.com"
           className="w-full rounded-xl border border-white/10 bg-zinc-900 px-4 py-3 text-sm text-white placeholder-zinc-500 focus:border-purple-500 focus:outline-none"

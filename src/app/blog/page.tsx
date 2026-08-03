@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { SmartImage } from '@/components/SmartImage';
 import Link from 'next/link';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -15,7 +16,7 @@ export default function BlogPage() {
   const [featured, ...rest] = BLOG_POSTS;
 
   return (
-    <div className="min-h-screen bg-[#030305] text-white">
+    <div className="min-h-screen bg-surface-0 text-white">
       <Header />
       <main className="mx-auto max-w-6xl px-4 py-12">
         <div className="mb-10 text-center">
@@ -34,7 +35,7 @@ export default function BlogPage() {
           className="group mb-10 grid overflow-hidden rounded-3xl border border-white/10 bg-zinc-900/40 hover:border-purple-500/30 transition-colors md:grid-cols-2"
         >
           <div className="h-56 md:h-full overflow-hidden">
-            <img src={featured.coverImage} alt={featured.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+            <SmartImage src={featured.coverImage} alt="" fill priority sizes="(max-width: 1024px) 100vw, 1024px" className="object-cover transition-transform duration-500 group-hover:scale-105" />
           </div>
           <div className="flex flex-col justify-center p-6 md:p-10">
             <span className="text-[11px] font-bold text-purple-400">{featured.category}</span>
@@ -56,7 +57,7 @@ export default function BlogPage() {
               className="group overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/40 hover:border-purple-500/30 transition-colors"
             >
               <div className="h-44 overflow-hidden">
-                <img src={post.coverImage} alt={post.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <SmartImage src={post.coverImage} alt="" fill loading="lazy" sizes="(max-width: 640px) 100vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
               </div>
               <div className="p-5">
                 <span className="text-[10px] font-bold text-purple-400">{post.category}</span>

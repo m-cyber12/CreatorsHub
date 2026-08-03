@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useMemo, useState } from 'react';
+import { SmartImage } from '@/components/SmartImage';
 import { useSearchParams } from 'next/navigation';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -53,7 +54,7 @@ export function CompareClient() {
   const gridCols = cols === 3 ? 'grid-cols-4' : 'grid-cols-3';
 
   return (
-    <div className="min-h-screen bg-[#030305] text-white flex flex-col justify-between">
+    <div className="min-h-screen bg-surface-0 text-white flex flex-col justify-between">
       <div>
         <Header />
 
@@ -109,7 +110,7 @@ export function CompareClient() {
               <div className="text-left text-zinc-400">Feature / Spec</div>
               {selected.map((t, i) => (
                 <div key={t.slug} className={`flex flex-col items-center gap-2 ${ACCENTS[i]}`}>
-                  <img src={t.logo} alt={`${t.name} logo`} className="h-10 w-10 rounded-xl border border-white/10 object-cover" />
+                  <SmartImage src={t.logo} alt="" width={40} height={40} className="h-10 w-10 rounded-xl border border-white/10 object-cover" />
                   <Link href={`/tool/${t.slug}`} className="hover:underline">{t.name}</Link>
                   {t.rating === bestRating && (
                     <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 text-[9px] font-bold text-amber-300">

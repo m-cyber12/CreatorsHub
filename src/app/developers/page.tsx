@@ -38,7 +38,7 @@ const RESPONSE = `{
 
 export default function DevelopersPage() {
   return (
-    <div className="min-h-screen bg-[#030305] text-white">
+    <div className="min-h-screen bg-surface-0 text-white">
       <Header />
       <main className="mx-auto max-w-4xl px-4 py-14">
         <span className="inline-flex items-center gap-2 rounded-full bg-purple-500/10 border border-purple-500/20 px-4 py-1.5 text-xs font-semibold text-purple-300 mb-5">

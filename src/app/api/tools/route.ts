@@ -1,15 +1,9 @@
 import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
+import { isAdminAuthorized } from '@/lib/adminAuth';
 import { supabase } from '@/lib/supabase';
+import { supabaseAdmin } from '@/lib/supabaseAdmin';
 import { ALL_TOOLS } from '@/data/tools';
 
-async function isAdminAuthorized() {
-  const cookieStore = await cookies();
-  const sessionCookie = cookieStore.get('creatorai_admin_session');
-  const expectedToken = process.env.ADMIN_SESSION_TOKEN || process.env.ADMIN_PASSWORD || '';
-  if (!expectedToken || !sessionCookie) return false;
-  return sessionCookie.value === expectedToken;
-}
 
 export async function GET() {
   if (!supabase) {
@@ -43,7 +37,7 @@ export async function POST(request: Request) {
   if (!(await isAdminAuthorized())) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
-  if (!supabase) {
+  if (!supabaseAdmin) {
     return NextResponse.json({ error: 'Supabase not configured' }, { status: 500 });
   }
 
@@ -66,7 +60,7 @@ export async function POST(request: Request) {
       metrics,
     } = body;
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('tools')
       .insert([
         {
@@ -107,13 +101,13 @@ export async function PATCH(request: Request) {
   if (!(await isAdminAuthorized())) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
-  if (!supabase) {
+  if (!supabaseAdmin) {
     return NextResponse.json({ error: 'Supabase not configured' }, { status: 500 });
   }
 
   try {
     const { id, ...updates } = await request.json();
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('tools')
       .update(updates)
       .eq('id', id)
@@ -133,7 +127,7 @@ export async function DELETE(request: Request) {
   if (!(await isAdminAuthorized())) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
-  if (!supabase) {
+  if (!supabaseAdmin) {
     return NextResponse.json({ error: 'Supabase not configured' }, { status: 500 });
   }
 
@@ -143,7 +137,7 @@ export async function DELETE(request: Request) {
       return NextResponse.json({ error: 'Missing ID' }, { status: 400 });
     }
 
-    const { error } = await supabase.from('tools').delete().eq('id', id);
+    const { error } = await supabaseAdmin.from('tools').delete().eq('id', id);
 
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 400 });

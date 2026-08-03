@@ -1,101 +1,301 @@
-"use client";
-
-import React from 'react';
+import type { Metadata } from 'next';
+import Link from 'next/link';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import Link from 'next/link';
-import { FlaskConical, ArrowRight, ShieldCheck, Clock, DollarSign, CheckCircle2, AlertTriangle } from 'lucide-react';
+import { ALL_TOOLS, hasVerifiedScore } from '@/data/tools';
+import { FlaskConical, Timer, DollarSign, Ruler, ShieldCheck } from 'lucide-react';
 
-const BENCHMARKS = [
+/**
+ * Benchmark Lab (audit idea 7.1 — "make this the identity of the site").
+ *
+ * The old page had two hardcoded "briefs", was linked from nowhere, and
+ * described tests that had not been run. It is now the site's published
+ * methodology: the exact briefs, the exact measurements, and an honest status
+ * board showing how much has actually been completed.
+ *
+ * A tool list is a commodity — a dozen sites have one. "We ran the same brief
+ * through every tool in the category and published the output" is not, and it
+ * is the only thing here a competitor cannot clone in a weekend.
+ */
+
+export const metadata: Metadata = {
+  title: 'Benchmark Lab — How We Test AI Video Tools',
+  description:
+    'The standard briefs we run through every tool in a category, the metrics we record, and the raw output we publish. Our full testing methodology, including what we have not tested yet.',
+  alternates: { canonical: '/benchmark' },
+  openGraph: {
+    title: 'Benchmark Lab — How We Test AI Video Tools',
+    description: 'Standard briefs, recorded metrics, published output.',
+    url: '/benchmark',
+    type: 'article',
+  },
+};
+
+interface Brief {
+  id: string;
+  name: string;
+  category: string;
+  input: string;
+  task: string;
+  measures: string[];
+}
+
+const BRIEFS: Brief[] = [
   {
-    brief: 'Generate a 10-second cinematic trailer for a sci-fi documentary. Brief: dark neon city, rain, voiceover about AI.',
-    tools: [
-      { name: 'Runway Gen-3', quality: 9.2, speedMin: 3, pricePerMin: 0.15, lipSync: true, consistency: 8.5, evidence: 'Tested 2026-08-01 v3.2' },
-      { name: 'Pika 1.5', quality: 8.7, speedMin: 1, pricePerMin: 0.08, lipSync: true, consistency: 7.2, evidence: 'Tested 2026-07-28 v1.5' },
-      { name: 'Kling 1.5', quality: 9.5, speedMin: 5, pricePerMin: 0.12, lipSync: false, consistency: 9.1, evidence: 'Tested 2026-07-20 v1.5' },
+    id: 'B1',
+    name: 'The podcast cut',
+    category: 'Video Repurposing',
+    input: 'One fixed 60-minute two-person podcast episode, 1080p, lavalier audio.',
+    task: 'Produce the best five vertical short clips the tool can find, with captions burned in.',
+    measures: [
+      'Wall-clock time from upload to downloadable output',
+      'Caption word error rate against a human transcript',
+      'Speaker framing accuracy across cuts',
+      'How many of the five clips are genuinely publishable without edits',
+      'Cost in credits, converted to cost per finished clip',
     ],
   },
   {
-    brief: 'Create a 15-second vertical short: talking head with animated captions. Brief: high energy fitness coach.',
-    tools: [
-      { name: 'OpusClip AI', quality: 8.9, speedMin: 2, pricePerMin: 0.10, lipSync: false, consistency: 8.0, evidence: 'Tested 2026-07-15 v2.1' },
-      { name: 'Submagic', quality: 8.5, speedMin: 1.5, pricePerMin: 0.09, lipSync: true, consistency: 7.8, evidence: 'Tested 2026-07-18 v2026.06' },
-      { name: 'CapCut Pro', quality: 8.2, speedMin: 3, pricePerMin: 0.05, lipSync: false, consistency: 7.5, evidence: 'Tested 2026-08-01 v3.0' },
+    id: 'B2',
+    name: 'The cinematic shot',
+    category: 'Video Generation',
+    input: 'One fixed prompt: a specific camera move, subject and lighting condition.',
+    task: 'Generate the shot. Five attempts allowed, best result counts.',
+    measures: [
+      'Prompt adherence, scored against a written rubric',
+      'Temporal coherence — when artefacts first appear',
+      'Maximum usable clip length before the model drifts',
+      'Whether audio is generated natively',
+      'Attempts needed before one usable result, and total cost of those attempts',
+    ],
+  },
+  {
+    id: 'B3',
+    name: 'The talking head',
+    category: 'AI Avatars',
+    input: 'One fixed 200-word script plus a reference photo, where custom avatars are supported.',
+    task: 'Produce a presenter video in English, then the same script in Spanish.',
+    measures: [
+      'Lip-sync accuracy at normal speaking pace',
+      'Gesture naturalness scored against a rubric',
+      'Whether the Spanish version regenerates lip-sync or dubs over the English',
+      'Render time per finished minute',
+      'Per-minute cost at the entry paid tier',
+    ],
+  },
+  {
+    id: 'B4',
+    name: 'The transcript',
+    category: 'Transcription & Captions',
+    input: 'Three fixed audio files: clean studio, noisy café, and strongly accented speech.',
+    task: 'Transcribe all three and export SRT.',
+    measures: [
+      'Word error rate per file, measured against a human transcript',
+      'Speaker diarisation accuracy on the two-person file',
+      'Timestamp drift over a 30-minute file',
+      'Handling of technical vocabulary and proper nouns',
+      'Cost per audio hour',
+    ],
+  },
+  {
+    id: 'B5',
+    name: 'The voiceover',
+    category: 'Voice & Audio',
+    input: 'One fixed 300-word narration script containing three proper nouns and one acronym.',
+    task: 'Produce a finished voiceover suitable for a monetised video.',
+    measures: [
+      'Blind listener preference against a human read',
+      'Pronunciation accuracy on the planted proper nouns and acronym',
+      'Output sample rate and format',
+      'Whether commercial rights are included at the tier tested',
+      'Cost per finished audio minute',
     ],
   },
 ];
 
-export default function BenchmarkLabPage() {
+const METRIC_ICONS = [Timer, Ruler, DollarSign, ShieldCheck];
+
+export default function BenchmarkPage() {
+  const testedCount = ALL_TOOLS.filter(hasVerifiedScore).length;
+
   return (
-    <div className="min-h-screen bg-[#030305] text-white">
+    <div className="min-h-screen bg-surface-0 text-foreground">
       <Header />
 
-      <main className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <span className="inline-flex items-center gap-2 rounded-full bg-amber-500/10 border border-amber-500/20 px-4 py-1.5 text-xs font-bold text-amber-300 mb-4">
-            <FlaskConical className="h-3.5 w-3.5" /> Benchmark Lab — Evidence-Led Curation
-          </span>
-          <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-4">
-            AI Video Benchmark Lab
-          </h1>
-          <p className="text-base md:text-lg text-zinc-400 max-w-2xl mx-auto">
-            We test 8+ video AI tools with the exact same brief, prompt, and source footage. 
-            No marketing claims — only measured quality, speed, cost, and consistency.
+      <main id="main" className="mx-auto max-w-4xl px-4 py-12">
+        <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-accent-500/20 bg-accent-500/10 px-4 py-1.5 text-2xs font-bold text-accent-400">
+          <FlaskConical className="h-3.5 w-3.5" aria-hidden="true" /> Benchmark Lab
+        </span>
+
+        <h1 className="text-4xl font-black tracking-tight sm:text-5xl">
+          How we test AI video tools
+        </h1>
+
+        <p className="mt-4 max-w-3xl text-base leading-relaxed text-zinc-300">
+          Marketing pages all claim the same things. The only way to compare tools honestly is to
+          give them identical work and publish what comes back. Below are the five standard briefs
+          we run, the exact measurements we record, and — importantly — how far through the
+          programme we actually are.
+        </p>
+
+        {/* Honest status board */}
+        <section className="mt-8 rounded-2xl border border-white/10 bg-surface-1 p-6">
+          <h2 className="text-lg font-bold">Current status</h2>
+          <dl className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3">
+            <div>
+              <dt className="text-2xs uppercase tracking-wider text-zinc-500">Tools catalogued</dt>
+              <dd className="mt-1 font-mono text-2xl font-black tabular-nums text-white">
+                {ALL_TOOLS.length}
+              </dd>
+            </div>
+            <div>
+              <dt className="text-2xs uppercase tracking-wider text-zinc-500">Hands-on tested</dt>
+              <dd className="mt-1 font-mono text-2xl font-black tabular-nums text-emerald-400">
+                {testedCount}
+              </dd>
+            </div>
+            <div>
+              <dt className="text-2xs uppercase tracking-wider text-zinc-500">Standard briefs</dt>
+              <dd className="mt-1 font-mono text-2xl font-black tabular-nums text-accent-400">
+                {BRIEFS.length}
+              </dd>
+            </div>
+          </dl>
+
+          {testedCount === 0 && (
+            <p className="mt-5 rounded-xl border border-accent-500/20 bg-accent-500/5 p-4 text-sm leading-relaxed text-zinc-300">
+              <strong className="text-accent-300">We are at the start of this.</strong> No tool has
+              completed a full brief yet, so no tool on this site carries a numeric score. We would
+              rather show an empty scoreboard than a full one we invented — every listing says
+              plainly whether it has been tested, price-checked, or simply catalogued.
+            </p>
+          )}
+        </section>
+
+        {/* The briefs */}
+        <section className="mt-10">
+          <h2 className="text-2xl font-bold">The five standard briefs</h2>
+          <p className="mt-2 text-sm text-zinc-400">
+            Every tool in a category receives byte-identical input. No tool gets a second chance the
+            others did not get.
           </p>
-        </div>
 
-        <div className="space-y-16">
-          {BENCHMARKS.map((bench, idx) => (
-            <section key={idx} className="rounded-3xl border border-white/10 bg-zinc-900/40 p-6 sm:p-10 shadow-xl">
-              <h2 className="text-xl sm:text-2xl font-extrabold text-white mb-2 flex items-center gap-3">
-                <span className="rounded-full bg-purple-500/20 px-3 py-1 text-sm text-purple-300 font-black">{String(idx + 1).padStart(2, '0')}</span>
-                Benchmark Brief
-              </h2>
-              <p className="text-sm text-zinc-300 mb-6">{bench.brief}</p>
+          <ol className="mt-6 space-y-5">
+            {BRIEFS.map((brief) => (
+              <li key={brief.id} className="rounded-2xl border border-white/10 bg-surface-1 p-6">
+                <div className="flex flex-wrap items-baseline gap-3">
+                  <span className="rounded-md bg-accent-500/15 px-2 py-1 font-mono text-2xs font-bold text-accent-300">
+                    {brief.id}
+                  </span>
+                  <h3 className="text-lg font-bold">{brief.name}</h3>
+                  <Link
+                    href={`/tools?category=${encodeURIComponent(brief.category)}`}
+                    className="text-2xs text-zinc-500 underline hover:text-accent-400"
+                  >
+                    {brief.category}
+                  </Link>
+                </div>
 
-              <div className="overflow-x-auto rounded-2xl border border-white/10">
-                <table className="w-full text-xs sm:text-sm text-left">
-                  <thead className="bg-zinc-950 text-[10px] uppercase tracking-wider text-zinc-400 font-extrabold">
-                    <tr>
-                      <th className="px-4 py-3">Tool</th>
-                      <th className="px-4 py-3">Quality (1-10)</th>
-                      <th className="px-4 py-3">Speed (min)</th>
-                      <th className="px-4 py-3">Price / min</th>
-                      <th className="px-4 py-3">Lip Sync</th>
-                      <th className="px-4 py-3">Consistency</th>
-                      <th className="px-4 py-3">Evidence</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-white/5">
-                    {bench.tools.map((t) => (
-                      <tr key={t.name} className="hover:bg-zinc-800/30">
-                        <td className="px-4 py-3 font-extrabold text-white">{t.name}</td>
-                        <td className="px-4 py-3 text-amber-300 font-bold">{t.quality}</td>
-                        <td className="px-4 py-3 text-zinc-300">{t.speedMin}</td>
-                        <td className="px-4 py-3 text-emerald-400 font-bold">${t.pricePerMin}</td>
-                        <td className="px-4 py-3">
-                          {t.lipSync ? <span className="text-emerald-400 font-bold">Yes</span> : <span className="text-zinc-500">No</span>}
-                        </td>
-                        <td className="px-4 py-3 text-zinc-300">{t.consistency}</td>
-                        <td className="px-4 py-3">
-                          <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 text-[10px] font-bold text-amber-300">
-                            <ShieldCheck className="h-3 w-3" /> {t.evidence}
-                          </span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                <dl className="mt-4 space-y-3 text-sm">
+                  <div>
+                    <dt className="text-2xs font-bold uppercase tracking-wider text-zinc-500">
+                      Fixed input
+                    </dt>
+                    <dd className="mt-0.5 text-zinc-300">{brief.input}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-2xs font-bold uppercase tracking-wider text-zinc-500">
+                      Task
+                    </dt>
+                    <dd className="mt-0.5 text-zinc-300">{brief.task}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-2xs font-bold uppercase tracking-wider text-zinc-500">
+                      What we record
+                    </dt>
+                    <dd className="mt-1.5">
+                      <ul className="space-y-1.5">
+                        {brief.measures.map((m) => (
+                          <li key={m} className="flex gap-2 text-zinc-300">
+                            <span
+                              aria-hidden="true"
+                              className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-500"
+                            />
+                            {m}
+                          </li>
+                        ))}
+                      </ul>
+                    </dd>
+                  </div>
+                </dl>
+              </li>
+            ))}
+          </ol>
+        </section>
 
-              <div className="mt-6 flex flex-wrap items-center gap-3 text-[11px] text-zinc-500">
-                <span className="inline-flex items-center gap-1"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" /> Same prompt source</span>
-                <span className="inline-flex items-center gap-1"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" /> Same footage input</span>
-                <span className="inline-flex items-center gap-1"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" /> Same date (Aug 2026)</span>
-              </div>
-            </section>
-          ))}
-        </div>
+        {/* Scoring */}
+        <section className="mt-10 rounded-2xl border border-white/10 bg-surface-1 p-6">
+          <h2 className="text-2xl font-bold">How scores are calculated</h2>
+          <p className="mt-2 text-sm leading-relaxed text-zinc-400">
+            Each tested tool gets five sub-scores from 0 to 10. The overall figure is a weighted
+            average, computed rather than hand-adjusted, so we cannot quietly nudge a favourite
+            upward.
+          </p>
+          <ul className="mt-4 space-y-2 text-sm">
+            {[
+              ['Output quality', '35%', 'How good is the result you can actually publish'],
+              ['Ease of use', '20%', 'Time to a first good result without reading documentation'],
+              ['Value for money', '20%', 'Output quality per dollar at the entry paid tier'],
+              ['Speed', '15%', 'Wall-clock time from input to usable output'],
+              ['Export freedom', '10%', 'Watermarks, resolution caps and commercial rights'],
+            ].map(([label, weight, desc], i) => {
+              const Icon = METRIC_ICONS[i % METRIC_ICONS.length];
+              return (
+                <li key={label} className="flex items-start gap-3">
+                  <Icon className="mt-0.5 h-4 w-4 shrink-0 text-accent-400" aria-hidden="true" />
+                  <span className="text-zinc-300">
+                    <strong className="text-white">{label}</strong>{' '}
+                    <span className="font-mono tabular-nums text-accent-400">{weight}</span> — {desc}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+          <p className="mt-4 border-t border-white/5 pt-4 text-2xs leading-relaxed text-zinc-500">
+            We use the full range. A 5 out of 10 is a normal, useful score — if nothing ever scored
+            below 7, the numbers would carry no information at all.
+          </p>
+        </section>
+
+        {/* Independence */}
+        <section className="mt-8 rounded-2xl border border-white/10 bg-surface-1 p-6">
+          <h2 className="text-2xl font-bold">Independence</h2>
+          <ul className="mt-3 space-y-2 text-sm leading-relaxed text-zinc-300">
+            <li>We pay for our own subscriptions at the tier we test.</li>
+            <li>
+              Vendors cannot pay for a score, a ranking position, or a re-test with a better result.
+            </li>
+            <li>
+              If we ever accept paid placement it will be labelled &ldquo;Sponsored&rdquo; and
+              excluded from scoring entirely.
+            </li>
+            <li>
+              Where a tool has not been tested we say so, rather than filling the gap with a
+              plausible-looking number.
+            </li>
+          </ul>
+          <p className="mt-4 text-sm text-zinc-400">
+            See also our{' '}
+            <Link href="/disclosure" className="text-accent-400 underline hover:text-accent-300">
+              affiliate disclosure
+            </Link>{' '}
+            and{' '}
+            <Link href="/about" className="text-accent-400 underline hover:text-accent-300">
+              editorial policy
+            </Link>
+            .
+          </p>
+        </section>
       </main>
 
       <Footer />

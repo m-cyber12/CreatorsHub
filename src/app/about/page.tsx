@@ -2,83 +2,188 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { ALL_TOOLS, CATEGORIES } from '@/data/tools';
-import { FlaskConical, Star, DollarSign, RefreshCw, ShieldCheck, User } from 'lucide-react';
+import { ALL_TOOLS, hasVerifiedScore } from '@/data/tools';
+import { GRAVEYARD } from '@/data/graveyard';
+import { REAL_CATEGORIES } from '@/lib/categories';
+import { FlaskConical, BadgeDollarSign, ListChecks, User, RefreshCw } from 'lucide-react';
+
+/**
+ * Audit fix 1.1 (E-E-A-T).
+ *
+ * The previous version stated that every tool "passed a manual review" and had
+ * "verified pricing and an editorial score", across a catalog that was 77%
+ * machine-generated with reviewsCount: 0. That claim is precisely what Google's
+ * Quality Rater guidelines and the FTC's endorsement rules are designed to
+ * catch, and it was trivially disprovable by anyone reading the repository.
+ *
+ * This page now describes what the site actually does, including what it does
+ * not yet do. Counts are computed from the data so the text cannot drift.
+ */
 
 export const metadata: Metadata = {
   title: 'About & Review Methodology',
-  description: 'Who curates CreatorAI Hub, how we test AI tools, and how our editorial scoring works. Full transparency on our review process and affiliate policy.',
+  description:
+    'Who runs CreatorAI Hub, the three verification levels we use, how scoring works, and an honest account of what we have and have not tested.',
   alternates: { canonical: '/about' },
 };
 
 export default function AboutPage() {
+  const testedCount = ALL_TOOLS.filter(hasVerifiedScore).length;
+  const pricingVerified = ALL_TOOLS.filter((t) => t.verificationLevel === 'pricing-verified').length;
+  const listedOnly = ALL_TOOLS.filter((t) => t.verificationLevel === 'listed-only').length;
+
   return (
-    <div className="min-h-screen bg-[#030305] text-white">
+    <div className="min-h-screen bg-surface-0 text-foreground">
       <Header />
-      <main className="mx-auto max-w-3xl px-4 py-14">
-        <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-6">About CreatorAI Hub</h1>
-        <p className="text-sm text-zinc-400 leading-relaxed mb-4">
-          CreatorAI Hub is a specialist directory of AI tools for video creators — YouTubers, editors, podcasters, and
-          short-form creators. Instead of listing every AI product on earth, we go deep on one vertical:{' '}
-          <span className="text-white font-semibold">tools that help you make better video, faster</span>.
-        </p>
-        <p className="text-sm text-zinc-400 leading-relaxed mb-10">
-          Today the directory covers <span className="text-white font-semibold">{ALL_TOOLS.length}+ tools</span> across{' '}
-          {CATEGORIES.length - 1} categories, each with verified pricing and an editorial score. We add new tools weekly and
-          re-verify listings on a rolling schedule.
+
+      <main id="main" className="mx-auto max-w-3xl px-4 py-14">
+        <h1 className="mb-6 text-3xl font-black tracking-tight md:text-4xl">About CreatorAI Hub</h1>
+
+        <p className="mb-4 text-base leading-relaxed text-zinc-300">
+          CreatorAI Hub is a specialist directory of AI tools for video creators — YouTubers,
+          editors, podcasters and short-form creators. Rather than listing every AI product in
+          existence, it goes deep on one vertical:{' '}
+          <strong className="text-white">tools that help you make better video, faster</strong>.
         </p>
 
-        {/* Editor profile */}
-        <section className="mb-10 rounded-3xl border border-white/10 bg-zinc-900/50 p-6 sm:p-8">
-          <h2 className="flex items-center gap-2 text-lg font-bold mb-4"><User className="h-5 w-5 text-purple-400" /> Who runs this?</h2>
-          <div className="flex items-start gap-4">
-            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-600 to-pink-600 text-2xl font-black">
-              M
+        <p className="mb-10 text-base leading-relaxed text-zinc-300">
+          The directory currently covers{' '}
+          <strong className="font-mono tabular-nums text-white">{ALL_TOOLS.length}</strong> tools
+          across {REAL_CATEGORIES.length} categories, and tracks{' '}
+          <Link href="/graveyard" className="text-accent-400 underline hover:text-accent-300">
+            {GRAVEYARD.length} that have shut down
+          </Link>
+          .
+        </p>
+
+        {/* The honesty section */}
+        <section className="mb-10 rounded-3xl border border-accent-500/25 bg-accent-500/5 p-6 sm:p-8">
+          <h2 className="mb-4 text-xl font-bold">What we claim, and what we don&apos;t</h2>
+
+          <p className="mb-4 text-sm leading-relaxed text-zinc-300">
+            Most directories imply every listing has been reviewed. That is almost never true, and
+            it is the reason their scores are worthless — when everything rates 4.5 stars, the
+            rating tells you nothing. We use three explicit levels instead, and each one is shown on
+            the listing itself.
+          </p>
+
+          <dl className="space-y-4">
+            <div className="rounded-xl border border-emerald-500/25 bg-emerald-500/5 p-4">
+              <dt className="flex items-center gap-2 font-bold text-emerald-300">
+                <FlaskConical className="h-4 w-4" aria-hidden="true" />
+                Hands-on tested
+                <span className="ml-auto font-mono tabular-nums">{testedCount}</span>
+              </dt>
+              <dd className="mt-1.5 text-sm leading-relaxed text-zinc-300">
+                We ran the tool ourselves against the{' '}
+                <Link href="/benchmark" className="underline hover:text-white">
+                  standard brief
+                </Link>{' '}
+                for its category, on a plan we paid for, and published the output. Only these carry
+                a numeric score and an Evidence Card.
+              </dd>
             </div>
-            <div>
-              <h3 className="text-base font-bold text-white">M. — Founder & Lead Curator</h3>
-              <p className="mt-1 text-xs leading-relaxed text-zinc-400">
-                CreatorAI Hub is an independent, founder-run project. I&apos;m a solo builder and video-tooling nerd who got tired of
-                bloated &quot;10,000 AI tools&quot; directories where half the links are dead and none of the pricing is current. Every tool
-                listed here passed a manual review; the ones marked <span className="text-amber-300 font-semibold">Editor&apos;s Choice</span> I
-                use in my own workflow. You can reach me any time via{' '}
-                <Link href="/contact" className="text-purple-400 underline">the contact page</Link> or GitHub.
-              </p>
+
+            <div className="rounded-xl border border-accent-500/25 bg-accent-500/5 p-4">
+              <dt className="flex items-center gap-2 font-bold text-accent-300">
+                <BadgeDollarSign className="h-4 w-4" aria-hidden="true" />
+                Pricing verified
+                <span className="ml-auto font-mono tabular-nums">{pricingVerified}</span>
+              </dt>
+              <dd className="mt-1.5 text-sm leading-relaxed text-zinc-300">
+                A human opened the vendor&apos;s own pricing page and confirmed the figure on a
+                stated date, with a link to the source. We have not run the tool end to end, so we
+                publish no score.
+              </dd>
             </div>
-          </div>
+
+            <div className="rounded-xl border border-white/10 bg-surface-1 p-4">
+              <dt className="flex items-center gap-2 font-bold text-zinc-300">
+                <ListChecks className="h-4 w-4" aria-hidden="true" />
+                Listed
+                <span className="ml-auto font-mono tabular-nums">{listedOnly}</span>
+              </dt>
+              <dd className="mt-1.5 text-sm leading-relaxed text-zinc-300">
+                Catalogued from the vendor&apos;s public documentation so you can find it and
+                compare the facts. No test claim, and deliberately no score. Most of the catalog is
+                here, and saying so is the point.
+              </dd>
+            </div>
+          </dl>
+
+          <p className="mt-5 border-t border-white/10 pt-4 text-sm leading-relaxed text-zinc-400">
+            Testing properly takes real time and real subscription money, so the tested column grows
+            slowly. We would rather it grow slowly and be true.
+          </p>
         </section>
 
-        {/* Methodology */}
-        <section className="mb-10">
-          <h2 className="text-lg font-bold mb-4">How we review tools</h2>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {[
-              { icon: FlaskConical, title: '1. Hands-on Testing', desc: 'We sign up, run real creator tasks (a talking-head clip, a caption pass, a thumbnail), and evaluate the actual output — not the marketing page.' },
-              { icon: Star, title: '2. Editorial Scoring', desc: 'Scores (1–5) weigh output quality 40%, speed & workflow 25%, value for money 20%, and support/reliability 15%. Community reviews are shown separately and never merged into editorial scores.' },
-              { icon: DollarSign, title: '3. Pricing Verification', desc: 'Starting prices are checked against the vendor pricing page at review time. If you spot a stale price, report it and we fix it within 48h.' },
-              { icon: RefreshCw, title: '4. Rolling Re-review', desc: 'Each listing shows a "Last reviewed" date. Tools are re-checked on a rolling cycle, and dead or abandoned products are removed.' },
-            ].map((m) => (
-              <div key={m.title} className="rounded-2xl border border-white/10 bg-zinc-900/40 p-5">
-                <m.icon className="h-5 w-5 text-purple-400" />
-                <h3 className="mt-2 text-sm font-bold">{m.title}</h3>
-                <p className="mt-1 text-xs leading-relaxed text-zinc-500">{m.desc}</p>
-              </div>
-            ))}
-          </div>
+        {/* Editor */}
+        <section className="mb-10 rounded-3xl border border-white/10 bg-surface-1 p-6 sm:p-8">
+          <h2 className="mb-4 flex items-center gap-2 text-lg font-bold">
+            <User className="h-5 w-5 text-accent-400" aria-hidden="true" /> Who runs this
+          </h2>
+          <p className="text-sm leading-relaxed text-zinc-300">
+            CreatorAI Hub is an independent, founder-run project — a solo builder who got tired of
+            &ldquo;10,000 AI tools&rdquo; directories where half the links are dead and none of the
+            pricing is current. That is why dead tools are removed and buried in a public graveyard
+            rather than quietly left in place, and why untested tools are labelled instead of
+            padded with invented scores.
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-zinc-400">
+            Reach us any time through the{' '}
+            <Link href="/contact" className="text-accent-400 underline hover:text-accent-300">
+              contact page
+            </Link>
+            . Corrections are welcome and get fixed quickly — if a price is wrong or a tool has
+            shut down, tell us.
+          </p>
         </section>
 
-        {/* Affiliate honesty */}
-        <section className="rounded-3xl border border-emerald-500/20 bg-emerald-500/5 p-6 sm:p-8">
-          <h2 className="flex items-center gap-2 text-lg font-bold mb-3"><ShieldCheck className="h-5 w-5 text-emerald-400" /> How we make money</h2>
-          <p className="text-xs leading-relaxed text-zinc-400">
-            Some outbound links are affiliate links — if you subscribe to a tool through them, we may earn a commission at no extra
-            cost to you. Two hard rules keep this honest: <span className="text-white font-semibold">(1)</span> affiliate status never
-            affects scores or ranking — several Editor&apos;s Choice tools pay us nothing; <span className="text-white font-semibold">(2)</span>{' '}
-            every listing links to the vendor whether or not an affiliate program exists. Read the full{' '}
-            <Link href="/disclosure" className="text-emerald-300 underline">affiliate disclosure</Link>.
+        {/* Maintenance */}
+        <section className="mb-10 rounded-3xl border border-white/10 bg-surface-1 p-6 sm:p-8">
+          <h2 className="mb-4 flex items-center gap-2 text-lg font-bold">
+            <RefreshCw className="h-5 w-5 text-accent-400" aria-hidden="true" /> How the directory
+            is maintained
+          </h2>
+          <ul className="space-y-2.5 text-sm leading-relaxed text-zinc-300">
+            <li className="flex gap-2.5">
+              <span aria-hidden="true" className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-500" />
+              Every outbound link is checked automatically once a week. Three consecutive failures
+              flag a tool for review.
+            </li>
+            <li className="flex gap-2.5">
+              <span aria-hidden="true" className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-500" />
+              Confirmed shutdowns are removed from the catalog and documented in the{' '}
+              <Link href="/graveyard" className="text-accent-400 underline hover:text-accent-300">
+                graveyard
+              </Link>{' '}
+              with a migration path.
+            </li>
+            <li className="flex gap-2.5">
+              <span aria-hidden="true" className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-500" />
+              Verified prices carry the date they were checked. Anything undated has not been
+              verified — treat it as indicative.
+            </li>
+            <li className="flex gap-2.5">
+              <span aria-hidden="true" className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-500" />
+              Community reviews are moderated before publication, and structured-data ratings are
+              only emitted once a tool has at least three genuine approved reviews.
+            </li>
+          </ul>
+        </section>
+
+        <section className="rounded-3xl border border-white/10 bg-surface-1 p-6 sm:p-8">
+          <h2 className="mb-3 text-lg font-bold">Money</h2>
+          <p className="text-sm leading-relaxed text-zinc-300">
+            We are straightforward about this: read the{' '}
+            <Link href="/disclosure" className="text-accent-400 underline hover:text-accent-300">
+              affiliate disclosure
+            </Link>{' '}
+            for exactly how the site is funded and what that does — and does not — influence.
           </p>
         </section>
       </main>
+
       <Footer />
     </div>
   );

@@ -1,12 +1,23 @@
-"use client";
+'use client';
 
-import React, { useState } from 'react';
-import { Loader2, CheckCircle2 } from 'lucide-react';
+import React, { useState, useId } from 'react';
+import Link from 'next/link';
+import { Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
 
+/**
+ * Audit fixes 4.2, 4.6, 6.5.
+ *  - Adds the honeypot field the API expects for bot filtering.
+ *  - Error state used absolute positioning with a magic `mt-14` offset that
+ *    overlapped adjacent content; it is now in normal flow with role="alert".
+ *  - Copy reflects double opt-in ("check your inbox") instead of promising
+ *    immediate membership of a "Founding 500" that had no system behind it.
+ */
 export function NewsletterForm({ source = 'homepage' }: { source?: string }) {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
+  const [honeypot, setHoneypot] = useState('');
+  const inputId = useId();
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,46 +27,83 @@ export function NewsletterForm({ source = 'homepage' }: { source?: string }) {
       const res = await fetch('/api/newsletter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim(), source }),
+        body: JSON.stringify({ email: email.trim(), source, website: honeypot }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Subscription failed');
       setStatus('success');
-      setMessage(data.message || 'You are in! Welcome aboard 🎉');
-    } catch (err: any) {
+      setMessage(data.message || 'Almost there — check your inbox to confirm.');
+    } catch (err) {
       setStatus('error');
-      setMessage(err.message);
+      setMessage(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
     }
   };
 
   if (status === 'success') {
     return (
-      <p className="inline-flex items-center gap-2 rounded-2xl border border-emerald-500/30 bg-emerald-500/10 px-6 py-4 text-sm font-bold text-emerald-300">
-        <CheckCircle2 className="h-5 w-5" /> {message}
+      <p
+        role="status"
+        className="inline-flex items-center gap-2 rounded-2xl border border-emerald-500/30 bg-emerald-500/10 px-6 py-4 text-sm font-bold text-emerald-300"
+      >
+        <CheckCircle2 className="h-5 w-5 shrink-0" aria-hidden="true" />
+        {message}
       </p>
     );
   }
 
   return (
-    <form className="flex gap-2 max-w-md mx-auto" onSubmit={submit}>
-      <input
-        type="email"
-        required
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="your@email.com"
-        className="flex-1 rounded-xl border border-white/10 bg-zinc-900 px-4 py-3 text-sm text-white placeholder-zinc-500 focus:border-purple-500 focus:outline-none"
-        aria-label="Email address"
-      />
-      <button
-        type="submit"
-        disabled={status === 'submitting'}
-        className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 px-6 py-3 text-sm font-bold text-white hover:opacity-90 disabled:opacity-60 transition-opacity whitespace-nowrap"
-      >
-        {status === 'submitting' && <Loader2 className="h-4 w-4 animate-spin" />}
-        Subscribe
-      </button>
-      {status === 'error' && <p className="absolute mt-14 text-xs font-semibold text-rose-400">{message}</p>}
-    </form>
+    <div className="mx-auto max-w-md">
+      <form className="flex gap-2" onSubmit={submit}>
+        <label htmlFor={inputId} className="sr-only">
+          Email address
+        </label>
+        <input
+          id={inputId}
+          type="email"
+          required
+          autoComplete="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="your@email.com"
+          aria-invalid={status === 'error'}
+          className="min-w-0 flex-1 rounded-xl border border-white/10 bg-surface-2 px-4 py-3 text-sm text-white placeholder-zinc-500 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-500/20"
+        />
+
+        {/* Honeypot — hidden from humans, irresistible to bots. */}
+        <input
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+          className="absolute left-[-9999px] h-0 w-0 opacity-0"
+        />
+
+        <button
+          type="submit"
+          disabled={status === 'submitting'}
+          className="inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-xl bg-accent-500 px-6 py-3 text-sm font-bold text-black transition-opacity hover:opacity-90 disabled:opacity-60"
+        >
+          {status === 'submitting' && <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />}
+          Subscribe
+        </button>
+      </form>
+
+      {status === 'error' && (
+        <p role="alert" className="mt-2 flex items-center gap-1.5 text-2xs font-semibold text-rose-400">
+          <AlertCircle className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+          {message}
+        </p>
+      )}
+
+      <p className="mt-2 text-2xs leading-relaxed text-zinc-500">
+        Double opt-in — you will get one confirmation email. Unsubscribe any time.{' '}
+        <Link href="/privacy" className="underline hover:text-zinc-400">
+          Privacy
+        </Link>
+      </p>
+    </div>
   );
 }

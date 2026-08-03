@@ -1,25 +1,18 @@
 import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
-import { supabase } from '@/lib/supabase';
+import { isAdminAuthorized } from '@/lib/adminAuth';
+import { supabaseAdmin } from '@/lib/supabaseAdmin';
 
-async function isAdminAuthorized() {
-  const cookieStore = await cookies();
-  const sessionCookie = cookieStore.get('creatorai_admin_session');
-  const expectedToken = process.env.ADMIN_SESSION_TOKEN || process.env.ADMIN_PASSWORD || '';
-  if (!expectedToken || !sessionCookie) return false;
-  return sessionCookie.value === expectedToken;
-}
 
 export async function GET() {
   if (!(await isAdminAuthorized())) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
-  if (!supabase) {
+  if (!supabaseAdmin) {
     return NextResponse.json([], { status: 200 });
   }
 
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('submissions')
       .select('*')
       .order('created_at', { ascending: false });
@@ -37,14 +30,14 @@ export async function POST(request: Request) {
   if (!(await isAdminAuthorized())) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
-  if (!supabase) {
+  if (!supabaseAdmin) {
     return NextResponse.json({ error: 'Supabase not configured' }, { status: 500 });
   }
 
   try {
     const { action, submission } = await request.json();
     if (action === 'approve') {
-      await supabase
+      await supabaseAdmin
         .from('submissions')
         .update({ status: 'approved' })
         .eq('id', submission.id);
@@ -53,7 +46,7 @@ export async function POST(request: Request) {
         .toLowerCase()
         .replace(/[^a-z0-9]/g, '-')}-${Math.floor(Math.random() * 1000)}`;
 
-      await supabase.from('tools').insert([
+      await supabaseAdmin.from('tools').insert([
         {
           name: submission.tool_name,
           slug,
@@ -74,7 +67,7 @@ export async function POST(request: Request) {
       ]);
       return NextResponse.json({ success: true, message: 'Approved!' }, { status: 200 });
     } else if (action === 'reject') {
-      await supabase
+      await supabaseAdmin
         .from('submissions')
         .update({ status: 'rejected' })
         .eq('id', submission.id);

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { SmartImage } from '@/components/SmartImage';
 import Link from 'next/link';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -23,7 +24,7 @@ export default function DealsPage() {
       <div className="grid gap-3 sm:grid-cols-2">
         {tools.map((t) => (
           <div key={t.slug} className="flex items-center gap-4 rounded-2xl border border-white/10 bg-zinc-900/50 p-4 hover:border-purple-500/30 transition-colors">
-            <img src={t.logo} alt={`${t.name} logo`} loading="lazy" className="h-10 w-10 rounded-xl border border-white/10 object-cover" />
+            <SmartImage src={t.logo} alt="" width={40} height={40} loading="lazy" className="h-10 w-10 rounded-xl border border-white/10 object-cover" />
             <div className="min-w-0 flex-1">
               <Link href={`/tool/${t.slug}`} className="text-sm font-bold text-white hover:text-purple-300">{t.name}</Link>
               <p className="truncate text-[11px] text-zinc-500">{t.tagline}</p>
@@ -42,7 +43,7 @@ export default function DealsPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[#030305] text-white">
+    <div className="min-h-screen bg-surface-0 text-white">
       <Header />
       <main className="mx-auto max-w-5xl px-4 py-14">
         <span className="inline-flex items-center gap-2 rounded-full bg-rose-500/10 border border-rose-500/20 px-4 py-1.5 text-xs font-semibold text-rose-300 mb-4">

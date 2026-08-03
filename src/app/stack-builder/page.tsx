@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import { SmartImage } from '@/components/SmartImage';
 import { Header } from '@/components/Header';
 import { ALL_TOOLS, Tool } from '@/data/tools';
 import { Sparkles, Layers, CheckCircle2, Zap, ExternalLink, DollarSign, ArrowRight, RotateCcw } from 'lucide-react';
@@ -124,10 +125,10 @@ export default function CreatorStackBuilderPage() {
             {/* Selector Card */}
             <div className="mt-10 mx-auto max-w-3xl cinematic-card rounded-3xl p-6 sm:p-8 border border-white/10 text-left space-y-6">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-purple-400 mb-2">
+                <span id="sb-goal-label" className="block text-xs font-bold uppercase tracking-wider text-purple-400 mb-2">
                   1. What is your primary creator goal?
-                </label>
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                </span>
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2" role="group" aria-labelledby="sb-goal-label">
                   <button
                     onClick={() => setGoal('faceless')}
                     className={`rounded-2xl p-4 text-left border transition-all ${
@@ -179,10 +180,10 @@ export default function CreatorStackBuilderPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-pink-400 mb-2">
+                <span id="sb-budget-label" className="block text-xs font-bold uppercase tracking-wider text-pink-400 mb-2">
                   2. What is your monthly AI tool budget?
-                </label>
-                <div className="grid grid-cols-3 gap-3">
+                </span>
+                <div className="grid grid-cols-3 gap-3" role="group" aria-labelledby="sb-budget-label">
                   <button
                     onClick={() => setBudget('free')}
                     className={`rounded-xl py-3 px-2 text-center text-xs font-bold border transition-all ${
@@ -259,9 +260,11 @@ export default function CreatorStackBuilderPage() {
                   >
                     <div>
                       <div className="flex items-center gap-3">
-                        <img
+                        <SmartImage
                           src={tool.logo}
-                          alt={tool.name}
+                          alt=""
+                          width={40}
+                          height={40}
                           className="h-10 w-10 rounded-xl object-cover bg-zinc-900 p-1 border border-white/10"
                         />
                         <div>
