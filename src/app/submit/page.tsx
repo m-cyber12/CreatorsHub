@@ -1,16 +1,28 @@
-export const metadata = { title: 'Submit Tool — CreatorAI Hub', description: 'Submit your AI tool' };
+import type { Metadata } from 'next';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
+import { SubmitForm } from './SubmitForm';
+
+export const metadata: Metadata = {
+  title: 'Submit Your AI Tool',
+  description: 'Submit your AI video tool to CreatorAI Hub for editorial review. Free listings for tools that pass our quality bar, with optional featured placement.',
+  alternates: { canonical: '/submit' },
+};
+
 export default function SubmitPage() {
   return (
-    <div className="min-h-screen bg-[#030305] text-white px-4 py-16">
-      <div className="mx-auto max-w-xl">
-        <h1 className="text-3xl font-bold mb-6">Submit Your Tool</h1>
-        <form className="space-y-4">
-          <input type="text" placeholder="Tool Name" className="w-full rounded-xl border border-white/10 bg-zinc-900 px-4 py-3 text-sm text-white placeholder-zinc-500 focus:border-purple-500 focus:outline-none" />
-          <input type="url" placeholder="Tool URL" className="w-full rounded-xl border border-white/10 bg-zinc-900 px-4 py-3 text-sm text-white placeholder-zinc-500 focus:border-purple-500 focus:outline-none" />
-          <textarea placeholder="Description" rows={4} className="w-full rounded-xl border border-white/10 bg-zinc-900 px-4 py-3 text-sm text-white placeholder-zinc-500 focus:border-purple-500 focus:outline-none" />
-          <button type="submit" className="w-full rounded-xl bg-purple-600 py-3 text-sm font-bold text-white hover:bg-purple-500">Submit for Review</button>
-        </form>
-      </div>
+    <div className="min-h-screen bg-[#030305] text-white">
+      <Header />
+      <main className="mx-auto max-w-2xl px-4 py-14">
+        <h1 className="text-3xl font-black tracking-tight mb-2">Submit Your Tool</h1>
+        <p className="text-sm text-zinc-400 mb-8 leading-relaxed">
+          Building an AI tool for video creators? Submit it for editorial review. Listings are{' '}
+          <span className="text-white font-semibold">free</span> if the tool passes our quality bar — we test every submission
+          by hand before publishing. Typical review time: 3–5 days.
+        </p>
+        <SubmitForm />
+      </main>
+      <Footer />
     </div>
   );
 }

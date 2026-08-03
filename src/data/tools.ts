@@ -8,14 +8,7 @@ export interface Tool {
   affiliateUrl?: string;
   logo: string;
   coverImage: string;
-  category:
-    | 'Video Repurposing'
-    | 'Video Editing & VFX'
-    | 'Voice & Audio'
-    | 'AI Avatars'
-    | 'Thumbnails & Design'
-    | 'Scripting & Writing'
-    | 'Automation';
+  category: ToolCategory;
   pricing: 'Free' | 'Freemium' | 'Paid' | 'Free Trial';
   startingPrice?: string;
   rating: number;
@@ -29,17 +22,39 @@ export interface Tool {
   tags: string[];
   metrics?: string;
   launchDate?: string;
+  lastReviewed?: string;
 }
+
+export type ToolCategory =
+  | 'Video Generation'
+  | 'Video Editing & VFX'
+  | 'Video Repurposing'
+  | 'Voice & Audio'
+  | 'Music & SFX'
+  | 'AI Avatars'
+  | 'Thumbnails & Design'
+  | 'Scripting & Writing'
+  | 'Transcription & Captions'
+  | 'SEO & Analytics'
+  | 'Automation'
+  | 'Live & Streaming'
+  | '3D & Motion';
 
 export const CATEGORIES = [
   'All',
-  'Video Repurposing',
+  'Video Generation',
   'Video Editing & VFX',
+  'Video Repurposing',
   'Voice & Audio',
+  'Music & SFX',
   'AI Avatars',
   'Thumbnails & Design',
   'Scripting & Writing',
+  'Transcription & Captions',
+  'SEO & Analytics',
   'Automation',
+  'Live & Streaming',
+  '3D & Motion',
 ] as const;
 
 export type Category = typeof CATEGORIES[number];
@@ -177,7 +192,7 @@ export const INITIAL_TOOLS: Tool[] = [
     url: 'https://runwayml.com',
     logo: 'https://www.google.com/s2/favicons?domain=runwayml.com&sz=128',
     coverImage: img('1634017839464-5c339ebe3cb4'),
-    category: 'Video Editing & VFX', pricing: 'Paid', startingPrice: '$15/mo',
+    category: 'Video Generation', pricing: 'Paid', startingPrice: '$15/mo',
     rating: 4.9, reviewsCount: 410, ratingLabel: 'Editorial Score',
     isFeatured: true, isEditorsChoice: true, isTrending: true, isNew: false, hasFounderBadge: false,
     tags: ['Text to Video', 'Gen-3 Alpha', 'Inpainting', 'VFX'], metrics: 'Hollywood VFX', launchDate: '2018-01-01',
@@ -261,7 +276,7 @@ export const INITIAL_TOOLS: Tool[] = [
     url: 'https://www.synthesia.io',
     logo: 'https://www.google.com/s2/favicons?domain=synthesia.io&sz=128',
     coverImage: img('1531746790731-6f132f5e6e9a'),
-    category: 'Video Editing & VFX', pricing: 'Paid', startingPrice: '$22/mo',
+    category: 'AI Avatars', pricing: 'Paid', startingPrice: '$22/mo',
     rating: 4.7, reviewsCount: 680, ratingLabel: 'Editorial Score',
     isFeatured: true, isEditorsChoice: false, isTrending: false, isNew: false, hasFounderBadge: true,
     tags: ['AI Avatars', 'Corporate', '130+ Languages', 'Training'], metrics: '130+ Languages', launchDate: '2017-01-01',
@@ -273,7 +288,7 @@ export const INITIAL_TOOLS: Tool[] = [
     url: 'https://www.heygen.com', affiliateUrl: 'https://www.heygen.com/?via=creatoraihub',
     logo: 'https://www.google.com/s2/favicons?domain=heygen.com&sz=128',
     coverImage: img('1526374965328-7f61d4dc18c5'),
-    category: 'Video Editing & VFX', pricing: 'Paid', startingPrice: '$24/mo',
+    category: 'AI Avatars', pricing: 'Paid', startingPrice: '$24/mo',
     rating: 4.8, reviewsCount: 520, ratingLabel: 'Editorial Score',
     isFeatured: true, isEditorsChoice: false, isTrending: true, isNew: false, hasFounderBadge: true,
     tags: ['AI Avatars', 'Lip Sync', 'Translation', 'Personalization'], metrics: '40+ Languages', launchDate: '2020-01-01',
@@ -285,7 +300,7 @@ export const INITIAL_TOOLS: Tool[] = [
     url: 'https://www.d-id.com',
     logo: 'https://www.google.com/s2/favicons?domain=d-id.com&sz=128',
     coverImage: img('1507003211169-0a1dd7228f2d'),
-    category: 'Video Editing & VFX', pricing: 'Paid', startingPrice: '$5.9/mo',
+    category: 'AI Avatars', pricing: 'Paid', startingPrice: '$5.9/mo',
     rating: 4.5, reviewsCount: 380, ratingLabel: 'Editorial Score',
     isFeatured: false, isEditorsChoice: false, isTrending: false, isNew: false, hasFounderBadge: true,
     tags: ['Talking Photos', 'ChatGPT', 'Interactive', 'API'], metrics: 'Photo to Video', launchDate: '2017-01-01',
@@ -411,42 +426,6 @@ export const INITIAL_TOOLS: Tool[] = [
     tags: ['Filler Removal', 'Mouth Sounds', 'Dead Air', 'Podcast'], metrics: 'Auto Clean', launchDate: '2021-01-01',
   },
   {
-    id: '31', name: 'Synthesia', slug: 'synthesia-avatars',
-    tagline: 'AI avatars for corporate video',
-    description: 'Create professional videos with AI avatars in 130+ languages. No camera, studio, or actors needed.',
-    url: 'https://www.synthesia.io',
-    logo: 'https://www.google.com/s2/favicons?domain=synthesia.io&sz=128',
-    coverImage: img('1531746790731-6f132f5e6e9a'),
-    category: 'AI Avatars', pricing: 'Paid', startingPrice: '$22/mo',
-    rating: 4.7, reviewsCount: 680, ratingLabel: 'Editorial Score',
-    isFeatured: true, isEditorsChoice: false, isTrending: false, isNew: false, hasFounderBadge: true,
-    tags: ['Corporate', '130+ Languages', 'Training', 'No Camera'], metrics: '130+ Languages', launchDate: '2017-01-01',
-  },
-  {
-    id: '32', name: 'HeyGen', slug: 'heygen-avatars',
-    tagline: 'AI avatars with lip sync',
-    description: 'Create AI avatar videos with lip-sync translation in 40+ languages. Clone your voice and appearance.',
-    url: 'https://www.heygen.com', affiliateUrl: 'https://www.heygen.com/?via=creatoraihub',
-    logo: 'https://www.google.com/s2/favicons?domain=heygen.com&sz=128',
-    coverImage: img('1526374965328-7f61d4dc18c5'),
-    category: 'AI Avatars', pricing: 'Paid', startingPrice: '$24/mo',
-    rating: 4.8, reviewsCount: 520, ratingLabel: 'Editorial Score',
-    isFeatured: true, isEditorsChoice: false, isTrending: true, isNew: false, hasFounderBadge: true,
-    tags: ['Lip Sync', 'Translation', 'Personalization', '40+ Languages'], metrics: '40+ Languages', launchDate: '2020-01-01',
-  },
-  {
-    id: '33', name: 'D-ID', slug: 'd-id-avatars',
-    tagline: 'Talking head videos from photos',
-    description: 'Transform photos into realistic talking head videos. Integrates with ChatGPT for interactive AI presenters.',
-    url: 'https://www.d-id.com',
-    logo: 'https://www.google.com/s2/favicons?domain=d-id.com&sz=128',
-    coverImage: img('1507003211169-0a1dd7228f2d'),
-    category: 'AI Avatars', pricing: 'Paid', startingPrice: '$5.9/mo',
-    rating: 4.5, reviewsCount: 380, ratingLabel: 'Editorial Score',
-    isFeatured: false, isEditorsChoice: false, isTrending: false, isNew: false, hasFounderBadge: true,
-    tags: ['Talking Photos', 'ChatGPT', 'Interactive', 'API'], metrics: 'Photo to Video', launchDate: '2017-01-01',
-  },
-  {
     id: '34', name: 'Colossyan', slug: 'colossyan',
     tagline: 'AI video generation for training',
     description: 'Create training videos with AI presenters in minutes. Auto-translate to 70+ languages with localized accents.',
@@ -560,7 +539,7 @@ export const INITIAL_TOOLS: Tool[] = [
     description: "OpenAI's conversational AI for brainstorming, script writing, research, and code generation. The swiss army knife for creators.",
     url: 'https://chat.openai.com',
     logo: 'https://www.google.com/s2/favicons?domain=openai.com&sz=128',
-    coverImage: img('16774490213e5e4b3b5c7e'),
+    coverImage: img('1677442136019-21780ecad995'),
     category: 'Scripting & Writing', pricing: 'Freemium', startingPrice: '$20/mo',
     rating: 4.9, reviewsCount: 5000, ratingLabel: 'Community Score',
     isFeatured: true, isEditorsChoice: false, isTrending: true, isNew: false, hasFounderBadge: false,
@@ -572,7 +551,7 @@ export const INITIAL_TOOLS: Tool[] = [
     description: "Anthropic's AI assistant with industry-leading context window. Perfect for long-form script analysis, research synthesis, and creative writing.",
     url: 'https://claude.ai',
     logo: 'https://www.google.com/s2/favicons?domain=anthropic.com&sz=128',
-    coverImage: img('16774490213e5e4b3b5c7e'),
+    coverImage: img('1677442136019-21780ecad995'),
     category: 'Scripting & Writing', pricing: 'Freemium', startingPrice: '$20/mo',
     rating: 4.8, reviewsCount: 1200, ratingLabel: 'Editorial Score',
     isFeatured: true, isEditorsChoice: true, isTrending: true, isNew: false, hasFounderBadge: false,
@@ -652,13 +631,28 @@ export const INITIAL_TOOLS: Tool[] = [
   },
 ];
 
-export const UNIQUE_TOOLS = INITIAL_TOOLS;
-export const getFeaturedTools = () => INITIAL_TOOLS.filter((t) => t.isFeatured);
+// ---- Merge in the extended curated dataset (150+ tools) ----
+import { EXTENDED_TOOLS } from './tools-extended';
+
+const withReviewDate = (t: Tool): Tool => ({ lastReviewed: '2026-08-01', ...t });
+
+/** The complete, deduplicated tool catalog used across the whole site. */
+export const ALL_TOOLS: Tool[] = (() => {
+  const seen = new Set<string>();
+  const merged: Tool[] = [];
+  for (const t of [...INITIAL_TOOLS, ...EXTENDED_TOOLS].map(withReviewDate)) {
+    if (!seen.has(t.slug)) { seen.add(t.slug); merged.push(t); }
+  }
+  return merged;
+})();
+
+export const UNIQUE_TOOLS = ALL_TOOLS;
+export const getFeaturedTools = () => ALL_TOOLS.filter((t) => t.isFeatured);
 export const getToolsByCategory = (category: Category) =>
-  category === 'All' ? INITIAL_TOOLS : INITIAL_TOOLS.filter((t) => t.category === category);
+  category === 'All' ? ALL_TOOLS : ALL_TOOLS.filter((t) => t.category === category);
 export const searchTools = (query: string) => {
   const q = query.toLowerCase();
-  return INITIAL_TOOLS.filter(
+  return ALL_TOOLS.filter(
     (t) =>
       t.name.toLowerCase().includes(q) ||
       t.tagline.toLowerCase().includes(q) ||

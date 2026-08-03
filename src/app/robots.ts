@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/api/'], // جلوگیری از ایندکس شدن صفحات API
+      disallow: ['/api/', '/go/', '/admin', '/account', '/login'],
     },
     sitemap: 'https://directory-ai-hub.vercel.app/sitemap.xml',
   };

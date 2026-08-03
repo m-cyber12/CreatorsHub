@@ -1,52 +1,54 @@
 "use client";
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
 import { ToolCard } from '@/components/ToolCard';
-import { INITIAL_TOOLS, CATEGORIES, PRICING_OPTIONS, type Category, type PricingOption } from '@/data/tools';
-import { Search, SlidersHorizontal, X, Sparkles, TrendingUp, Award, Zap } from 'lucide-react';
+import { CompareBar } from '@/components/CompareBar';
+import { NewsletterForm } from '@/components/NewsletterForm';
+import { ALL_TOOLS, CATEGORIES, PRICING_OPTIONS, type Category, type PricingOption } from '@/data/tools';
+import { searchToolsAdvanced, SEARCH_SUGGESTIONS } from '@/lib/search';
+import { BLOG_POSTS } from '@/data/posts';
+import { Search, SlidersHorizontal, X, Sparkles, TrendingUp, Award, Zap, BookOpen, ShieldCheck, FlaskConical, BadgeDollarSign } from 'lucide-react';
 import Link from 'next/link';
 
+const VISIBLE_STEP = 24;
+
 export default function HomePage() {
+  const [searchInput, setSearchInput] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<Category>('All');
   const [selectedPricing, setSelectedPricing] = useState<PricingOption>('All');
   const [showFilters, setShowFilters] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(VISIBLE_STEP);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  // debounced instant search
+  useEffect(() => {
+    clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => {
+      setSearchQuery(searchInput);
+      setVisibleCount(VISIBLE_STEP);
+    }, 200);
+    return () => clearTimeout(debounceRef.current);
+  }, [searchInput]);
 
   const filteredTools = useMemo(() => {
-    let result = INITIAL_TOOLS;
-    if (selectedCategory !== 'All') {
-      result = result.filter((t) => t.category === selectedCategory);
-    }
-    if (selectedPricing !== 'All') {
-      result = result.filter((t) => t.pricing === selectedPricing);
-    }
-    if (searchQuery.trim()) {
-      const q = searchQuery.toLowerCase();
-      result = result.filter(
-        (t) =>
-          t.name.toLowerCase().includes(q) ||
-          t.tagline.toLowerCase().includes(q) ||
-          t.description.toLowerCase().includes(q) ||
-          t.tags.some((tag) => tag.toLowerCase().includes(q))
-      );
-    }
+    let result = ALL_TOOLS;
+    if (selectedCategory !== 'All') result = result.filter((t) => t.category === selectedCategory);
+    if (selectedPricing !== 'All') result = result.filter((t) => t.pricing === selectedPricing);
+    if (searchQuery.trim()) result = searchToolsAdvanced(searchQuery, result, 200);
     return result;
   }, [searchQuery, selectedCategory, selectedPricing]);
 
-  const featuredTools = useMemo(() => INITIAL_TOOLS.filter((t) => t.isFeatured).slice(0, 6), []);
-  const trendingTools = useMemo(() => INITIAL_TOOLS.filter((t) => t.isTrending).slice(0, 4), []);
-  const newTools = useMemo(() => INITIAL_TOOLS.filter((t) => t.isNew).slice(0, 4), []);
+  const featuredTools = useMemo(() => ALL_TOOLS.filter((t) => t.isFeatured).slice(0, 6), []);
+  const trendingTools = useMemo(() => ALL_TOOLS.filter((t) => t.isTrending).slice(0, 4), []);
+  const newTools = useMemo(() => ALL_TOOLS.filter((t) => t.isNew).slice(0, 4), []);
+  const isDefaultView = selectedCategory === 'All' && selectedPricing === 'All' && !searchQuery;
 
   return (
     <div className="min-h-screen bg-[#030305] text-white">
       <Header />
-
-      {/* FTC Disclosure */}
-      <div className="bg-zinc-900/50 border-b border-white/5 px-4 py-2 text-center text-[11px] text-zinc-400">
-        <span className="font-semibold text-zinc-300">FTC Affiliate Disclosure:</span> Some links are referral affiliate links. We may earn a commission at no extra cost to you.{" "}
-        <Link href="/disclosure" className="underline text-purple-400 hover:text-purple-300">Read Disclosure →</Link>
-      </div>
 
       {/* Hero Section */}
       <section className="relative px-4 pt-16 pb-12 md:pt-24 md:pb-16 overflow-hidden">
@@ -62,24 +64,26 @@ export default function HomePage() {
             </span>
           </h1>
           <p className="text-base md:text-lg text-zinc-400 max-w-2xl mx-auto mb-8 leading-relaxed">
-            Hand-picked, tested, and compared — the best 50 AI tools for YouTubers, video editors, and content creators in 2026.
+            Hand-picked, tested, and compared — {ALL_TOOLS.length}+ AI tools for YouTubers, video editors, and content creators in 2026.
           </p>
 
           {/* Search Bar */}
-          <div className="relative max-w-xl mx-auto mb-8">
+          <div className="relative max-w-xl mx-auto mb-4">
             <div className="relative">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-zinc-500" />
               <input
                 type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search tools, features, or categories..."
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                placeholder='Try "free voice cloning" or "caption generator for Shorts"…'
                 className="w-full rounded-2xl border border-white/10 bg-zinc-900/80 py-4 pl-12 pr-4 text-sm text-white placeholder-zinc-500 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/20 backdrop-blur-xl"
+                aria-label="Search AI tools"
               />
-              {searchQuery && (
+              {searchInput && (
                 <button
-                  onClick={() => setSearchQuery('')}
+                  onClick={() => setSearchInput('')}
                   className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-white"
+                  aria-label="Clear search"
                 >
                   <X className="h-4 w-4" />
                 </button>
@@ -87,12 +91,27 @@ export default function HomePage() {
             </div>
           </div>
 
+          {/* Search suggestions */}
+          {!searchInput && (
+            <div className="flex flex-wrap justify-center gap-1.5 mb-6">
+              {SEARCH_SUGGESTIONS.slice(0, 5).map((s) => (
+                <button
+                  key={s}
+                  onClick={() => setSearchInput(s)}
+                  className="rounded-full bg-zinc-900/60 border border-white/5 px-3 py-1 text-[10px] text-zinc-500 hover:text-purple-300 hover:border-purple-500/30 transition-colors"
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+          )}
+
           {/* Quick Category Pills */}
           <div className="flex flex-wrap justify-center gap-2 mb-4">
-            {CATEGORIES.slice(0, 6).map((cat) => (
+            {CATEGORIES.slice(0, 7).map((cat) => (
               <button
                 key={cat}
-                onClick={() => setSelectedCategory(cat as Category)}
+                onClick={() => { setSelectedCategory(cat as Category); setVisibleCount(VISIBLE_STEP); }}
                 className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all border ${
                   selectedCategory === cat
                     ? 'bg-purple-600 text-white border-purple-500'
@@ -106,17 +125,16 @@ export default function HomePage() {
               onClick={() => setShowFilters(!showFilters)}
               className="inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-semibold bg-zinc-900/60 text-zinc-400 border border-white/10 hover:border-purple-500/30 hover:text-purple-300 transition-all"
             >
-              <SlidersHorizontal className="h-3 w-3" /> Filters
+              <SlidersHorizontal className="h-3 w-3" /> More Filters
             </button>
           </div>
 
-          {/* Expanded Filters */}
           {showFilters && (
-            <div className="flex flex-wrap justify-center gap-2 animate-in fade-in slide-in-from-top-2">
-              {CATEGORIES.slice(6).map((cat) => (
+            <div className="flex flex-wrap justify-center gap-2">
+              {CATEGORIES.slice(7).map((cat) => (
                 <button
                   key={cat}
-                  onClick={() => setSelectedCategory(cat as Category)}
+                  onClick={() => { setSelectedCategory(cat as Category); setVisibleCount(VISIBLE_STEP); }}
                   className={`rounded-full px-3 py-1 text-[11px] font-semibold transition-all border ${
                     selectedCategory === cat
                       ? 'bg-purple-600 text-white border-purple-500'
@@ -130,7 +148,7 @@ export default function HomePage() {
               {PRICING_OPTIONS.map((p) => (
                 <button
                   key={p}
-                  onClick={() => setSelectedPricing(p as PricingOption)}
+                  onClick={() => { setSelectedPricing(p as PricingOption); setVisibleCount(VISIBLE_STEP); }}
                   className={`rounded-full px-3 py-1 text-[11px] font-semibold transition-all border ${
                     selectedPricing === p
                       ? 'bg-emerald-600 text-white border-emerald-500'
@@ -142,12 +160,20 @@ export default function HomePage() {
               ))}
             </div>
           )}
+
+          {/* Trust strip */}
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[11px] text-zinc-500">
+            <span className="inline-flex items-center gap-1.5"><FlaskConical className="h-3.5 w-3.5 text-purple-400" /> Independently tested</span>
+            <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-3.5 w-3.5 text-emerald-400" /> Reviewed Aug 2026</span>
+            <span className="inline-flex items-center gap-1.5"><BadgeDollarSign className="h-3.5 w-3.5 text-amber-400" /> Pricing verified</span>
+            <Link href="/about" className="underline hover:text-zinc-300">Our methodology →</Link>
+          </div>
         </div>
       </section>
 
-      {/* Featured Section */}
-      {selectedCategory === 'All' && selectedPricing === 'All' && !searchQuery && (
+      {isDefaultView && (
         <>
+          {/* Featured */}
           <section className="px-4 pb-12">
             <div className="mx-auto max-w-7xl">
               <div className="flex items-center justify-between mb-6">
@@ -155,42 +181,66 @@ export default function HomePage() {
                   <Award className="h-5 w-5 text-amber-400" />
                   <div>
                     <h2 className="text-xl font-bold text-white">Featured AI Tools</h2>
-                    <p className="text-xs text-zinc-500 mt-0.5">Hand-selected by our editorial team for performance & high CTR</p>
+                    <p className="text-xs text-zinc-500 mt-0.5">Hand-selected by our editorial team after hands-on testing</p>
                   </div>
                 </div>
                 <Link href="/tools" className="text-xs font-semibold text-purple-400 hover:text-purple-300">View All →</Link>
               </div>
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                {featuredTools.map((tool, i) => (
-                  <ToolCard key={tool.id} tool={tool} index={i} />
-                ))}
+                {featuredTools.map((tool, i) => <ToolCard key={tool.slug} tool={tool} index={i} />)}
               </div>
             </div>
           </section>
 
-          {/* Trending Strip */}
+          {/* Trending */}
           <section className="px-4 pb-12">
             <div className="mx-auto max-w-7xl">
               <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                 <TrendingUp className="h-5 w-5 text-rose-400" /> Trending Now
               </h2>
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-                {trendingTools.map((tool, i) => (
-                  <ToolCard key={tool.id} tool={tool} index={i} />
-                ))}
+                {trendingTools.map((tool, i) => <ToolCard key={tool.slug} tool={tool} index={i} />)}
               </div>
             </div>
           </section>
 
-          {/* New Tools Strip */}
+          {/* New */}
           <section className="px-4 pb-12">
             <div className="mx-auto max-w-7xl">
               <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                 <Sparkles className="h-5 w-5 text-emerald-400" /> Recently Added
               </h2>
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-                {newTools.map((tool, i) => (
-                  <ToolCard key={tool.id} tool={tool} index={i} />
+                {newTools.map((tool, i) => <ToolCard key={tool.slug} tool={tool} index={i} />)}
+              </div>
+            </div>
+          </section>
+
+          {/* Guides strip */}
+          <section className="px-4 pb-12">
+            <div className="mx-auto max-w-7xl">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                  <BookOpen className="h-5 w-5 text-blue-400" /> Latest Guides & Comparisons
+                </h2>
+                <Link href="/blog" className="text-xs font-semibold text-purple-400 hover:text-purple-300">All Articles →</Link>
+              </div>
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                {BLOG_POSTS.slice(0, 3).map((post) => (
+                  <Link
+                    key={post.slug}
+                    href={`/blog/${post.slug}`}
+                    className="group rounded-2xl border border-white/10 bg-zinc-900/40 overflow-hidden hover:border-purple-500/30 transition-colors"
+                  >
+                    <div className="h-36 overflow-hidden">
+                      <img src={post.coverImage} alt={post.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    </div>
+                    <div className="p-4">
+                      <span className="text-[10px] font-bold text-purple-400">{post.category}</span>
+                      <h3 className="mt-1 text-sm font-bold text-white line-clamp-2 group-hover:text-purple-200 transition-colors">{post.title}</h3>
+                      <p className="mt-1.5 text-[11px] text-zinc-500">{post.date} · {post.readTime}</p>
+                    </div>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -207,7 +257,7 @@ export default function HomePage() {
                 {searchQuery ? `Search: "${searchQuery}"` : selectedCategory === 'All' ? 'All AI Tools' : `${selectedCategory} Tools`}
               </h2>
               <p className="text-xs text-zinc-500 mt-1">
-                Explore 2026's highest-rated AI tools for video editing, Shorts, & audio
+                Explore 2026&apos;s highest-rated AI tools across {CATEGORIES.length - 1} categories
               </p>
             </div>
             <span className="text-sm font-semibold text-zinc-400">
@@ -216,20 +266,30 @@ export default function HomePage() {
           </div>
 
           {filteredTools.length > 0 ? (
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {filteredTools.map((tool, i) => (
-                <ToolCard key={tool.id} tool={tool} index={i} />
-              ))}
-            </div>
+            <>
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {filteredTools.slice(0, visibleCount).map((tool, i) => <ToolCard key={tool.slug} tool={tool} index={i} />)}
+              </div>
+              {filteredTools.length > visibleCount && (
+                <div className="mt-8 text-center">
+                  <button
+                    onClick={() => setVisibleCount((c) => c + VISIBLE_STEP)}
+                    className="rounded-xl border border-purple-500/30 bg-purple-500/10 px-6 py-3 text-sm font-bold text-purple-300 hover:bg-purple-500/20 transition-colors"
+                  >
+                    Load More ({filteredTools.length - visibleCount} remaining)
+                  </button>
+                </div>
+              )}
+            </>
           ) : (
             <div className="flex flex-col items-center justify-center py-20 text-center">
               <div className="text-4xl mb-4">🔍</div>
               <h3 className="text-lg font-bold text-white mb-2">No tools found</h3>
               <p className="text-sm text-zinc-500 max-w-md">
-                Try adjusting your search query or filters. We have 50 curated tools across 7 categories.
+                Try adjusting your search query or filters. We have {ALL_TOOLS.length} curated tools across {CATEGORIES.length - 1} categories.
               </p>
               <button
-                onClick={() => { setSearchQuery(''); setSelectedCategory('All'); setSelectedPricing('All'); }}
+                onClick={() => { setSearchInput(''); setSelectedCategory('All'); setSelectedPricing('All'); }}
                 className="mt-4 rounded-xl bg-purple-600 px-4 py-2 text-sm font-semibold text-white hover:bg-purple-500 transition-colors"
               >
                 Clear All Filters
@@ -239,61 +299,22 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Newsletter */}
+      {/* Newsletter — honest copy, functional form */}
       <section className="border-t border-white/5 bg-zinc-900/30 px-4 py-16">
         <div className="mx-auto max-w-xl text-center">
-          <h2 className="text-2xl font-bold text-white mb-2">Join 5,000+ Creators</h2>
-          <p className="text-sm text-zinc-400 mb-6">Get weekly AI tool reviews, prompt kits, and creator monetization hacks. No spam.</p>
-          <form className="flex gap-2 max-w-md mx-auto" onSubmit={(e) => e.preventDefault()}>
-            <input
-              type="email"
-              placeholder="your@email.com"
-              className="flex-1 rounded-xl border border-white/10 bg-zinc-900 px-4 py-3 text-sm text-white placeholder-zinc-500 focus:border-purple-500 focus:outline-none"
-            />
-            <button className="rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 px-6 py-3 text-sm font-bold text-white hover:opacity-90 transition-opacity whitespace-nowrap">
-              Subscribe
-            </button>
-          </form>
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 text-[10px] font-bold text-emerald-300 mb-3">
+            <Sparkles className="h-3 w-3" /> FOUNDING MEMBER ACCESS
+          </span>
+          <h2 className="text-2xl font-bold text-white mb-2">Be One of Our First 500 Creators</h2>
+          <p className="text-sm text-zinc-400 mb-6">
+            We just launched. Join early and get weekly hands-on AI tool reviews, prompt kits, and exclusive deals — plus a permanent founding-member badge when accounts go live. No spam, unsubscribe anytime.
+          </p>
+          <NewsletterForm />
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-white/5 bg-black px-4 py-12">
-        <div className="mx-auto max-w-7xl grid grid-cols-2 md:grid-cols-4 gap-8 text-xs">
-          <div>
-            <h4 className="font-bold text-white mb-3">CreatorAI Hub</h4>
-            <p className="text-zinc-500 leading-relaxed">The curated AI toolbox for video creators. Stop searching, start creating.</p>
-          </div>
-          <div>
-            <h4 className="font-bold text-white mb-3">Directory</h4>
-            <ul className="space-y-2 text-zinc-500">
-              <li><Link href="/tools" className="hover:text-purple-400">All Tools</Link></li>
-              <li><Link href="/compare" className="hover:text-purple-400">Compare</Link></li>
-              <li><Link href="/stack-builder" className="hover:text-purple-400">Stack Builder</Link></li>
-              <li><Link href="/deals" className="hover:text-purple-400">Deals</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-bold text-white mb-3">Company</h4>
-            <ul className="space-y-2 text-zinc-500">
-              <li><Link href="/about" className="hover:text-purple-400">About</Link></li>
-              <li><Link href="/disclosure" className="hover:text-purple-400">Disclosure</Link></li>
-              <li><Link href="/contact" className="hover:text-purple-400">Contact</Link></li>
-              <li><Link href="/blog" className="hover:text-purple-400">Blog</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-bold text-white mb-3">Legal</h4>
-            <ul className="space-y-2 text-zinc-500">
-              <li><Link href="/privacy" className="hover:text-purple-400">Privacy</Link></li>
-              <li><Link href="/terms" className="hover:text-purple-400">Terms</Link></li>
-            </ul>
-          </div>
-        </div>
-        <div className="mt-8 text-center text-[11px] text-zinc-600">
-          © 2026 CreatorAI Hub. All rights reserved. | <Link href="/disclosure" className="hover:text-zinc-400">Affiliate Disclosure</Link>
-        </div>
-      </footer>
+      <CompareBar />
+      <Footer />
     </div>
   );
 }

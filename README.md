@@ -47,3 +47,29 @@
 node scripts/auto-curate.mjs "https://elevenlabs.io"
 ```
 این دستور اطلاعات متا و عکس سایت مقصد را اسکرپ می‌کند و کد SQL آماده را به شما می‌دهد تا با ۱ کلیک در Supabase اضافه کنید!
+
+
+---
+
+## 🚀 نسخه Pre-Launch 1.0 (اوت ۲۰۲۶) — چه چیزهایی اضافه شد؟
+
+بر اساس گزارش ممیزی، این موارد پیاده‌سازی شده است:
+
+- **۲۰۰ ابزار** (۵۰ → ۲۰۰) در **۱۳ دسته‌بندی** — داده در `src/data/tools-extended.ts` (تولید با `node scripts/gen-tools.mjs`)
+- **صفحه جداگانه SSG برای هر ابزار** (`/tool/[slug]`) با متا، Open Graph، Schema.org (SoftwareApplication + Review + Breadcrumb)، جایگزین‌ها و ریویو
+- **جستجوی پیشرفته** (fuzzy + مترادف + فیلتر زبان طبیعی مثل "free voice cloning") در `src/lib/search.ts`
+- **سیستم ثبت‌نام/لاگین** Supabase (Magic Link + Google) — صفحات `/login` و `/account`
+- **سیستم ریویو و امتیازدهی کاربران** + دکمه Helpful — جدول‌ها در `supabase-launch-upgrade.sql`
+- **مقایسه تا ۳ ابزار** با نوار شناور مقایسه در همه صفحات
+- **بلاگ واقعی با ۱۰ مقاله کامل** + Article Schema
+- **API عمومی**: `GET /api/v1/tools` — مستندات در `/developers`
+- **خبرنامه واقعی** (ذخیره در Supabase + rate limit) و حذف ادعای «۵٬۰۰۰ مشترک»
+- **امنیت**: رمز ادمین سمت سرور (`ADMIN_PASSWORD` بدون NEXT_PUBLIC)، rate-limit روی همه فرم‌ها، اعتبارسنجی ورودی
+- **قانونی**: Privacy کامل، Terms کامل، بنر رضایت کوکی، انتقال FTC به فوتر با rel="sponsored nofollow"
+- sitemap کامل (۲۲۳ URL)، robots به‌روز، پروفایل ویراستار و متدولوژی در `/about`، تاریخ «آخرین بررسی» روی همه ابزارها
+
+### راه‌اندازی دیتابیس جدید
+1. `supabase-schema.sql` را اجرا کنید (اگر قبلاً نکرده‌اید)
+2. سپس **`supabase-launch-upgrade.sql`** را اجرا کنید (ریویوها، بوکمارک، خبرنامه، کلیک‌لاگ)
+3. در Vercel این متغیر را هم اضافه کنید: `ADMIN_PASSWORD=یک-رمز-قوی`
+4. در Supabase: Authentication → Providers → Email (Magic Link) و Google را فعال کنید

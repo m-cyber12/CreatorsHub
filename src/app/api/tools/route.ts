@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
-import { INITIAL_TOOLS } from '@/data/tools';
+import { ALL_TOOLS } from '@/data/tools';
 
 export async function GET() {
   if (!supabase) {
-    return NextResponse.json(INITIAL_TOOLS, { status: 200 });
+    return NextResponse.json(ALL_TOOLS, { status: 200 });
   }
 
   try {
@@ -14,19 +14,19 @@ export async function GET() {
       .order('created_at', { ascending: false });
 
     if (error || !data || data.length === 0) {
-      return NextResponse.json(INITIAL_TOOLS, { status: 200 });
+      return NextResponse.json(ALL_TOOLS, { status: 200 });
     }
 
-    // Merge database tools with INITIAL_TOOLS so that if DB only has 10, all 20 appear!
+    // Merge database tools with ALL_TOOLS so that if DB only has 10, all 20 appear!
     const dbSlugs = new Set(data.map((t: any) => t.slug));
     const merged = [
       ...data,
-      ...INITIAL_TOOLS.filter((t) => !dbSlugs.has(t.slug)),
+      ...ALL_TOOLS.filter((t) => !dbSlugs.has(t.slug)),
     ];
 
     return NextResponse.json(merged, { status: 200 });
   } catch (err) {
-    return NextResponse.json(INITIAL_TOOLS, { status: 200 });
+    return NextResponse.json(ALL_TOOLS, { status: 200 });
   }
 }
 

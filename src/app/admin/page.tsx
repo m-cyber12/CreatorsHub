@@ -92,16 +92,24 @@ export default function AdminPage() {
   const [importJsonText, setImportJsonText] = useState('');
   const [backupMsg, setBackupMsg] = useState('');
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const correctPassword =
-      process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'admin123';
-    if (passwordInput === correctPassword) {
-      setIsAuthenticated(true);
-      setErrorMsg('');
-      fetchAllData();
-    } else {
-      setErrorMsg('رمز عبور اشتباه است (رمز پیش‌فرض: admin123)');
+    setErrorMsg('');
+    try {
+      const res = await fetch('/api/admin/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: passwordInput }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setIsAuthenticated(true);
+        fetchAllData();
+      } else {
+        setErrorMsg(data.error || 'رمز عبور اشتباه است');
+      }
+    } catch {
+      setErrorMsg('خطا در اتصال به سرور');
     }
   };
 
@@ -326,7 +334,7 @@ export default function AdminPage() {
               type="password"
               value={passwordInput}
               onChange={(e) => setPasswordInput(e.target.value)}
-              placeholder="Enter password (default: admin123)"
+              placeholder="Enter admin password"
               className="w-full rounded-xl border border-zinc-800 bg-zinc-950 px-4 py-3 text-sm text-white focus:border-purple-500 focus:outline-none"
             />
             {errorMsg && (

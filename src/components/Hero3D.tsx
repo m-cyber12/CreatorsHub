@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Sparkles, Award, ArrowRight, Compass, ChevronDown } from 'lucide-react';
-import { INITIAL_TOOLS } from '@/data/tools';
+import { ALL_TOOLS } from '@/data/tools';
 import Link from 'next/link';
 
 interface Hero3DProps {
@@ -30,9 +30,9 @@ export const Hero3D: React.FC<Hero3DProps> = ({ onOpenSubmitModal }) => {
   }, []);
 
   // Use real tools for dynamic hero cards to guarantee 100% consistency with the grid!
-  const toolLeft = INITIAL_TOOLS[0]; // OpusClip
-  const toolCenter = INITIAL_TOOLS[5]; // ElevenLabs
-  const toolRight = INITIAL_TOOLS[18]; // Midjourney
+  const toolLeft = ALL_TOOLS[0]; // OpusClip
+  const toolCenter = ALL_TOOLS[5]; // ElevenLabs
+  const toolRight = ALL_TOOLS[18]; // Midjourney
 
   return (
     <section className="relative overflow-hidden pt-12 pb-24 sm:pt-20 sm:pb-36 transition-colors duration-300">

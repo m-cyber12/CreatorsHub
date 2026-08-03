@@ -1,70 +1,64 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
+import { rateLimit, clientIp } from '@/lib/rateLimit';
+import { CATEGORIES } from '@/data/tools';
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const URL_RE = /^https?:\/\/[^\s]+\.[^\s]{2,}$/i;
 
 export async function POST(request: Request) {
+  if (!rateLimit(`submit:${clientIp(request)}`, 3, 10 * 60_000)) {
+    return NextResponse.json({ error: 'Too many submissions — please try again in a few minutes.' }, { status: 429 });
+  }
+
   try {
     const body = await request.json();
-    const {
-      name,
-      url,
-      tagline,
-      category,
-      pricing,
-      founderEmail,
-      willAddBadge,
-    } = body;
+    const { name, url, tagline, category, pricing, founderEmail, willAddBadge } = body;
 
-    if (!name || !url || !tagline || !founderEmail) {
-      return NextResponse.json(
-        { error: 'Missing required fields' },
-        { status: 400 }
-      );
+    // validation
+    if (!name || typeof name !== 'string' || name.trim().length < 2 || name.length > 60) {
+      return NextResponse.json({ error: 'Tool name must be 2-60 characters.' }, { status: 400 });
     }
+    if (!url || typeof url !== 'string' || !URL_RE.test(url)) {
+      return NextResponse.json({ error: 'Please provide a valid http(s) URL.' }, { status: 400 });
+    }
+    if (!tagline || typeof tagline !== 'string' || tagline.trim().length < 5 || tagline.length > 90) {
+      return NextResponse.json({ error: 'Tagline must be 5-90 characters.' }, { status: 400 });
+    }
+    if (!founderEmail || typeof founderEmail !== 'string' || !EMAIL_RE.test(founderEmail)) {
+      return NextResponse.json({ error: 'Please provide a valid contact email.' }, { status: 400 });
+    }
+    const safeCategory = (CATEGORIES as readonly string[]).includes(category) ? category : 'Video Editing & VFX';
+    const safePricing = ['Free', 'Freemium', 'Paid', 'Free Trial'].includes(pricing) ? pricing : 'Freemium';
 
-    // If Supabase is connected, insert into database
     if (supabase) {
       const { data, error } = await supabase
         .from('submissions')
-        .insert([
-          {
-            tool_name: name,
-            website_url: url,
-            tagline: tagline,
-            category: category,
-            pricing: pricing,
-            founder_email: founderEmail,
-            will_add_badge: willAddBadge,
-            status: 'pending',
-          },
-        ])
+        .insert([{
+          tool_name: name.trim(),
+          website_url: url.trim(),
+          tagline: tagline.trim(),
+          category: safeCategory,
+          pricing: safePricing,
+          founder_email: founderEmail.trim().toLowerCase(),
+          will_add_badge: !!willAddBadge,
+          status: 'pending',
+        }])
         .select();
 
       if (error) {
         console.error('Supabase Error:', error);
-        return NextResponse.json(
-          { error: 'Database insert failed', details: error.message },
-          { status: 500 }
-        );
+        return NextResponse.json({ error: 'Database insert failed', details: error.message }, { status: 500 });
       }
-
-      return NextResponse.json(
-        { success: true, message: 'Tool submitted successfully!', data },
-        { status: 201 }
-      );
+      return NextResponse.json({ success: true, message: 'Tool submitted successfully!', data }, { status: 201 });
     }
 
-    // Fallback if Supabase keys aren't set yet (mock success)
+    // Fallback if Supabase keys aren't set yet
     return NextResponse.json(
-      {
-        success: true,
-        message: 'Submission received (Mock Mode — Connect Supabase keys in Vercel)',
-      },
+      { success: true, message: 'Submission received (Mock Mode — connect Supabase keys in Vercel)' },
       { status: 201 }
     );
-  } catch (error) {
-    return NextResponse.json(
-      { error: 'Invalid request payload' },
-      { status: 400 }
-    );
+  } catch {
+    return NextResponse.json({ error: 'Invalid request payload' }, { status: 400 });
   }
 }

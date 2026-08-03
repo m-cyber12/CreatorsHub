@@ -3,7 +3,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Tool } from '@/data/tools';
-import { Star, ExternalLink, Bookmark, TrendingUp, Award, Sparkles } from 'lucide-react';
+import { Star, ExternalLink, Bookmark, TrendingUp, Award, Sparkles, GitCompareArrows, BadgeCheck } from 'lucide-react';
+import { useBookmarks, useCompare } from '@/context/AppProviders';
 
 interface ToolCardProps {
   tool: Tool;
@@ -12,20 +13,28 @@ interface ToolCardProps {
 
 export function ToolCard({ tool, index = 0 }: ToolCardProps) {
   const [logoError, setLogoError] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [imgLoaded, setImgLoaded] = useState(false);
+  const { isBookmarked, toggleBookmark } = useBookmarks();
+  const { isCompared, toggleCompare } = useCompare();
 
-  const affiliateUrl = tool.affiliateUrl || tool.url;
+  const bookmarked = isBookmarked(tool.slug);
+  const compared = isCompared(tool.slug);
 
   const getCategoryIcon = (category: string) => {
     const icons: Record<string, string> = {
+      'Video Generation': '🎥',
       'Video Repurposing': '✂️',
       'Video Editing & VFX': '🎬',
       'Voice & Audio': '🎙️',
+      'Music & SFX': '🎵',
       'AI Avatars': '👤',
       'Thumbnails & Design': '🎨',
       'Scripting & Writing': '✍️',
+      'Transcription & Captions': '💬',
+      'SEO & Analytics': '📈',
       'Automation': '⚡',
+      'Live & Streaming': '📡',
+      '3D & Motion': '🧊',
     };
     return icons[category] || '🚀';
   };
@@ -42,10 +51,8 @@ export function ToolCard({ tool, index = 0 }: ToolCardProps) {
 
   return (
     <div
-      className="group relative cinematic-card rounded-2xl overflow-hidden"
-      style={{ animationDelay: `${index * 50}ms` }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      className={`group relative cinematic-card rounded-2xl overflow-hidden transition-shadow ${compared ? 'ring-2 ring-purple-500/60' : ''}`}
+      style={{ animationDelay: `${Math.min(index, 12) * 50}ms` }}
     >
       {/* Badges */}
       <div className="absolute top-3 left-3 z-20 flex flex-wrap gap-1.5">
@@ -66,33 +73,43 @@ export function ToolCard({ tool, index = 0 }: ToolCardProps) {
         )}
       </div>
 
-      {/* Bookmark button */}
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          setIsBookmarked(!isBookmarked);
-        }}
-        className={`absolute top-3 right-3 z-20 rounded-full p-1.5 transition-all ${
-          isBookmarked
-            ? 'bg-purple-500 text-white'
-            : 'bg-black/40 text-white/70 hover:bg-black/60 hover:text-white'
-        }`}
-      >
-        <Bookmark className="h-3.5 w-3.5" fill={isBookmarked ? 'currentColor' : 'none'} />
-      </button>
+      {/* Quick actions */}
+      <div className="absolute top-3 right-3 z-20 flex gap-1.5">
+        <button
+          onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleCompare(tool.slug); }}
+          title={compared ? 'Remove from compare' : 'Add to compare'}
+          aria-label="Compare tool"
+          className={`rounded-full p-1.5 transition-all ${
+            compared ? 'bg-purple-500 text-white' : 'bg-black/40 text-white/70 hover:bg-black/60 hover:text-white'
+          }`}
+        >
+          <GitCompareArrows className="h-3.5 w-3.5" />
+        </button>
+        <button
+          onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleBookmark(tool.slug); }}
+          title={bookmarked ? 'Remove bookmark' : 'Save tool'}
+          aria-label="Bookmark tool"
+          className={`rounded-full p-1.5 transition-all ${
+            bookmarked ? 'bg-purple-500 text-white' : 'bg-black/40 text-white/70 hover:bg-black/60 hover:text-white'
+          }`}
+        >
+          <Bookmark className="h-3.5 w-3.5" fill={bookmarked ? 'currentColor' : 'none'} />
+        </button>
+      </div>
 
-      {/* Cover Image with hover zoom */}
-      <Link href={`/tool/${tool.slug}`} className="block relative h-40 overflow-hidden">
+      {/* Cover Image with skeleton + hover zoom */}
+      <Link href={`/tool/${tool.slug}`} className="block relative h-40 overflow-hidden bg-zinc-900">
+        {!imgLoaded && <div className="absolute inset-0 animate-pulse bg-zinc-800/70" />}
         <img
           src={tool.coverImage}
-          alt={`${tool.name} screenshot`}
-          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+          alt={`${tool.name} — ${tool.tagline}`}
+          className={`h-full w-full object-cover transition-all duration-700 group-hover:scale-110 ${imgLoaded ? 'opacity-100' : 'opacity-0'}`}
           loading="lazy"
+          onLoad={() => setImgLoaded(true)}
+          onError={() => setImgLoaded(true)}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-        {/* Floating Metric Badge */}
         {tool.metrics && (
           <div className="absolute bottom-3 left-3 z-10">
             <span className="inline-flex items-center gap-1 rounded-lg bg-black/60 backdrop-blur-md px-2.5 py-1 text-[10px] font-semibold text-white border border-white/10">
@@ -101,7 +118,6 @@ export function ToolCard({ tool, index = 0 }: ToolCardProps) {
           </div>
         )}
 
-        {/* Pricing tag */}
         <div className="absolute bottom-3 right-3 z-10">
           <span className={`inline-flex rounded-lg border px-2 py-0.5 text-[10px] font-bold backdrop-blur-md ${getPricingColor(tool.pricing)}`}>
             {tool.pricing}
@@ -111,7 +127,6 @@ export function ToolCard({ tool, index = 0 }: ToolCardProps) {
 
       {/* Content */}
       <div className="p-4">
-        {/* Header row: Logo, Name, Founder Badges */}
         <div className="flex items-start gap-3 mb-2">
           <Link href={`/tool/${tool.slug}`} className="relative h-10 w-10 flex-shrink-0 overflow-hidden rounded-xl bg-zinc-800 ring-1 ring-white/10">
             {!logoError ? (
@@ -120,6 +135,7 @@ export function ToolCard({ tool, index = 0 }: ToolCardProps) {
                 alt={`${tool.name} logo`}
                 onError={() => setLogoError(true)}
                 className="h-full w-full object-cover"
+                loading="lazy"
               />
             ) : (
               <div className="flex h-full w-full items-center justify-center text-lg">
@@ -133,8 +149,8 @@ export function ToolCard({ tool, index = 0 }: ToolCardProps) {
                 {tool.name}
               </h3>
               {tool.hasFounderBadge && (
-                <span className="inline-flex items-center rounded bg-purple-500/20 px-1.5 py-0.5 text-[9px] font-bold text-purple-300 border border-purple-500/20 whitespace-nowrap">
-                  Verified
+                <span className="inline-flex items-center gap-0.5 rounded bg-purple-500/20 px-1.5 py-0.5 text-[9px] font-bold text-purple-300 border border-purple-500/20 whitespace-nowrap">
+                  <BadgeCheck className="h-2.5 w-2.5" /> Verified
                 </span>
               )}
             </Link>
@@ -149,26 +165,23 @@ export function ToolCard({ tool, index = 0 }: ToolCardProps) {
 
         {/* Rating */}
         <div className="flex items-center gap-1.5 mb-2">
-          <div className="flex items-center gap-0.5">
+          <div className="flex items-center gap-0.5" aria-label={`Rated ${tool.rating} out of 5`}>
             {[1, 2, 3, 4, 5].map((star) => (
               <Star
                 key={star}
-                className={`h-3 w-3 ${
-                  star <= Math.round(tool.rating)
-                    ? 'text-amber-400 fill-amber-400'
-                    : 'text-zinc-600'
-                }`}
+                className={`h-3 w-3 ${star <= Math.round(tool.rating) ? 'text-amber-400 fill-amber-400' : 'text-zinc-600'}`}
               />
             ))}
           </div>
           <span className="text-[11px] font-semibold text-white">{tool.rating}</span>
-          <span className="text-[10px] text-zinc-500">({tool.reviewsCount.toLocaleString()} reviews)</span>
+          {tool.reviewsCount > 0 && (
+            <span className="text-[10px] text-zinc-500">({tool.reviewsCount.toLocaleString()})</span>
+          )}
           {tool.ratingLabel && (
             <span className="ml-auto text-[9px] text-zinc-500 italic">{tool.ratingLabel}</span>
           )}
         </div>
 
-        {/* Tagline & Description */}
         <Link href={`/tool/${tool.slug}`} className="block">
           <p className="mb-1 text-sm font-semibold text-zinc-100 group-hover:text-purple-200 transition-colors">
             {tool.tagline}
@@ -178,24 +191,28 @@ export function ToolCard({ tool, index = 0 }: ToolCardProps) {
           </p>
         </Link>
 
-        {/* Tags */}
         <div className="mt-3 flex flex-wrap gap-1">
           {tool.tags.slice(0, 4).map((tag) => (
-            <span
+            <Link
               key={tag}
-              className="rounded-md bg-zinc-800/80 px-2 py-0.5 text-[10px] text-zinc-400 border border-zinc-700/50 hover:border-purple-500/30 hover:text-purple-300 transition-colors cursor-pointer"
+              href={`/tools?q=${encodeURIComponent(tag)}`}
+              className="rounded-md bg-zinc-800/80 px-2 py-0.5 text-[10px] text-zinc-400 border border-zinc-700/50 hover:border-purple-500/30 hover:text-purple-300 transition-colors"
             >
               #{tag}
-            </span>
+            </Link>
           ))}
         </div>
 
+        {tool.lastReviewed && (
+          <p className="mt-2 text-[9px] text-zinc-600">Last reviewed: {tool.lastReviewed}</p>
+        )}
+
         {/* CTA Row */}
-        <div className="mt-4 flex items-center gap-2">
+        <div className="mt-3 flex items-center gap-2">
           <a
             href={`/go/${tool.slug}`}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener noreferrer nofollow sponsored"
             className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 px-3 py-2 text-xs font-bold text-white shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 hover:scale-[1.02] transition-all"
             onClick={(e) => e.stopPropagation()}
           >

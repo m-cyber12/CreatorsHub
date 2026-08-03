@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Header } from '@/components/Header';
-import { INITIAL_TOOLS, Tool } from '@/data/tools';
+import { ALL_TOOLS, Tool } from '@/data/tools';
 import { Sparkles, Layers, CheckCircle2, Zap, ExternalLink, DollarSign, ArrowRight, RotateCcw } from 'lucide-react';
 import Link from 'next/link';
 
@@ -15,7 +15,7 @@ export default function CreatorStackBuilderPage() {
   const getStack = (): { title: string; desc: string; totalCost: string; timeSaved: string; tools: Tool[] } => {
     if (goal === 'faceless') {
       if (budget === 'free') {
-        const tools = INITIAL_TOOLS.filter((t) => t.slug === 'capcut-ai' || t.slug === 'adobe-podcast' || t.slug === 'ideogram-ai');
+        const tools = ALL_TOOLS.filter((t) => t.slug === 'capcut' || t.slug === 'adobe-podcast' || t.slug === 'ideogram');
         return {
           title: '100% Free Faceless YouTube Starter Stack',
           desc: 'Generate thumbnail typography with Ideogram, clean audio with Adobe Podcast, and edit full videos in CapCut—all for $0/mo.',
@@ -24,7 +24,7 @@ export default function CreatorStackBuilderPage() {
           tools,
         };
       } else if (budget === 'budget') {
-        const tools = INITIAL_TOOLS.filter((t) => t.slug === 'elevenlabs' || t.slug === 'vidiq-ai' || t.slug === 'midjourney');
+        const tools = ALL_TOOLS.filter((t) => t.slug === 'elevenlabs' || t.slug === 'vidiq' || t.slug === 'midjourney');
         return {
           title: 'The $22/mo High-Growth Faceless Documentary Stack',
           desc: 'Clone realistic human voices with ElevenLabs ($5), predict viral topics with VidIQ ($7.50), and generate high-CTR thumbnail art with Midjourney v6 ($10).',
@@ -33,7 +33,7 @@ export default function CreatorStackBuilderPage() {
           tools,
         };
       } else {
-        const tools = INITIAL_TOOLS.filter((t) => t.slug === 'elevenlabs' || t.slug === 'runway-gen3' || t.slug === 'vidiq-ai' || t.slug === 'storyblocks-ai');
+        const tools = ALL_TOOLS.filter((t) => t.slug === 'elevenlabs' || t.slug === 'runway' || t.slug === 'vidiq' || t.slug === 'fliki');
         return {
           title: 'The Enterprise Cinema-Grade Faceless Channel Stack',
           desc: 'Hollywood VFX from Runway Gen-3, unlimited 4K B-roll from Storyblocks, professional voice cloning from ElevenLabs, and AI SEO scripts from VidIQ.',
@@ -44,7 +44,7 @@ export default function CreatorStackBuilderPage() {
       }
     } else if (goal === 'shorts') {
       if (budget === 'free') {
-        const tools = INITIAL_TOOLS.filter((t) => t.slug === 'capcut-ai' || t.slug === 'opusclip');
+        const tools = ALL_TOOLS.filter((t) => t.slug === 'capcut' || t.slug === 'opusclip');
         return {
           title: 'Free TikTok & Shorts Repurposing Stack',
           desc: 'Use OpusClip free trial/tier for virality clipping and CapCut PC for custom animated captions.',
@@ -53,7 +53,7 @@ export default function CreatorStackBuilderPage() {
           tools,
         };
       } else {
-        const tools = INITIAL_TOOLS.filter((t) => t.slug === 'opusclip' || t.slug === 'submagic' || t.slug === 'getmunch');
+        const tools = ALL_TOOLS.filter((t) => t.slug === 'opusclip' || t.slug === 'submagic' || t.slug === 'munch');
         return {
           title: 'The 10x Viral Vertical Video Automation Stack',
           desc: 'Extract top 10 clips from 1-hour podcasts with OpusClip AI and add Alex Hormozi animated subtitles with Submagic in 1 click.',
@@ -63,7 +63,7 @@ export default function CreatorStackBuilderPage() {
         };
       }
     } else if (goal === 'podcast') {
-      const tools = INITIAL_TOOLS.filter((t) => t.slug === 'riverside-fm' || t.slug === 'descript' || t.slug === 'castmagic');
+      const tools = ALL_TOOLS.filter((t) => t.slug === 'riverside' || t.slug === 'descript' || t.slug === 'podcastle');
       return {
         title: '4K Studio Podcast & Show Notes Automation Stack',
         desc: 'Record uncompressed remote 4K video with Riverside.fm, edit audio by text in Descript, and generate timestamps and show notes with Castmagic.',
@@ -72,7 +72,7 @@ export default function CreatorStackBuilderPage() {
         tools,
       };
     } else {
-      const tools = INITIAL_TOOLS.filter((t) => t.slug === 'midjourney' || t.slug === 'photoshop-ai' || t.slug === 'ideogram-ai');
+      const tools = ALL_TOOLS.filter((t) => t.slug === 'midjourney' || t.slug === 'adobe-firefly' || t.slug === 'ideogram');
       return {
         title: '15%+ CTR YouTube Thumbnail Design Suite',
         desc: 'Generate photorealistic v6 characters in Midjourney, render legible bold titles with Ideogram v2, and expand backgrounds with Photoshop Generative Fill.',
@@ -88,7 +88,7 @@ export default function CreatorStackBuilderPage() {
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col justify-between">
       <div>
-        <Header onOpenSubmitModal={() => {}} searchQuery="" onSearchChange={() => {}} />
+        <Header />
 
         {/* Hero */}
         <section className="relative overflow-hidden pt-12 pb-16 sm:pt-20 sm:pb-24 border-b border-white/10 text-center">

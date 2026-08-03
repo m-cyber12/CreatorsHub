@@ -17,7 +17,7 @@ export default function JobsBoardPage() {
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col justify-between">
       <div>
-        <Header onOpenSubmitModal={() => {}} searchQuery="" onSearchChange={() => {}} />
+        <Header />
 
         {/* Hero */}
         <section className="relative overflow-hidden pt-12 pb-16 sm:pt-20 sm:pb-24 border-b border-white/10 text-center">
