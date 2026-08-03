@@ -265,6 +265,15 @@ export default function HomePage() {
             </span>
           </div>
 
+          {/* Quick Decision Filters */}
+          <div className="flex flex-wrap gap-2 mb-6">
+            {['Free plan', 'Commercial use', 'No watermark', 'API available'].map((label) => (
+              <span key={label} className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 text-[10px] font-bold text-emerald-300">
+                <ShieldCheck className="h-3 w-3" /> {label}
+              </span>
+            ))}
+          </div>
+
           {filteredTools.length > 0 ? (
             <>
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

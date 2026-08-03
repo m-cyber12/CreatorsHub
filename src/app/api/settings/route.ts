@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 import { supabase } from '@/lib/supabase';
 
 export const dynamic = 'force-dynamic';
@@ -44,6 +45,13 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+  const cookieStore = await cookies();
+  const sessionCookie = cookieStore.get('creatorai_admin_session');
+  const expectedToken = process.env.ADMIN_SESSION_TOKEN || process.env.ADMIN_PASSWORD || '';
+  if (!expectedToken || !sessionCookie || sessionCookie.value !== expectedToken) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   if (!supabase) return NextResponse.json({ success: true, mode: 'fallback' }, { status: 200 });
   try {
     const { key, value } = await request.json();

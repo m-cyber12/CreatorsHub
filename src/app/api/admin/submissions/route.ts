@@ -1,7 +1,19 @@
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 import { supabase } from '@/lib/supabase';
 
+async function isAdminAuthorized() {
+  const cookieStore = await cookies();
+  const sessionCookie = cookieStore.get('creatorai_admin_session');
+  const expectedToken = process.env.ADMIN_SESSION_TOKEN || process.env.ADMIN_PASSWORD || '';
+  if (!expectedToken || !sessionCookie) return false;
+  return sessionCookie.value === expectedToken;
+}
+
 export async function GET() {
+  if (!(await isAdminAuthorized())) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
   if (!supabase) {
     return NextResponse.json([], { status: 200 });
   }
@@ -15,7 +27,6 @@ export async function GET() {
     if (error || !data) {
       return NextResponse.json([], { status: 200 });
     }
-
     return NextResponse.json(data, { status: 200 });
   } catch (err) {
     return NextResponse.json([], { status: 200 });
@@ -23,6 +34,9 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  if (!(await isAdminAuthorized())) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
   if (!supabase) {
     return NextResponse.json({ error: 'Supabase not configured' }, { status: 500 });
   }

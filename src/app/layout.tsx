@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: 'CreatorAI Hub',
     type: 'website',
-    images: [{ url: '/brand-cover.png', width: 1200, height: 630, alt: 'CreatorAI Hub — Curated AI tools for video creators' }],
+    images: [{ url: '/og-optimized.png', width: 1200, height: 630, alt: 'CreatorAI Hub — Curated AI tools for video creators' }],
   },
   twitter: {
     card: 'summary_large_image',
@@ -40,6 +40,13 @@ export const metadata: Metadata = {
     images: ['/brand-cover.png'],
   },
   robots: { index: true, follow: true },
+  icons: {
+    icon: [
+      { url: '/logo.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: '32x32' },
+    ],
+    apple: [{ url: '/logo.svg' }],
+  },
 };
 
 const orgLd = {

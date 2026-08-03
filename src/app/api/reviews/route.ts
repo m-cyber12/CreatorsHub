@@ -64,7 +64,7 @@ export async function POST(request: Request) {
       .from('reviews')
       .insert([{
         tool_slug, rating: r, title: title.trim(), body: body.trim(),
-        author_name: safeName, user_id: user_id || null, status: 'approved', helpful_count: 0,
+        author_name: safeName, user_id: user_id || null, status: 'pending', helpful_count: 0,
       }])
       .select('id, tool_slug, rating, title, body, author_name, helpful_count, created_at')
       .single();
