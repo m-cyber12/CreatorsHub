@@ -3,6 +3,7 @@ import Link from '@/i18n/navigation';
 import { getTranslations } from 'next-intl/server';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { catalogHasAffiliates } from '@/lib/affiliate';
 import { CONTACT_EMAIL, SITE_NAME } from '@/config/site';
 
 export async function generateMetadata({
@@ -48,7 +49,7 @@ export default async function TermsPage({
           <section>
             <h2 className="text-lg font-bold text-white mb-2">{t('s3')}</h2>
             <p>
-              {t('s3body')}
+              {catalogHasAffiliates() ? t('s3body') : t('s3bodyNoAffiliate')}
               <Link href="/disclosure" className="text-accent-400 underline">{t('disclosure')}</Link>
               {t('s3end')}
             </p>

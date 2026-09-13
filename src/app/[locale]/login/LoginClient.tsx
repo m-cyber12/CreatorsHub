@@ -8,6 +8,7 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/context/AppProviders';
+import { SITE_URL } from '@/config/site';
 import { Mail, Lock, Loader2, CheckCircle2, Zap, ArrowRight, UserPlus, KeyRound } from 'lucide-react';
 
 export function LoginClient({ nextPath = '/account' }: { nextPath?: string }) {
@@ -54,7 +55,7 @@ export function LoginClient({ nextPath = '/account' }: { nextPath?: string }) {
         const origin =
           typeof window !== 'undefined' && window.location.origin
             ? window.location.origin
-            : 'https://creatorsaicenter.vercel.app';
+            : SITE_URL;
         const { data, error } = await supabase.auth.signUp({
           email: email.trim(),
           password: password.trim(),
@@ -138,7 +139,7 @@ export function LoginClient({ nextPath = '/account' }: { nextPath?: string }) {
     const origin =
       typeof window !== 'undefined' && window.location.origin
         ? window.location.origin
-        : 'https://creatorsaicenter.vercel.app';
+        : SITE_URL;
     await supabase.auth.resend({
       type: 'signup',
       email: email.trim(),
@@ -164,7 +165,7 @@ export function LoginClient({ nextPath = '/account' }: { nextPath?: string }) {
     const origin =
       typeof window !== 'undefined' && window.location.origin
         ? window.location.origin
-        : 'https://creatorsaicenter.vercel.app';
+        : SITE_URL;
     const redirectUrl = `${origin}${next}`;
 
     const { error } = await supabase.auth.signInWithOtp({
@@ -349,7 +350,7 @@ export function LoginClient({ nextPath = '/account' }: { nextPath?: string }) {
             <div className="mt-6 border-t border-white/10 pt-4 text-center">
               <button
                 type="button"
-                onClick={() => createLocalSession('creator@creatorsaicenter.app')}
+                onClick={() => createLocalSession('creator@noxifera.app')}
                 className="text-2xs font-bold text-zinc-400 hover:text-accent-300 underline"
               >
                 {t('guestDemo')}

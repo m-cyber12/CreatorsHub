@@ -85,10 +85,10 @@ for (const url of allUrls) {
     );
   }
 
-  if (url.includes('?via=creatoraihub') || url.includes('?ref=creatoraihub')) {
+  if (/[?&](via|ref|from|utm_campaign)=/i.test(url)) {
     warnings.push(
-      `Guessed affiliate parameter in ${url} — only use real, approved program links ` +
-        `and set affiliateProgram on the tool.`
+      `Affiliate-looking parameter in ${url} — only use real, approved program links ` +
+        `and set affiliateProgram on the tool (the redirect ignores affiliateUrl otherwise).`
     );
   }
 }

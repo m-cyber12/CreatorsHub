@@ -11,16 +11,22 @@
  * the catalog by scripts/validate-data.mjs.
  */
 
-export const BENCHMARK_METRICS = ['quality', 'ease', 'value', 'speed', 'export'] as const;
+import { BENCHMARK_WEIGHTS as CANONICAL_WEIGHTS } from '@/lib/benchmarkWeights';
+
+export const BENCHMARK_METRICS = ['quality', 'speed', 'value', 'ease', 'export'] as const;
 export type BenchmarkMetric = (typeof BENCHMARK_METRICS)[number];
 
-/** Public scoring weights (see /benchmark — Quality 35 / Ease 20 / Value 20 / Speed 15 / Export 10). */
+/**
+ * Public scoring weights — derived from the canonical source
+ * (src/lib/benchmarkWeights.ts). Canonical: Quality 35 / Speed 20 /
+ * Value 20 / Ease 15 / Export 10. Never edit here; change the source.
+ */
 export const BENCHMARK_WEIGHTS: Record<BenchmarkMetric, number> = {
-  quality: 0.35,
-  ease: 0.2,
-  value: 0.2,
-  speed: 0.15,
-  export: 0.1,
+  quality: CANONICAL_WEIGHTS.outputQuality,
+  speed: CANONICAL_WEIGHTS.speed,
+  value: CANONICAL_WEIGHTS.valueForMoney,
+  ease: CANONICAL_WEIGHTS.easeOfUse,
+  export: CANONICAL_WEIGHTS.exportFreedom,
 };
 
 export interface BenchmarkToolResult {

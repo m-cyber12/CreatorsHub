@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { isAdminAuthorized } from '@/lib/adminAuth';
+import { SITE_URL } from '@/config/site';
 
 export async function POST(request: Request) {
   if (!(await isAdminAuthorized())) {
@@ -18,7 +19,7 @@ export async function POST(request: Request) {
     try {
       const res = await fetch(url, {
         headers: {
-          'User-Agent': 'CreatorAI-Hub-Badge-Bot/1.0 (+https://creatorsaicenter.vercel.app)',
+          'User-Agent': `Noxifera-Badge-Bot/1.0 (+${SITE_URL})`,
         },
         signal: controller.signal,
       });
@@ -33,14 +34,21 @@ export async function POST(request: Request) {
 
       const html = await res.text();
       const lower = html.toLowerCase();
+      const liveHost = new URL(SITE_URL).hostname.toLowerCase();
       const hasDirectBadge =
         lower.includes(`/badge/${slug}`) ||
+        lower.includes(`${liveHost}/badge`) ||
+        lower.includes('noxifera') ||
+        // Legacy badges embedded before the 2026-09 rebrand still verify.
         lower.includes('creatorsaicenter.vercel.app/badge') ||
         lower.includes('creatoraihub') ||
         lower.includes('featured on creatorai');
 
       const hasGeneralBadge =
-        lower.includes('/badge/') || lower.includes('creatorai') || lower.includes('badge');
+        lower.includes('/badge/') ||
+        lower.includes('noxifera') ||
+        lower.includes('creatorai') ||
+        lower.includes('badge');
 
       if (hasDirectBadge) {
         return NextResponse.json({

@@ -14,6 +14,7 @@ import { ToolCard } from '@/components/ToolCard';
 import { CompareBar } from '@/components/CompareBar';
 import { ReviewSection } from '@/components/ReviewSection';
 import { ToolActions } from '@/components/ToolActions';
+import { ToolWorkspacePanel } from '@/components/ToolWorkspacePanel';
 import { ShareButtons } from '@/components/ShareButtons';
 import { HelpfulFeedback } from '@/components/HelpfulFeedback';
 import { EvidenceCard } from '@/components/EvidenceCard';
@@ -473,6 +474,9 @@ export default async function ToolDetailPage({
             ) : null}
           </div>
         )}
+
+        {/* My NOXIFERA workspace panel (save / status / private note / history) */}
+        <ToolWorkspacePanel slug={tool.slug} name={tool.name} />
 
         {/* Description */}
         <section className="mt-8 rounded-3xl border border-white/10 bg-surface-1 p-6 sm:p-8">

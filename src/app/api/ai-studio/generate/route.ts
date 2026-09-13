@@ -3,6 +3,7 @@ import { rateLimit, clientIp } from '@/lib/rateLimit';
 import { consumeDailyQuota } from '@/lib/quotaStore';
 import { supabaseAdmin } from '@/lib/supabaseAdmin';
 import { getAllOrders } from '@/lib/ordersStore';
+import { studioToolUsesQuota } from '@/lib/studio';
 
 export const dynamic = 'force-dynamic';
 
@@ -59,13 +60,19 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { tool, prompt, topic, category, platform = 'YouTube', style = 'Viral Hook' } = body;
 
+    // Only AI-assisted utilities may burn quota here. Local utilities run
+    // 100% in the browser and must never be routed through this endpoint.
+    if (typeof tool !== 'string' || !studioToolUsesQuota(tool)) {
+      return NextResponse.json({ error: 'Unknown or local-only Studio utility.' }, { status: 400 });
+    }
+
     const identity = await resolveIdentity(request);
     const quota = await consumeDailyQuota(identity.identifier, identity.isPro);
 
     if (quota.limitReached) {
       return NextResponse.json(
         {
-          error: `Daily limit of ${quota.limit} AI generations reached (سقف استفاده روزانه تکمیل شد). Upgrade to Studio Pro for 50 runs/day!`,
+          error: `Daily limit of ${quota.limit} Studio runs reached (سقف استفاده روزانه تکمیل شد). Upgrade to Studio Pro for 50 runs/day!`,
           limitReached: true,
           quota,
         },
@@ -115,6 +122,7 @@ Format response in clean, formatted Markdown without intro conversational filler
           if (text) {
             return NextResponse.json({
               success: true,
+              aiUsed: true,
               source: 'Google Gemini 1.5 Flash (Free Tier)',
               result: text,
               quota,
@@ -158,6 +166,7 @@ Format response in clean, formatted Markdown without intro conversational filler
           if (text) {
             return NextResponse.json({
               success: true,
+              aiUsed: true,
               source: 'Groq Llama 3.3 (Free)',
               result: text,
               quota,
@@ -201,6 +210,7 @@ Format response in clean, formatted Markdown without intro conversational filler
           if (text) {
             return NextResponse.json({
               success: true,
+              aiUsed: true,
               source: 'OpenRouter Free Model',
               result: text,
               quota,
@@ -244,6 +254,7 @@ Format response in clean, formatted Markdown without intro conversational filler
           if (text) {
             return NextResponse.json({
               success: true,
+              aiUsed: true,
               source: 'OpenAI GPT-4o-mini',
               result: text,
               quota,
@@ -255,12 +266,15 @@ Format response in clean, formatted Markdown without intro conversational filler
       }
     }
 
-    // Heuristic Engine fallback (100% offline & instant)
+    // Local template engine fallback (100% offline & instant). This is a
+    // deterministic template, NOT a model call — the UI labels it honestly
+    // via StudioSourceBadge so it is never presented as AI output.
     const result = generateCreatorTemplate(tool, prompt || topic, platform, style);
 
     return NextResponse.json({
       success: true,
-      source: 'Studio Smart Engine',
+      aiUsed: false,
+      source: 'Studio Smart Engine (local templates)',
       result,
       quota,
     });

@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { BLOG_POSTS } from '@/data/posts';
 import { ALL_TOOLS, hasVerifiedScore, computeOverall } from '@/data/tools';
+import { outboundRel } from '@/lib/affiliate';
 import { SITE_URL, SITE_NAME } from '@/config/site';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -145,7 +146,7 @@ export default async function BlogPostDetail({ params }: { params: Params }) {
               <a
                 href={`/go/${tool.slug}`}
                 target="_blank"
-                rel="noopener noreferrer nofollow sponsored"
+                rel={outboundRel(tool)}
                 className="flex shrink-0 items-center gap-2 rounded-2xl bg-accent-500 px-6 py-3.5 text-xs font-extrabold text-black shadow-lg transition-colors hover:bg-accent-400"
               >
                 <span>{t('tryNow', { name: tool.name })}</span>

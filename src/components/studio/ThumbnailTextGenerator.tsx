@@ -3,8 +3,9 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { Check, Copy, Sparkles, Loader2, Bot } from 'lucide-react';
+import { Check, Copy, Sparkles, Loader2 } from 'lucide-react';
 import { StudioSelect } from './StudioSelect';
+import { StudioSourceBadge } from './StudioSourceBadge';
 import { useStudioQuota } from '@/context/StudioQuotaContext';
 import { MarkdownLite } from './MarkdownLite';
 import { studioAuthHeaders } from '@/lib/studioAuthClient';
@@ -14,6 +15,8 @@ export function ThumbnailTextGenerator() {
   const [f, setF] = useState({ topic: '', type: 'Tutorial', tone: 'Viral Hook', max: 4 });
   const [loading, setLoading] = useState(false);
   const [aiOutput, setAiOutput] = useState<string | null>(null);
+  const [aiSource, setAiSource] = useState<string | null>(null);
+  const [runError, setRunError] = useState<string | null>(null);
   const { consumeQuota } = useStudioQuota();
 
   const copy = async (value: string) => navigator.clipboard.writeText(value);
@@ -21,10 +24,12 @@ export function ThumbnailTextGenerator() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Single quota consumption point for this run (the RunGate only checks).
     const allowed = consumeQuota('thumbnail-text');
     if (!allowed) return;
 
     setLoading(true);
+    setRunError(null);
     try {
       const res = await fetch('/api/ai-studio/generate', {
         method: 'POST',
@@ -39,9 +44,13 @@ export function ThumbnailTextGenerator() {
       const data = await res.json();
       if (data.result) {
         setAiOutput(data.result);
+        // The API names the TRUE producer (cloud model or local engine).
+        setAiSource(typeof data.source === 'string' ? data.source : null);
+      } else {
+        setRunError(typeof data.error === 'string' ? data.error : t('runFailed'));
       }
     } catch {
-      setAiOutput(`1. I Tested ${f.topic || 'AI Tools'} So You Don't Have To\n2. The Secret ${f.topic || 'AI'} Strategy in 2026\n3. Stop Wasting Hours Editing!`);
+      setRunError(t('runFailed'));
     } finally {
       setLoading(false);
     }
@@ -102,15 +111,21 @@ export function ThumbnailTextGenerator() {
             <p className="studio-eyebrow">{t('shortCopy')}</p>
             <h2>{aiOutput ? t('resultHeading') : t('keepShort')}</h2>
           </div>
-          <span className="flex items-center gap-1 font-mono text-2xs text-cyan-300">
-            <Bot className="h-3 w-3" /> {t('engineLabel')}
-          </span>
+          {aiSource ? (
+            <StudioSourceBadge source={aiSource} />
+          ) : (
+            <span className="font-mono text-2xs text-zinc-500">{t('engineLabel')}</span>
+          )}
         </div>
 
         {loading ? (
           <div className="flex flex-col items-center justify-center p-12 text-center">
             <Loader2 className="h-8 w-8 animate-spin text-cyan-300 mb-3" />
             <p className="text-sm font-bold text-zinc-300">{t('analyzingLong')}</p>
+          </div>
+        ) : runError ? (
+          <div className="studio-empty" role="alert">
+            <p className="font-semibold text-rose-300">{runError}</p>
           </div>
         ) : aiOutput ? (
           <article className="studio-output relative rounded-2xl border border-cyan-400/30 bg-surface-1 p-6 shadow-xl">

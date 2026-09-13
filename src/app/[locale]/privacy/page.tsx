@@ -3,6 +3,7 @@ import Link from '@/i18n/navigation';
 import { getTranslations } from 'next-intl/server';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { catalogHasAffiliates } from '@/lib/affiliate';
 import { CONTACT_EMAIL, SITE_NAME, SITE_URL } from '@/config/site';
 
 export async function generateMetadata({
@@ -74,7 +75,7 @@ export default async function PrivacyPage({
           <section>
             <h2 className="text-lg font-bold text-white mb-2">{t('s5')}</h2>
             <p>
-              {t('s5body')}
+              {catalogHasAffiliates() ? t('s5body') : t('s5bodyNoAffiliate')}
               <Link href="/disclosure" className="text-accent-400 underline">{t('disclosure')}</Link>
               {t('s5end')}
             </p>

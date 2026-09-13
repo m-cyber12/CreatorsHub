@@ -1,5 +1,7 @@
 import { useTranslations } from 'next-intl';
+import Link from '@/i18n/navigation';
 import { computeOverall, type ToolScores, type ToolVerdict } from '@/data/tools';
+import { weightLabel, type BenchmarkDimensionKey } from '@/lib/benchmarkWeights';
 
 /**
  * Multi-dimensional score display (audit fix 2.1, 4.3).
@@ -14,11 +16,16 @@ import { computeOverall, type ToolScores, type ToolVerdict } from '@/data/tools'
  */
 
 type Dim = { key: keyof ToolScores; labelKey: string; hintKey: string };
+/**
+ * Display order follows the canonical methodology order (Quality, Speed,
+ * Value, Ease, Export) and each row shows its scoring weight, so the
+ * methodology is visible wherever a score appears (trust UX).
+ */
 const DIMENSIONS: Dim[] = [
   { key: 'outputQuality', labelKey: 'quality', hintKey: 'qualityHint' },
   { key: 'speed', labelKey: 'speed', hintKey: 'speedHint' },
-  { key: 'easeOfUse', labelKey: 'ease', hintKey: 'easeHint' },
   { key: 'valueForMoney', labelKey: 'value', hintKey: 'valueHint' },
+  { key: 'easeOfUse', labelKey: 'ease', hintKey: 'easeHint' },
   { key: 'exportFreedom', labelKey: 'export', hintKey: 'exportHint' },
 ];
 
@@ -59,7 +66,10 @@ export function ScoreBreakdown({
           return (
             <div key={key} className="grid grid-cols-[minmax(0,9rem)_1fr_auto] items-center gap-3">
               <dt className="text-sm text-zinc-300" title={hint}>
-                {label}
+                {label}{' '}
+                <span className="font-mono text-2xs tabular-nums text-zinc-500">
+                  {weightLabel(key as BenchmarkDimensionKey)}
+                </span>
               </dt>
               <dd
                 className="h-2 overflow-hidden rounded-full bg-surface-3"
@@ -82,7 +92,12 @@ export function ScoreBreakdown({
         })}
       </dl>
 
-      <p className="mt-4 text-2xs text-zinc-500">{t('overallNote')}</p>
+      <p className="mt-4 text-2xs text-zinc-500">
+        {t('overallNote')}{' '}
+        <Link href="/methodology" className="underline hover:text-zinc-300">
+          {t('methodologyLink')}
+        </Link>
+      </p>
 
       {verdict && (
         <div className="mt-5 grid gap-3 border-t border-white/5 pt-5 sm:grid-cols-2">

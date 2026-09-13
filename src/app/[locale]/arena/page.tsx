@@ -30,6 +30,14 @@ export default async function ArenaPage({ params }: { params: Promise<{ locale: 
         <h1 className="text-4xl font-black tracking-tight sm:text-5xl">{t('heading')}</h1>
         <p className="mt-4 max-w-3xl text-base leading-relaxed text-zinc-300">{t('sub')}</p>
         <p className="mt-3 max-w-3xl text-2xs leading-relaxed text-zinc-500">{t('valueFootnote')}</p>
+        {/*
+          Trust fix: battle "scores" are provisional catalog ratings, not lab
+          results. Until hands-on benchmarks exist, that must be stated on the
+          page — never implied as tested superiority.
+        */}
+        <p className="mt-3 max-w-3xl rounded-xl border border-amber-500/20 bg-amber-500/5 px-3 py-2 text-2xs leading-relaxed text-amber-200/80">
+          {t('provisionalNote')}
+        </p>
 
         <ArenaClient />
       </main>

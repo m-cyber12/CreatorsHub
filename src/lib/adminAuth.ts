@@ -17,7 +17,9 @@ import { cookies } from 'next/headers';
  * constant time. Rotating ADMIN_SESSION_SECRET invalidates every session.
  */
 
-export const ADMIN_COOKIE = 'creatorai_admin_session';
+export const ADMIN_COOKIE = 'noxifera_admin_session';
+/** Pre-rebrand cookie name — accepted until it expires so admins stay logged in. */
+export const LEGACY_ADMIN_COOKIE = 'creatorai_admin_session';
 const SESSION_TTL_MS = 8 * 60 * 60 * 1000; // 8 hours
 
 function signingSecret(): string | null {
@@ -81,7 +83,9 @@ export function verifySessionToken(token: string | undefined): boolean {
 /** Verify the admin session from the request cookies. */
 export async function isAdminAuthorized(): Promise<boolean> {
   const store = await cookies();
-  return verifySessionToken(store.get(ADMIN_COOKIE)?.value);
+  return verifySessionToken(
+    store.get(ADMIN_COOKIE)?.value ?? store.get(LEGACY_ADMIN_COOKIE)?.value
+  );
 }
 
 /** Cookie options shared by login and logout. */
@@ -115,7 +119,7 @@ export function verifyCsrfToken(sessionToken: string | undefined, csrf: string |
  */
 export async function getAdminSessionToken(): Promise<string | undefined> {
   const store = await cookies();
-  return store.get(ADMIN_COOKIE)?.value;
+  return store.get(ADMIN_COOKIE)?.value ?? store.get(LEGACY_ADMIN_COOKIE)?.value;
 }
 
 /**

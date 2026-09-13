@@ -18,6 +18,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
   const t = await getTranslations({ locale, namespace: 'aiStudio' });
   return (
     <StudioToolChrome
+      tool="audio-trimmer"
       eyebrow={t('atEyebrow')}
       title={t('atHeading')}
       description={t('atDesc')}

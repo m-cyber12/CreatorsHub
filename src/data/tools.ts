@@ -57,8 +57,8 @@ export interface Tool {
   affiliateUrl?: string;
   /**
    * Which affiliate network the link above belongs to.
-   * Audit fix 1.6 — 15 tools carried invented ?via=creatoraihub /
-   * ?ref=creatoraihub parameters for programs that were never joined, so every
+   * Audit fix 1.6 — 15 tools carried invented ?via=noxifera /
+   * ?ref=noxifera parameters for programs that were never joined, so every
    * rel="sponsored" click earned nothing while the footer claimed an affiliate
    * relationship. affiliateUrl is now ignored at redirect time unless this is
    * set to a real, approved program.
@@ -144,15 +144,14 @@ export type ToolSeed = Omit<
 /** The evidence a hand-verified tool must supply. */
 export type VerifiedRecord = Partial<Tool> & { verificationLevel: VerificationLevel };
 
-/** Weighted overall score, 0–10, derived from sub-scores. Never hand-authored. */
+/**
+ * Weighted overall score, 0–10, derived from sub-scores. Never hand-authored.
+ * Weights come from the canonical source (src/lib/benchmarkWeights.ts) so
+ * scoring can never drift from the published methodology again.
+ */
 export function computeOverall(s: ToolScores): number {
-  const weighted =
-    s.outputQuality * 0.35 +
-    s.easeOfUse * 0.2 +
-    s.valueForMoney * 0.2 +
-    s.speed * 0.15 +
-    s.exportFreedom * 0.1;
-  return Math.round(weighted * 10) / 10;
+  // Imported lazily at module bottom to keep this data module dependency-light.
+  return computeWeightedOverall(s);
 }
 
 /** True only when a numeric score is defensible to a regulator. */
@@ -219,7 +218,7 @@ export const INITIAL_TOOLS: ToolSeed[] = [
     id: '1', name: 'OpusClip', slug: 'opusclip',
     tagline: 'Turn long videos into viral shorts',
     description: 'OpusClip analyzes long-form videos using AI virality scoring to extract the highest-retention vertical clips. Auto-captions, emojis, and smart reframing included.',
-    url: 'https://www.opus.pro', affiliateUrl: 'https://www.opus.pro/?via=creatoraihub',
+    url: 'https://www.opus.pro', affiliateUrl: 'https://www.opus.pro/?via=noxifera',
     previewVideoUrl: 'https://www.youtube.com/watch?v=kC7xR2rZ5Yk',
     logo: 'https://www.google.com/s2/favicons?domain=opus.pro&sz=128',
     category: 'Video Repurposing', pricing: 'Freemium', startingPrice: '$9.99/mo',
@@ -231,7 +230,7 @@ export const INITIAL_TOOLS: ToolSeed[] = [
     id: '2', name: 'Munch', slug: 'munch',
     tagline: 'AI video repurposing for social media',
     description: 'Extracts the most engaging moments from long-form content using AI trend analysis and keyword virality scoring.',
-    url: 'https://www.getmunch.com', affiliateUrl: 'https://www.getmunch.com/?utm_campaign=creatoraihub',
+    url: 'https://www.getmunch.com', affiliateUrl: 'https://www.getmunch.com/?utm_campaign=noxifera',
     logo: 'https://www.google.com/s2/favicons?domain=getmunch.com&sz=128',
     category: 'Video Repurposing', pricing: 'Paid', startingPrice: '$49/mo',
     rating: 4.6, reviewsCount: 310, ratingLabel: 'Editorial Score',
@@ -242,7 +241,7 @@ export const INITIAL_TOOLS: ToolSeed[] = [
     id: '3', name: 'Vidyo.ai', slug: 'vidyo-ai',
     tagline: 'Create short clips from long videos',
     description: 'Repurpose long podcasts and webinars into social-ready vertical clips with custom brand templates, emojis, and auto-framing.',
-    url: 'https://vidyo.ai', affiliateUrl: 'https://vidyo.ai/?ref=creatoraihub',
+    url: 'https://vidyo.ai', affiliateUrl: 'https://vidyo.ai/?ref=noxifera',
     logo: 'https://www.google.com/s2/favicons?domain=vidyo.ai&sz=128',
     category: 'Video Repurposing', pricing: 'Freemium', startingPrice: '$15/mo',
     rating: 4.6, reviewsCount: 280, ratingLabel: 'Editorial Score',
@@ -253,7 +252,7 @@ export const INITIAL_TOOLS: ToolSeed[] = [
     id: '4', name: 'Klap', slug: 'klap',
     tagline: 'Turn YouTube videos into TikToks',
     description: 'Fast AI clipping tool that identifies interesting topics in your long videos, generates vertical clips, and overlays customized captions.',
-    url: 'https://klap.app', affiliateUrl: 'https://klap.app/?via=creatoraihub',
+    url: 'https://klap.app', affiliateUrl: 'https://klap.app/?via=noxifera',
     logo: 'https://www.google.com/s2/favicons?domain=klap.app&sz=128',
     category: 'Video Repurposing', pricing: 'Paid', startingPrice: '$29/mo',
     rating: 4.7, reviewsCount: 310, ratingLabel: 'Editorial Score',
@@ -264,7 +263,7 @@ export const INITIAL_TOOLS: ToolSeed[] = [
     id: '5', name: 'Submagic', slug: 'submagic',
     tagline: 'Auto captions and B-roll for shorts',
     description: 'Synchronizes animated captions with your voice, inserts context-aware B-roll graphics, applies smooth camera zoom transitions, and adds subtle sound effects.',
-    url: 'https://submagic.co', affiliateUrl: 'https://submagic.co?ref=creatoraihub',
+    url: 'https://submagic.co', affiliateUrl: 'https://submagic.co?ref=noxifera',
     previewVideoUrl: 'https://www.youtube.com/watch?v=0Q7E1d3C8bE',
     logo: 'https://www.google.com/s2/favicons?domain=submagic.co&sz=128',
     category: 'Video Repurposing', pricing: 'Paid', startingPrice: '$20/mo',
@@ -298,7 +297,7 @@ export const INITIAL_TOOLS: ToolSeed[] = [
     id: '8', name: 'InVideo', slug: 'invideo',
     tagline: 'AI video creation platform',
     description: 'All-in-one AI video generator that creates scripts, selects stock footage, adds subtitles, and applies realistic voiceovers from a simple text prompt.',
-    url: 'https://invideo.io', affiliateUrl: 'https://invideo.io/?ref=creatoraihub',
+    url: 'https://invideo.io', affiliateUrl: 'https://invideo.io/?ref=noxifera',
     previewVideoUrl: 'https://www.youtube.com/watch?v=VzN3X2iOq4A',
     logo: 'https://www.google.com/s2/favicons?domain=invideo.io&sz=128',
     category: 'Video Repurposing', pricing: 'Freemium', startingPrice: '$15/mo',
@@ -345,7 +344,7 @@ export const INITIAL_TOOLS: ToolSeed[] = [
     id: '12', name: 'Descript', slug: 'descript',
     tagline: 'Edit video by editing text',
     description: 'All-in-one video and podcast editor with AI overdub, studio sound enhancement, filler word removal, and automatic transcription.',
-    url: 'https://www.descript.com', affiliateUrl: 'https://www.descript.com?via=creatoraihub',
+    url: 'https://www.descript.com', affiliateUrl: 'https://www.descript.com?via=noxifera',
     previewVideoUrl: 'https://www.youtube.com/watch?v=2e6iF5K8V7w',
     logo: 'https://www.google.com/s2/favicons?domain=descript.com&sz=128',
     category: 'Video Editing & VFX', pricing: 'Freemium', startingPrice: '$12/mo',
@@ -368,7 +367,7 @@ export const INITIAL_TOOLS: ToolSeed[] = [
     id: '14', name: 'VEED', slug: 'veed',
     tagline: 'Online video editor with AI',
     description: 'Professional browser-based video editing platform with one-click subtitle translation, filler word removal, and instant resizing for social channels.',
-    url: 'https://www.veed.io', affiliateUrl: 'https://www.veed.io/?via=creatoraihub',
+    url: 'https://www.veed.io', affiliateUrl: 'https://www.veed.io/?via=noxifera',
     logo: 'https://www.google.com/s2/favicons?domain=veed.io&sz=128',
     category: 'Video Editing & VFX', pricing: 'Freemium', startingPrice: '$12/mo',
     rating: 4.7, reviewsCount: 650, ratingLabel: 'Editorial Score',
@@ -423,7 +422,7 @@ export const INITIAL_TOOLS: ToolSeed[] = [
     id: '19', name: 'HeyGen', slug: 'heygen',
     tagline: 'AI avatars and video translation',
     description: 'Create AI avatar videos with lip-sync translation in 40+ languages. Clone your voice and appearance for scalable personalized video content.',
-    url: 'https://www.heygen.com', affiliateUrl: 'https://www.heygen.com/?via=creatoraihub',
+    url: 'https://www.heygen.com', affiliateUrl: 'https://www.heygen.com/?via=noxifera',
     previewVideoUrl: 'https://www.youtube.com/watch?v=XzWjKZZiPFE',
     logo: 'https://www.google.com/s2/favicons?domain=heygen.com&sz=128',
     category: 'AI Avatars', pricing: 'Paid', startingPrice: '$24/mo',
@@ -446,7 +445,7 @@ export const INITIAL_TOOLS: ToolSeed[] = [
     id: '21', name: 'ElevenLabs', slug: 'elevenlabs',
     tagline: 'Most realistic AI voice cloning',
     description: 'The industry standard for AI voiceovers, voice cloning, and dubbing in 29+ languages. Perfect for faceless YouTube channels and documentaries.',
-    url: 'https://elevenlabs.io', affiliateUrl: 'https://elevenlabs.io/?from=creatoraihub',
+    url: 'https://elevenlabs.io', affiliateUrl: 'https://elevenlabs.io/?from=noxifera',
     previewVideoUrl: 'https://www.youtube.com/watch?v=1F2bX0sR_g4',
     logo: 'https://www.google.com/s2/favicons?domain=elevenlabs.io&sz=128',
     category: 'Voice & Audio', pricing: 'Freemium', startingPrice: '$5/mo',
@@ -458,7 +457,7 @@ export const INITIAL_TOOLS: ToolSeed[] = [
     id: '22', name: 'Murf.ai', slug: 'murf-ai',
     tagline: 'AI voiceovers for videos',
     description: 'Versatile AI voice generator offering over 120+ realistic voices in 20 languages. Includes pitch control, emphasis editing, and background music syncing.',
-    url: 'https://murf.ai', affiliateUrl: 'https://murf.ai/?via=creatoraihub',
+    url: 'https://murf.ai', affiliateUrl: 'https://murf.ai/?via=noxifera',
     logo: 'https://www.google.com/s2/favicons?domain=murf.ai&sz=128',
     category: 'Voice & Audio', pricing: 'Freemium', startingPrice: '$19/mo',
     rating: 4.7, reviewsCount: 510, ratingLabel: 'Editorial Score',
@@ -491,7 +490,7 @@ export const INITIAL_TOOLS: ToolSeed[] = [
     id: '26', name: 'Lovo.ai', slug: 'lovo-ai',
     tagline: 'AI voice generator for creators',
     description: 'All-in-one voiceover and video creator platform featuring emotional speech control, sound effects library, and multi-speaker dialog editing.',
-    url: 'https://lovo.ai', affiliateUrl: 'https://lovo.ai/?via=creatoraihub',
+    url: 'https://lovo.ai', affiliateUrl: 'https://lovo.ai/?via=noxifera',
     logo: 'https://www.google.com/s2/favicons?domain=lovo.ai&sz=128',
     category: 'Voice & Audio', pricing: 'Freemium', startingPrice: '$19/mo',
     rating: 4.6, reviewsCount: 320, ratingLabel: 'Editorial Score',
@@ -711,7 +710,7 @@ export const INITIAL_TOOLS: ToolSeed[] = [
     id: '50', name: 'TubeBuddy', slug: 'tubebuddy',
     tagline: 'YouTube growth and optimization',
     description: 'Browser extension for YouTube SEO, A/B testing thumbnails, bulk processing, and advanced analytics. Essential for serious YouTubers.',
-    url: 'https://www.tubebuddy.com', affiliateUrl: 'https://www.tubebuddy.com/?via=creatoraihub',
+    url: 'https://www.tubebuddy.com', affiliateUrl: 'https://www.tubebuddy.com/?via=noxifera',
     logo: 'https://www.google.com/s2/favicons?domain=tubebuddy.com&sz=128',
     category: 'Automation', pricing: 'Freemium', startingPrice: '$4.50/mo',
     rating: 4.6, reviewsCount: 1800, ratingLabel: 'Community Score',
@@ -725,6 +724,7 @@ import { EXTENDED_TOOLS } from './tools-extended';
 import { DEAD_TOOL_SLUGS } from './graveyard';
 import { VERIFIED_TOOLS } from './verified-tools';
 import { TOOL_DESCRIPTIONS } from './descriptions';
+import { computeWeightedOverall } from '@/lib/benchmarkWeights';
 
 /**
  * Audit fix 1.1 / 1.2.
@@ -785,6 +785,11 @@ export const ALL_TOOLS: Tool[] = (() => {
 export const TESTED_TOOLS: Tool[] = ALL_TOOLS.filter(hasVerifiedScore);
 
 export const UNIQUE_TOOLS = ALL_TOOLS;
+
+const TOOL_BY_SLUG = new Map(ALL_TOOLS.map((t) => [t.slug, t]));
+/** O(1) catalog lookup by slug (used by the My NOXIFERA workspace). */
+export const getToolBySlug = (slug: string): Tool | undefined => TOOL_BY_SLUG.get(slug);
+
 export const getFeaturedTools = () => ALL_TOOLS.filter((t) => t.isFeatured);
 export const getToolsByCategory = (category: Category) =>
   category === 'All' ? ALL_TOOLS : ALL_TOOLS.filter((t) => t.category === category);

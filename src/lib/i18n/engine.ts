@@ -29,6 +29,7 @@
  */
 
 import { createHash } from 'node:crypto';
+import { SITE_URL } from '@/config/site';
 import { TRANSLATED_LOCALES, type Locale } from '@/i18n/routing';
 import {
   getEffectiveProvider,
@@ -278,7 +279,7 @@ function translateWithOpenRouter(system: string, user: string, apiKey: string, m
     system,
     user,
     {
-      'HTTP-Referer': 'https://creatorsaicenter.vercel.app',
+      'HTTP-Referer': SITE_URL,
       'X-Title': 'Noxifera',
     }
   );

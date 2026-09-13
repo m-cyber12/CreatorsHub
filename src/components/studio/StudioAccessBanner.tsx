@@ -2,11 +2,33 @@
 
 import React from 'react';
 import Link from '@/i18n/navigation';
-import { Sparkles, Zap, ArrowRight, AlertTriangle } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { Sparkles, Zap, ArrowRight, AlertTriangle, LockKeyhole } from 'lucide-react';
 import { useStudioAccess } from './useStudioAccess';
+import { studioToolUsesQuota, type StudioToolSlug } from '@/lib/studio';
 
-export function StudioAccessBanner() {
+export function StudioAccessBanner({ tool }: { tool: StudioToolSlug }) {
+  const t = useTranslations('studio');
   const { access } = useStudioAccess();
+
+  /**
+   * Trust fix: local utilities are unlimited and private — showing them an
+   * "AI generations left" upsell was misleading. They get an honest local
+   * badge instead; only AI-assisted utilities show quota + upgrade.
+   */
+  if (!studioToolUsesQuota(tool)) {
+    return (
+      <div className="my-4 flex items-center gap-3 rounded-2xl border border-emerald-400/30 bg-emerald-400/5 p-4 shadow-lg">
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-400/15 text-emerald-300">
+          <LockKeyhole className="h-4 w-4" />
+        </span>
+        <div>
+          <p className="text-xs font-bold text-white">{t('localUnlimitedTitle')}</p>
+          <p className="mt-0.5 text-[11px] text-zinc-400">{t('localUnlimitedText')}</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="my-4 flex flex-col items-center justify-between gap-3 rounded-2xl border border-cyan-400/30 bg-gradient-to-r from-cyan-400/10 via-surface-1 to-fuchsia-500/10 p-4 shadow-lg sm:flex-row">
@@ -17,7 +39,7 @@ export function StudioAccessBanner() {
         <div>
           <div className="flex items-center gap-2">
             <p className="text-xs font-bold text-white">
-              Studio Daily Free Usage:
+              {t('dailyRunsTitle')}
             </p>
             <span
               className={`rounded-full px-2.5 py-0.5 font-mono text-2xs font-extrabold ${
@@ -26,13 +48,11 @@ export function StudioAccessBanner() {
                   : 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
               }`}
             >
-              ⚡ {access.remaining} of {access.limit} Free Runs Left Today
+              ⚡ {t('runsLeft', { remaining: access.remaining, limit: access.limit })}
             </span>
           </div>
           <p className="text-[11px] text-zinc-400 mt-0.5">
-            {access.remaining > 0
-              ? 'Enjoy 3 free AI generations per day! Need 50 runs/day? Upgrade to Studio Pro.'
-              : 'Daily limit reached! Upgrade to Studio Pro ($4.99/mo) for 50 runs/day.'}
+            {access.remaining > 0 ? t('runsHint') : t('runsExhausted')}
           </p>
         </div>
       </div>
@@ -46,7 +66,7 @@ export function StudioAccessBanner() {
         }`}
       >
         {access.remaining <= 0 ? <AlertTriangle className="h-3.5 w-3.5" /> : <Zap className="h-3.5 w-3.5 fill-black" />}
-        <span>{access.remaining <= 0 ? 'Unlock Studio Pro ($4.99)' : 'Upgrade to Pro ($4.99)'}</span>
+        <span>{access.remaining <= 0 ? t('unlockPro') : t('upgradeToPro')}</span>
         <ArrowRight className="h-3.5 w-3.5" />
       </Link>
     </div>

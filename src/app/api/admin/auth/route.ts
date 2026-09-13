@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { rateLimit, clientIp } from '@/lib/rateLimit';
 import {
   ADMIN_COOKIE,
+  LEGACY_ADMIN_COOKIE,
   adminCookieOptions,
   createSessionToken,
   isAdminAuthorized,
@@ -55,10 +56,11 @@ export async function POST(request: Request) {
   }
 }
 
-/** Log out — clears the session cookie. */
+/** Log out — clears the session cookie (plus the pre-rebrand one). */
 export async function DELETE() {
   const response = NextResponse.json({ success: true }, { status: 200 });
   response.cookies.set(ADMIN_COOKIE, '', { ...adminCookieOptions, maxAge: 0 });
+  response.cookies.set(LEGACY_ADMIN_COOKIE, '', { ...adminCookieOptions, maxAge: 0 });
   return response;
 }
 

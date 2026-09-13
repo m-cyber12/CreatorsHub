@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
+import { SITE_URL } from '@/config/site';
 import Link from '@/i18n/navigation';
 import {
   Loader2,
@@ -963,7 +964,7 @@ export default function AdminPage() {
         i + 1,
         String(tool.name ?? ''), String(tool.slug ?? ''), String(tool.category ?? ''),
         String(tool.pricing ?? ''), String(tool.startingPrice ?? ''), String(tool.url ?? ''),
-        `${'https://creatorsaicenter.vercel.app'}/go/${tool.slug}`,
+        `${SITE_URL}/go/${tool.slug}`,
         String(tool.affiliateUrl ?? ''), String(tool.affiliateProgram ?? ''),
         String(tool.logo ?? ''), String(tool.coverImage ?? ''), String(tool.previewVideoUrl ?? ''),
         (tool.overriddenFields?.length ?? 0) > 0 ? 'edited' : '',
@@ -1886,7 +1887,7 @@ export default function AdminPage() {
                         id="tf-affiliateUrl"
                         value={String(toolForm.affiliateUrl ?? '')}
                         onChange={(e) => setToolForm({ ...toolForm, affiliateUrl: e.target.value })}
-                        placeholder="https://www.opus.pro/?via=creatoraihub"
+                        placeholder="https://www.opus.pro/?via=noxifera"
                         className="mt-1 w-full rounded-xl border border-white/10 bg-surface-2 px-3 py-2 text-sm text-white focus:border-accent-500 focus:outline-none"
                       />
                     </div>

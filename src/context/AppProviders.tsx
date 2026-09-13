@@ -1,9 +1,18 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useLayoutEffect, useState, useCallback } from 'react';
+import React, { createContext, useContext, useEffect, useLayoutEffect, useMemo, useState, useCallback } from 'react';
 import { supabase } from '@/lib/supabase';
 import { applyStoredSnapTheme } from '@/lib/snapTheme';
 import { StudioQuotaProvider } from '@/context/StudioQuotaContext';
+import {
+  WORKSPACE_CHANGED_EVENT,
+  getSavedTools,
+  setToolNote as wsSetToolNote,
+  setToolStatus as wsSetToolStatus,
+  toggleSavedTool as wsToggleSavedTool,
+  type SavedTool,
+  type ToolStatus,
+} from '@/lib/workspace';
 import type { User } from '@supabase/supabase-js';
 
 /* ============ Auth ============ */
@@ -21,7 +30,7 @@ const AuthContext = createContext<AuthCtx>({
 });
 export const useAuth = () => useContext(AuthContext);
 
-/* ============ Bookmarks ============ */
+/* ============ Bookmarks (My NOXIFERA saved tools) ============ */
 interface BookmarkCtx {
   bookmarks: string[];
   toggleBookmark: (slug: string) => void;
@@ -29,6 +38,16 @@ interface BookmarkCtx {
 }
 const BookmarkContext = createContext<BookmarkCtx>({ bookmarks: [], toggleBookmark: () => {}, isBookmarked: () => false });
 export const useBookmarks = () => useContext(BookmarkContext);
+
+/* ============ Saved tools (rich workspace records) ============ */
+interface SavedToolsCtx {
+  savedTools: SavedTool[];
+  setNote: (slug: string, note: string) => void;
+  setStatus: (slug: string, status: ToolStatus, note?: string) => void;
+  refresh: () => void;
+}
+const SavedToolsContext = createContext<SavedToolsCtx>({ savedTools: [], setNote: () => {}, setStatus: () => {}, refresh: () => {} });
+export const useSavedTools = () => useContext(SavedToolsContext);
 
 /* ============ Compare ============ */
 interface CompareCtx {
@@ -53,7 +72,7 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     try {
-      const storedLocalUser = localStorage.getItem('cah_local_user');
+      const storedLocalUser = localStorage.getItem('noxifera_local_user') ?? localStorage.getItem('cah_local_user');
       if (storedLocalUser) {
         setUser(JSON.parse(storedLocalUser));
       }
@@ -76,7 +95,7 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
     const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
       if (session?.user) {
         setUser(session.user);
-        try { localStorage.setItem('cah_local_user', JSON.stringify(session.user)); } catch {}
+        try { localStorage.setItem('noxifera_local_user', JSON.stringify(session.user)); } catch {}
       }
     });
 
@@ -87,9 +106,10 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
     setUser(usr);
     try {
       if (usr) {
-        localStorage.setItem('cah_local_user', JSON.stringify(usr));
-      } else {
+        localStorage.setItem('noxifera_local_user', JSON.stringify(usr));
         localStorage.removeItem('cah_local_user');
+      } else {
+        localStorage.removeItem('noxifera_local_user'); localStorage.removeItem('cah_local_user');
       }
     } catch {
       /* noop */
@@ -101,50 +121,77 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
       try { await supabase.auth.signOut(); } catch {}
     }
     setUser(null);
-    try { localStorage.removeItem('cah_local_user'); } catch {}
+    try { localStorage.removeItem('noxifera_local_user'); localStorage.removeItem('cah_local_user'); } catch {}
   }, []);
 
-  // --- bookmarks (key migrated from 'cah_bookmarks' during the Noxifera rebrand;
-  // the legacy key is read once so existing users keep their saved tools) ---
-  const [bookmarks, setBookmarks] = useState<string[]>([]);
+  // --- saved tools: single store is src/lib/workspace.ts (rich records with
+  // notes, statuses, and history). Legacy slug arrays are merged on load, so
+  // no existing user loses a saved tool. `bookmarks` stays a plain slug
+  // array so every existing consumer keeps working unchanged. ---
+  const [savedTools, setSavedTools] = useState<SavedTool[]>([]);
   useEffect(() => {
-    try {
-      let raw = localStorage.getItem('noxifera_bookmarks');
-      if (!raw) raw = localStorage.getItem('cah_bookmarks');
-      if (raw) setBookmarks(JSON.parse(raw));
-    } catch {}
+    const refresh = () => {
+      try {
+        setSavedTools(getSavedTools());
+      } catch {}
+    };
+    refresh();
+    window.addEventListener(WORKSPACE_CHANGED_EVENT, refresh);
+    window.addEventListener('storage', refresh);
+    return () => {
+      window.removeEventListener(WORKSPACE_CHANGED_EVENT, refresh);
+      window.removeEventListener('storage', refresh);
+    };
   }, []);
 
-  const persistBookmarks = (next: string[]) => {
-    setBookmarks(next);
-    try {
-      localStorage.setItem('noxifera_bookmarks', JSON.stringify(next));
-      localStorage.removeItem('cah_bookmarks');
-    } catch {}
-    if (supabase && user) {
-      supabase.from('user_bookmarks').upsert({ user_id: user.id, slugs: next }, { onConflict: 'user_id' }).then(() => {});
-    }
-  };
+  const bookmarks = useMemo(() => savedTools.map((t) => t.slug), [savedTools]);
 
-  const toggleBookmark = useCallback((slug: string) => {
-    persistBookmarks(bookmarks.includes(slug) ? bookmarks.filter((s) => s !== slug) : [...bookmarks, slug]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bookmarks, user]);
+  const syncSlugsToCloud = useCallback(
+    (slugs: string[]) => {
+      if (supabase && user) {
+        supabase.from('user_bookmarks').upsert({ user_id: user.id, slugs }, { onConflict: 'user_id' }).then(() => {});
+      }
+    },
+    [user]
+  );
+
+  const toggleBookmark = useCallback(
+    (slug: string) => {
+      const { list } = wsToggleSavedTool(slug);
+      setSavedTools(list);
+      syncSlugsToCloud(list.map((t) => t.slug));
+    },
+    [syncSlugsToCloud]
+  );
 
   const isBookmarked = useCallback((slug: string) => bookmarks.includes(slug), [bookmarks]);
+
+  const setNote = useCallback((slug: string, note: string) => {
+    setSavedTools(wsSetToolNote(slug, note));
+  }, []);
+
+  const setStatus = useCallback((slug: string, status: ToolStatus, note?: string) => {
+    setSavedTools(wsSetToolStatus(slug, status, note));
+  }, []);
+
+  const refreshSavedTools = useCallback(() => {
+    try {
+      setSavedTools(getSavedTools());
+    } catch {}
+  }, []);
 
   // --- compare ---
   const [compareList, setCompareList] = useState<string[]>([]);
   useEffect(() => {
     try {
-      const raw = sessionStorage.getItem('cah_compare');
+      const raw = sessionStorage.getItem('noxifera_compare');
       if (raw) setCompareList(JSON.parse(raw));
     } catch {}
   }, []);
 
   const setCompare = (next: string[]) => {
     setCompareList(next);
-    try { sessionStorage.setItem('cah_compare', JSON.stringify(next)); } catch {}
+    try { sessionStorage.setItem('noxifera_compare', JSON.stringify(next)); } catch {}
   };
 
   const toggleCompare = useCallback((slug: string) => {
@@ -160,14 +207,21 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
   const isCompared = useCallback((slug: string) => compareList.includes(slug), [compareList]);
   const clearCompare = useCallback(() => setCompare([]), []);
 
+  const savedToolsValue = useMemo(
+    () => ({ savedTools, setNote, setStatus, refresh: refreshSavedTools }),
+    [savedTools, setNote, setStatus, refreshSavedTools]
+  );
+
   return (
     <AuthContext.Provider value={{ user, loading, signOut, setLocalUser }}>
       <BookmarkContext.Provider value={{ bookmarks, toggleBookmark, isBookmarked }}>
-        <CompareContext.Provider value={{ compareList, toggleCompare, isCompared, clearCompare }}>
-          <StudioQuotaProvider>
-            {children}
-          </StudioQuotaProvider>
-        </CompareContext.Provider>
+        <SavedToolsContext.Provider value={savedToolsValue}>
+          <CompareContext.Provider value={{ compareList, toggleCompare, isCompared, clearCompare }}>
+            <StudioQuotaProvider>
+              {children}
+            </StudioQuotaProvider>
+          </CompareContext.Provider>
+        </SavedToolsContext.Provider>
       </BookmarkContext.Provider>
     </AuthContext.Provider>
   );

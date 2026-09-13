@@ -17,7 +17,17 @@ interface StudioQuotaContextType {
   setShowPaywallModal: (show: boolean) => void;
 }
 
-const DAILY_FREE_LIMIT = 3;
+export const DAILY_FREE_LIMIT = 3;
+export const STUDIO_PRO_DAILY_LIMIT = 50;
+
+/**
+ * Quota covers AI-assisted Studio runs only (prompt-builder, thumbnail-brief,
+ * thumbnail-text). Local utilities never touch it (see src/lib/studio.ts).
+ * Storage key migrated during the Noxifera rebrand; the legacy key is read
+ * once so existing users keep their count for the day.
+ */
+const QUOTA_KEY = 'noxifera_studio_daily_quota';
+const LEGACY_QUOTA_KEY = 'cah_studio_daily_quota';
 
 function getTodayKey(): string {
   return new Date().toISOString().slice(0, 10);
@@ -26,7 +36,7 @@ function getTodayKey(): string {
 function getStoredQuota(): { date: string; used: number } {
   if (typeof window === 'undefined') return { date: getTodayKey(), used: 0 };
   try {
-    const raw = localStorage.getItem('cah_studio_daily_quota');
+    const raw = localStorage.getItem(QUOTA_KEY) ?? localStorage.getItem(LEGACY_QUOTA_KEY);
     if (raw) {
       const parsed = JSON.parse(raw);
       if (parsed.date === getTodayKey()) {
@@ -42,10 +52,8 @@ function getStoredQuota(): { date: string; used: number } {
 function setStoredQuota(used: number) {
   if (typeof window === 'undefined') return;
   try {
-    localStorage.setItem(
-      'cah_studio_daily_quota',
-      JSON.stringify({ date: getTodayKey(), used })
-    );
+    localStorage.setItem(QUOTA_KEY, JSON.stringify({ date: getTodayKey(), used }));
+    localStorage.removeItem(LEGACY_QUOTA_KEY);
   } catch {
     /* noop */
   }

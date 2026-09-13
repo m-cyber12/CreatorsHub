@@ -4,7 +4,6 @@ import { useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Copy, Download, Plus, Sparkles } from 'lucide-react';
 import { StudioSelect } from './StudioSelect';
-import { useStudioQuota } from '@/context/StudioQuotaContext';
 
 type Row = { date: string; platform: string; format: string; topic: string; hook: string; cta: string; status: string };
 
@@ -18,12 +17,13 @@ export function ContentCalendarBuilder() {
   const t = useTranslations('studio.cc');
   const [f, setF] = useState({ niche: '', platforms: 'YouTube', frequency: 3, goal: 'Growth', days: 7, pillars: '' });
   const [rows, setRows] = useState<Row[]>([]);
-  const { consumeQuota } = useStudioQuota();
 
+  /**
+   * Fully local template builder — no network, no AI model, no quota.
+   * (Trust fix: it previously consumed the paid "AI generations" quota and
+   * was blocked at zero, despite being 100% deterministic browser code.)
+   */
   const make = () => {
-    const allowed = consumeQuota('content-calendar');
-    if (!allowed) return;
-
     const start = new Date();
     const platforms = f.platforms.split(',').map((x) => x.trim()).filter(Boolean);
     const pillars = f.pillars.split(',').map((x) => x.trim()).filter(Boolean);
@@ -54,7 +54,7 @@ export function ContentCalendarBuilder() {
   const download = () => {
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
-    a.download = 'creatorai-content-calendar.csv';
+    a.download = 'noxifera-content-calendar.csv';
     a.click();
     URL.revokeObjectURL(a.href);
   };

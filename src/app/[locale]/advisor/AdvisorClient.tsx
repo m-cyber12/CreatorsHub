@@ -27,6 +27,7 @@ import {
   RotateCcw,
   GitCompareArrows,
   FolderKanban,
+  BookmarkPlus,
 } from 'lucide-react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -42,12 +43,14 @@ import {
   AUTOMATION_LEVELS,
   CONTENT_TO_GOAL,
   catalogTool,
+  matchPreferencesToAdvisor,
   type AdvisorAnswers,
   type AdvisorResult,
   type ContentType,
   type Budget,
   type StageKey,
 } from '@/lib/advisor';
+import { getPreferences } from '@/lib/workspace';
 import { attachTools, createProject, loadProjects, toggleWorkflow, type NoxiferaProject, type ProjectType } from '@/lib/projects';
 
 const SAVED_KEY = 'noxifera_advisor_saves';
@@ -105,6 +108,7 @@ function CurveDots({ level }: { level: number }) {
 
 export function AdvisorClient() {
   const t = useTranslations('advisor');
+  const tMy = useTranslations('my');
   const [step, setStep] = useState(0);
   const [content, setContent] = useState<ContentType | null>(null);
   const [platform, setPlatform] = useState<AdvisorAnswers['platform']>('youtube');
@@ -122,10 +126,27 @@ export function AdvisorClient() {
   const [attachedFlash, setAttachedFlash] = useState(false);
   const [flash, setFlash] = useState<string | null>(null);
   const [hydrated, setHydrated] = useState(false);
+  const [prefilledCount, setPrefilledCount] = useState(0);
 
   useEffect(() => {
     setSaved(loadSaved());
     setProjects(loadProjects());
+    // ?from=my — prefill the wizard from My NOXIFERA preferences.
+    // Only confident matches are applied; the user can change everything.
+    try {
+      if (new URLSearchParams(window.location.search).get('from') === 'my') {
+        const pre = matchPreferencesToAdvisor(getPreferences());
+        if (pre.content) setContent(pre.content);
+        if (pre.platform) setPlatform(pre.platform);
+        if (pre.budget) setBudget(pre.budget);
+        if (pre.experience) setExperience(pre.experience);
+        if (pre.automation) setAutomation(pre.automation);
+        if (pre.existing.length > 0) setExisting(pre.existing);
+        setPrefilledCount(pre.matchedCount);
+      }
+    } catch {
+      /* corrupted storage — wizard defaults stand */
+    }
     setHydrated(true);
   }, []);
 
@@ -405,6 +426,17 @@ export function AdvisorClient() {
                   <Layers className="h-3.5 w-3.5" aria-hidden="true" /> {t('actions.buildStack')}
                 </Link>
               )}
+              {content && result.stages.some((s) => s.tool) && (
+                <Link
+                  href={`/my?tab=stacks&new=1&goal=${CONTENT_TO_GOAL[content]}&tools=${result.stages
+                    .map((s) => s.tool)
+                    .filter((x): x is string => Boolean(x))
+                    .join(',')}&name=${encodeURIComponent(`${t(`contentTypes.${content}.label`)} · ${t(`budget.${budget}.label`)}`)}`}
+                  className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-surface-1 px-4 py-2.5 text-2xs font-bold text-zinc-200 transition-colors hover:border-accent-500/50"
+                >
+                  <BookmarkPlus className="h-3.5 w-3.5" aria-hidden="true" /> {t('actions.saveAsStack')}
+                </Link>
+              )}
               <button
                 onClick={copySummary}
                 className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-surface-1 px-4 py-2.5 text-2xs font-bold text-zinc-200 transition-colors hover:border-accent-500/50"
@@ -550,6 +582,15 @@ export function AdvisorClient() {
         </span>
         <h1 className="mt-4 text-3xl font-black tracking-tight md:text-5xl">{t('title')}</h1>
         <p className="mt-4 max-w-2xl text-sm leading-relaxed text-zinc-400">{t('intro')}</p>
+
+        {prefilledCount > 0 && (
+          <p className="mt-4 rounded-2xl border border-accent-500/25 bg-accent-500/10 px-4 py-3 text-sm text-zinc-200">
+            {t('prefillBanner', { count: String(prefilledCount) })}{' '}
+            <Link href="/my?tab=preferences" className="font-bold text-accent-400 hover:text-accent-300">
+              {tMy('openMy')} →
+            </Link>
+          </p>
+        )}
 
         {/* Progress */}
         <div className="mt-8">

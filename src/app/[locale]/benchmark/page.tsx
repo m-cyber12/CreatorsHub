@@ -5,6 +5,7 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { ALL_TOOLS, TESTED_TOOLS, hasVerifiedScore } from '@/data/tools';
 import { BENCHMARK_RESULTS, BENCHMARK_METRICS } from '@/data/benchmarks';
+import { BENCHMARK_DIMENSIONS, weightLabel } from '@/lib/benchmarkWeights';
 import { BenchmarkLeaderboard } from '@/components/BenchmarkLeaderboard';
 import { TestingQueueWidget } from '@/components/TestingQueueWidget';
 import { FlaskConical, Timer, Ruler, DollarSign, ShieldCheck, ArrowUpRight } from 'lucide-react';
@@ -36,7 +37,8 @@ const BRIEF_CATEGORY: Record<(typeof BRIEF_IDS)[number], string> = {
   b5: 'Voice & Audio',
 };
 
-const METRIC_ICONS = [Timer, Ruler, DollarSign, ShieldCheck];
+/** Decorative icons in canonical dimension order: Quality, Speed, Value, Ease, Export. */
+const METRIC_ICONS = [FlaskConical, Timer, DollarSign, Ruler, ShieldCheck];
 
 export default async function BenchmarkPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -53,13 +55,28 @@ export default async function BenchmarkPage({ params }: { params: Promise<{ loca
     return { id, category: BRIEF_CATEGORY[id], ...b };
   });
 
-  const metrics: { label: string; weight: string; desc: string }[] = [
-    { label: t('metricQuality'), weight: '35%', desc: t('metricQualityDesc') },
-    { label: t('metricEase'), weight: '20%', desc: t('metricEaseDesc') },
-    { label: t('metricValue'), weight: '20%', desc: t('metricValueDesc') },
-    { label: t('metricSpeed'), weight: '15%', desc: t('metricSpeedDesc') },
-    { label: t('metricExport'), weight: '10%', desc: t('metricExportDesc') },
-  ];
+  /**
+   * Scoring weights — order and percentages come from the canonical source
+   * (src/lib/benchmarkWeights.ts), the same values computeOverall() uses.
+   * Only the human-readable labels stay localized. This page previously
+   * hardcoded a different split (Ease 20 / Speed 15) than the methodology
+   * page and the scoring function.
+   */
+  const METRIC_I18N_SUFFIX: Record<string, string> = {
+    outputQuality: 'Quality',
+    speed: 'Speed',
+    valueForMoney: 'Value',
+    easeOfUse: 'Ease',
+    exportFreedom: 'Export',
+  };
+  const metrics: { label: string; weight: string; desc: string }[] = BENCHMARK_DIMENSIONS.map((d) => {
+    const suffix = METRIC_I18N_SUFFIX[d.key];
+    return {
+      label: t(`metric${suffix}`),
+      weight: weightLabel(d.key),
+      desc: t(`metric${suffix}Desc`),
+    };
+  });
   const independenceItems = t.raw('independenceItems') as string[];
 
   return (
