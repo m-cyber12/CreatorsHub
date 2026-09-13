@@ -13,7 +13,10 @@ import { Footer } from '@/components/Footer';
 import { ToolCard } from '@/components/ToolCard';
 import { CompareBar } from '@/components/CompareBar';
 import { ReviewSection } from '@/components/ReviewSection';
+import { CommunityQA } from '@/components/CommunityQA';
+import { TrackView } from '@/components/TrackView';
 import { ToolActions } from '@/components/ToolActions';
+import { ToolWorkspacePanel } from '@/components/ToolWorkspacePanel';
 import { ShareButtons } from '@/components/ShareButtons';
 import { HelpfulFeedback } from '@/components/HelpfulFeedback';
 import { EvidenceCard } from '@/components/EvidenceCard';
@@ -266,6 +269,7 @@ export default async function ToolDetailPage({
       <Header />
 
       <main id="main" className="mx-auto max-w-5xl px-4 py-10">
+        <TrackView event="tool_view" slug={tool.slug} />
         <Link
           href="/tools"
           className="mb-6 inline-flex items-center gap-1.5 text-2xs font-semibold text-zinc-400 transition-colors hover:text-accent-400"
@@ -473,6 +477,9 @@ export default async function ToolDetailPage({
             ) : null}
           </div>
         )}
+
+        {/* My NOXIFERA workspace panel (save / status / private note / history) */}
+        <ToolWorkspacePanel slug={tool.slug} name={tool.name} />
 
         {/* Description */}
         <section className="mt-8 rounded-3xl border border-white/10 bg-surface-1 p-6 sm:p-8">
@@ -718,6 +725,8 @@ export default async function ToolDetailPage({
 
         {/* Micro-feedback — audit fix 3.5 */}
         <HelpfulFeedback toolSlug={tool.slug} />
+
+        <CommunityQA entityType="tool" entitySlug={tool.slug} />
 
         {alternatives.length > 0 && (
           <section className="mt-12">

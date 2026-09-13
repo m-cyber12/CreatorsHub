@@ -7,11 +7,14 @@ import { Footer } from '@/components/Footer';
 import { CustomSelect } from '@/components/CustomSelect';
 import { ALL_TOOLS, Tool, hasVerifiedScore, computeOverall } from '@/data/tools';
 import { byRankDesc } from '@/lib/ranking';
+import { outboundRel, catalogHasAffiliates } from '@/lib/affiliate';
 import { attachTools, loadProjects, type NoxiferaProject } from '@/lib/projects';
 import { VerificationBadge } from '@/components/VerificationBadge';
-import { Sparkles, Star, ExternalLink, Trophy, Plus, X, Flame, Check, FolderKanban } from 'lucide-react';
+import { Sparkles, Star, ExternalLink, Trophy, Plus, X, Flame, Check, FolderKanban, Bookmark } from 'lucide-react';
 import Link from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
+import { saveComparison } from '@/lib/workspace';
+import { track } from '@/lib/analytics';
 
 const ACCENTS = ['text-amber-400', 'text-amber-200', 'text-amber-300'];
 const BTN = ['bg-accent-500 hover:bg-accent-400 text-black', 'bg-zinc-800 hover:bg-zinc-700 text-white', 'bg-zinc-800 hover:bg-zinc-700 text-white'];
@@ -27,6 +30,8 @@ export function CompareClient({ initialTools }: { initialTools: Tool[] }) {
   const [projects, setProjects] = useState<NoxiferaProject[]>([]);
   const [attachTarget, setAttachTarget] = useState('');
   const [attachMsg, setAttachMsg] = useState<string | null>(null);
+  const [saveMsg, setSaveMsg] = useState<string | null>(null);
+  const tMy = useTranslations('my');
 
   // Hydrate projects once (client-only).
   React.useEffect(() => {
@@ -212,7 +217,7 @@ export function CompareClient({ initialTools }: { initialTools: Tool[] }) {
                     <a
                       href={`/go/${t.slug}`}
                       target="_blank"
-                      rel="noopener noreferrer nofollow sponsored"
+                      rel={outboundRel(t)}
                       className={`inline-flex items-center gap-1.5 rounded-xl ${BTN[i]} px-4 py-2.5 text-xs font-bold shadow-lg transition-colors`}
                     >
                       <span>{tr('tryTool', { name: t.name })}</span>
@@ -252,6 +257,31 @@ export function CompareClient({ initialTools }: { initialTools: Tool[] }) {
               {tr('addToProject')}
             </button>
             {attachMsg && <span className="text-2xs font-semibold text-emerald-300">{attachMsg}</span>}
+            {/* Save comparison to My NOXIFERA */}
+            <button
+              type="button"
+              onClick={() => {
+                const slugs = selected.map((t) => t.slug);
+                if (slugs.length < 2) return;
+                saveComparison(selected.map((t) => t.name).join(' vs '), slugs);
+                track('comparison_saved', { count: slugs.length });
+                setSaveMsg(tr('comparisonSaved'));
+                window.setTimeout(() => setSaveMsg(null), 3000);
+              }}
+              disabled={selected.length < 2}
+              className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-zinc-900 px-4 py-2.5 text-2xs font-bold text-zinc-200 transition-colors hover:border-accent-500/50 disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              {saveMsg ? <Check className="h-3.5 w-3.5 text-emerald-400" /> : <Bookmark className="h-3.5 w-3.5" />}
+              {tr('saveComparison')}
+            </button>
+            {saveMsg && (
+              <span className="text-2xs font-semibold text-emerald-300">
+                {saveMsg}{' '}
+                <Link href="/my?tab=comparisons" className="font-bold text-accent-400 hover:text-accent-300">
+                  {tMy('openMy')} →
+                </Link>
+              </span>
+            )}
             {projects.length === 0 && (
               <span className="text-2xs text-zinc-500">
                 {tr('noProjects')}{' '}
@@ -262,8 +292,13 @@ export function CompareClient({ initialTools }: { initialTools: Tool[] }) {
             )}
           </div>
 
+          {/*
+            Trust fix: the footer note must never claim affiliate links when
+            none exist (or hide them when they do). Derived from the catalog,
+            matching /disclosure exactly.
+          */}
           <p className="mt-4 text-center text-2xs text-zinc-500">
-            {tr('footerNote')}{' '}
+            {catalogHasAffiliates() ? tr('footerNote') : tr('footerNoteNoAffiliate')}{' '}
             <Link href="/disclosure" className="underline hover:text-zinc-300">{tr('readDisclosure')}</Link>.
           </p>
         </main>

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
+import { SITE_URL } from '@/config/site';
 import Link from '@/i18n/navigation';
 import {
   Loader2,
@@ -24,9 +25,15 @@ import {
   Tag,
   Coins,
   ShieldCheck,
+  Activity,
+  MessagesSquare,
+  HeartPulse,
 } from 'lucide-react';
+import { ActivityTab } from '@/components/admin/ActivityTab';
+import { CommunityTab } from '@/components/admin/CommunityTab';
+import { HealthTab } from '@/components/admin/HealthTab';
 
-type Tab = 'overview' | 'orders' | 'claims' | 'submissions' | 'reviews' | 'news' | 'announcement' | 'i18n' | 'preview' | 'tools' | 'blog' | 'deals';
+type Tab = 'overview' | 'orders' | 'claims' | 'submissions' | 'reviews' | 'news' | 'announcement' | 'i18n' | 'preview' | 'tools' | 'blog' | 'deals' | 'activity' | 'community' | 'health';
 
 interface AdminStats {
   catalog: { total: number; handsOnTested: number; pricingVerified: number; listedOnly: number };
@@ -34,6 +41,8 @@ interface AdminStats {
     configured: boolean;
     submissionsPending: number;
     reviewsPending: number;
+    communityPending?: number;
+    communityReports?: number;
     newsPending: number;
     newsApproved: number;
     newsletterConfirmed: number;
@@ -118,6 +127,9 @@ const TABS: { id: Tab; labelKey: string; icon: typeof Inbox }[] = [
   { id: 'tools', labelKey: 'tabTools', icon: Wrench },
   { id: 'blog', labelKey: 'tabBlog', icon: FileText },
   { id: 'deals', labelKey: 'tabDeals', icon: Tag },
+  { id: 'activity', labelKey: 'tabActivity', icon: Activity },
+  { id: 'community', labelKey: 'tabCommunity', icon: MessagesSquare },
+  { id: 'health', labelKey: 'tabHealth', icon: HeartPulse },
 ];
 
 export default function AdminPage() {
@@ -889,6 +901,8 @@ export default function AdminPage() {
     { label: t('listedOnly'), value: stats?.catalog?.listedOnly ?? 0, tint: 'text-zinc-400' },
     { label: t('submissionsPending'), value: stats?.db?.submissionsPending ?? 0, tint: 'text-accent-300', db: true },
     { label: t('reviewsPending'), value: stats?.db?.reviewsPending ?? 0, tint: 'text-accent-300', db: true },
+    { label: t('communityPending'), value: stats?.db?.communityPending ?? 0, tint: 'text-accent-300', db: true },
+    { label: t('reportsOpen'), value: stats?.db?.communityReports ?? 0, tint: 'text-amber-300', db: true },
     { label: t('newsAuto'), value: stats?.db?.newsApproved ?? 0, tint: 'text-emerald-300', db: true },
     { label: t('newsLive'), value: stats?.db?.newsApproved ?? 0, tint: 'text-emerald-300', db: true },
     { label: t('newsletterConfirmed'), value: stats?.db?.newsletterConfirmed ?? 0, tint: 'text-emerald-300', db: true },
@@ -963,7 +977,7 @@ export default function AdminPage() {
         i + 1,
         String(tool.name ?? ''), String(tool.slug ?? ''), String(tool.category ?? ''),
         String(tool.pricing ?? ''), String(tool.startingPrice ?? ''), String(tool.url ?? ''),
-        `${'https://creatorsaicenter.vercel.app'}/go/${tool.slug}`,
+        `${SITE_URL}/go/${tool.slug}`,
         String(tool.affiliateUrl ?? ''), String(tool.affiliateProgram ?? ''),
         String(tool.logo ?? ''), String(tool.coverImage ?? ''), String(tool.previewVideoUrl ?? ''),
         (tool.overriddenFields?.length ?? 0) > 0 ? 'edited' : '',
@@ -1479,6 +1493,12 @@ export default function AdminPage() {
           )}
 
           {/* News feed — v3 auto-published, read-only monitoring */}
+          {tab === 'activity' && <ActivityTab />}
+
+          {tab === 'community' && <CommunityTab csrf={csrf} />}
+
+          {tab === 'health' && <HealthTab />}
+
           {tab === 'news' && (
             <section>
               <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
@@ -1886,7 +1906,7 @@ export default function AdminPage() {
                         id="tf-affiliateUrl"
                         value={String(toolForm.affiliateUrl ?? '')}
                         onChange={(e) => setToolForm({ ...toolForm, affiliateUrl: e.target.value })}
-                        placeholder="https://www.opus.pro/?via=creatoraihub"
+                        placeholder="https://www.opus.pro/?via=noxifera"
                         className="mt-1 w-full rounded-xl border border-white/10 bg-surface-2 px-3 py-2 text-sm text-white focus:border-accent-500 focus:outline-none"
                       />
                     </div>

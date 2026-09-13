@@ -70,7 +70,15 @@
     "switchToDark": "切换到深色模式",
     "pagination": "分页",
     "notAllTranslated": "有些部分可能尚未完全翻译。",
-    "googleTranslate": "用谷歌翻译"
+    "googleTranslate": "用谷歌翻译",
+    "save": "保存",
+    "saved": "已收藏",
+    "saveTool": "将{name}收藏到我的 NOXIFERA",
+    "unsaveTool": "将{name}移出我的 NOXIFERA",
+    "removeFromCompare": "移出对比",
+    "compareName": "对比{name}",
+    "removeNameFromCompare": "将{name}移出对比",
+    "addNameToCompare": "将{name}加入对比"
   },
   "header": {
     "browseTools": "浏览工具",
@@ -104,7 +112,10 @@
     "playbooks": "工具教程",
     "workflows": "工作流",
     "arena": "竞技场",
-    "projects": "项目"
+    "projects": "项目",
+    "myNoxifera": "我的 NOXIFERA",
+    "updates": "动态",
+    "updatesBadge": "动态 ({count})"
   },
   "footer": {
     "taglineBlurb": "为视频创作者精选的 AI 工具箱。已收录 {count} 款工具，{tested} 款经过实测，每个条目都标注了我们的实际验证程度。",
@@ -147,7 +158,8 @@
     "advisor": "AI 顾问",
     "outcomes": "目标方案",
     "playbooks": "工具教程",
-    "optimizer": "订阅优化器"
+    "optimizer": "订阅优化器",
+    "whatChanged": "有什么变化"
   },
   "home": {
     "heroBadge": "以证据为先，为视频创作者发现好工具",
@@ -362,6 +374,217 @@
     "playbookLabel": "实战手册",
     "playbookCta": "阅读手册"
   },
+  "my": {
+    "metaTitle": "我的 NOXIFERA — 你收藏的工具、组合和工作流",
+    "metaDescription": "你的个人创作者工作区：带状态和备注的 AI 工具收藏、工具组合、工作流、对比、实验、价格提醒和偏好设置。数据仅保存在你的浏览器中。",
+    "badge": "个人工作区",
+    "title": "我的 NOXIFERA",
+    "subtitle": "你保存的所有内容都留在浏览器中——无需注册。跟踪工具状态、搭建组合、运行工作流，并在价格变化时收到提醒。",
+    "tabs": {
+      "tools": "工具",
+      "stacks": "组合",
+      "workflows": "工作流",
+      "comparisons": "对比",
+      "experiments": "实验",
+      "alerts": "提醒",
+      "preferences": "偏好"
+    },
+    "statusLabel": "状态",
+    "status": {
+      "interested": "感兴趣",
+      "using": "在用",
+      "testing": "试用中",
+      "replaced": "已替换",
+      "cancelled": "已取消"
+    },
+    "noteLabel": "私人备注",
+    "notePlaceholder": "添加私人备注…",
+    "saveNote": "保存备注",
+    "cancel": "取消",
+    "historyToggle": "历史 ({count})",
+    "inWorkspace": "已在你的工作区",
+    "openMy": "打开我的 NOXIFERA",
+    "trackTitle": "跟踪{name}",
+    "trackText": "收藏它，即可设置状态、记录备注并接收价格变动提醒。",
+    "saveThisTool": "收藏此工具",
+    "common": {
+      "save": "保存",
+      "open": "打开",
+      "share": "分享",
+      "copied": "已复制！",
+      "duplicate": "复制",
+      "rename": "重命名",
+      "delete": "删除",
+      "remove": "移除",
+      "confirmDelete": "确认？",
+      "backToList": "返回列表",
+      "updatedAt": "更新于",
+      "createdAt": "创建于",
+      "unknownTool": "已下架",
+      "searchPlaceholder": "搜索要添加的工具…"
+    },
+    "import": {
+      "sharedStackTitle": "有人与你分享了一个工具组合",
+      "sharedWorkflowTitle": "有人与你分享了一个工作流",
+      "sharedText": "将其导入你的工作区，即可保存并编辑你自己的副本。",
+      "import": "导入",
+      "dismiss": "忽略",
+      "invalid": "此分享链接无效，或由更新版本创建。"
+    },
+    "tools": {
+      "emptyTitle": "还没有收藏工具",
+      "emptyText": "点击任意工具上的书签图标，即可在此跟踪——含状态、私人备注和价格提醒。",
+      "emptyCta": "浏览工具",
+      "filterAll": "全部",
+      "searchPlaceholder": "搜索已收藏…",
+      "noMatches": "没有符合此筛选的收藏工具。",
+      "savedOn": "收藏于",
+      "visitSite": "访问{name}",
+      "editNote": "编辑备注",
+      "addNote": "添加备注",
+      "unknownText": "此工具已从目录下架。你的备注和历史会被保留。"
+    },
+    "stacks": {
+      "intro": "组合是按目标搭配的工具阵容——附带费用估算和重叠提醒。",
+      "newStack": "新建组合",
+      "nameLabel": "组合名称",
+      "namePlaceholder": "例如：我的 YouTube 装备",
+      "untitled": "未命名组合",
+      "goalLabel": "目标",
+      "budgetLabel": "预算",
+      "prefillNote": "已从上一步预选 {count} 个工具。",
+      "create": "创建组合",
+      "emptyTitle": "还没有组合",
+      "emptyText": "在组合搭建器中创建引导式组合，或在此新建空白组合并自己添加工具。",
+      "emptyCta": "打开组合搭建器",
+      "toolsCount": "{count} 个工具",
+      "toolsTitle": "工具 ({count})",
+      "perMonth": "/月*",
+      "noListedPrices": "没有可用于估算的标价。",
+      "estimateNote": "* 根据标价估算。有 {count} 个工具无标价，未计入。",
+      "noToolsYet": "此组合还没有工具——在下方搜索以添加第一个。",
+      "moveUp": "上移",
+      "moveDown": "下移",
+      "optimizeTitle": "可能重叠",
+      "overlapCategory": "{count} 个工具同属「{signal}」分类：",
+      "overlapTag": "{count} 个工具有「{signal}」相同能力：",
+      "optimizeNote": "重叠仅为描述性提示，而非定论——相似的工具仍可能服务于不同步骤。",
+      "notesLabel": "组合备注",
+      "notesPlaceholder": "为什么选这套阵容？每个工具负责什么？…",
+      "openInBuilder": "在搭建器中打开",
+      "openWorkflow": "相关工作流"
+    },
+    "workflows": {
+      "intro": "工作流是分步骤的执行管线。用你自己的工具选择保存实战手册，或从零搭建。",
+      "newWorkflow": "新建工作流",
+      "nameLabel": "工作流名称",
+      "namePlaceholder": "例如：每周短视频管线",
+      "untitled": "未命名工作流",
+      "templateLabel": "基于",
+      "templateCustom": "空白工作流",
+      "create": "创建工作流",
+      "emptyTitle": "还没有工作流",
+      "emptyText": "用你自己的工具选择保存实战手册，或一步步搭建自定义管线。",
+      "emptyCta": "浏览实战手册",
+      "customBadge": "自定义",
+      "stepsCount": "{count} 个步骤",
+      "editedCount": "{count} 处修改",
+      "stepsTitle": "步骤 ({count})",
+      "playbookNote": "来自实战手册「{title}」。你的工具选择将覆盖默认。",
+      "resetStep": "重置",
+      "noTool": "未关联工具",
+      "changeTool": "更换工具",
+      "linkTool": "关联工具",
+      "stepTitleLabel": "步骤 {index} 标题",
+      "removeStep": "删除步骤",
+      "newStepTitle": "新步骤",
+      "addStep": "+ 添加步骤",
+      "noStepsYet": "还没有步骤——在下方添加第一个。",
+      "playbookGone": "实战手册「{slug}」已下架。你保存的选择会被保留。",
+      "notesLabel": "工作流备注",
+      "notesPlaceholder": "检查清单、小技巧、注意事项…",
+      "openPlaybook": "打开手册",
+      "startRun": "运行此工作流",
+      "hideRun": "隐藏运行模式",
+      "runTitle": "运行模式",
+      "runNote": "边做边勾选步骤。进度仅在本次会话有效。",
+      "runProgress": "已完成 {done}/{total}",
+      "runReset": "重置进度"
+    },
+    "comparisons": {
+      "emptyTitle": "还没有保存对比",
+      "emptyText": "并排对比工具，然后将阵容保存在此，随时回来查看。",
+      "emptyCta": "打开对比",
+      "nameLabel": "对比名称",
+      "toolsCount": "{count} 个工具",
+      "open": "打开对比"
+    },
+    "experiments": {
+      "newTitle": "新实验",
+      "intro": "你自己的工具测试实验记录：先写假设，有结果时再记录。",
+      "titleLabel": "标题",
+      "titlePlaceholder": "例如：ElevenLabs vs Murf 短视频配音对比",
+      "create": "创建",
+      "emptyTitle": "还没有实验",
+      "emptyText": "正在对比测试两个工具？在此记录假设与结果。",
+      "statusLabel": "状态",
+      "status": {
+        "idea": "想法",
+        "running": "进行中",
+        "done": "已完成"
+      },
+      "toolLabel": "受测工具",
+      "outcomeLabel": "关联成果",
+      "noOutcome": "无",
+      "hypothesisLabel": "假设",
+      "hypothesisPlaceholder": "你的预期是什么？如何衡量？",
+      "resultLabel": "结果",
+      "resultPlaceholder": "实际发生了什么？数字胜于形容词。"
+    },
+    "alerts": {
+      "emptyTitle": "一切正常",
+      "emptyText": "当收藏的工具调价、更改计费模式、通过验证或下架时，你会在这里看到。",
+      "emptyCta": "浏览工具",
+      "intro": "自收藏以来有 {count} 项变化：",
+      "acknowledge": "知道了",
+      "acknowledgeAll": "全部标为已读",
+      "retiredHint": "前往墓地查看发生了什么以及哪些工具可以替代。",
+      "kinds": {
+        "price-changed": "价格变动",
+        "pricing-model-changed": "计费模式变动",
+        "verification-upgraded": "已通过验证",
+        "tool-retired": "工具停运",
+        "tool-unlisted": "已下架"
+      },
+      "viewFeed": "查看您的动态"
+    },
+    "preferences": {
+      "title": "创作者偏好",
+      "intro": "向顾问介绍一次自己——每次推荐都可复用。仅保存在你的浏览器中。",
+      "fields": {
+        "creatorType": "创作者类型",
+        "platform": "主要平台",
+        "contentFormat": "内容形式",
+        "frequency": "发布频率",
+        "budget": "月预算",
+        "skillLevel": "水平",
+        "workflowStyle": "工作风格"
+      },
+      "placeholders": {
+        "creatorType": "例如：油管主、播客、自由职业者",
+        "platform": "例如：YouTube、TikTok、Spotify",
+        "contentFormat": "例如：短视频、长视频、口播",
+        "frequency": "例如：每周 3 次",
+        "budget": "例如：50 美元/月以内",
+        "skillLevel": "例如：新手、进阶",
+        "workflowStyle": "例如：快速自动化、手工打磨"
+      },
+      "currentTools": "你已在用的工具",
+      "saved": "已保存 ✓",
+      "useInAdvisor": "用于顾问 →",
+      "clear": "清空全部"
+    }
+  },
   "news": {
     "title": "AI 资讯流",
     "description": "为视频创作者精选的每日 AI 资讯简报——新品发布、价格变动、政策更新，以及值得你关注的工具。",
@@ -467,6 +690,7 @@
     "rowLink": "直达链接",
     "tryTool": "试用 {name}",
     "footerNote": "已验证工具包含实操编辑评分；未验证工具展示经官方文档核实的价格与功能。部分链接为联盟链接——",
+    "footerNoteNoAffiliate": "已验证工具包含实操编辑评分；未验证工具展示经官方文档核实的价格与功能。目前没有联盟链接——",
     "readDisclosure": "阅读我们的信息披露",
     "editorialScore": "编辑评分",
     "addToProject": "添加到项目",
@@ -474,7 +698,9 @@
     "addedToProject": "已将 {count} 个工具添加到您的项目",
     "alreadyOnProject": "这些工具已在该项目中",
     "noProjects": "还没有项目。",
-    "createProject": "创建一个"
+    "createProject": "创建一个",
+    "saveComparison": "保存对比",
+    "comparisonSaved": "对比已保存到你的工作区。"
   },
   "bestOf": {
     "title": "2026 年度最佳 AI 工具",
@@ -482,7 +708,9 @@
     "heading": "2026 年度最佳",
     "subtitle": "今年我们真正会推荐的工具。",
     "criteria": "评选标准",
-    "backToTools": "全部工具"
+    "backToTools": "全部工具",
+    "affiliateNote": "部分出站链接为联盟链接，可能会为我们带来佣金，你无需支付额外费用。",
+    "affiliateNoteNone": "本页没有联盟链接——排名永远不出售。"
   },
   "benchmark": {
     "title": "基准测试实验室",
@@ -607,7 +835,9 @@
     "verifiedBadge": "已核实",
     "expires": "有效期至 {date}",
     "getDeal": "获取优惠",
-    "verifiedDeals": "已验证的交易和优惠券代码"
+    "verifiedDeals": "已验证的交易和优惠券代码",
+    "affiliateNote": "部分优惠链接为联盟链接，可能会为我们带来佣金，你无需支付额外费用。",
+    "affiliateNoteNone": "这里没有联盟链接——以下每个价格都直接来自目录。"
   },
   "trending": {
     "title": "热门 AI 工具",
@@ -645,7 +875,8 @@
     "subtitle": "本站的每一次更新，集中在一个地方。",
     "typeFeature": "功能",
     "typeFix": "修复",
-    "typeMilestone": "里程碑"
+    "typeMilestone": "里程碑",
+    "updatesLink": "查看您收藏工具的动态"
   },
   "about": {
     "title": "关于与方法论",
@@ -1502,7 +1733,8 @@
     "s9": "9. 变化",
     "s9body": "当政策发生变化时，我们将更新此页面，并修改上面的“最后更新”日期。",
     "s5end": "。",
-    "s7end": "。我们会在 30 天内回复。时事通讯电子邮件包含一键取消订阅链接。"
+    "s7end": "。我们会在 30 天内回复。时事通讯电子邮件包含一键取消订阅链接。",
+    "s5bodyNoAffiliate": "在您离开我们的网站后，供应商可能会在自己的域中设置自己的 cookie；他们的隐私政策在那里适用。看看我们的"
   },
   "terms": {
     "metaTitle": "服务条款",
@@ -1531,7 +1763,8 @@
     "s10": "10. 联系方式",
     "s10body": "问题？电子邮件",
     "s3end": "。",
-    "s10end": "。"
+    "s10end": "。",
+    "s3bodyNoAffiliate": "我们目前不会从出站链接中赚取佣金，链接也永远不会影响编辑分数。看看我们的"
   },
   "jobs": {
     "metaTitle": "AI 视频职位 — 即将推出",
@@ -1811,7 +2044,59 @@
     "videoUrlInvalid": "这看起来像 YouTube/Vimeo 链接 - 这些链接不能用作悬停视频。请直接粘贴 .mp4/.webm 文件 URL。",
     "image16x9Hint": "提示：上传 16:9 的图像（例如 1280×720），以便它干净地填充封面。",
     "tabOrders": "订单与收入",
-    "tabClaims": "创始人认领"
+    "tabClaims": "创始人认领",
+    "tabActivity": "动态",
+    "tabCommunity": "社区",
+    "tabHealth": "健康度",
+    "communityPending": "待审问答",
+    "reportsOpen": "待处理举报",
+    "activityFailed": "无法加载分析数据。",
+    "activityLoading": "正在加载分析数据…",
+    "activityTitle": "动态",
+    "activityNotConfigured": "此部署未配置分析存储——事件仅发送至 Vercel Analytics。",
+    "activityIntro": "过去 {days} 天的第一方产品事件。不存储标识符——仅有短名、计数和枚举。",
+    "eventsUnavailable": "事件表不可用——请运行迁移 0020_analytics_events.sql。",
+    "searchesTitle": "搜索",
+    "searchesTotal": "过去 30 天共 {count} 次搜索",
+    "topSearches": "热门搜索",
+    "searchesEmpty": "暂无搜索记录。",
+    "zeroResultTitle": "无结果搜索",
+    "zeroEmpty": "没有无结果搜索——每次查询都有收获。",
+    "intentTitle": "搜索意图",
+    "intentNote": "近期搜索由服务端 P2 意图解析器分析——无额外跟踪。",
+    "intentOutcomes": "匹配的结果指南",
+    "toolsTitle": "浏览最多的工具",
+    "toolsEmpty": "暂无工具浏览记录。",
+    "truncatedNote": "样本上限为 5000 次浏览——计数为下限。",
+    "communityTitle": "社区问答",
+    "communityNotConfigured": "缺少社区表——请运行迁移 0019_community_qa.sql。",
+    "communityIntro": "新的问题、回答、技巧和展示等待审核。通过即发布，删除即移除（相关举报一并删除）。",
+    "communityModerated": "内容{status}。",
+    "pendingTitle": "待审核（{count}）",
+    "pendingEmpty": "暂无待审——队列已清空。",
+    "openPage": "打开页面",
+    "reportsTitle": "举报（{count}）",
+    "reportsEmpty": "暂无举报。",
+    "reportedPostGone": "该内容已被移除。",
+    "healthTitle": "目录健康度",
+    "healthIntro": "实时维护队列。价格陈旧度直接由目录计算；链接与跟踪部分需要对应数据表。",
+    "reviewCommunity": "待审问答",
+    "reviewReports": "举报",
+    "reviewReviews": "待审评价",
+    "brokenTitle": "失效链接（{count}）",
+    "healthNotConfigured": "此部署中该表不可用。",
+    "brokenEmpty": "最近一次检查中没有失效链接。",
+    "lastRun": "上次检查：{date}",
+    "staleTitle": "陈旧价格",
+    "staleIntro": "超过 {days} 天的价格应在厂商页面重新核对。",
+    "neverChecked": "从未核对（{count}）",
+    "staleEmpty": "无——这里一切都是新的。",
+    "staleCount": "已陈旧（{count}）",
+    "missingSource": "缺少价格来源链接（{count}）",
+    "trackingTitle": "价格跟踪",
+    "trackedTools": "{total} 个工具中有 {tracked} 个已记录价格点",
+    "pointsRecorded": "已记录 {count} 个价格点",
+    "lastRecorded": "上次记录：{date}"
   },
   "studio": {
     "browserOnly": "仅限浏览器 · 无 API",
@@ -1860,7 +2145,12 @@
       "standardPrompt": "标准提示",
       "detailedPrompt": "详细提示",
       "negativePrompt": "负面提示",
-      "emptyText": "填写您的创意方向，然后在浏览器中生成可重复使用的提示。"
+      "emptyText": "填写您的创意方向，然后在浏览器中生成可重复使用的提示。",
+      "runFailed": "生成失败，请重试。",
+      "generating": "生成中…",
+      "generatingLong": "正在撰写你的提示词组…最多可能需要一分钟。",
+      "readyHeading": "你的提示词组已就绪",
+      "readyToCopy": "可复制"
     },
     "tb": {
       "setDirection": "设定方向",
@@ -1895,7 +2185,12 @@
         "展示一个未解决的视觉线索，并留出空间让观众问“如何？”",
         "使用单一的时间敏感提示，不要发明后果。",
         "在视觉上将可信的之前状态与其之后状态分开。"
-      ]
+      ],
+      "runFailed": "简报构建失败，请重试。",
+      "building": "构建中…",
+      "buildingLong": "正在设计你的缩略图简报…最多可能需要一分钟。",
+      "readyHeading": "你的简报已就绪",
+      "blueprint": "设计蓝图"
     },
     "tt": {
       "setConstraint": "设置约束",
@@ -1927,7 +2222,8 @@
       "analyzing": "正在分析高点击率公式…",
       "analyzingLong": "正在分析 1,000 多个热门 YouTube 视频模式…",
       "resultHeading": "10 个病毒式标题与钩子公式",
-      "generateHelp": "生成 10 个病毒式 YouTube 标题和 3 个词的吸睛缩略图文案。"
+      "generateHelp": "生成 10 个病毒式 YouTube 标题和 3 个词的吸睛缩略图文案。",
+      "runFailed": "生成失败，请重试。"
     },
     "cc": {
       "build": "建立日历",
@@ -2054,7 +2350,21 @@
     "ctaVideoPromptLabel": "创建视频提示",
     "ctaVideoPromptText": "在 AI Studio 中本地构建结构化视频提示。",
     "ctaInspectLabel": "检查本地视频",
-    "ctaInspectText": "在 AI Studio 中检查本地尺寸、持续时间和平台适配情况。"
+    "ctaInspectText": "在 AI Studio 中检查本地尺寸、持续时间和平台适配情况。",
+    "localUnlimitedTitle": "浏览器内免费无限使用",
+    "localUnlimitedText": "此工具 100% 本地运行。无需账号、无配额，数据不离开你的设备。",
+    "dailyRunsTitle": "每日 AI 运行次数",
+    "runsLeft": "剩余 {remaining}/{limit}",
+    "runsHint": "AI 辅助工具共享每日配额。本地工具始终无限。",
+    "runsExhausted": "每日配额已用完。本地工具仍可使用——或升级 Pro 获取更多 AI 次数。",
+    "unlockPro": "解锁 Pro",
+    "upgradeToPro": "升级到 Pro",
+    "quotaReached": "每日 AI 配额已用完。你的作品已保存——升级可获取更多次数。",
+    "upgradeNow": "立即升级",
+    "sourceCloudHint": "由云端 AI 模型生成",
+    "sourceLocalHint": "由浏览器内本地 Studio 引擎构建——未使用 AI 模型",
+    "localOnly": "仅浏览器 · 无 API",
+    "aiAssisted": "AI 辅助 · 每日配额"
   },
   "components": {
     "homeSearch": {
@@ -2095,7 +2405,7 @@
     },
     "scoreBreakdown": {
       "howItScored": "得分如何",
-      "overallNote": "总体而言是加权平均值——输出质量 35%、易用性 20%、价值 20%、速度 15%、出口自由度 10%。",
+      "overallNote": "总体而言是加权平均值——输出质量 35%、速度 20%、价值 20%、易用性 15%、出口自由度 10%。",
       "bestFor": "最适合",
       "skipIf": "跳过如果",
       "quality": "输出质量",
@@ -2109,7 +2419,8 @@
       "speedHint": "从输入到可用输出的挂钟时间。",
       "easeHint": "是时候在不阅读文档的情况下获得第一个好的结果了。",
       "valueHint": "入门付费级别的每美元输出质量。",
-      "exportHint": "水印、分辨率上限和商业权利。"
+      "exportHint": "水印、分辨率上限和商业权利。",
+      "methodologyLink": "我们的方法论"
     },
     "shareButtons": {
       "share": "分享",
@@ -2131,7 +2442,7 @@
       "listedTip": "根据公开信息整理。我们还没有亲自测试过这个工具，所以我们不会发布它的分数。",
       "notTestedHeading": "我们还没有实际测试过{name}",
       "notTestedBody": "此条目是从供应商的公共文档和定价页面编录的。因为我们没有根据我们的标准摘要运行 {name}，所以我们故意不发布它的编辑分数——我们无法捍卫的数字将比没有数字更有价值。",
-      "wantTested": "想要尽快测试这个工具吗？ {tellUs} — 我们根据读者需求对队列进行优先级排序。参见 {methodology}。",
+      "wantTested": "想要尽快测试这个工具吗？ ",
       "testingMethodology": "我们的测试方法",
       "wantTestedMid": "- 我们根据读者的需求对队列进行优先级排序。看",
       "wantTestedEnd": "。"
@@ -2401,7 +2712,8 @@
       "createProject": "创建一个",
       "saveAsProject": "另存为新项目",
       "projectCreated": "已保存为新项目",
-      "projectsFull": "项目数量已达上限（12）"
+      "projectsFull": "项目数量已达上限（12）",
+      "saveAsStack": "保存为组合"
     },
     "savedPlans": "你的已存方案",
     "savedPlansSub": "保存在此浏览器中。登录后可跨设备同步。",
@@ -2425,7 +2737,8 @@
       "seo": "SEO 与包装",
       "distribution": "分发",
       "design": "设计"
-    }
+    },
+    "prefillBanner": "已根据你的「我的 NOXIFERA」偏好预填 {count} 项答案——可随意修改。"
   },
   "outcomes": {
     "metaTitle": "目标指南 —— 搭建系统，而不只是列表",
@@ -2488,7 +2801,9 @@
     "upToDate": "这些工具已在该项目中",
     "created": "已保存为新项目",
     "projectsFull": "项目数量已达上限（12）",
-    "projectName": "我的订阅"
+    "projectName": "我的订阅",
+    "saveAsStack": "另存为组合",
+    "stackName": "我的订阅"
   },
   "playbooks": {
     "metaTitle": "工具实战手册 —— 真正会用工具",
@@ -2580,7 +2895,8 @@
     "noAlternatives": "此步骤暂无已列出的替代方案。",
     "sameCost": "价格相同",
     "costDelta": "与步骤工具相比 {delta}",
-    "notEnough": "该类别目前目录中的工具还不足以进行对决。"
+    "notEnough": "该类别目前目录中的工具还不足以进行对决。",
+    "provisionalNote": "竞技场分数是目录的临时评分，而非实测结果。我们正在逐个实测工具——已验证的分数请见基准实验室。"
   },
   "projects": {
     "title": "项目",
@@ -2675,5 +2991,118 @@
     "importDismiss": "忽略",
     "coverageOf": "已覆盖 {total} 步中的 {covered} 步",
     "coverageComplete": "全部步骤已覆盖"
+  },
+  "updates": {
+    "metaTitle": "有什么变化 · NOXIFERA",
+    "metaDescription": "价格变动、新增验证、工具下架和基准测试结果——覆盖整个目录和您收藏的工具。",
+    "badge": "变化动态",
+    "title": "有什么变化",
+    "subtitle": "目录中的每一条有日期记录的变更——以及为您收藏的工具、组合和工作流提供的个人动态。数据保存在您的设备上，无需账号。",
+    "tabsLabel": "动态",
+    "tabs": {
+      "forYou": "为我推荐",
+      "catalog": "目录"
+    },
+    "lastVisit": "上次访问：{date}",
+    "neverVisited": "您是第一次来——以下内容对您来说都是新的。",
+    "markRead": "全部标为已读",
+    "unread": "新",
+    "kinds": {
+      "price-changed": "价格变动",
+      "pricing-model-changed": "定价模式变更",
+      "verification-upgraded": "已验证",
+      "tool-added": "新工具",
+      "tool-retired": "已下架",
+      "tool-unlisted": "已移除",
+      "benchmark-published": "基准测试"
+    },
+    "priceDetail": "价格：{change}",
+    "openAlerts": {
+      "title": "未读提醒",
+      "intro": "您保存的快照与当前目录之间的实时差异。",
+      "empty": "一切正常",
+      "emptyHint": "当收藏的工具价格变动或离开目录时，您会在这里看到。",
+      "viewAll": "查看所有提醒"
+    },
+    "yourTools": {
+      "title": "您的工具动态",
+      "empty": "暂无有日期记录的动态",
+      "emptyHint": "您收藏的工具、组合成员和工作流工具的有日期变更将显示在这里。",
+      "emptyCta": "浏览工具"
+    },
+    "stackUpdates": {
+      "title": "组合动态"
+    },
+    "filterLabel": "按变更类型筛选",
+    "filters": {
+      "all": "全部"
+    },
+    "priceNote": "此部署尚未接入价格跟踪，因此已记录的价格变动无法显示在这里。",
+    "catalog": {
+      "empty": "暂无此类变更",
+      "emptyHint": "这里只显示有日期、可验证的变更——绝不虚构任何内容。"
+    },
+    "changelogLink": "平台新闻请查看更新日志"
+  },
+  "intent": {
+    "title": "我们的理解是",
+    "chips": {
+      "under": "{budget}以下",
+      "freeOnly": "仅免费",
+      "cheapFirst": "最便宜优先"
+    },
+    "clear": "清除搜索",
+    "matching": "匹配：{words}",
+    "compareCta": "并排对比",
+    "outcomesTitle": "正是为此而生",
+    "stackText": "想要一整套方案，而不只是一个工具？",
+    "stackCta": "搭建这套组合",
+    "zeroTitle": "没有工具能同时满足所有条件",
+    "zeroHint": "试试去掉预算，或从上面的指南开始。",
+    "budgetNote": "预算与目录中的美元起步价进行比较。",
+    "usageNote": "部分匹配的工具按次计费（分钟、图片），无法与月预算比较——已隐藏 {count} 个。"
+  },
+  "qa": {
+    "heading": "问答与技巧",
+    "subline": "社区贡献 {count} 条",
+    "beFirst": "还没有问题——来问第一个吧。",
+    "askCta": "提问或分享",
+    "kinds": {
+      "question": "问题",
+      "tip": "技巧",
+      "showcase": "展示",
+      "answer": "回答"
+    },
+    "titleLabel": "标题",
+    "titlePh": "概括一下你的问题或技巧…",
+    "bodyLabel": "详情",
+    "bodyPh": "描述你尝试过的方法、有效的心得或需要的帮助…",
+    "answerPh": "写下你的回答…",
+    "nameLabel": "昵称（可选）",
+    "namePh": "匿名创作者",
+    "submit": "提交",
+    "submitting": "提交中…",
+    "cancel": "取消",
+    "pendingNotice": "感谢——内容正在审核中，通过后可见。",
+    "loading": "正在加载社区内容…",
+    "questionsTitle": "问题",
+    "tipsTitle": "技巧",
+    "showcasesTitle": "展示",
+    "answersTitle": "回答",
+    "answerCta": "写回答",
+    "helpful": "有用（{count}）",
+    "helpfulDone": "已标为有用",
+    "report": "举报",
+    "reportTitle": "举报此内容",
+    "reasons": {
+      "spam": "垃圾信息",
+      "abuse": "辱骂",
+      "misinformation": "虚假信息",
+      "other": "其他"
+    },
+    "reportDone": "已举报——谢谢",
+    "emptyQuestions": "还没有问题。",
+    "emptyTips": "还没有技巧。",
+    "emptyShowcases": "还没有展示。"
   }
 }

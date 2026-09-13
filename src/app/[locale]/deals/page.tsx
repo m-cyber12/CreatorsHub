@@ -7,6 +7,7 @@ import { Footer } from '@/components/Footer';
 import { ALL_TOOLS, Tool } from '@/data/tools';
 import { Flame, ExternalLink, BadgePercent, ShieldCheck, Sparkles, HandCoins } from 'lucide-react';
 import { byRankDesc } from '@/lib/ranking';
+import { catalogHasAffiliates } from '@/lib/affiliate';
 import { getActiveDeals } from '@/lib/deals';
 
 export async function generateMetadata({
@@ -121,8 +122,8 @@ export default async function DealsPage({ params }: { params: Promise<{ locale: 
           source-checked prices link to the vendor page.
         </p>
         <p className="mb-10 inline-flex items-center gap-1.5 rounded-xl border border-amber-500/20 bg-amber-500/5 px-3 py-2 text-2xs text-amber-200/80">
-          <BadgePercent className="h-3.5 w-3.5" aria-hidden="true" /> Where a vendor pays us via an affiliate program it is labelled
-          &quot;sponsored&quot; — it never changes the price you pay or what we list.
+          <BadgePercent className="h-3.5 w-3.5" aria-hidden="true" />{' '}
+          {catalogHasAffiliates() ? t('affiliateNote') : t('affiliateNoteNone')}
         </p>
 
         {/* Verified deals — admin-managed (v3.5). Only vendor-confirmed deals are added here. */}

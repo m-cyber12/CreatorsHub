@@ -66,7 +66,15 @@ export const PAYMENT_CONFIG = {
     },
   },
 
-  // AI Studio Pro Subscriptions (Budget-friendly with Daily Quotas)
+  /**
+   * AI Studio Pro subscriptions.
+   *
+   * Honesty rules (2026-09 trust fix): Pro raises the daily quota on the 3
+   * AI-assisted utilities only. The 5 local utilities (image, subtitle,
+   * audio, video, calendar) run 100% in the browser and are free for
+   * everyone — they must NEVER be listed as Pro features, and unreleased
+   * products must never be sold as plan benefits.
+   */
   studioPlans: {
     monthly: {
       id: 'studio-monthly',
@@ -74,11 +82,11 @@ export const PAYMENT_CONFIG = {
       priceUsd: 4.99,
       billing: 'per month',
       features: [
-        '50 AI Script & Prompt Generations per day',
-        'Viral YouTube Thumbnail Brief Generator',
-        'Audio Trimmer & Subtitle VTT/SRT Formatter',
-        'Content Calendar Builder with 30-day export',
-        'Direct access to Google Gemini & Llama AI models',
+        '50 Studio runs per day on AI-assisted utilities',
+        'Prompt Builder, Thumbnail Brief & Thumbnail Text',
+        'AI-assisted runs when a cloud model is available, local engine otherwise',
+        'Every result labelled with its true source',
+        'Local utilities always free & unlimited for everyone',
       ],
     },
     yearly: {
@@ -89,9 +97,9 @@ export const PAYMENT_CONFIG = {
       billing: 'per year (Save 52%)',
       features: [
         'Everything in Studio Pro Monthly',
-        '50 AI Generations per day for 365 days',
-        'Commercial usage rights for all prompts',
-        'Early access to Video Auto-Repurposing Beta',
+        '50 Studio runs per day for 365 days',
+        'Commercial usage rights for everything you generate',
+        'Priority processing on AI-assisted runs',
         '52% Launch Discount ($2.41/mo effective)',
       ],
     },

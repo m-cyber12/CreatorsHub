@@ -1,4 +1,5 @@
 import 'server-only';
+import { SITE_URL } from '@/config/site';
 import { ALL_NEWS_SOURCES, type NewsSource } from '@/data/news-sources';
 import { newsSlug, type NewsItem } from '@/data/news';
 import { parseFeed, type ParsedFeedEntry } from '@/lib/rss';
@@ -133,7 +134,7 @@ async function fetchSource(source: NewsSource): Promise<NewsItem[]> {
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       headers: {
         'user-agent':
-          'Noxifera-NewsBot/1.0 (+https://creatorsaicenter.vercel.app/about)',
+          `Noxifera-NewsBot/1.0 (+${SITE_URL}/about)`,
         accept: 'application/rss+xml, application/atom+xml, application/xml, text/xml, */*',
       },
       cache: 'no-store',

@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Link from '@/i18n/navigation';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { BENCHMARK_DIMENSIONS } from '@/lib/benchmarkWeights';
 import { FlaskConical, Timer, DollarSign, Ruler, ShieldCheck, CheckCircle2, AlertCircle } from 'lucide-react';
 
 export async function generateMetadata({
@@ -20,33 +21,16 @@ export async function generateMetadata({
   };
 }
 
-const RUBRIC = [
-  {
-    name: 'Output Quality',
-    weight: 35,
-    desc: 'Resolution fidelity, temporal consistency, artifacting, lip-sync accuracy, caption correctness, and professional finish.',
-  },
-  {
-    name: 'Speed',
-    weight: 20,
-    desc: 'Wall-clock time from prompt/upload to downloadable file. Measured on a standard consumer connection (100 Mbps).',
-  },
-  {
-    name: 'Value for Money',
-    weight: 20,
-    desc: 'Cost per usable output, free-tier generosity, credit expiry policies, and hidden upsells.',
-  },
-  {
-    name: 'Ease of Use',
-    weight: 15,
-    desc: 'Onboarding friction, UI clarity, documentation quality, and error message helpfulness.',
-  },
-  {
-    name: 'Export Freedom',
-    weight: 10,
-    desc: 'Watermark status, commercial rights, resolution caps, format options, and API availability.',
-  },
-];
+/**
+ * Scoring rubric — rendered from the canonical weights
+ * (src/lib/benchmarkWeights.ts), the same values computeOverall() uses.
+ * The rubric can never drift from the scoring function again.
+ */
+const RUBRIC = BENCHMARK_DIMENSIONS.map((d) => ({
+  name: d.label,
+  weight: d.percent,
+  desc: d.description,
+}));
 
 export default async function MethodologyPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

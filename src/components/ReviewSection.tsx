@@ -39,7 +39,7 @@ export function ReviewSection({ toolSlug, toolName }: { toolSlug: string; toolNa
       .catch(() => {})
       .finally(() => setLoading(false));
     try {
-      const raw = localStorage.getItem('cah_helpful');
+      const raw = localStorage.getItem('noxifera_helpful') ?? localStorage.getItem('cah_helpful');
       if (raw) setHelpfulVoted(JSON.parse(raw));
     } catch {}
   }, [toolSlug]);
@@ -78,7 +78,7 @@ export function ReviewSection({ toolSlug, toolName }: { toolSlug: string; toolNa
     if (helpfulVoted.includes(id)) return;
     const next = [...helpfulVoted, id];
     setHelpfulVoted(next);
-    try { localStorage.setItem('cah_helpful', JSON.stringify(next)); } catch {}
+    try { localStorage.setItem('noxifera_helpful', JSON.stringify(next)); localStorage.removeItem('cah_helpful'); } catch {}
     setReviews((prev) => prev.map((r) => (r.id === id ? { ...r, helpful_count: (r.helpful_count || 0) + 1 } : r)));
     fetch('/api/reviews', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, action: 'helpful' }) }).catch(() => {});
   };

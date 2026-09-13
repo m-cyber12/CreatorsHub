@@ -8,6 +8,7 @@ import { VerificationBadge } from '@/components/VerificationBadge';
 import { ALL_TOOLS, hasVerifiedScore, computeOverall, type Tool, type ToolCategory } from '@/data/tools';
 import { REAL_CATEGORIES, categorySlug, getCategoryTools } from '@/lib/categories';
 import { byRankDesc } from '@/lib/ranking';
+import { catalogHasAffiliates } from '@/lib/affiliate';
 import { SITE_URL } from '@/config/site';
 import { ExternalLink, Trophy, Star, ArrowRight } from 'lucide-react';
 
@@ -210,7 +211,7 @@ export default async function BestOfPage({ params }: { params: Promise<{ locale:
           <strong className="text-zinc-300">Methodology:</strong> rankings use a prominence score derived from
           our catalogue (rating, featured/editor/trailing flags, and a verified hands-on bonus). A numeric score is
           shown only for tools we tested hands-on; everything else shows an honest verification badge.{' '}
-          Some links are affiliate links — commissions never affect rankings.{' '}
+          {catalogHasAffiliates() ? t('affiliateNote') : t('affiliateNoteNone')}{' '}
           <Link href="/about" className="underline hover:text-zinc-300">Our methodology</Link> ·{' '}
           <Link href="/disclosure" className="underline hover:text-zinc-300">Disclosure</Link>
         </p>

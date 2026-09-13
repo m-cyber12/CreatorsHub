@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { SITE_URL } from '@/config/site';
 import { ALL_TOOLS } from '@/data/tools';
 import { supabaseAdmin } from '@/lib/supabaseAdmin';
 
@@ -39,7 +40,7 @@ async function checkOne(slug: string, url: string): Promise<CheckResult> {
       signal: AbortSignal.timeout(TIMEOUT_MS),
       headers: {
         // Identify honestly so vendors can allowlist us rather than 403.
-        'user-agent': 'CreatorAIHubBot/1.0 (+https://creatorsaicenter.vercel.app/about)',
+        'user-agent': `NoxiferaBot/1.0 (+${SITE_URL}/about)`,
         accept: 'text/html,application/xhtml+xml',
       },
     });

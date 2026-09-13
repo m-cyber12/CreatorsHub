@@ -19,10 +19,14 @@ import {
 } from 'lucide-react';
 import { SmartImage } from '@/components/SmartImage';
 import { VerificationBadge } from '@/components/VerificationBadge';
-import type { WorkflowClientData } from '@/data/workflows';
+import { WORKFLOWS, type WorkflowClientData } from '@/data/workflows';
 import { loadProjects, toggleWorkflow, type NoxiferaProject } from '@/lib/projects';
+import { track } from '@/lib/analytics';
 
 const SAVED_KEY = 'noxifera_workflows';
+/** Playbook slugs that have a real /workflows page. Anything else (custom /my
+ *  workflows, retired playbooks) opens in the workspace editor instead. */
+const KNOWN_PLAYBOOK_SLUGS = new Set(WORKFLOWS.map((w) => w.slug));
 
 interface SavedWorkflow {
   id: string;
@@ -118,6 +122,7 @@ export function WorkflowClient({ data }: { data: WorkflowClientData }) {
       savedAt: new Date().toISOString(),
     };
     setSaved((cur) => [entry, ...cur].slice(0, 12));
+    track('workflow_saved', { slug: data.slug, steps: Object.keys(picks).length });
     flash('save');
   };
 
@@ -425,11 +430,15 @@ export function WorkflowClient({ data }: { data: WorkflowClientData }) {
                   </p>
                 </div>
                 <Link
-                  href={`/workflows/${s.slug}${
-                    Object.keys(s.picks).length > 0
-                      ? `?pick=${Object.entries(s.picks).map(([id, sl]) => `${id}:${sl}`).join(',')}`
-                      : ''
-                  }`}
+                  href={
+                    KNOWN_PLAYBOOK_SLUGS.has(s.slug)
+                      ? `/workflows/${s.slug}${
+                          Object.keys(s.picks).length > 0
+                            ? `?pick=${Object.entries(s.picks).map(([id, sl]) => `${id}:${sl}`).join(',')}`
+                            : ''
+                        }`
+                      : `/my?tab=workflows&open=${encodeURIComponent(s.id)}`
+                  }
                   className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-2xs font-bold text-zinc-200 hover:border-accent-500/50 hover:text-accent-300"
                 >
                   {t('open')}

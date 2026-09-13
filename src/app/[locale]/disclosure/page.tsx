@@ -11,7 +11,7 @@ import { getEffectiveTools } from '@/lib/contentOverrides';
  *
  * The old disclosure asserted an active affiliate relationship and described
  * commission income. In reality only 15 of 200 tools had an affiliateUrl, all
- * of them guessed patterns (?via=creatoraihub) for programs that had never
+ * of them guessed ?via= patterns (under the pre-rebrand name) for programs that had never
  * been joined — so no commission could be earned by anyone. Claiming a
  * material connection that does not exist is its own FTC problem, in the
  * opposite direction to the usual one.

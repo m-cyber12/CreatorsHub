@@ -20,7 +20,7 @@
  * goals, budgets, slot roles/hints and the interactive chrome.
  */
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from '@/i18n/navigation';
 import {
@@ -43,6 +43,8 @@ import { SmartImage } from '@/components/SmartImage';
 import { VerificationBadge } from '@/components/VerificationBadge';
 import { ALL_TOOLS, type Tool } from '@/data/tools';
 import { attachTools, createProject, toggleWorkflow, type ProjectType } from '@/lib/projects';
+import { STACK_GOAL_TO_WORKFLOW } from '@/lib/workspace';
+import { track } from '@/lib/analytics';
 
 type GoalKey =
   | 'faceless'
@@ -138,14 +140,8 @@ const GOAL_TO_PROJECT_TYPE: Record<GoalKey, ProjectType> = {
   ugc: 'youtube',
 };
 
-/** Workflow template that matches a goal (shorts/thumbnails/avatars have none yet). */
-const GOAL_TO_WORKFLOW: Partial<Record<GoalKey, string>> = {
-  faceless: 'faceless-video',
-  podcast: 'podcast-to-shorts',
-  dubbing: 'dubbed-content',
-  longform: 'youtube-long-form',
-  ugc: 'ugc-ads',
-};
+/** Workflow template that matches a goal — single source lives in the workspace lib. */
+const GOAL_TO_WORKFLOW = STACK_GOAL_TO_WORKFLOW as Partial<Record<GoalKey, string>>;
 
 const STORAGE_KEY = 'noxifera-stack-v2';
 const LEGACY_STORAGE_KEY = 'creatorai-stack-v2';
@@ -219,6 +215,12 @@ export default function StackBuilderClient() {
   const [projMsg, setProjMsg] = useState<'ok' | 'full' | null>(null);
   const [saveMsg, setSaveMsg] = useState(false);
   const [savedStacks, setSavedStacks] = useState<SavedStack[]>([]);
+  /**
+   * Saved stacks this builder cannot display (custom /my goals or entries
+   * from newer versions). They are carried through untouched on every
+   * persist so the builder can never silently delete foreign stacks.
+   */
+  const foreignStacks = useRef<unknown[]>([]);
   const [hydrated, setHydrated] = useState(false);
 
   const goalLabel = t(`goals.${goal}.label`);
@@ -246,12 +248,12 @@ export default function StackBuilderClient() {
       if (sraw) {
         const arr = JSON.parse(sraw);
         if (Array.isArray(arr)) {
-          setSavedStacks(
-            arr.filter(
-              (s): s is SavedStack =>
-                s && typeof s.id === 'string' && GOALS[s.goal as GoalKey] && BUDGETS.includes(s.budget as BudgetKey)
-            )
-          );
+          const isMine = (s: unknown): s is SavedStack => {
+            const c = s as Partial<SavedStack>;
+            return Boolean(c && typeof c.id === 'string' && GOALS[c.goal as GoalKey] && BUDGETS.includes(c.budget as BudgetKey));
+          };
+          setSavedStacks(arr.filter(isMine));
+          foreignStacks.current = arr.filter((s) => !isMine(s));
         }
       }
     } catch {
@@ -335,11 +337,11 @@ export default function StackBuilderClient() {
     setTimeout(() => setProjMsg(null), 2500);
   };
 
-  // Persist saved stacks.
+  // Persist saved stacks (foreign stacks carried through untouched).
   useEffect(() => {
     if (!hydrated) return;
     try {
-      localStorage.setItem(SAVED_KEY, JSON.stringify(savedStacks));
+      localStorage.setItem(SAVED_KEY, JSON.stringify([...savedStacks, ...foreignStacks.current]));
     } catch {
       /* private mode — fine */
     }
@@ -364,6 +366,7 @@ export default function StackBuilderClient() {
       savedAt: new Date().toISOString(),
     };
     setSavedStacks((cur) => [entry, ...cur].slice(0, 12));
+    track('stack_saved', { goal, budget, tools: Object.keys(picks).length });
     setSaveMsg(true);
     setTimeout(() => setSaveMsg(false), 2000);
   };

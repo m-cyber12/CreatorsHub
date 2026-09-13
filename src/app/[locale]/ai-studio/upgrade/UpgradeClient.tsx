@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from '@/i18n/navigation';
 import { PAYMENT_CONFIG } from '@/config/payments';
+import { absoluteUrl } from '@/config/site';
 import { QRCodeSvg } from '@/components/QRCodeSvg';
 import {
   Check,
@@ -51,7 +52,7 @@ export function UpgradeClient() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: `Studio Pro (${billingCycle === 'yearly' ? 'Annual' : 'Monthly'})`,
-          url: 'https://creatorsaicenter.vercel.app/ai-studio',
+          url: absoluteUrl('/ai-studio'),
           tagline: `Studio Pro Subscription (${plan.name})`,
           category: 'Studio Pro Subscription',
           pricing: 'Paid',
@@ -88,7 +89,7 @@ export function UpgradeClient() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: `Studio Pro (${billingCycle === 'yearly' ? 'Annual' : 'Monthly'})`,
-          url: 'https://creatorsaicenter.vercel.app/ai-studio',
+          url: absoluteUrl('/ai-studio'),
           tagline: `Studio Pro Subscription (${plan.name})`,
           category: 'Studio Pro Subscription',
           pricing: 'Paid',
@@ -165,16 +166,16 @@ export function UpgradeClient() {
 
             <ul className="mt-6 space-y-3 text-xs text-zinc-300">
               <li className="flex items-center gap-2">
-                <Check className="h-4 w-4 text-emerald-400" /> 3 Free AI Generations per day
+                <Check className="h-4 w-4 text-emerald-400" /> 3 free Studio runs per day
               </li>
               <li className="flex items-center gap-2">
-                <Check className="h-4 w-4 text-emerald-400" /> Subtitle text preview
+                <Check className="h-4 w-4 text-emerald-400" /> All 5 local utilities, unlimited & free
               </li>
               <li className="flex items-center gap-2">
-                <Check className="h-4 w-4 text-emerald-400" /> Audio waveform inspection
+                <Check className="h-4 w-4 text-emerald-400" /> Subtitle, audio, image & video tools in-browser
               </li>
               <li className="flex items-center gap-2 text-zinc-500">
-                <span className="text-zinc-600">✕</span> Limited daily generations
+                <span className="text-zinc-600">✕</span> Limited daily AI-assisted runs
               </li>
             </ul>
           </div>
@@ -212,7 +213,8 @@ export function UpgradeClient() {
             </div>
 
             <p className="mt-2 text-xs text-zinc-300">
-              50 AI generations/day across all 8 tools, priority processing, and viral script hooks.
+              50 Studio runs/day on the 3 AI-assisted utilities (Prompt Builder, Thumbnail Brief,
+              Thumbnail Text). The 5 local utilities stay free and unlimited for everyone.
             </p>
 
             <ul className="mt-6 space-y-3 text-xs text-zinc-200">

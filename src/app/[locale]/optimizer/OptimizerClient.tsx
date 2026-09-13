@@ -398,6 +398,15 @@ export function OptimizerClient() {
                       )}
                       {t('saveAsProject')}
                     </button>
+                    {knownSlugs.length > 0 && (
+                      <Link
+                        href={`/my?tab=stacks&new=1&tools=${knownSlugs.map(encodeURIComponent).join(',')}&name=${encodeURIComponent(t('stackName'))}`}
+                        className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-surface-0 px-4 py-2.5 text-2xs font-bold text-zinc-200 transition-colors hover:border-accent-500/50"
+                      >
+                        <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+                        {t('saveAsStack')}
+                      </Link>
+                    )}
                   </div>
                   {projMsg && <p className="mt-2 text-2xs font-semibold text-emerald-300">{projMsg}</p>}
                 </div>

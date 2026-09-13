@@ -9,6 +9,7 @@ import { REAL_CATEGORIES, categorySlug } from '@/lib/categories';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { NoxiferaWordmark } from '@/components/brand';
+import { UpdatesBell } from '@/components/UpdatesBell';
 
 export function Header() {
   const t = useTranslations('header');
@@ -31,6 +32,7 @@ export function Header() {
   ];
 
   const moreLinks = [
+    { href: '/my', label: t('myNoxifera') },
     { href: '/workflows', label: t('workflows') },
     { href: '/projects', label: t('projects') },
     { href: '/optimizer', label: t('optimizer') },
@@ -40,6 +42,7 @@ export function Header() {
     { href: '/best-of', label: t('bestOf') },
     { href: '/deals', label: t('deals') },
     { href: '/calculators', label: t('calculators') },
+    { href: '/updates', label: t('updates') },
     { href: '/changelog', label: t('whatsNew') },
     { href: '/news', label: t('news') },
     { href: '/graveyard', label: t('graveyard') },
@@ -229,9 +232,10 @@ export function Header() {
           <LanguageSwitcher />
 
           <Link
-            href="/account"
+            href="/my?tab=tools"
             className="relative hidden rounded-lg p-2 text-zinc-400 transition-colors hover:bg-white/5 hover:text-white sm:inline-flex"
-            aria-label={`Saved tools${bookmarks.length ? ` (${bookmarks.length})` : ''}`}
+            aria-label={`${t('myNoxifera')}${bookmarks.length ? ` (${bookmarks.length})` : ''}`}
+            title={t('myNoxifera')}
           >
             <Bookmark className="h-4 w-4" aria-hidden="true" />
             {bookmarks.length > 0 && (
@@ -240,6 +244,8 @@ export function Header() {
               </span>
             )}
           </Link>
+
+          <UpdatesBell />
 
           <ThemeToggle />
 

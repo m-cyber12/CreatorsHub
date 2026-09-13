@@ -8,8 +8,8 @@ import { supabaseAdmin } from '@/lib/supabaseAdmin';
  *
  * Audit fixes:
  *  1.6 — affiliateUrl is only honoured when affiliateProgram is set to a real,
- *        approved network. Fifteen tools carried invented ?via=creatoraihub /
- *        ?ref=creatoraihub parameters for programs that were never joined:
+ *        approved network. Fifteen tools carried invented ?via=/ ?ref=
+ *        parameters (under the pre-rebrand name) for programs that were never joined:
  *        those links earned nothing while adding tracking noise to the vendor's
  *        URL. Until a program is genuinely approved we send readers to the
  *        clean canonical URL.

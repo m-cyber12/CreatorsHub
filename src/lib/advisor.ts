@@ -17,6 +17,7 @@
  */
 
 import { ALL_TOOLS, type Tool } from '@/data/tools';
+import type { CreatorPreferences } from '@/lib/workspace';
 
 /* ── Inputs ─────────────────────────────────────────────────────────────── */
 
@@ -959,3 +960,114 @@ export const CONTENT_TO_GOAL: Record<ContentType, string> = {
   ugc: 'ugc',
   course: 'avatars',
 };
+
+/* ── My NOXIFERA preference prefill ─────────────────────────────────────── */
+/**
+ * Map free-text workspace preferences onto advisor enums. Deterministic and
+ * conservative: a field is applied only when the text matches exactly one
+ * enum's aliases (substring match on normalized text). Anything ambiguous
+ * is left at the wizard default — never guessed.
+ */
+
+export interface PrefillResult {
+  content?: ContentType;
+  platform?: Platform;
+  budget?: Budget;
+  experience?: Experience;
+  automation?: Automation;
+  existing: string[];
+  /** Number of fields confidently matched (existing tools count as one). */
+  matchedCount: number;
+}
+
+function norm(s: string): string {
+  return s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+}
+
+function matchOne<T extends string>(text: string, aliases: Record<T, string[]>): T | undefined {
+  const n = ` ${norm(text)} `;
+  let found: T | undefined;
+  for (const key of Object.keys(aliases) as T[]) {
+    if (aliases[key].some((w) => n.includes(w))) {
+      if (found !== undefined) return undefined; // ambiguous — refuse to guess
+      found = key;
+    }
+  }
+  return found;
+}
+
+const CONTENT_ALIASES: Record<ContentType, string[]> = {
+  'long-form': ['long form', 'longform', 'long video', 'talking head', 'youtube video', 'essay', 'documentary'],
+  'short-form': ['short form', 'shortform', 'short', 'shorts', 'reel', 'vertical', 'tiktok video'],
+  faceless: ['faceless', 'no face', 'anonymous', 'ai avatar'],
+  podcast: ['podcast', 'audio show', 'interview show'],
+  ugc: ['ugc', ' ad', 'ads', 'commercial', 'product video', 'promo'],
+  course: ['course', 'tutorial', 'class', 'lesson', 'coaching', 'education'],
+};
+
+const PLATFORM_ALIASES: Record<Platform, string[]> = {
+  youtube: ['youtube', ' you tube', ' yt '],
+  tiktok: ['tiktok', 'tik tok'],
+  instagram: ['instagram', 'insta', ' ig '],
+  multichannel: ['multi', 'everywhere', 'all platform', 'cross platform', 'repurpose'],
+};
+
+const BUDGET_ALIASES: Record<Budget, string[]> = {
+  free: ['free', ' 0 ', '$0', 'no budget', 'nothing'],
+  under50: ['50', 'cheap', 'low budget', 'tight'],
+  under150: ['150', '100', 'mid', 'medium'],
+  unlimited: ['unlimited', 'no limit', 'any budget', 'whatever it takes', 'flexible'],
+};
+
+const EXPERIENCE_ALIASES: Record<Experience, string[]> = {
+  new: ['beginner', 'new', 'just start', 'starting out', 'novice'],
+  some: ['intermediate', 'some experience', 'hobby', 'casual'],
+  pro: ['advanced', 'pro', 'expert', 'professional', 'full time', 'agency'],
+};
+
+const AUTOMATION_ALIASES: Record<Automation, string[]> = {
+  manual: ['manual', 'hands on', 'craft', 'control', 'diy'],
+  balanced: ['balanced', 'mix', 'both'],
+  max: ['automat', 'fast', 'scale', 'ai first', 'efficient', 'volume'],
+};
+
+export function matchPreferencesToAdvisor(prefs: CreatorPreferences): PrefillResult {
+  const out: PrefillResult = { existing: [...prefs.currentTools], matchedCount: 0 };
+  if (prefs.contentFormat) {
+    const c = matchOne(prefs.contentFormat, CONTENT_ALIASES);
+    if (c) {
+      out.content = c;
+      out.matchedCount += 1;
+    }
+  }
+  if (prefs.platform) {
+    const p = matchOne(prefs.platform, PLATFORM_ALIASES);
+    if (p) {
+      out.platform = p;
+      out.matchedCount += 1;
+    }
+  }
+  if (prefs.budget) {
+    const b = matchOne(prefs.budget, BUDGET_ALIASES);
+    if (b) {
+      out.budget = b;
+      out.matchedCount += 1;
+    }
+  }
+  if (prefs.skillLevel) {
+    const e = matchOne(prefs.skillLevel, EXPERIENCE_ALIASES);
+    if (e) {
+      out.experience = e;
+      out.matchedCount += 1;
+    }
+  }
+  if (prefs.workflowStyle) {
+    const a = matchOne(prefs.workflowStyle, AUTOMATION_ALIASES);
+    if (a) {
+      out.automation = a;
+      out.matchedCount += 1;
+    }
+  }
+  if (out.existing.length > 0) out.matchedCount += 1;
+  return out;
+}

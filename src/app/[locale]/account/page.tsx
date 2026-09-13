@@ -73,6 +73,7 @@ interface AccountSummary {
 
 export default function AccountPage() {
   const t = useTranslations('account');
+  const tMy = useTranslations('my');
   const { user, loading, signOut } = useAuth();
   const { bookmarks } = useBookmarks();
 
@@ -615,9 +616,14 @@ export default function AccountPage() {
                 <h2 className="text-lg font-bold text-white">Your Bookmarked AI Tools</h2>
                 <p className="text-xs text-zinc-400">Quickly access and compare your saved video software.</p>
               </div>
-              <Link href="/tools" className="text-xs font-bold text-accent-400 hover:underline">
-                Explore More Tools →
-              </Link>
+              <span className="flex shrink-0 flex-col items-end gap-1">
+                <Link href="/my?tab=tools" className="text-xs font-bold text-accent-400 hover:underline">
+                  {tMy('openMy')} →
+                </Link>
+                <Link href="/tools" className="text-xs font-bold text-zinc-500 hover:underline">
+                  Explore More Tools →
+                </Link>
+              </span>
             </div>
 
             {saved.length > 0 ? (
@@ -648,9 +654,14 @@ export default function AccountPage() {
             <div>
               <div className="mb-4 flex items-center justify-between">
                 <h2 className="text-lg font-bold text-white">{t('stacksHeading')}</h2>
-                <Link href="/stack-builder" className="text-xs font-bold text-accent-400 hover:underline">
-                  {t('buildNew')} →
-                </Link>
+                <span className="flex shrink-0 flex-col items-end gap-1">
+                  <Link href="/my?tab=stacks" className="text-xs font-bold text-accent-400 hover:underline">
+                    {tMy('openMy')} →
+                  </Link>
+                  <Link href="/stack-builder" className="text-xs font-bold text-zinc-500 hover:underline">
+                    {t('buildNew')} →
+                  </Link>
+                </span>
               </div>
               {savedStacks.length > 0 ? (
                 <ul className="space-y-2">
@@ -814,8 +825,8 @@ export default function AccountPage() {
               </h3>
               <p className="mt-2 text-xs leading-relaxed text-zinc-400">
                 {isPro
-                  ? 'Your account has 50 daily Google Gemini 1.5 & Llama AI generations, full CSV calendar downloads, and priority video inspection.'
-                  : 'You are currently on the free tier with 3 daily AI generations. Upgrade for $4.99/mo to unlock 50 runs/day and full viral hook formulas.'}
+                  ? 'Studio Pro: 50 Studio runs per day on the AI-assisted utilities (Prompt Builder, Thumbnail Brief, Thumbnail Text). Local utilities — calendar, subtitles, audio, image, video — are unlimited for everyone.'
+                  : 'Free tier: 3 Studio runs per day on AI-assisted utilities, plus unlimited use of all 5 local utilities. Upgrade for $4.99/mo to unlock 50 runs/day.'}
               </p>
 
               <div className="mt-6 rounded-2xl bg-surface-2 p-4">

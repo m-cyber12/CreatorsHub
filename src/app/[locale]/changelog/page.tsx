@@ -53,6 +53,12 @@ export default async function ChangelogPage({ params }: { params: Promise<{ loca
               We audit pricing changes, publish new 24-point hands-on tests, track newly launched AI video tools,
               and archive discontinued products every Friday.
             </p>
+            <Link
+              href="/updates"
+              className="mt-3 inline-flex items-center gap-1.5 text-sm font-bold text-accent-400 hover:underline"
+            >
+              {t('updatesLink')} <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
           </div>
 
           <div className="flex items-center gap-3 bg-surface-1 border border-white/10 rounded-2xl px-5 py-3">
