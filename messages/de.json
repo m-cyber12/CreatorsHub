@@ -227,7 +227,18 @@
     "intelOptimizerCta": "Meine Verschwendung finden",
     "intelPlaybooksTitle": "Tool-Playbooks",
     "intelPlaybooksText": "Handgeschriebene Nutzungssysteme für die wichtigsten Tools: Setup, der wiederholbare Wochen-Workflow, Profi-Züge und die Fehler, die Qualität ruinieren.",
-    "intelPlaybooksCta": "Playbook lesen"
+    "intelPlaybooksCta": "Playbook lesen",
+    "solarBadge": "Die KI-Sternwarte für Video-Creator",
+    "solarTitleA": "Deine kreative Intelligenz,",
+    "solarTitleB": "an einem Ort.",
+    "solarSub": "Entdecke, vergleiche und meistere die KI-Tools hinter modernem Video – Preise geprüft, Versprechen gebenchmarkt, Hype entfernt.",
+    "solarScrollCue": "Scrollen — die Tools sinken herab",
+    "solarPhaseOrbit": "Orbit",
+    "solarPhaseDescend": "Senken",
+    "solarPhaseConverge": "Sammeln",
+    "solarPhaseSettle": "Ankunft",
+    "solarFieldLabel": "Tool-Oberflächen im Orbit der Creator-Intelligenz",
+    "solarSectionLabel": "Kreative Intelligenz — KI-Tools entdecken"
   },
   "tools": {
     "title": "Alle KI-Tools für Video-Creator",

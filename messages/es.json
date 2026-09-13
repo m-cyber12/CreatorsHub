@@ -227,7 +227,18 @@
     "intelOptimizerCta": "Encontrar mi gasto",
     "intelPlaybooksTitle": "Playbooks de herramientas",
     "intelPlaybooksText": "Sistemas de uso escritos a mano para las herramientas insignia: configuración, el flujo semanal repetible, jugadas de pro y los errores que matan la calidad.",
-    "intelPlaybooksCta": "Leer un playbook"
+    "intelPlaybooksCta": "Leer un playbook",
+    "solarBadge": "El observatorio IA para creadores de video",
+    "solarTitleA": "Tu inteligencia creativa,",
+    "solarTitleB": "en un solo lugar.",
+    "solarSub": "Descubre, compara y domina las herramientas IA del video moderno — precios verificados, promesas comprobadas, sin hype.",
+    "solarScrollCue": "Desplázate — las herramientas descienden",
+    "solarPhaseOrbit": "Órbita",
+    "solarPhaseDescend": "Descenso",
+    "solarPhaseConverge": "Convergencia",
+    "solarPhaseSettle": "Reposo",
+    "solarFieldLabel": "Interfaces de herramientas orbitando la inteligencia creativa",
+    "solarSectionLabel": "Inteligencia creativa — descubre herramientas IA"
   },
   "tools": {
     "title": "Todas las herramientas de IA para creadores de vídeo",
