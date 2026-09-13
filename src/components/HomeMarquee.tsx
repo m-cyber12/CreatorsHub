@@ -60,7 +60,7 @@ export function HomeMarquee() {
             <Link
               key={t.slug}
               href={`/tool/${t.slug}`}
-              className="whitespace-nowrap rounded-full border border-white/10 px-3 py-1.5 text-2xs font-semibold text-zinc-300 transition-colors hover:border-emerald-400/50 hover:text-emerald-300"
+              className="whitespace-nowrap rounded-full border border-white/10 px-3 py-1.5 text-2xs font-semibold text-zinc-300 transition-colors hover:border-accent-500/50 hover:text-accent-300"
             >
               {t.name}
             </Link>

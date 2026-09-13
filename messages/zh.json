@@ -227,7 +227,18 @@
     "intelOptimizerCta": "找出我的浪费",
     "intelPlaybooksTitle": "工具实战手册",
     "intelPlaybooksText": "为主力工具手写的用法系统：配置、可重复的每周工作流、进阶操作，以及悄悄毁掉质量的错误。",
-    "intelPlaybooksCta": "读一份手册"
+    "intelPlaybooksCta": "读一份手册",
+    "solarBadge": "视频创作者的 AI 天文台",
+    "solarTitleA": "你的创意智能，",
+    "solarTitleB": "尽在一处。",
+    "solarSub": "发现、比较并掌握现代视频背后的 AI 工具——价格已核验，宣传已实测，拒绝炒作。",
+    "solarScrollCue": "向下滚动——工具正在降落",
+    "solarPhaseOrbit": "环绕",
+    "solarPhaseDescend": "下降",
+    "solarPhaseConverge": "聚拢",
+    "solarPhaseSettle": "落定",
+    "solarFieldLabel": "环绕创意智能的工具界面",
+    "solarSectionLabel": "创意智能——发现 AI 工具"
   },
   "tools": {
     "title": "面向视频创作者的全部 AI 工具",

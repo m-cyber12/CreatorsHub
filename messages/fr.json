@@ -227,7 +227,18 @@
     "intelOptimizerCta": "Trouver mon gaspillage",
     "intelPlaybooksTitle": "Playbooks d'outils",
     "intelPlaybooksText": "Des systèmes d'usage écrits à la main pour les outils phares : configuration, le workflow hebdomadaire répétable, les coups de pro et les erreurs qui tuent la qualité.",
-    "intelPlaybooksCta": "Lire un playbook"
+    "intelPlaybooksCta": "Lire un playbook",
+    "solarBadge": "L'observatoire IA des vidéastes",
+    "solarTitleA": "Votre intelligence créative,",
+    "solarTitleB": "au même endroit.",
+    "solarSub": "Découvrez, comparez et maîtrisez les outils IA de la vidéo moderne — prix vérifiés, promesses testées, sans hype.",
+    "solarScrollCue": "Faites défiler — les outils descendent",
+    "solarPhaseOrbit": "Orbite",
+    "solarPhaseDescend": "Descente",
+    "solarPhaseConverge": "Convergence",
+    "solarPhaseSettle": "Arrivée",
+    "solarFieldLabel": "Interfaces d'outils en orbite autour de l'intelligence créative",
+    "solarSectionLabel": "Intelligence créative — découvrir les outils IA"
   },
   "tools": {
     "title": "Tous les outils IA pour créateurs vidéo",

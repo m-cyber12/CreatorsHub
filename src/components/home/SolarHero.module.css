@@ -1,0 +1,723 @@
+/* ── SolarHero: the cinematic solar-AI homepage hero ───────────────────
+   The hero is a self-contained dark cinema. Every color below is explicit so
+   the experience stays identical in light mode, dark mode and after the
+   gauntlet theme snap. No Tailwind color utilities are used inside. */
+
+.root {
+  /* Re-scope the theme tokens so nested components (e.g. HomeSearch) keep
+     rendering their dark appearance even when the page is in light mode. */
+  --surface-0: #0f1019;
+  --surface-1: #161827;
+  --surface-2: #1d2033;
+  --surface-3: #262a40;
+  --accent-50: #fff8eb;
+  --accent-200: #fde9b8;
+  --accent-300: #fbd87f;
+  --accent-400: #f7c948;
+  --accent-500: #e8ae1c;
+  --accent-600: #c08a0f;
+  --accent-700: #8f650b;
+  color-scheme: dark;
+  position: relative;
+  height: 360svh;
+  background: #050403;
+  overflow: clip;
+}
+
+/* Hard-coded light-mode utility overrides (globals.css flips these with
+   `html.light …` selectors). Scoped + stronger so the hero stays dark. */
+:global(html.light) .root :global(.text-white) { color: #fff; }
+:global(html.light) .root :global(.text-zinc-200) { color: #e4e4e7; }
+:global(html.light) .root :global(.text-zinc-300) { color: #d4d4d8; }
+:global(html.light) .root :global(.text-zinc-400) { color: #a1a1aa; }
+:global(html.light) .root :global(.text-zinc-500) { color: #71717a; }
+:global(html.light) .root :global(.text-emerald-400) { color: #34d399; }
+:global(html.light) .root :global(.border-white\/5) { border-color: rgba(255, 255, 255, 0.05); }
+:global(html.light) .root :global(.border-white\/10) { border-color: rgba(255, 255, 255, 0.1); }
+:global(html.light) .root :global(.bg-white\/5) { background-color: rgba(255, 255, 255, 0.05); }
+:global(html.light) .root :global(.hover\:bg-white\/5:hover) { background-color: rgba(255, 255, 255, 0.05); }
+:global(html.light) .root :global(.hover\:text-white:hover) { color: #fff; }
+
+.stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Calm static hero when the visitor prefers reduced motion. */
+.rootReduced {
+  height: auto;
+}
+.rootReduced .stage {
+  position: relative;
+  height: 100svh;
+}
+.rootReduced .phase,
+.rootReduced .cue,
+.rootReduced .progress {
+  display: none;
+}
+
+/* ── Environment ─────────────────────────────────────────────────────── */
+
+.bgBase {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(120% 70% at 50% -8%, rgba(122, 62, 14, 0.42) 0%, rgba(20, 11, 4, 0) 55%),
+    radial-gradient(90% 65% at 50% 46%, #1a120a 0%, #0c0805 46%, #050403 72%),
+    #050403;
+}
+
+.solarGlow {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 56%;
+  width: min(118vmin, 880px);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 178, 64, 0.32) 0%,
+    rgba(232, 114, 42, 0.17) 34%,
+    rgba(232, 114, 42, 0.05) 52%,
+    transparent 68%
+  );
+  will-change: transform;
+  pointer-events: none;
+}
+
+.solarCore {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 34%;
+  width: min(46vmin, 360px);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  background: radial-gradient(circle, rgba(255, 200, 110, 0.28) 0%, rgba(255, 170, 60, 0.08) 45%, transparent 70%);
+  animation: corePulse 7s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes corePulse {
+  0%, 100% { opacity: 0.75; }
+  50% { opacity: 1; }
+}
+
+/* Pure-black island that lets the character plate blend seamlessly. */
+.charIsland {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: -6svh;
+  width: min(96vmin, 760px);
+  height: 96svh;
+  translate: -50% 0;
+  background: radial-gradient(ellipse 52% 46% at 50% 54%, #000 52%, rgba(0, 0, 0, 0.55) 66%, transparent 80%);
+  pointer-events: none;
+}
+
+.grid {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image:
+    linear-gradient(rgba(255, 180, 90, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 180, 90, 0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 62% at 50% 42%, black 20%, transparent 72%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 62% at 50% 42%, black 20%, transparent 72%);
+  pointer-events: none;
+}
+
+.particles {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 9999px;
+  background: #f7c948;
+  filter: blur(0.4px);
+  opacity: 0;
+  animation: drift 11s linear infinite;
+}
+
+@keyframes drift {
+  0% { transform: translate3d(0, 12px, 0); opacity: 0; }
+  18% { opacity: 0.55; }
+  70% { opacity: 0.3; }
+  100% { transform: translate3d(0, -64px, 0); opacity: 0; }
+}
+
+.particle:nth-child(1) { left: 8%; top: 62%; width: 3px; height: 3px; animation-delay: -1s; animation-duration: 12s; }
+.particle:nth-child(2) { left: 16%; top: 30%; width: 2px; height: 2px; animation-delay: -7s; animation-duration: 9s; }
+.particle:nth-child(3) { left: 24%; top: 74%; width: 3px; height: 3px; animation-delay: -4s; animation-duration: 13s; }
+.particle:nth-child(4) { left: 33%; top: 22%; width: 2px; height: 2px; animation-delay: -9s; animation-duration: 10s; }
+.particle:nth-child(5) { left: 41%; top: 66%; width: 2px; height: 2px; animation-delay: -2.5s; animation-duration: 11s; }
+.particle:nth-child(6) { left: 47%; top: 82%; width: 3px; height: 3px; animation-delay: -6s; animation-duration: 12s; }
+.particle:nth-child(7) { left: 55%; top: 26%; width: 2px; height: 2px; animation-delay: -8s; animation-duration: 9.5s; }
+.particle:nth-child(8) { left: 61%; top: 70%; width: 3px; height: 3px; animation-delay: -3s; animation-duration: 13s; }
+.particle:nth-child(9) { left: 69%; top: 36%; width: 2px; height: 2px; animation-delay: -10s; animation-duration: 10.5s; }
+.particle:nth-child(10) { left: 76%; top: 62%; width: 3px; height: 3px; animation-delay: -5s; animation-duration: 12.5s; }
+.particle:nth-child(11) { left: 84%; top: 28%; width: 2px; height: 2px; animation-delay: -0.5s; animation-duration: 9s; }
+.particle:nth-child(12) { left: 91%; top: 56%; width: 3px; height: 3px; animation-delay: -6.5s; animation-duration: 11.5s; }
+.particle:nth-child(13) { left: 12%; top: 44%; width: 2px; height: 2px; animation-delay: -9.5s; animation-duration: 10s; }
+.particle:nth-child(14) { left: 88%; top: 80%; width: 2px; height: 2px; animation-delay: -4.5s; animation-duration: 12s; }
+
+/* Warm under-glow that wakes up as the panels dock. Opacity is scroll-driven. */
+.dockGlow {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: -12svh;
+  width: min(110vmin, 900px);
+  aspect-ratio: 2 / 1;
+  translate: -50% 0;
+  background: radial-gradient(ellipse at 50% 60%, rgba(255, 170, 60, 0.22) 0%, rgba(232, 114, 42, 0.08) 45%, transparent 72%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.topScrim {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 48%;
+  z-index: 20;
+  background: linear-gradient(to bottom, rgba(3, 2, 1, 0.9) 0%, rgba(3, 2, 1, 0.55) 46%, transparent 100%);
+  pointer-events: none;
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 24;
+  background: radial-gradient(115% 100% at 50% 44%, transparent 56%, rgba(0, 0, 0, 0.5) 100%);
+  pointer-events: none;
+}
+
+/* ── Character ───────────────────────────────────────────────────────── */
+
+.characterWrap {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  pointer-events: none;
+  /* Entrance lives on the wrapper: the inner plate is JS-transformed. */
+  animation: charIn 1.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes charIn {
+  from { opacity: 0; transform: translateY(46px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.character {
+  position: relative;
+  height: min(86svh, 940px);
+  transform-origin: 50% 100%;
+  will-change: transform;
+}
+
+.character img {
+  display: block;
+  height: 100%;
+  width: auto;
+  max-width: 92vw;
+  object-fit: contain;
+  -webkit-mask-image: radial-gradient(ellipse 76% 72% at 50% 44%, #000 58%, transparent 79%);
+  mask-image: radial-gradient(ellipse 76% 72% at 50% 44%, #000 58%, transparent 79%);
+}
+
+/* ── Panels ──────────────────────────────────────────────────────────── */
+
+.panels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.panel {
+  position: absolute;
+  margin: 0;
+  width: clamp(112px, 14.5vw, 220px);
+  transform: translate(-50%, -50%) rotate(var(--r0, 0deg)) scale(var(--s0, 1));
+  will-change: transform, opacity;
+}
+
+.panel[data-tier='far'] { width: clamp(88px, 10.5vw, 165px); }
+.panel[data-tier='near'] { width: clamp(140px, 18vw, 240px); }
+
+.panelFloat {
+  width: 100%;
+  animation: bob var(--bobDur, 6.5s) ease-in-out infinite alternate;
+  animation-delay: var(--bobDelay, 0s);
+  transition: translate 0.55s ease-out;
+}
+
+.panelFloatSettled {
+  animation: none;
+  translate: 0 0;
+}
+
+@keyframes bob {
+  from { translate: 0 calc(var(--bobAmp, 7px) * -1); }
+  to { translate: 0 var(--bobAmp, 7px); }
+}
+
+.panel[data-tier='far'] { --bobAmp: 4px; }
+.panel[data-tier='mid'] { --bobAmp: 7px; }
+.panel[data-tier='near'] { --bobAmp: 10px; }
+
+.panelEnter {
+  animation: panelIn 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--enterDelay, 0s);
+}
+
+@keyframes panelIn {
+  from { opacity: 0; scale: 0.8; }
+  to { opacity: 1; scale: 1; }
+}
+
+.panelFrame {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  aspect-ratio: var(--aspect, 16 / 9);
+  background: linear-gradient(160deg, rgba(48, 29, 10, 0.92), rgba(10, 7, 4, 0.94));
+  border: 1px solid rgba(247, 201, 72, 0.28);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.6),
+    0 14px 44px -12px rgba(232, 114, 42, 0.38),
+    0 30px 80px -24px rgba(0, 0, 0, 0.85),
+    inset 0 1px 0 rgba(255, 220, 150, 0.22);
+}
+
+.panel[data-tier='far'] .panelFrame {
+  border-color: rgba(247, 201, 72, 0.16);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.6),
+    0 10px 30px -12px rgba(232, 114, 42, 0.28),
+    0 24px 60px -24px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 220, 150, 0.14);
+}
+
+.panel[data-tier='near'] .panelFrame {
+  border-color: rgba(247, 201, 72, 0.4);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.55),
+    0 0 34px -6px rgba(247, 176, 64, 0.35),
+    0 20px 60px -14px rgba(232, 114, 42, 0.45),
+    0 34px 90px -24px rgba(0, 0, 0, 0.9),
+    inset 0 1px 0 rgba(255, 226, 160, 0.3);
+}
+
+.panelFrame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.92;
+  -webkit-user-drag: none;
+}
+
+.panelSheen {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(255, 236, 200, 0.13), transparent 36%),
+    linear-gradient(to top, rgba(232, 114, 42, 0.1), transparent 42%);
+  pointer-events: none;
+}
+
+/* ── Copy ────────────────────────────────────────────────────────────── */
+
+.copy {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 30;
+  display: flex;
+  justify-content: center;
+  padding: calc(64px + 2.5svh) 16px 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.copyInner {
+  pointer-events: auto;
+  width: min(94vw, 780px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #fbd87f;
+  border: 1px solid rgba(247, 201, 72, 0.35);
+  background: rgba(22, 13, 4, 0.62);
+  border-radius: 9999px;
+  padding: 7px 16px;
+  white-space: nowrap;
+}
+
+.badgeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: #f7c948;
+  box-shadow: 0 0 10px rgba(247, 201, 72, 0.9);
+}
+
+.title {
+  margin-top: 18px;
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(1.85rem, 1.15rem + 3.4vw, 3.9rem);
+  line-height: 1.08;
+  letter-spacing: 0.01em;
+  color: #fff6e3;
+  text-wrap: balance;
+  text-shadow: 0 2px 34px rgba(0, 0, 0, 0.85);
+}
+
+.titleAccent {
+  display: block;
+  background: linear-gradient(100deg, #fbd87f 0%, #f7c948 42%, #e8722a 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.sub {
+  margin-top: 14px;
+  max-width: 620px;
+  font-size: clamp(0.9rem, 0.84rem + 0.45vw, 1.06rem);
+  line-height: 1.6;
+  color: #d9d2c0;
+  text-wrap: pretty;
+  text-shadow: 0 1px 22px rgba(0, 0, 0, 0.9);
+}
+
+.searchWrap {
+  margin-top: 20px;
+  width: min(94vw, 600px);
+  text-align: start;
+}
+
+.ctas {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.ctaPrimary,
+.ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 12px;
+  padding: 12px 26px;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+
+.ctaPrimary {
+  color: #1a1005;
+  background: linear-gradient(180deg, #f7c948 0%, #e8ae1c 55%, #d99413 100%);
+  box-shadow: 0 10px 34px -8px rgba(232, 174, 28, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.ctaPrimary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 44px -8px rgba(232, 174, 28, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.ctaSecondary {
+  color: #fbd87f;
+  border: 1px solid rgba(247, 201, 72, 0.42);
+  background: rgba(24, 14, 5, 0.62);
+}
+
+.ctaSecondary:hover {
+  background: rgba(247, 201, 72, 0.14);
+  transform: translateY(-1px);
+}
+
+.trust {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #a89e8a;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.9);
+}
+
+.trustItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+}
+
+.trustDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: #e8ae1c;
+  box-shadow: 0 0 8px rgba(232, 174, 28, 0.8);
+  flex: none;
+}
+
+.copyHidden {
+  visibility: hidden;
+}
+
+/* ── Phase indicator / scroll cue / progress ─────────────────────────── */
+
+.phase {
+  position: absolute;
+  z-index: 30;
+  top: calc(64px + 2svh);
+  inset-inline-end: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.phaseLabel {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(251, 216, 127, 0.85);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.9);
+}
+
+.phaseSegs {
+  display: flex;
+  gap: 5px;
+}
+
+.phaseSeg {
+  width: 26px;
+  height: 3px;
+  border-radius: 9999px;
+  background: rgba(247, 201, 72, 0.18);
+  transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.phaseSegOn {
+  background: #f7c948;
+  box-shadow: 0 0 10px rgba(247, 201, 72, 0.7);
+}
+
+.cue {
+  position: absolute;
+  z-index: 30;
+  bottom: 20px;
+  left: 50%;
+  translate: -50% 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+  will-change: opacity;
+}
+
+.cueLabel {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(217, 210, 192, 0.72);
+  white-space: nowrap;
+}
+
+.cueLine {
+  position: relative;
+  width: 1px;
+  height: 34px;
+  background: rgba(247, 201, 72, 0.25);
+  overflow: hidden;
+}
+
+.cueLine::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: -40%;
+  width: 100%;
+  height: 40%;
+  background: #f7c948;
+  animation: cueDrop 1.9s cubic-bezier(0.6, 0, 0.4, 1) infinite;
+}
+
+@keyframes cueDrop {
+  0% { top: -40%; }
+  100% { top: 110%; }
+}
+
+.progress {
+  position: absolute;
+  z-index: 30;
+  bottom: 0;
+  left: 50%;
+  width: min(420px, 58vw);
+  height: 2px;
+  translate: -50% 0;
+  background: linear-gradient(90deg, #8f650b, #f7c948, #e8722a);
+  box-shadow: 0 0 14px rgba(247, 201, 72, 0.55);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  pointer-events: none;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────── */
+
+@media (max-width: 767px) {
+  .root {
+    height: 320svh;
+  }
+
+  .panel {
+    width: 148px;
+  }
+  .panel[data-tier='far'],
+  .panel[data-tier='near'] {
+    width: 148px;
+  }
+  .panel[data-tier='far'] { --bobAmp: 3px; }
+  .panel[data-tier='mid'] { --bobAmp: 5px; }
+  .panel[data-tier='near'] { --bobAmp: 7px; }
+
+  .panelFrame {
+    border-radius: 11px;
+  }
+
+  .character {
+    height: 60svh;
+  }
+
+  .solarGlow {
+    top: 62%;
+    width: 130vmin;
+  }
+
+  .solarCore {
+    top: 40%;
+  }
+
+  .copy {
+    padding-top: calc(64px + 1.5svh);
+  }
+
+  .title {
+    margin-top: 14px;
+  }
+
+  .sub {
+    margin-top: 10px;
+  }
+
+  .searchWrap {
+    margin-top: 14px;
+  }
+
+  .ctas {
+    margin-top: 12px;
+    gap: 10px;
+  }
+
+  .ctaPrimary,
+  .ctaSecondary {
+    padding: 11px 20px;
+    font-size: 13px;
+  }
+
+  .trust {
+    display: none;
+  }
+
+  .phase {
+    inset-inline-end: 12px;
+  }
+
+  .phaseSeg {
+    width: 18px;
+  }
+}
+
+@media (max-width: 380px) {
+  .panel,
+  .panel[data-tier='far'],
+  .panel[data-tier='near'] {
+    width: 132px;
+  }
+
+  .sub {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+@media (max-height: 640px) {
+  .cue {
+    display: none;
+  }
+}
+
+/* With reduced motion the whole choreography is replaced by one calm
+   static composition (plus the global animation neutering). */
+@media (prefers-reduced-motion: reduce) {
+  .panelFloat {
+    animation: none;
+  }
+  .panelEnter {
+    animation: none;
+  }
+  .character {
+    animation: none;
+  }
+  .solarCore,
+  .particle,
+  .cueLine::after {
+    animation: none;
+  }
+  .particle {
+    opacity: 0.25;
+  }
+}

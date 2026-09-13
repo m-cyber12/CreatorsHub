@@ -227,7 +227,18 @@
     "intelOptimizerCta": "Find my waste",
     "intelPlaybooksTitle": "Tool playbooks",
     "intelPlaybooksText": "Hand-written how-to systems for the flagship tools: setup, the repeatable weekly workflow, pro moves, and the mistakes that quietly kill quality.",
-    "intelPlaybooksCta": "Read a playbook"
+    "intelPlaybooksCta": "Read a playbook",
+    "solarBadge": "The AI observatory for video creators",
+    "solarTitleA": "Your creative intelligence,",
+    "solarTitleB": "in one place.",
+    "solarSub": "Discover, compare and master the AI tools behind modern video — prices checked, claims benchmarked, hype removed.",
+    "solarScrollCue": "Scroll — the tools descend",
+    "solarPhaseOrbit": "Orbit",
+    "solarPhaseDescend": "Descend",
+    "solarPhaseConverge": "Converge",
+    "solarPhaseSettle": "Settle",
+    "solarFieldLabel": "Tool interfaces orbiting the creator intelligence",
+    "solarSectionLabel": "Creator intelligence — discover AI tools"
   },
   "tools": {
     "title": "All AI Tools for Video Creators",

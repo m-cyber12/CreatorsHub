@@ -11,21 +11,19 @@ import {
   Scale,
   Search,
   ShieldCheck,
-  Sparkles,
   Wallet,
 } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { HomeSearch } from '@/components/HomeSearch';
 import { ToolCard } from '@/components/ToolCard';
 import { NewsletterForm } from '@/components/NewsletterForm';
 import { InfinityGauntlet } from '@/components/InfinityGauntlet';
 import { HomeAnimations } from '@/components/HomeAnimations';
 import { HomeMarquee } from '@/components/HomeMarquee';
-import { RotatingWord } from '@/components/RotatingWord';
 import { TestingQueueWidget } from '@/components/TestingQueueWidget';
-import { ALL_TOOLS, CATEGORIES } from '@/data/tools';
+import { SolarHero, type SolarHeroCopy } from '@/components/home/SolarHero';
+import { CATEGORIES } from '@/data/tools';
 import { getEffectiveTools } from '@/lib/contentOverrides';
 import { SITE_URL, SITE_NAME } from '@/config/site';
 
@@ -78,13 +76,6 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
   const tc = await getTranslations({ locale, namespace: 'categories' });
   // Admin-editable content (Site Content tab) overrides the default copy.
   const content = await getSiteContent(false, locale);
-  const rotatingWords = (t.raw('rotatingWords') as string[]) ?? [
-    'clips',
-    'captions',
-    'dubbing',
-    'editing',
-    'thumbnails',
-  ];
 
   const STEPS = [
     {
@@ -117,97 +108,27 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
   const localizedTools = await localizeTools(featured, locale);
   const localizedCategory = (c: string) => (tc.has(c) ? tc(c) : c);
 
+  const solarCopy: SolarHeroCopy = {
+    badge: t('solarBadge'),
+    titleA: content.homeHeroTitle1 || t('solarTitleA'),
+    titleB: content.homeHeroTitleAccent || t('solarTitleB'),
+    sub: content.homeHeroSub || t('solarSub'),
+    ctaPlan: content.homeHeroCtaPlan || t('heroCtaPlan'),
+    ctaBrowse: content.homeHeroCtaBrowse || t('heroCtaBrowse'),
+    scrollCue: t('solarScrollCue'),
+    phases: [t('solarPhaseOrbit'), t('solarPhaseDescend'), t('solarPhaseConverge'), t('solarPhaseSettle')],
+    fieldLabel: t('solarFieldLabel'),
+    sectionLabel: t('solarSectionLabel'),
+    trust: [t('trustNoInvented'), t('trustPricingSources'), t('trustCategories', { count: categoryCount })],
+  };
+
   return (
     <div className="min-h-screen bg-surface-0 text-white">
       <Header />
 
       <main id="main">
-      <section className="relative isolate flex min-h-[82svh] flex-col overflow-hidden">
-        <div className="hero-aurora" aria-hidden="true">
-          <div className="aurora-third" />
-        </div>
-        <div aria-hidden="true" className="bg-grid absolute inset-0 z-[1]" />
-        <div aria-hidden="true" className="bg-noise absolute inset-0 z-[1]" />
-
-        {/* Floating glass chips (desktop only) */}
-        <div data-hero-chips aria-hidden="true" className="pointer-events-none absolute inset-0 z-[2] hidden lg:block">
-          <div className="float-slow glass-panel absolute left-[6%] top-[24%] rounded-xl px-4 py-2.5 font-mono text-2xs font-bold tracking-wide text-zinc-300 shadow-xl">
-            {t('chipPriceChecked')}
-          </div>
-          <div className="float-slower glass-panel absolute right-[7%] top-[30%] rounded-xl px-4 py-2.5 font-mono text-2xs font-bold tracking-wide text-zinc-300 shadow-xl">
-            <span className="text-accent-400">{effectiveTools.length}+</span> {t('chipToolsCatalogued')}
-          </div>
-          <div className="float-slower glass-panel absolute left-[10%] bottom-[26%] rounded-xl px-4 py-2.5 font-mono text-2xs font-bold tracking-wide text-zinc-300 shadow-xl">
-            {t('chipBenchmark')}
-          </div>
-          <div className="float-slow glass-panel absolute right-[9%] bottom-[22%] rounded-xl px-4 py-2.5 font-mono text-2xs font-bold tracking-wide text-zinc-300 shadow-xl">
-            {t('chipNoInvented')}
-          </div>
-        </div>
-
-        {/* Hero content */}
-        <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-1 flex-col items-center justify-center px-4 pb-14 pt-20 text-center">
-          <span
-            data-hero-badge
-            className="shine inline-flex items-center gap-2 rounded-full border border-accent-500/30 bg-accent-500/10 px-4 py-1.5 text-2xs font-bold text-accent-300"
-          >
-            <Sparkles className="h-3.5 w-3.5 text-accent-400" aria-hidden="true" />
-            {t('heroBadge')}
-          </span>
-
-          <h1
-            data-hero-title
-            className="mt-7 text-4xl font-black leading-[1.08] tracking-tight sm:text-6xl lg:text-7xl"
-          >
-            {content.homeHeroTitle1 || t('heroTitle1')}{' '}
-            <br />
-            <span className="text-gradient">{content.homeHeroTitleAccent || t('heroTitleAccent')}</span>
-          </h1>
-
-          <p data-hero-sub className="mx-auto mt-6 max-w-2xl text-sm leading-relaxed text-zinc-300 sm:text-lg">
-            {content.homeHeroSub || (<>{t('heroSub1')} <RotatingWord words={rotatingWords} /> — {t('heroSubSeparator')}{' '}
-            <span className="font-semibold text-accent-300">{t('heroSubPriceChecks')}</span>{' '}
-            {t('heroSubFrom')}{' '}
-            <span className="font-semibold text-emerald-400">{t('heroSubBenchmarked')}</span>.</>)}
-          </p>
-
-          <div data-hero-search className="mx-auto mt-9 w-full max-w-2xl">
-            <HomeSearch />
-          </div>
-
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-            <Link
-              data-hero-cta
-              href="/stack-builder"
-              className="cta-glow group inline-flex items-center gap-2 rounded-xl bg-accent-500 px-6 py-3 text-sm font-bold text-black transition-transform hover:scale-[1.03]"
-            >
-              {content.homeHeroCtaPlan || t('heroCtaPlan')}
-              <ArrowRight className="h-4 w-4 transition-transform rtl-flip group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" aria-hidden="true" />
-            </Link>
-            <Link
-              data-hero-cta
-              href="/tools"
-              className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-surface-1/70 px-6 py-3 text-sm font-bold text-zinc-200 backdrop-blur-md transition-all hover:border-accent-500/50 hover:text-white"
-            >
-              {content.homeHeroCtaBrowse || t('heroCtaBrowse')}
-            </Link>
-          </div>
-
-          <div data-hero-cta className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-2xs text-zinc-500">
-            <span className="inline-flex items-center gap-1.5">
-              <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" aria-hidden="true" /> {t('trustNoInvented')}
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <ClipboardCheck className="h-3.5 w-3.5 text-accent-400" aria-hidden="true" /> {t('trustPricingSources')}
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <LayoutGrid className="h-3.5 w-3.5 text-cyan-400" aria-hidden="true" /> {t('trustCategories', { count: categoryCount })}
-            </span>
-          </div>
-        </div>
-
-        <InfinityGauntlet />
-      </section>
+      {/* SIGNATURE HERO — the solar intelligence and her 18 orbiting tools */}
+      <SolarHero copy={solarCopy} />
 
       {/* TICKER */}
       <HomeMarquee />
@@ -227,22 +148,22 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
               icon: ShieldCheck,
               label: t('statPriceChecked'),
               count: priceChecked.length,
-              tint: 'text-emerald-400',
-              glow: 'hover:shadow-[0_20px_60px_-20px_rgba(52,211,153,0.45)]',
+              tint: 'text-accent-400',
+              glow: 'hover:shadow-[0_20px_60px_-20px_rgba(232,174,28,0.5)]',
             },
             {
               icon: Search,
               label: t('statEvidence'),
               count: 0,
-              tint: 'text-cyan-400',
-              glow: 'hover:shadow-[0_20px_60px_-20px_rgba(34,211,238,0.45)]',
+              tint: 'text-ember-300',
+              glow: 'hover:shadow-[0_20px_60px_-20px_rgba(239,154,62,0.45)]',
             },
             {
               icon: LayoutGrid,
               label: t('statCategories'),
               count: categoryCount,
-              tint: 'text-fuchsia-400',
-              glow: 'hover:shadow-[0_20px_60px_-20px_rgba(232,121,249,0.45)]',
+              tint: 'text-ember-400',
+              glow: 'hover:shadow-[0_20px_60px_-20px_rgba(232,114,42,0.5)]',
             },
           ].map((stat, i) => (
             <div
@@ -296,7 +217,7 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
               <span className="relative z-10">{localizedCategory(category)}</span>
               <span
                 aria-hidden="true"
-                className="absolute inset-0 rounded-full bg-gradient-to-r from-accent-500/15 via-fuchsia-500/10 to-cyan-400/15 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                className="absolute inset-0 rounded-full bg-gradient-to-r from-accent-500/15 via-ember-500/10 to-accent-400/15 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
               />
             </Link>
           ))}
@@ -312,11 +233,11 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
               href={step.href}
               data-reveal
               data-reveal-delay={String(i * 110)}
-              className="glass-panel group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-accent-500/40 hover:shadow-[0_24px_70px_-24px_rgba(139,92,246,0.5)]"
+              className="glass-panel group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-accent-500/40 hover:shadow-[0_24px_70px_-24px_rgba(247,201,72,0.45)]"
             >
               <div
                 aria-hidden="true"
-                className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-gradient-to-br from-accent-500/15 to-fuchsia-500/15 blur-2xl transition-opacity duration-300 group-hover:opacity-100"
+                className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-gradient-to-br from-accent-500/15 to-ember-500/15 blur-2xl transition-opacity duration-300 group-hover:opacity-100"
               />
               <step.icon className="h-6 w-6 text-accent-400" aria-hidden="true" />
               <h3 className="mt-4 text-lg font-black">{step.title}</h3>
@@ -396,7 +317,7 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
       <section className="mx-auto max-w-6xl px-4 py-12">
         <div className="flex items-end justify-between gap-4">
           <div data-reveal>
-            <p className="eyebrow-line text-2xs font-bold uppercase tracking-widest text-emerald-400">
+            <p className="eyebrow-line text-2xs font-bold uppercase tracking-widest text-accent-400">
               {t('featuredEyebrow')}
             </p>
             <h2 className="mt-3 text-3xl font-black sm:text-4xl">{content.homeFeaturedTitle || t('featuredTitle')}</h2>
@@ -418,6 +339,17 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
           ))}
         </div>
       </section>
+
+      {/* GAUNTLET — the interactive easter egg, preserved below the new hero */}
+      <div className="mx-auto max-w-6xl px-4 py-8">
+        <div data-reveal className="mb-4 text-center">
+          <p className="eyebrow-line text-2xs font-bold uppercase tracking-widest text-accent-400">
+            Interactive
+          </p>
+          <h2 className="mt-3 text-3xl font-black sm:text-4xl">Free the stones</h2>
+        </div>
+        <InfinityGauntlet />
+      </div>
 
       {/* TESTING QUEUE */}
       <section className="mx-auto max-w-6xl px-4 py-12">
