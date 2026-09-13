@@ -4,7 +4,7 @@
 
 /**
  * ─────────────────────────────────────────────────────────────────────────
- *  CreatorAI Hub — Cinematic v2 design system
+*  Noxifera — design system (Cinematic v2 lineage, Noxifera 1.0 rebrand)
  *  (built on top of the audit-fixed token system below)
  * ─────────────────────────────────────────────────────────────────────────
  */
@@ -165,12 +165,12 @@
   background: theme('colors.surface.0');
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, theme('colors.accent.500'), theme('colors.primary.600'));
+  background: linear-gradient(180deg, theme('colors.accent.500'), theme('colors.ember.500'));
   border-radius: 8px;
   border: 2px solid theme('colors.surface.0');
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, theme('colors.accent.400'), theme('colors.primary.500'));
+  background: linear-gradient(180deg, theme('colors.accent.400'), theme('colors.ember.400'));
 }
 
 /* Light-mode hero glow — softer for bright backgrounds. */
@@ -225,17 +225,24 @@ html.lenis body {
     --accent-600: #C08A0F;
     --accent-700: #8F650B;
 
+    /* Noxifera dark surfaces — brand navy (key art is ~#13131F). */
+    --surface-0: #0F1019;
+    --surface-1: #161827;
+    --surface-2: #1D2033;
+    --surface-3: #262A40;
+
     --glow-amber: rgba(247, 201, 72, 0.55);
     --glow-violet: rgba(139, 92, 246, 0.55);
     --glow-cyan: rgba(34, 211, 238, 0.45);
-    --aurora-1: rgba(124, 58, 237, 0.22);
-    --aurora-2: rgba(34, 211, 238, 0.12);
+    /* Noxifera 1.0: the hero light is fire, not neon — gold + ember. */
+    --aurora-1: rgba(232, 114, 42, 0.16);
+    --aurora-2: rgba(247, 201, 72, 0.10);
     --aurora-3: rgba(247, 201, 72, 0.10);
   }
 
   html.light {
-    --aurora-1: rgba(124, 58, 237, 0.10);
-    --aurora-2: rgba(34, 211, 238, 0.08);
+    --aurora-1: rgba(232, 114, 42, 0.08);
+    --aurora-2: rgba(232, 174, 28, 0.08);
     --aurora-3: rgba(247, 201, 72, 0.12);
   }
 }
@@ -260,7 +267,7 @@ html.theme-red {
 
 /* ── Gradient text ─────────────────────────────────────────────────────── */
 .text-gradient {
-  background: linear-gradient(100deg, #f7c948 0%, #e879f9 45%, #22d3ee 90%);
+  background: linear-gradient(100deg, #fbd87f 0%, #f7c948 35%, #e8722a 90%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -306,7 +313,7 @@ html.light .glass-panel {
   border-radius: 1.5rem;
   background:
     linear-gradient(var(--surface-1), var(--surface-1)) padding-box,
-    linear-gradient(120deg, #f7c948, #8b5cf6, #22d3ee, #f7c948) border-box;
+    linear-gradient(120deg, #f7c948, #e8722a, #fbd87f, #f7c948) border-box;
   background-size:
     100% 100%,
     300% 100%;
@@ -317,7 +324,7 @@ html.light .glass-panel {
 html.light .border-flow {
   background:
     linear-gradient(#ffffff, #ffffff) padding-box,
-    linear-gradient(120deg, #f59e0b, #8b5cf6, #06b6d4, #f59e0b) border-box;
+    linear-gradient(120deg, #f59e0b, #e8722a, #f7c948, #f59e0b) border-box;
   background-size:
     100% 100%,
     300% 100%;

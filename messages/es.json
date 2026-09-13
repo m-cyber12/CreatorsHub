@@ -1,11 +1,11 @@
 {
   "common": {
-    "siteName": "Centro CreatorAI",
-    "tagline": "La caja de herramientas de IA curada para creadores de vídeo",
-    "metaDescription": "Encuentra la herramienta de IA adecuada para tu trabajo de vídeo en menos de un minuto. {count}+ herramientas para creadores de YouTube y TikTok — editores de vídeo, generadores de Shorts, creadores de miniaturas, clonación de voz y asistentes de guion — cada una etiquetada con el nivel exacto de verificación.",
-    "ogDescription": "{count} herramientas de IA para creadores de vídeo, con etiquetas de verificación honestas, comparación lado a lado y un cementerio de herramientas que ya no existen.",
-    "ogImageAlt": "CreatorAI Hub — herramientas de IA seleccionadas para creadores de vídeo",
-    "twitterDescription": "{count} herramientas de IA para creadores de vídeo. Etiquetamos exactamente lo que hemos probado.",
+    "siteName": "Noxifera",
+    "tagline": "Luz en la oscuridad — la plataforma de IA para creadores",
+    "metaDescription": "La plataforma de IA para creadores. {count}+ herramientas de IA con precios verificados, un asesor de IA que construye tu flujo de trabajo, comparaciones lado a lado, guías paso a paso y un optimizador de suscripciones. Luz en la oscuridad.",
+    "ogDescription": "{count} herramientas de IA para creadores con verificación honesta, asesor de IA, comparaciones, guías paso a paso y un optimizador de suscripciones. Luz en la oscuridad.",
+    "ogImageAlt": "Noxifera — la plataforma de IA para creadores",
+    "twitterDescription": "{count} herramientas de IA para creadores. Precios verificados, asesor de IA, guías. Luz en la oscuridad.",
     "skipToContent": "Saltar al contenido principal",
     "all": "Todos",
     "free": "Gratis",
@@ -64,7 +64,7 @@
     "notFoundTitle": "Página no encontrada",
     "notFoundText": "La página que buscas no existe o se ha movido.",
     "languageName": "Inglés",
-    "poweredByTranslation": "Traducido por el motor de traducción profesional de CreatorAI",
+    "poweredByTranslation": "Traducido por el motor de traducción profesional de Noxifera",
     "toggleTheme": "Cambiar tema",
     "switchToLight": "Cambiar al modo claro",
     "switchToDark": "Cambiar al modo oscuro",
@@ -97,7 +97,14 @@
     "categoriesLabel": "Categorías",
     "openMenu": "Abrir menú",
     "closeMenu": "Cerrar menú",
-    "forFounders": "Para Fundadores"
+    "forFounders": "Para Fundadores",
+    "advisor": "Asesor",
+    "outcomes": "Resultados",
+    "optimizer": "Ahorra en suscripciones",
+    "playbooks": "Guías de herramientas",
+    "workflows": "Flujos",
+    "arena": "Arena",
+    "projects": "Proyectos"
   },
   "footer": {
     "taglineBlurb": "La caja de herramientas de IA curada para creadores de vídeo. {count} herramientas catalogadas, {tested} probadas a fondo, y cada ficha etiquetada con el nivel exacto de verificación.",
@@ -135,7 +142,12 @@
     "terms": "Términos",
     "disclosure": "Divulgación",
     "copyright": "© {year} {name}. La información de las herramientas se recopila de fuentes públicas y documentación de los proveedores; los niveles de verificación se indican en cada ficha.",
-    "taglineBlurbNoTest": "La caja de herramientas de IA seleccionada para creadores de video. {count} herramientas catalogadas con precios verificados a mano — y cada ficha etiquetada con exactamente cuánto la hemos verificado."
+    "taglineBlurbNoTest": "La caja de herramientas de IA seleccionada para creadores de video. {count} herramientas catalogadas con precios verificados a mano — y cada ficha etiquetada con exactamente cuánto la hemos verificado.",
+    "platform": "Plataforma",
+    "advisor": "Asesor de IA",
+    "outcomes": "Guías por resultado",
+    "playbooks": "Guías de herramientas",
+    "optimizer": "Optimizador de suscripciones"
   },
   "home": {
     "heroBadge": "Descubrimiento basado en evidencias para creadores de vídeo",
@@ -178,7 +190,7 @@
     "newsletterEyebrow": "El briefing",
     "newsletterTitle": "Un briefing de IA más tranquilo y más útil.",
     "newsletterText": "Únete a la lista de lanzamiento para cambios de precios relevantes para creadores, novedades normativas y publicaciones de evidencia. La newsletter aún no está activa — no se enviará ningún correo de confirmación hasta que lo esté.",
-    "metaTitle": "CreatorAI Hub — herramientas de IA para creadores de vídeo",
+    "metaTitle": "Noxifera — herramientas de IA para creadores de vídeo",
     "metaDescription": "Encuentra herramientas de IA para vídeo con etiquetas de verificación claras, fuentes de precio y descubrimiento orientado al flujo de trabajo.",
     "heroSubSeparator": "y separamos claramente",
     "heroSubFrom": "de las herramientas que",
@@ -188,7 +200,22 @@
       "doblaje",
       "edición",
       "miniaturas"
-    ]
+    ],
+    "intelEyebrow": "La capa de inteligencia",
+    "intelTitle": "No es un directorio. Es el sistema operativo de los creadores.",
+    "intelSub": "Cuatro herramientas que convierten el catálogo en decisiones: un sistema para tu situación, un flujo para tu resultado, tu gasto bajo control y playbooks de las herramientas que usas.",
+    "intelAdvisorTitle": "Asesor de IA",
+    "intelAdvisorText": "Responde seis preguntas —contenido, plataforma, presupuesto, experiencia, automatización, herramientas que tienes— y obtén un sistema completo por etapa con razones, alternativas y el coste mensual.",
+    "intelAdvisorCta": "Construir mi sistema",
+    "intelOutcomesTitle": "Guías por resultado",
+    "intelOutcomesText": "Empieza por lo que quieres crear: podcast a shorts, YouTube sin rostro, miniaturas, voz, anuncios UGC — cada una con las herramientas, el flujo, el tiempo y el coste real.",
+    "intelOutcomesCta": "Elegir un resultado",
+    "intelOptimizerTitle": "Optimizador de suscripciones",
+    "intelOptimizerText": "Añade lo que pagas. Encuentra capacidades duplicadas, niveles gratuitos que cubren el trabajo y herramientas más baratas del mismo uso — con el ahorro mensual y anual.",
+    "intelOptimizerCta": "Encontrar mi gasto",
+    "intelPlaybooksTitle": "Playbooks de herramientas",
+    "intelPlaybooksText": "Sistemas de uso escritos a mano para las herramientas insignia: configuración, el flujo semanal repetible, jugadas de pro y los errores que matan la calidad.",
+    "intelPlaybooksCta": "Leer un playbook"
   },
   "tools": {
     "title": "Todas las herramientas de IA para creadores de vídeo",
@@ -331,7 +358,9 @@
     "seeFullComparison": "Ver la comparación completa",
     "pairsWellWith": "Combina bien con",
     "pairsIntro": "Herramientas que los creadores suelen combinar con {name}.",
-    "testedByEditorialShort": "Probado por el equipo editorial de {name}"
+    "testedByEditorialShort": "Probado por el equipo editorial de {name}",
+    "playbookLabel": "Playbook",
+    "playbookCta": "Leer el playbook"
   },
   "news": {
     "title": "Feed de noticias de IA",
@@ -350,7 +379,7 @@
     "modeSupabase": "Auto-publicadas desde nuestro pipeline de actualización",
     "modeLive": "En vivo — con fuente de feeds RSS reales",
     "modeCurated": "Aún no hay noticias con fuente",
-    "briefingBadge": "Briefing de IA para creadores — archivo 2026",
+    "briefingBadge": "Noxifera Briefing — archivo 2026",
     "intro": "Cada historia de IA para vídeo/voz/creadores que seguimos en 2026 — ingerida automáticamente, filtrada por relevancia para creadores y aprobada por un editor antes de publicarse. Elige un mes para no verlo todo de golpe, o busca en todo el archivo (tolerante a erratas y sinónimos).",
     "latest": "Últimas",
     "items": "{count} elementos",
@@ -362,7 +391,7 @@
     "allTopics": "Todos los temas",
     "clearAllFilters": "Borrar todos los filtros",
     "readOriginal": "Leer el original en {source}",
-    "pipelineNote": "Agregado automáticamente por el pipeline de noticias de CreatorAI Hub.",
+    "pipelineNote": "Agregado automáticamente por el pipeline de noticias de Noxifera.",
     "summaryNote": "Este resumen fue generado por IA.",
     "collectedNote": "Esta historia se recopiló de su feed de origen.",
     "moreIn": "Más en {category}",
@@ -378,13 +407,13 @@
   "blog": {
     "title": "Blog — reseñas de herramientas de IA, comparativas y guías para creadores",
     "description": "Reseñas prácticas de herramientas de IA, comparativas cara a cara y guías de flujo de trabajo para YouTube y creadores de vídeo. Probadas de forma independiente, actualizadas para 2026.",
-    "heading": "El Blog de CreatorAI",
+    "heading": "El Blog de Noxifera",
     "subtitle": "Guías prácticas, comparativas honestas y manuales de flujo de trabajo para creadores de vídeo.",
     "editorialNote": "Revisado editorialmente",
     "draftNote": "Borrador automático — aún no revisado",
     "relatedTools": "Herramientas relacionadas",
     "backToBlog": "Volver al blog",
-    "writtenBy": "Por el equipo editorial de CreatorAI",
+    "writtenBy": "Por el equipo editorial de Noxifera",
     "badge": "Guías y reseñas para creadores",
     "draftBadge": "Borrador de IA",
     "notFound": "Artículo no encontrado",
@@ -398,7 +427,7 @@
     "viewSpecs": "Ver especificaciones, precios y funciones de {name} →",
     "tryNow": "Prueba {name} ahora",
     "editorialNoteTitle": "Nota editorial",
-    "editorialNoteBody": "Escrito por el equipo editorial de CreatorAI Hub. Las herramientas probadas a fondo incluyen puntuaciones de benchmark verificadas; las no verificadas muestran precios y funciones confirmados en documentación oficial. Algunos enlaces de este artículo son de afiliado — podemos ganar una comisión sin coste adicional y nunca influye en nuestros veredictos.",
+    "editorialNoteBody": "Escrito por el equipo editorial de Noxifera. Las herramientas probadas a fondo incluyen puntuaciones de benchmark verificadas; las no verificadas muestran precios y funciones confirmados en documentación oficial. Algunos enlaces de este artículo son de afiliado — podemos ganar una comisión sin coste adicional y nunca influye en nuestros veredictos.",
     "fullDisclosure": "Divulgación completa",
     "ourMethodology": "Nuestra metodología"
   },
@@ -439,7 +468,13 @@
     "tryTool": "Probar {name}",
     "footerNote": "Las herramientas verificadas incluyen puntuaciones editoriales prácticas. Las no verificadas muestran precios y funciones confirmados en documentación oficial. Algunos enlaces son de afiliado —",
     "readDisclosure": "lee nuestra divulgación",
-    "editorialScore": "Puntuación editorial"
+    "editorialScore": "Puntuación editorial",
+    "addToProject": "Añadir a un proyecto",
+    "selectProject": "Elige un proyecto…",
+    "addedToProject": "Se añadieron {count} herramientas a tu proyecto",
+    "alreadyOnProject": "Esas herramientas ya están en ese proyecto",
+    "noProjects": "Aún no hay proyectos.",
+    "createProject": "Crea uno"
   },
   "bestOf": {
     "title": "Las mejores herramientas de IA de 2026",
@@ -552,7 +587,17 @@
       "Los proveedores no pueden pagar por una puntuación, una posición en el ranking o una nueva prueba con un mejor resultado.",
       "Si alguna vez aceptamos la colocación paga, se etiquetará como \"Patrocinada\" y se excluirá por completo de la puntuación.",
       "Cuando una herramienta no ha sido probada, lo decimos, en lugar de llenar el vacío con un número que parece plausible."
-    ]
+    ],
+    "resultsHeading": "Benchmarks publicados",
+    "resultsSub": "Tests reales con paquete de evidencia completo. No publicamos nada hasta que las herramientas se ejecuten de verdad.",
+    "evTask": "Tarea",
+    "evInput": "Entrada",
+    "evMethodology": "Metodología",
+    "evScoring": "Método de puntuación",
+    "evModel": "Modelo",
+    "evOutput": "Resultado crudo",
+    "evEvaluator": "Evaluador",
+    "evLimitations": "Limitaciones"
   },
   "deals": {
     "title": "Ofertas y códigos de descuento",
@@ -594,7 +639,7 @@
     "backToTools": "Todas las herramientas"
   },
   "changelog": {
-    "title": "Novedades en CreatorAI Hub",
+    "title": "Novedades en Noxifera",
     "description": "Actualizaciones de producto, correcciones e hitos.",
     "heading": "Novedades",
     "subtitle": "Cada actualización del hub, en un solo lugar.",
@@ -604,7 +649,7 @@
   },
   "about": {
     "title": "Acerca de y metodología",
-    "description": "Cómo funciona CreatorAI Hub — qué verificamos, qué no, y cómo leer nuestras etiquetas.",
+    "description": "Cómo funciona Noxifera — qué verificamos, qué no, y cómo leer nuestras etiquetas.",
     "heading": "Acerca de y metodología",
     "subtitle": "Cómo catalogamos, verificamos y clasificamos las herramientas.",
     "whatWeDo": "Qué hacemos",
@@ -613,7 +658,7 @@
   },
   "guide": {
     "title": "Guía de primeros pasos",
-    "description": "Aprende a usar CreatorAI Hub para investigar, comparar y construir tu stack de herramientas de IA.",
+    "description": "Aprende a usar Noxifera para investigar, comparar y construir tu stack de herramientas de IA.",
     "heading": "Primeros pasos",
     "subtitle": "De la primera búsqueda a un stack completo de creador.",
     "nextStep": "Siguiente:"
@@ -637,7 +682,7 @@
   },
   "contact": {
     "title": "Contacta con nosotros",
-    "description": "Ponte en contacto con el equipo de CreatorAI Hub.",
+    "description": "Ponte en contacto con el equipo de Noxifera.",
     "heading": "Contacto",
     "subtitle": "Leemos todo. Las respuestas pueden tardar unos días.",
     "emailUs": "Escríbenos",
@@ -669,7 +714,7 @@
     "success": "Gracias — tu herramienta está en la cola de revisión.",
     "pending": "Propuesta recibida. La revisaremos en unos días.",
     "metaTitle": "Envíe su herramienta de IA",
-    "metaDescription": "Envíe su herramienta de vídeo de IA a CreatorAI Hub para su revisión editorial. Listados gratuitos de herramientas que superan nuestro estándar de calidad, con ubicación destacada opcional.",
+    "metaDescription": "Envíe su herramienta de vídeo de IA a Noxifera para su revisión editorial. Listados gratuitos de herramientas que superan nuestro estándar de calidad, con ubicación destacada opcional.",
     "metaSubtitle": "¿Crear una herramienta de inteligencia artificial para creadores de videos? Envíelo para revisión editorial. Los listados son {free} si la herramienta supera nuestro estándar de calidad: verificamos los precios, las características y los enlaces oficiales de cada envío antes de publicarlo. Las herramientas seleccionadas para nuestro punto de referencia práctico se someten a pruebas editoriales exhaustivas de 24 puntos. Tiempo típico de revisión: 3 a 5 días.",
     "freeStrong": "gratis",
     "formToolName": "Nombre de la herramienta",
@@ -679,7 +724,7 @@
     "formEmail": "Fundador / Correo electrónico de contacto",
     "formEmailPh": "tú@tuherramienta.com",
     "badgeLabel": "Insignia de fundador verificado",
-    "badgeBody": "— Agregaré la insignia de CreatorAI Hub a nuestro sitio (o nos mencionaré en X) a cambio de una revisión prioritaria y una insignia de verificación permanente en nuestra lista.",
+    "badgeBody": "— Agregaré la insignia de Noxifera a nuestro sitio (o nos mencionaré en X) a cambio de una revisión prioritaria y una insignia de verificación permanente en nuestra lista.",
     "submitBtn": "Enviar para listado verificado",
     "submitNote": "Verificamos precios, características y enlaces oficiales para cada envío. Se rechaza el spam, los enlaces inactivos y las herramientas no especializadas.",
     "successTitle": "¡Presentación recibida!",
@@ -718,7 +763,7 @@
     "totalNotePaid": "Sumado de los precios de entrada enumerados en el catálogo: el gasto real depende de los planes y créditos que realmente utilice.",
     "ctaDeals": "Consulta planes y ofertas gratuitos",
     "disclaimer": "Selecciones editoriales basadas en datos del catálogo y ajuste del flujo de trabajo, no en resultados de pruebas prácticas. Su pila se guarda en este navegador y la URL se actualiza a medida que la cambia, para que pueda compartir la combinación exacta.",
-    "copyTitle": "Mi pila {budget} para: {goal} - a través de CreatorAI Hub",
+    "copyTitle": "Mi pila {budget} para: {goal} - a través de Noxifera",
     "copyRole": "{role}: {name} ({price})",
     "copyTotal": "Total estimado: {total}/mes a partir de los precios de entrada indicados",
     "copyPlan": "Planifica el tuyo: /stack-builder",
@@ -746,6 +791,14 @@
       "avatars": {
         "label": "Presentador de avatares",
         "blurb": "Un presentador sintético entrega su guión ante la cámara."
+      },
+      "longform": {
+        "label": "YouTube largo",
+        "blurb": "Investigación, guion, voz, edición, miniatura: todo el pipeline largo."
+      },
+      "ugc": {
+        "label": "Anuncios UGC con IA",
+        "blurb": "Publicidades de producto con presentador IA para social pagado."
       }
     },
     "slots": {
@@ -836,6 +889,42 @@
           "role": "Edición y pulido",
           "hint": "Cortar, titular y cambiar el tamaño de la salida"
         }
+      },
+      "longform": {
+        "scripting": {
+          "role": "Guion e investigación",
+          "hint": "Ideas, esquemas y guiones completos"
+        },
+        "voiceover": {
+          "role": "Voz",
+          "hint": "La narración que sostiene el vídeo"
+        },
+        "editing": {
+          "role": "Edición",
+          "hint": "Cortes, ritmo y el acabado final"
+        },
+        "thumbnail": {
+          "role": "Miniatura",
+          "hint": "La imagen que gana el clic para el título"
+        }
+      },
+      "ugc": {
+        "scripting": {
+          "role": "Guion publicitario",
+          "hint": "Ganchos y reclamos de producto que pasan revisión"
+        },
+        "presenter": {
+          "role": "Presentador IA",
+          "hint": "El rostro que entrega el guion"
+        },
+        "design": {
+          "role": "Visuales de producto",
+          "hint": "Recortes y fondos que se leen en móvil"
+        },
+        "polish": {
+          "role": "Editar y exportar",
+          "hint": "Subtítulos, ritmo y tamaños por plataforma"
+        }
       }
     },
     "budgets": {
@@ -854,8 +943,16 @@
     },
     "metaTitle": "Creador de pilas de flujo de trabajo para creadores: planifique su pila de herramientas de vídeo con IA",
     "metaDescription": "Planifique un flujo de trabajo completo para un creador de videos en minutos: elija su objetivo y presupuesto, asigne una herramienta a cada rol en el proceso y comparta la pila como una URL. Selecciones editoriales del catálogo: sin partituras inventadas.",
-    "ogTitle": "Creador de pilas de flujo de trabajo para creadores: CreatorAI Hub",
-    "ogDescription": "Planifique un flujo de trabajo completo de creación de videos en minutos y compártalo como un enlace. Selecciones editoriales, insignias de verificación y costos de entrada estimados."
+    "ogTitle": "Creador de pilas de flujo de trabajo para creadores: Noxifera",
+    "ogDescription": "Planifique un flujo de trabajo completo de creación de videos en minutos y compártalo como un enlace. Selecciones editoriales, insignias de verificación y costos de entrada estimados.",
+    "saveStack": "Guardar pila",
+    "savedFlash": "Guardado ✓",
+    "savedTitle": "Tus pilas guardadas",
+    "loadStack": "Cargar",
+    "deleteStack": "Eliminar pila",
+    "saveAsProject": "Guardar como nuevo proyecto",
+    "projectCreated": "Guardado como un nuevo proyecto",
+    "projectsFull": "Límite de proyectos alcanzado (12)"
   },
   "calculators": {
     "title": "Calculadoras gratuitas para creadores",
@@ -987,7 +1084,7 @@
     "formNotes": "Solicitud o nota de actualización (opcional)",
     "notesPh": "Háganos saber si su precio, eslogan o características necesitan una actualización inmediata...",
     "badgeLabel": "Revisión prioritaria + Insignia de vínculo de retroceso",
-    "badgeBody": "- Insertaré la insignia de CreatorAI Hub en nuestra página de inicio o sala de prensa a cambio de pruebas editoriales prioritarias.",
+    "badgeBody": "- Insertaré la insignia de Noxifera en nuestra página de inicio o sala de prensa a cambio de pruebas editoriales prioritarias.",
     "claimBtn": "Reclamar perfil oficial e insignia",
     "successTitle": "Reclamo registrado",
     "successBody": "Tenemos su reclamo para {tool}. Nuestro equipo verificará que usted es propietario de esta herramienta antes de otorgarle una insignia y responderemos a {email}.",
@@ -997,7 +1094,7 @@
     "metaTitle": "Programa de fundadores: reclame su perfil de herramienta de IA e incorpore su insignia",
     "ogTitle": "Programa de fundadores: reclame su perfil de herramienta de IA e incorpore su insignia",
     "ogDescription": "Reclame la propiedad de su perfil de herramienta de video de IA: verificación oficial del fundador, actualizaciones directas de precios y una insignia integrable.",
-    "metaDescription": "Reclame la propiedad de su perfil de herramienta de video de IA en CreatorAI Hub. Obtenga la verificación oficial del fundador, actualizaciones directas de precios y nuestra insignia de vínculo de retroceso SVG integrable."
+    "metaDescription": "Reclame la propiedad de su perfil de herramienta de video de IA en Noxifera. Obtenga la verificación oficial del fundador, actualizaciones directas de precios y nuestra insignia de vínculo de retroceso SVG integrable."
   },
   "account": {
     "title": "Tu cuenta",
@@ -1015,7 +1112,83 @@
     "savedSub": "Herramientas que marcó mientras navegaba por el directorio.",
     "nothingSaved": "Nada guardado aún",
     "nothingSavedSub": "Toque el ícono de marcador en cualquier tarjeta de herramientas para crear su caja de herramientas de IA personal.",
-    "browseTools": "Explorar herramientas {count}+"
+    "browseTools": "Explorar herramientas {count}+",
+    "stacksTab": "Pilas y planes ({count})",
+    "stacksHeading": "Tus pilas guardadas",
+    "buildNew": "Crear una nueva pila",
+    "stackMeta": "{goal} · {budget}",
+    "openStack": "Abrir",
+    "delete": "Eliminar",
+    "noStacks": "Aún no hay pilas guardadas: crea una en el Stack Builder y pulsa Guardar.",
+    "plansHeading": "Tus planes del asesor",
+    "runAdvisor": "Usar el Asesor de IA",
+    "openPlan": "Abrir",
+    "noPlans": "Aún no hay planes guardados: el Asesor de IA personaliza un sistema completo según tus respuestas.",
+    "workflowsHeading": "Tus flujos guardados",
+    "noWorkflows": "Aún no hay flujos guardados — abre uno y pulsa Guardar.",
+    "overviewTab": "Resumen",
+    "overviewTitle": "Tu sistema de IA",
+    "overviewSub": "Todo lo que guardaste: costo, solapamientos y qué falta.",
+    "statCost": "Costo mensual est.",
+    "costSub": "{count} herramientas · solo planes de pago",
+    "statCoverage": "Cobertura",
+    "coverageSub": "{covered} de {total} categorías",
+    "statOverlap": "Solapamiento",
+    "overlapGroupsSub": "{count} categorías con 2+ de tus herramientas",
+    "overlapClean": "Sin categorías duplicadas",
+    "statMaturity": "Madurez del flujo",
+    "flagWorkflows": "Flujos",
+    "flagStacks": "Pilas",
+    "flagPlans": "Planes del asesor",
+    "flagTools": "5+ herramientas guardadas",
+    "overlapTitle": "Vigila el solapamiento",
+    "overlapGroup": "Tienes {count} herramientas de {category}:",
+    "overlapHint": "comprueba si realmente necesitas ambas.",
+    "gapsTitle": "Completa los huecos de tu sistema",
+    "gapsSub": "La mejor opción para categorías que aún no cubres.",
+    "freeTool": "Gratis",
+    "quickTitle": "Acciones rápidas",
+    "quickAdvisor": "Asesor de IA",
+    "quickAdvisorDesc": "Meta → sistema recomendado",
+    "quickStack": "Constructor de pilas",
+    "quickStackDesc": "Construye una pila para una meta",
+    "quickWorkflows": "Flujos de trabajo",
+    "quickWorkflowsDesc": "Pipelines de producción paso a paso",
+    "quickOptimizer": "Optimizador de suscripciones",
+    "quickOptimizerDesc": "Encuentra suscripciones duplicadas y ahorros",
+    "emptyTitle": "Tu sistema de IA está vacío",
+    "emptySub": "Usa el Asesor de IA, construye una pila o guarda un flujo: este panel convierte lo guardado en un plan que puedes seguir.",
+    "ctaAdvisor": "Usar el Asesor de IA",
+    "ctaStack": "Construir una pila",
+    "ctaWorkflows": "Ver flujos de trabajo",
+    "radarTab": "Radar",
+    "radarTitle": "Tu radar de IA",
+    "radarSub": "Sigue categorías, herramientas y flujos — mira lo nuevo y lo popular en tu mundo.",
+    "personalized": "Personalizado",
+    "globalDigest": "Resumen global",
+    "followTitle": "Seguir",
+    "noFollowsHint": "Sigue categorías, herramientas o flujos para personalizar el feed.",
+    "followCategories": "Categorías",
+    "followWorkflows": "Flujos de trabajo",
+    "followTools": "Herramientas",
+    "followToolsPlaceholder": "Busca herramientas para seguir…",
+    "noToolMatches": "Sin coincidencias.",
+    "follow": "Seguir",
+    "following": "Siguiendo",
+    "newTitle": "Novedades en Noxifera",
+    "newSub": "Añadidas recientemente al catálogo",
+    "trendingTitle": "Tendencia",
+    "trendingSub": "Lo que más usan los creadores",
+    "watchTitle": "Tu vigilancia de precios",
+    "watchSub": "Precios actuales del catálogo para tus herramientas",
+    "lastReviewed": "Revisado el {date}",
+    "wfTitle": "Tus flujos de trabajo",
+    "wfNodes": "pasos",
+    "wfMinutes": "min",
+    "wfNone": "Sigue un flujo de trabajo para verlo aquí.",
+    "emptyFeed": "Tu radar está en silencio — sigue algo para iniciar el feed.",
+    "badgeNew": "Nueva",
+    "badgeTrending": "Tendencia"
   },
   "login": {
     "title": "Iniciar sesión",
@@ -1027,7 +1200,7 @@
     "password": "Contraseña",
     "signIn": "Iniciar sesión",
     "error": "No se pudo iniciar sesión. Comprueba tus datos.",
-    "welcome": "Bienvenido al centro CreatorAI",
+    "welcome": "Bienvenido al centro Noxifera",
     "welcomeSub": "Sincronice sus herramientas guardadas, publique reseñas y obtenga acceso temprano a ofertas. No se necesita contraseña.",
     "authNotConfigured": "El backend de autenticación aún no está configurado. Agregue {url} y {key} en Vercel, luego ejecute supabase-launch-upgrade.sql. Los marcadores todavía funcionan localmente.",
     "magicSent": "¡Enlace mágico enviado!",
@@ -1037,8 +1210,8 @@
     "byContinuing": "Al continuar, aceptas nuestros <terms>Términos de servicio</terms> y nuestra <privacy>Política de privacidad</privacy>.",
     "terms": "Términos",
     "privacyPolicy": "política de privacidad",
-    "metaTitle": "Iniciar sesión - Centro CreatorAI",
-    "metaDescription": "Inicie sesión en CreatorAI Hub para guardar herramientas, sincronizar marcadores y publicar reseñas.",
+    "metaTitle": "Iniciar sesión - Centro Noxifera",
+    "metaDescription": "Inicie sesión en Noxifera para guardar herramientas, sincronizar marcadores y publicar reseñas.",
     "invalidCredentials": "Correo o contraseña incorrectos. Inténtalo de nuevo.",
     "authErrorGeneric": "Error de autenticación. Inténtalo de nuevo.",
     "magicLinkError": "No se pudo enviar el enlace de acceso. Inténtalo de nuevo.",
@@ -1120,9 +1293,9 @@
     "home": "Inicio"
   },
   "aiStudio": {
-    "metaTitle": "Estudio de IA - Centro CreatorAI",
-    "metaDescription": "Un espacio de trabajo separado, que prioriza la privacidad, para utilidades prácticas para creadores integradas en CreatorAI Hub.",
-    "kicker": "CreatorAI Hub / Espacio nativo · acceso gratuito de lanzamiento",
+    "metaTitle": "Estudio de IA - Centro Noxifera",
+    "metaDescription": "Un espacio de trabajo separado, que prioriza la privacidad, para utilidades prácticas para creadores integradas en Noxifera.",
+    "kicker": "Noxifera / Espacio nativo · acceso gratuito de lanzamiento",
     "heroTitle1": "Haz el siguiente",
     "heroTitle2": "movimiento tú mismo.",
     "heroText": "AI Studio es un espacio de trabajo aparte para utilidades prácticas de creadores: briefs, prompts, calendarios y tareas de medios locales. Sin rankings de herramientas. Sin subidas ocultas.",
@@ -1221,7 +1394,7 @@
     "metaDescriptionOg": "API JSON gratuita de solo lectura con herramientas de vídeo de IA seleccionadas por {count}+. Tarifa limitada, no se requiere clave.",
     "badge": "API pública v1: gratuita",
     "heading": "Construya con nuestros datos de herramientas",
-    "intro": "Una API JSON gratuita y de solo lectura que expone todas las herramientas de IA seleccionadas por {count}+: nombres, categorías, precios verificados, niveles de verificación, puntuaciones de referencia verificadas y etiquetas. No se requiere clave API. Simplemente agregue la atribución con un enlace a CreatorAI Hub.",
+    "intro": "Una API JSON gratuita y de solo lectura que expone todas las herramientas de IA seleccionadas por {count}+: nombres, categorías, precios verificados, niveles de verificación, puntuaciones de referencia verificadas y etiquetas. No se requiere clave API. Simplemente agregue la atribución con un enlace a Noxifera.",
     "featKeyTitle": "No se requiere clave",
     "featKeyDesc": "60 solicitudes/min por IP. CORS habilitado para aplicaciones de navegador.",
     "featDataTitle": "{count}+ herramientas",
@@ -1243,7 +1416,7 @@
     "example": "Ejemplo",
     "response": "Respuesta",
     "termsLabel": "Términos:",
-    "termsBody": "Gratis para proyectos personales y no comerciales con atribución visible (“Datos de CreatorAI Hub” + enlace). Para uso comercial, exportaciones masivas o webhooks,",
+    "termsBody": "Gratis para proyectos personales y no comerciales con atribución visible (“Datos de Noxifera” + enlace). Para uso comercial, exportaciones masivas o webhooks,",
     "contact": "contáctanos",
     "termsEnd": "."
   },
@@ -1290,11 +1463,12 @@
     "faqUniqueANone": "Nada de lo que rastreamos distingue la cobertura de funciones de {a} de la de {b}; se superponen estrechamente, por lo que la decisión se reduce al ajuste y el precio del flujo de trabajo.",
     "faqQUniqueB": "¿Qué puede hacer {b} que {a} no pueda?",
     "faqUniqueB": "{b} cubre {list}, lo que no hace {a}.",
-    "faqUniqueBNone": "Nada de lo que rastreamos distingue la cobertura de características de {b} de la de {a}."
+    "faqUniqueBNone": "Nada de lo que rastreamos distingue la cobertura de características de {b} de la de {a}.",
+    "arenaCta": "Ver más alternativas en la Arena de IA"
   },
   "privacy": {
     "metaTitle": "política de privacidad",
-    "metaDescription": "Política de privacidad de CreatorAI Hub: qué datos recopilamos, cómo los usamos, derechos GDPR y uso de cookies.",
+    "metaDescription": "Política de privacidad de Noxifera: qué datos recopilamos, cómo los usamos, derechos GDPR y uso de cookies.",
     "heading": "política de privacidad",
     "updated": "Última actualización: 4 de agosto de 2026",
     "s1": "1. Quiénes somos",
@@ -1332,7 +1506,7 @@
   },
   "terms": {
     "metaTitle": "Términos de servicio",
-    "metaDescription": "Términos de servicio para usar el directorio CreatorAI Hub, reseñas de la comunidad, API pública y servicio de envío de herramientas.",
+    "metaDescription": "Términos de servicio para usar el directorio Noxifera, reseñas de la comunidad, API pública y servicio de envío de herramientas.",
     "heading": "Términos de servicio",
     "updated": "Última actualización: 4 de agosto de 2026",
     "s1": "1. Aceptación",
@@ -1942,7 +2116,7 @@
       "twitter": "Gorjeo",
       "copied": "¡Copiado!",
       "copyLink": "Copiar enlace",
-      "tweetText": "Echa un vistazo a {title} en CreatorAI Hub",
+      "tweetText": "Echa un vistazo a {title} en Noxifera",
       "ariaTwitter": "Compartir en Twitter/X",
       "ariaCopy": "Copiar enlace al portapapeles"
     },
@@ -1987,7 +2161,9 @@
       "awaiting": "En espera de prueba",
       "submit": "Enviarlo para revisión editorial",
       "scheduled": "Programado: {date}",
-      "wantTested": "¿Quiere probar una herramienta antes?"
+      "wantTested": "¿Quiere probar una herramienta antes?",
+      "yourRequests": "Tus solicitudes",
+      "remove": "Quitar"
     },
     "evidenceCard": {
       "notTested": "No probado de forma independiente",
@@ -2095,6 +2271,409 @@
       "ariaNo": "No, esta página no fue útil.",
       "thanksUseful": "¡Gracias! Me alegra que esto haya sido útil.",
       "thanksNot": "Gracias por los comentarios. Mejoraremos esta página."
+    },
+    "benchmarkRequest": {
+      "request": "Solicitar un benchmark",
+      "requested": "Solicitado",
+      "hint": "Añadido a tu lista local — el equipo editorial elige los tests desde aquí.",
+      "queueLink": "Ver la lista"
     }
+  },
+  "advisor": {
+    "metaTitle": "Asesor de IA — un sistema de herramientas para tu objetivo",
+    "metaDescription": "Responde 6 preguntas y Noxifera construye tu sistema de IA: herramientas por etapas, precios iniciales verificados, alternativas y el siguiente paso exacto en cada etapa.",
+    "badge": "Asesor de IA de Noxifera",
+    "title": "¿Qué quieres crear?",
+    "intro": "Responde seis preguntas y recibe un sistema por etapas: las herramientas, su coste, las alternativas y el siguiente paso exacto en cada etapa. Sin chatbot: las recomendaciones se calculan con los datos de nuestro catálogo.",
+    "progress": "Paso {n} de {total}",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "seeSystem": "Ver mi sistema",
+    "qContent": "¿Qué tipo de contenido?",
+    "qContentSub": "Esto elige las etapas del flujo de trabajo.",
+    "contentTypes": {
+      "long-form": {
+        "label": "Vídeo largo",
+        "desc": "Vídeos de YouTube de 8–30 min, con presentador o editado"
+      },
+      "short-form": {
+        "label": "Shorts / Reels / TikTok",
+        "desc": "Clips verticales de menos de 60 segundos"
+      },
+      "faceless": {
+        "label": "Canal sin rostro",
+        "desc": "Sin cámara: voz IA + visuales generados o de stock"
+      },
+      "podcast": {
+        "label": "Podcast",
+        "desc": "Episodios de audio con clips para redes"
+      },
+      "ugc": {
+        "label": "Anuncios UGC con IA",
+        "desc": "Vídeos publicitarios de producto con presentadores IA"
+      },
+      "course": {
+        "label": "Curso / formación",
+        "desc": "Lecciones estructuradas con diapositivas y presentador"
+      }
+    },
+    "qPlatform": "¿Dónde se publicará?",
+    "platform": {
+      "youtube": "YouTube",
+      "tiktok": "TikTok",
+      "instagram": "Instagram",
+      "multichannel": "Varias plataformas"
+    },
+    "qBudget": "¿Presupuesto mensual para herramientas?",
+    "qBudgetSub": "Tu sistema nunca lo superará. Las herramientas que ya tengas no cuentan.",
+    "budget": {
+      "free": {
+        "label": "$0 — solo gratis",
+        "desc": "Solo planes gratuitos y pasos manuales"
+      },
+      "under50": {
+        "label": "Menos de $50/mes",
+        "desc": "El presupuesto inicial sensato"
+      },
+      "under150": {
+        "label": "Menos de $150/mes",
+        "desc": "Margen para una o dos herramientas premium"
+      },
+      "unlimited": {
+        "label": "El presupuesto no es una limitación",
+        "desc": "Las mejores opciones, sin tope"
+      }
+    },
+    "qExperience": "¿Cuánta experiencia tienes con herramientas de vídeo?",
+    "experience": {
+      "new": "Nuevo — nunca he editado",
+      "some": "Alguna — puedo cortar un vídeo",
+      "pro": "Pro — domino un editor"
+    },
+    "qAutomation": "¿Qué tan automatizado debe ser el flujo?",
+    "qAutomationSub": "Más automatización significa más herramientas (y suscripciones).",
+    "automation": {
+      "manual": {
+        "label": "Manual",
+        "desc": "Hago los pasos yo mismo; herramientas solo donde ahorran tiempo de verdad"
+      },
+      "balanced": {
+        "label": "Equilibrado",
+        "desc": "Automatizar lo repetitivo, mantener lo creativo"
+      },
+      "max": {
+        "label": "Máximo",
+        "desc": "Automatizar todo lo automatizable"
+      }
+    },
+    "qVoice": "¿Quién habla?",
+    "qVoiceSub": "Solo importa si el contenido tiene narración.",
+    "voice": {
+      "own": "Mi propia voz",
+      "ai": "Una voz IA está bien"
+    },
+    "qExisting": "¿Cuáles de estas ya tienes?",
+    "qExistingSub": "Opcional — Noxifera reutiliza las herramientas que ya tienes en vez de recomendar suscripciones nuevas.",
+    "existingPlaceholder": "Busca herramientas que ya uses…",
+    "existingNone": "Ninguna / no uso ninguna de estas",
+    "yourSystem": "Tu sistema recomendado",
+    "systemSub": "Selecciones editoriales del catálogo de Noxifera: precios iniciales verificados, nunca afirmaciones de pruebas.",
+    "monthly": "Total mensual estimado",
+    "monthlyNote": "Precios iniciales del catálogo, excluyendo las herramientas que ya tienes. Los planes gratuitos cuentan como $0.",
+    "manualStage": "Hazlo a mano",
+    "curve": "Curva de aprendizaje",
+    "nextStep": "Siguiente paso",
+    "alternatives": "Alternativas",
+    "fromExisting": "Ya lo tienes",
+    "actions": {
+      "save": "Guardar este plan",
+      "saved": "Plan guardado",
+      "buildStack": "Construir stack",
+      "copy": "Copiar resumen",
+      "copied": "Copiado",
+      "compare": "Comparar estas dos",
+      "restart": "Empezar de nuevo",
+      "attachToProject": "Añadir a un proyecto",
+      "selectProject": "Elige un proyecto…",
+      "projectAdded": "Se añadieron {count} herramientas a tu proyecto",
+      "projectUpToDate": "Esas selecciones ya están en ese proyecto",
+      "noProjects": "Aún no hay proyectos.",
+      "createProject": "Crea uno",
+      "saveAsProject": "Guardar como nuevo proyecto",
+      "projectCreated": "Guardado como un nuevo proyecto",
+      "projectsFull": "Límite de proyectos alcanzado (12)"
+    },
+    "savedPlans": "Tus planes guardados",
+    "savedPlansSub": "Guardados en este navegador. Inicia sesión para sincronizarlos más adelante.",
+    "load": "Abrir",
+    "deletePlan": "Eliminar",
+    "emptySaved": "Aún no hay planes guardados",
+    "emptySavedSub": "Ejecuta el asesor y guarda el sistema que te guste — vivirá aquí.",
+    "disclaimer": "Las recomendaciones son selecciones editoriales calculadas con datos del catálogo (categorías, precios, etiquetas). No son resultados de benchmarks, y los precios iniciales pueden cambiar — cada página muestra cuándo lo verificamos por última vez.",
+    "stages": {
+      "research": "Investigación",
+      "script": "Guion",
+      "voice": "Voz",
+      "visuals": "Visuales",
+      "editing": "Edición",
+      "captions": "Subtítulos",
+      "clipping": "Clips",
+      "recording": "Grabación",
+      "audio-polish": "Pulido de audio",
+      "avatar": "Presentador",
+      "thumbnail": "Miniatura",
+      "seo": "SEO y empaquetado",
+      "distribution": "Distribución",
+      "design": "Diseño"
+    }
+  },
+  "outcomes": {
+    "metaTitle": "Guías por resultado — construye el sistema, no solo la lista",
+    "metaDescription": "Empieza por lo que quieres crear: podcast a shorts, YouTube sin rostro, miniaturas con IA, voz, anuncios UGC y más — cada uno con las herramientas, el flujo, el tiempo y el coste real.",
+    "indexTitle": "Empieza por el resultado, no por la herramienta",
+    "indexSub": "Cada guía es un sistema completo: los trabajos, la herramienta de cada uno con su razón, un flujo de trabajo realista y el coste calculado de nuestro catálogo — nunca una lista vaga de enlaces.",
+    "cardCta": "Ver el sistema",
+    "answers": "Responde",
+    "systemTitle": "El sistema",
+    "systemSub": "Selecciones editoriales del catálogo Noxifera — la herramienta de cada trabajo, por qué, y las alternativas.",
+    "alternatives": "Alternativas",
+    "workflowTitle": "El flujo de trabajo",
+    "workflowSub": "Una primera ejecución realista, paso a paso.",
+    "totalMinutes": "≈ {n} min en la primera ejecución",
+    "costTitle": "Cuánto cuesta",
+    "costSub": "Coste mensual estimado con el precio de entrada (de pago) de cada herramienta del catálogo. Los trabajos totalmente gratuitos cuentan como $0 — la ruta gratuita es real; escalas según necesites.",
+    "perMonth": "al mes, estimado",
+    "caveatsTitle": "Lo que falla",
+    "advisorCta": "¿Quieres esto personalizado a tu presupuesto, experiencia y las herramientas que ya tienes?",
+    "advisorBtn": "Usar el Asesor de IA",
+    "relatedGuides": "Guías relacionadas",
+    "relatedOutcomes": "Más guías por resultado",
+    "faqTitle": "Preguntas frecuentes",
+    "jobsCount": "{n} trabajos · {m} herramientas",
+    "outcomeLabel": "Guía por resultado"
+  },
+  "optimizer": {
+    "metaTitle": "Optimizador de suscripciones — encuentra tu gasto inútil",
+    "metaDescription": "Introduce tus suscripciones de creador. Noxifera las compara con las categorías de trabajo de nuestro catálogo y los precios para detectar duplicados, niveles gratuitos que cubren el trabajo y herramientas más baratas con el mismo uso, con el ahorro mensual y anual.",
+    "title": "Optimizador de suscripciones",
+    "intro": "Añade lo que pagas. El optimizador asocia cada suscripción con la categoría de trabajo de nuestro catálogo y señala las tres formas en que los creadores desperdician dinero: pagar dos veces por el mismo trabajo, pagar cuando un nivel gratuito lo cubre, y pagar más que una herramienta del mismo trabajo.",
+    "listTitle": "Tus suscripciones",
+    "namePlaceholder": "Nombre de la herramienta (p. ej. ChatGPT Plus)",
+    "customCategory": "Categoría — herramientas no en el catálogo",
+    "priceLabel": "Precio mensual ($)",
+    "remove": "Eliminar",
+    "quickAdd": "Añadir rápido",
+    "known": "en catálogo",
+    "currentTotal": "Gasto mensual actual",
+    "optimizedTotal": "Gasto optimizado posible",
+    "monthlySavings": "posible / mes",
+    "yearlySavings": "posible / año",
+    "findingsTitle": "Lo que encontramos",
+    "findingSavings": "ahorra {n}/mes",
+    "noFindings": "Sin hallazgos — tu pila parece ajustada.",
+    "noFindingsSub": "Añade más suscripciones para ver duplicados y alternativas más baratas.",
+    "kindDuplicate": "Duplicado",
+    "kindFreeTier": "Nivel gratuito",
+    "kindCheaper": "Opción más barata",
+    "viewTool": "Ver herramienta",
+    "unanalysed": "{n} suscripción(es) no están en nuestro catálogo, así que solo podemos contarlas, no analizarlas.",
+    "disclaimer": "Los cálculos usan los precios iniciales del catálogo. Tú decides qué cancelar — nosotros solo señalamos las solapaciones.",
+    "emptyTitle": "Añade tu primera suscripción",
+    "emptySub": "Usa los botones de añadir rápido o escribe cualquier herramienta con el precio mensual que pagas de verdad.",
+    "projectsTitle": "Proyectos",
+    "selectProject": "Elige un proyecto…",
+    "attachToProject": "Vincular a un proyecto",
+    "saveAsProject": "Guardar como nuevo proyecto",
+    "attached": "Se añadieron {count} herramientas a tu proyecto",
+    "upToDate": "Esas herramientas ya están en ese proyecto",
+    "created": "Guardado como un nuevo proyecto",
+    "projectsFull": "Límite de proyectos alcanzado (12)",
+    "projectName": "Mis suscripciones"
+  },
+  "playbooks": {
+    "metaTitle": "Playbooks de herramientas — cómo usarlas de verdad",
+    "metaDescription": "Playbooks escritos a mano para las herramientas insignia: la primera configuración, el flujo semanal estándar, los trucos de pro y los errores que matan la calidad.",
+    "indexTitle": "Playbooks de herramientas",
+    "indexSub": "No son listas de funciones: el sistema de trabajo real: la configuración, el flujo repetible, las jugadas de los profesionales y los errores a evitar. Escritos por gente que usa las herramientas a diario.",
+    "setup": "Primera configuración",
+    "workflow": "El flujo semanal",
+    "proMoves": "Jugadas de pro",
+    "mistakes": "Errores que matan la calidad",
+    "faqTitle": "Preguntas frecuentes",
+    "related": "Más playbooks",
+    "bestFor": "Ideal para",
+    "visit": "Ver página de la herramienta",
+    "startingAt": "Desde"
+  },
+  "workflows": {
+    "metaTitle": "Constructor de flujos — sistemas ejecutables para metas de creadores",
+    "metaDescription": "Pipelines listos para los trabajos que realmente hacen los creadores: podcast a shorts, video sin rostro, anuncios UGC, doblaje y video largo — cada paso con la herramienta, el prompt exacto, el tiempo y el coste del catálogo.",
+    "indexTitle": "Constructor de flujos",
+    "indexSub": "Un flujo es un sistema ejecutable: cada paso nombra la herramienta, lo que entra y sale, cuánto tarda y — en pasos de IA — el prompt exacto. Costes y tiempos salen del catálogo, calculados, no estimados a ojo.",
+    "stepsCount": "{n} pasos · {m} min",
+    "open": "Abrir flujo",
+    "totalTime": "Tiempo total",
+    "totalCost": "Coste total",
+    "perRun": "por ejecución, estimado",
+    "pipelineTitle": "El pipeline",
+    "input": "Entrada",
+    "output": "Salida",
+    "prompt": "Prompt",
+    "copyPrompt": "Copiar prompt",
+    "copied": "Copiado ✓",
+    "alternatives": "Alternativas",
+    "manualBadge": "Paso manual",
+    "minutesShort": "min",
+    "notesTitle": "Ten en cuenta",
+    "save": "Guardar",
+    "savedFlash": "Guardado ✓",
+    "duplicate": "Duplicar",
+    "edit": "Editar",
+    "share": "Compartir",
+    "linkCopied": "Enlace copiado ✓",
+    "publish": "Copiar plan",
+    "planCopied": "Plan copiado ✓",
+    "openStudio": "Abrir en Studio",
+    "savedWorkflows": "Flujos",
+    "noWorkflows": "Aún no hay flujos guardados — abre uno y pulsa Guardar.",
+    "workflowHeading": "Tus flujos guardados",
+    "delete": "Eliminar",
+    "projectsTitle": "Mis proyectos",
+    "projectsSub": "Vincula este flujo de trabajo a un proyecto para seguirlo en un solo lugar.",
+    "linkProject": "Vincular a un proyecto",
+    "unlinkProject": "Desvincular"
+  },
+  "arena": {
+    "title": "Arena de IA",
+    "heading": "Combates de herramientas con datos reales",
+    "metaTitle": "Arena de IA — Combates de herramientas | Noxifera",
+    "metaDescription": "Combates cara a cara entre herramientas de IA: puntuaciones transparentes, valor, veredictos y alternativas por paso — con datos reales del catálogo.",
+    "sub": "Elige una categoría o una tarea de producción. Alineamos las herramientas reales, las puntuamos con una fórmula publicada y coronamos a las ganadoras.",
+    "valueFootnote": "Valor = puntuación × 10 × factor de costo: Gratis ×1.0, menos de $10 ×0.9, menos de $30 ×0.8, menos de $100 ×0.65, $100+ ×0.5. Las puntuaciones de laboratorio aparecen solo con un benchmark real.",
+    "botw": "Combate de la semana",
+    "modeCategory": "Combate por categoría",
+    "modeWorkflow": "Combates de flujo",
+    "pickCategory": "Categoría",
+    "pickWorkflow": "Flujo de trabajo",
+    "workflowSub": "Cada paso de la producción con sus alternativas reales, lado a lado.",
+    "scoreLabel": "Puntuación",
+    "valueLabel": "Valor",
+    "labLabel": "Lab",
+    "labNone": "sin datos de lab aún",
+    "scoreEditorial": "editorial",
+    "scoreCommunity": "comunidad",
+    "bestForLabel": "Mejor para",
+    "openTool": "Abrir",
+    "freeTool": "Gratis",
+    "verdictCheapest": "Más barata",
+    "verdictTopRated": "Mejor puntuada",
+    "verdictBestValue": "Mejor valor",
+    "verdictVerified": "Precio verificado",
+    "verdictFreeTier": "Plan gratis",
+    "copyUrl": "Copiar URL",
+    "copyReport": "Copiar informe del combate",
+    "urlCopied": "URL copiada",
+    "reportCopied": "Informe copiado",
+    "step": "Paso",
+    "minUnit": "min",
+    "manualStep": "Paso manual",
+    "noAlternatives": "Sin alternativas listadas para este paso.",
+    "sameCost": "mismo precio",
+    "costDelta": "{delta} vs la herramienta del paso",
+    "notEnough": "Aún no hay suficientes herramientas en esta categoría para un combate."
+  },
+  "projects": {
+    "title": "Proyectos",
+    "metaTitle": "Proyectos — Tus sistemas de creación | Noxifera",
+    "metaDescription": "Organiza prompts, flujos, herramientas, notas y costos en proyectos — YouTube, podcast, newsletter, campaña, lanzamiento o serie.",
+    "heading": "Tus proyectos",
+    "sub": "Un contenedor por meta: los prompts, pipelines, herramientas y notas detrás de tu contenido — con estimaciones de costo en vivo del catálogo.",
+    "newProject": "Nuevo proyecto",
+    "projectName": "Nombre del proyecto",
+    "projectNamePh": "p. ej. Canal de tech sin rostro",
+    "projectType": "Tipo",
+    "create": "Crear",
+    "cancel": "Cancelar",
+    "type": {
+      "youtube": "YouTube",
+      "podcast": "Podcast",
+      "newsletter": "Newsletter",
+      "campaign": "Campaña",
+      "productLaunch": "Lanzamiento de producto",
+      "series": "Serie de contenido"
+    },
+    "emptyTitle": "Aún no hay proyectos",
+    "emptySub": "Crea un proyecto para organizar los prompts, flujos y herramientas detrás de una meta.",
+    "backToList": "Todos los proyectos",
+    "deleteProject": "Eliminar proyecto",
+    "updated": "Actualizado {date}",
+    "minUnit": "min",
+    "promptsTitle": "Prompts",
+    "promptTitlePh": "Título del prompt",
+    "promptBodyPh": "El prompt real…",
+    "addPrompt": "Añadir prompt",
+    "noPrompts": "Aún no hay prompts — añade el primero.",
+    "promptsShort": "prompts",
+    "copyPrompt": "Copiar prompt",
+    "removePrompt": "Quitar",
+    "workflowsTitle": "Flujos de trabajo",
+    "toolsTitle": "Herramientas",
+    "toolSearchPh": "Busca herramientas para añadir…",
+    "noToolMatches": "Sin coincidencias.",
+    "noTools": "Aún no hay herramientas añadidas.",
+    "freeTool": "Gratis",
+    "toolsShort": "herramientas",
+    "notesTitle": "Notas",
+    "notesPh": "Ideas, decisiones, estado…",
+    "saveNotes": "Guardar notas",
+    "notesSaved": "Guardado",
+    "historyTitle": "Historial",
+    "countLabel": "{count} proyectos",
+    "evProjectCreated": "Proyecto creado",
+    "evPromptAdded": "Prompt añadido",
+    "evPromptRemoved": "Prompt eliminado",
+    "evToolToggled": "Herramientas actualizadas",
+    "evWorkflowToggled": "Flujos actualizados",
+    "evNotesSaved": "Notas guardadas",
+    "evToolsAttached": "Herramientas añadidas",
+    "templatesTitle": "Empieza con una plantilla",
+    "templatesSub": "Kits predefinidos con el flujo de trabajo y las herramientas adecuadas.",
+    "templatesWorkflowChip": "flujo incluido",
+    "templatesCreate": "Crear proyecto",
+    "templates": {
+      "faceless-video": {
+        "name": "Kit de vídeo sin rostro",
+        "desc": "Guión, voz, montaje y empaquetado: todo el flujo de vídeo sin rostro."
+      },
+      "podcast-repurpose": {
+        "name": "Kit de reutilización de podcast",
+        "desc": "Graba, edita y convierte un episodio en más de 10 clips."
+      },
+      "shorts-growth": {
+        "name": "Kit de crecimiento en Shorts",
+        "desc": "Corta, subtítula y ajusta para el formato corto."
+      },
+      "global-dubbing": {
+        "name": "Kit de doblaje global",
+        "desc": "Traduce, re-voz y subtítula tu contenido en nuevos idiomas."
+      },
+      "ugc-ads": {
+        "name": "Kit de anuncios UGC",
+        "desc": "Presentadores virtuales y creativos publicitarios que convierten."
+      }
+    },
+    "backupTitle": "Copia de seguridad y restauración",
+    "backupSub": "Todo se guarda sólo en este navegador. Descarga una copia JSON y restáurala aquí o en otro navegador.",
+    "backupDownload": "Descargar copia de seguridad",
+    "backupRestore": "Restaurar desde archivo",
+    "backupRestored": "Se restauraron {count} secciones",
+    "backupInvalid": "Ese archivo no es una copia de seguridad válida de Noxifera",
+    "shareLink": "Compartir proyecto",
+    "importTitle": "Proyecto compartido",
+    "importSub": "Crea este proyecto compartido en tus proyectos: se añadirán herramientas y flujos de trabajo.",
+    "importCreate": "Crear proyecto",
+    "importDismiss": "Descartar",
+    "coverageOf": "{covered} de {total} pasos cubiertos",
+    "coverageComplete": "Todos los pasos cubiertos"
   }
 }

@@ -1,11 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { FlaskConical, Calendar, ArrowRight, ShieldCheck } from 'lucide-react';
 import Link from '@/i18n/navigation';
 import { SmartImage } from '@/components/SmartImage';
 import { ALL_TOOLS } from '@/data/tools';
+import { loadBenchRequests, toggleBenchRequest } from '@/lib/benchRequests';
 
 interface QueueItem {
   slug: string;
@@ -15,15 +16,28 @@ interface QueueItem {
   status: 'voting' | 'scheduled' | 'in-progress';
 }
 
+// Editorial test schedule (tentative — the page copy says so explicitly).
+// Re-baselined 2026-09-12: the previous dates had passed without tests
+// running, which this honest-verification site must not display.
 const INITIAL_QUEUE: QueueItem[] = [
-  { slug: 'synthesia', toolName: 'Synthesia', category: 'AI Avatars', scheduledDate: 'Aug 12, 2026', status: 'scheduled' },
-  { slug: 'invideo', toolName: 'InVideo AI', category: 'Video Generation', scheduledDate: 'Aug 19, 2026', status: 'scheduled' },
-  { slug: 'munch', toolName: 'Munch', category: 'Video Repurposing', scheduledDate: 'Aug 26, 2026', status: 'scheduled' },
-  { slug: 'luma-dream-machine', toolName: 'Luma Dream Machine', category: 'Video Generation', scheduledDate: 'Sep 02, 2026', status: 'scheduled' },
+  { slug: 'synthesia', toolName: 'Synthesia', category: 'AI Avatars', scheduledDate: 'Sep 19, 2026', status: 'scheduled' },
+  { slug: 'invideo', toolName: 'InVideo AI', category: 'Video Generation', scheduledDate: 'Sep 26, 2026', status: 'scheduled' },
+  { slug: 'munch', toolName: 'Munch', category: 'Video Repurposing', scheduledDate: 'Oct 03, 2026', status: 'scheduled' },
+  { slug: 'luma-dream-machine', toolName: 'Luma Dream Machine', category: 'Video Generation', scheduledDate: 'Oct 10, 2026', status: 'scheduled' },
 ];
 
 export function TestingQueueWidget({ compact = false }: { compact?: boolean }) {
   const t = useTranslations('components.testingQueue');
+  const [requests, setRequests] = useState<string[]>([]);
+
+  useEffect(() => {
+    setRequests(loadBenchRequests());
+  }, []);
+
+  const yourRequests = requests
+    .map((slug) => ALL_TOOLS.find((x) => x.slug === slug))
+    .filter((x): x is NonNullable<typeof x> => Boolean(x));
+
   return (
     <div className="rounded-3xl border border-white/10 bg-surface-1 p-6 sm:p-8">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-5">
@@ -90,6 +104,31 @@ export function TestingQueueWidget({ compact = false }: { compact?: boolean }) {
           );
         })}
       </div>
+
+      {/* Your local benchmark requests (no backend — per-browser, no fake vote counts) */}
+      {yourRequests.length > 0 && (
+        <div className="mt-5">
+          <p className="text-2xs font-bold uppercase tracking-wider text-zinc-500">{t('yourRequests')}</p>
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            {yourRequests.map((tool) => (
+              <span
+                key={tool.slug}
+                className="inline-flex items-center gap-1.5 rounded-full border border-accent-500/40 bg-accent-500/10 px-2.5 py-1 text-2xs font-bold text-accent-300"
+              >
+                {tool.name}
+                <button
+                  type="button"
+                  onClick={() => setRequests(toggleBenchRequest(tool.slug))}
+                  aria-label={`${t('remove')} — ${tool.name}`}
+                  className="text-accent-400 hover:text-white"
+                >
+                  ×
+                </button>
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="mt-5 text-center">
         <p className="text-2xs text-zinc-500">

@@ -33,14 +33,26 @@ import {
   Check,
   Wallet,
   FlaskConical,
+  Bookmark,
+  Trash2,
+  FolderKanban,
 } from 'lucide-react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { SmartImage } from '@/components/SmartImage';
 import { VerificationBadge } from '@/components/VerificationBadge';
 import { ALL_TOOLS, type Tool } from '@/data/tools';
+import { attachTools, createProject, toggleWorkflow, type ProjectType } from '@/lib/projects';
 
-type GoalKey = 'faceless' | 'shorts' | 'podcast' | 'thumbnails' | 'dubbing' | 'avatars';
+type GoalKey =
+  | 'faceless'
+  | 'shorts'
+  | 'podcast'
+  | 'thumbnails'
+  | 'dubbing'
+  | 'avatars'
+  | 'longform'
+  | 'ugc';
 type BudgetKey = 'free' | 'budget' | 'pro';
 
 interface Slot {
@@ -94,11 +106,59 @@ const GOALS: Record<GoalKey, { slots: Slot[] }> = {
       { slotKey: 'polish', candidates: ['veed', 'capcut', 'descript'] },
     ],
   },
+  longform: {
+    slots: [
+      { slotKey: 'scripting', candidates: ['claude', 'chatgpt', 'jasper', 'writesonic'] },
+      { slotKey: 'voiceover', candidates: ['elevenlabs', 'murf-ai', 'lovo-ai', 'speechify'] },
+      { slotKey: 'editing', candidates: ['capcut', 'descript', 'veed', 'davinci-resolve', 'adobe-premiere-pro'] },
+      { slotKey: 'thumbnail', candidates: ['canva', 'midjourney', 'adobe-express', 'thumbly-ai'] },
+    ],
+  },
+  ugc: {
+    slots: [
+      { slotKey: 'scripting', candidates: ['chatgpt', 'claude', 'copy-ai'] },
+      { slotKey: 'presenter', candidates: ['heygen', 'd-id', 'synthesia', 'colossyan'] },
+      { slotKey: 'design', candidates: ['canva', 'photoroom', 'adobe-express'] },
+      { slotKey: 'polish', candidates: ['capcut', 'veed', 'descript'] },
+    ],
+  },
 };
 
 const BUDGETS: BudgetKey[] = ['free', 'budget', 'pro'];
 
-const STORAGE_KEY = 'creatorai-stack-v2';
+/** Which local project type fits a creator goal (podcasts get their own type). */
+const GOAL_TO_PROJECT_TYPE: Record<GoalKey, ProjectType> = {
+  faceless: 'youtube',
+  shorts: 'youtube',
+  podcast: 'podcast',
+  thumbnails: 'youtube',
+  dubbing: 'youtube',
+  avatars: 'youtube',
+  longform: 'youtube',
+  ugc: 'youtube',
+};
+
+/** Workflow template that matches a goal (shorts/thumbnails/avatars have none yet). */
+const GOAL_TO_WORKFLOW: Partial<Record<GoalKey, string>> = {
+  faceless: 'faceless-video',
+  podcast: 'podcast-to-shorts',
+  dubbing: 'dubbed-content',
+  longform: 'youtube-long-form',
+  ugc: 'ugc-ads',
+};
+
+const STORAGE_KEY = 'noxifera-stack-v2';
+const LEGACY_STORAGE_KEY = 'creatorai-stack-v2';
+const SAVED_KEY = 'noxifera_saved_stacks';
+
+interface SavedStack {
+  id: string;
+  name: string;
+  goal: GoalKey;
+  budget: BudgetKey;
+  picks: Record<number, string>;
+  savedAt: string;
+}
 
 function parsePrice(priceStr: string | undefined): number {
   if (!priceStr) return 0;
@@ -156,6 +216,9 @@ export default function StackBuilderClient() {
   const [picks, setPicks] = useState<Record<number, string>>({});
   const [copied, setCopied] = useState(false);
   const [shareMsg, setShareMsg] = useState(false);
+  const [projMsg, setProjMsg] = useState<'ok' | 'full' | null>(null);
+  const [saveMsg, setSaveMsg] = useState(false);
+  const [savedStacks, setSavedStacks] = useState<SavedStack[]>([]);
   const [hydrated, setHydrated] = useState(false);
 
   const goalLabel = t(`goals.${goal}.label`);
@@ -168,7 +231,8 @@ export default function StackBuilderClient() {
     const fromUrl = readUrlState();
     let stored: Partial<StackState> = {};
     try {
-      stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      const raw = localStorage.getItem(STORAGE_KEY) ?? localStorage.getItem(LEGACY_STORAGE_KEY);
+      if (raw) stored = JSON.parse(raw);
     } catch {
       /* corrupted storage — ignore */
     }
@@ -177,6 +241,22 @@ export default function StackBuilderClient() {
     setGoal(g);
     setBudget(b);
     setPicks(fromUrl.picks ?? stored.picks ?? {});
+    try {
+      const sraw = localStorage.getItem(SAVED_KEY);
+      if (sraw) {
+        const arr = JSON.parse(sraw);
+        if (Array.isArray(arr)) {
+          setSavedStacks(
+            arr.filter(
+              (s): s is SavedStack =>
+                s && typeof s.id === 'string' && GOALS[s.goal as GoalKey] && BUDGETS.includes(s.budget as BudgetKey)
+            )
+          );
+        }
+      }
+    } catch {
+      /* corrupted storage — ignore */
+    }
     setHydrated(true);
   }, []);
 
@@ -236,6 +316,67 @@ export default function StackBuilderClient() {
     } catch {
       /* clipboard blocked */
     }
+  };
+
+  /** One click: this stack becomes a new project with every pick attached. */
+  const saveAsProject = () => {
+    const name = `${t(`goals.${goal}.label`)} · ${t(`budgets.${budget}.label`)}`;
+    const p = createProject(name, GOAL_TO_PROJECT_TYPE[goal], new Date().toISOString());
+    if (!p) {
+      setProjMsg('full');
+      setTimeout(() => setProjMsg(null), 2500);
+      return;
+    }
+    const slugs = chosen.filter((tool): tool is Tool => Boolean(tool)).map((tool) => tool.slug);
+    attachTools(p.id, slugs, new Date().toISOString());
+    const wf = GOAL_TO_WORKFLOW[goal];
+    if (wf) toggleWorkflow(p.id, wf, new Date().toISOString());
+    setProjMsg('ok');
+    setTimeout(() => setProjMsg(null), 2500);
+  };
+
+  // Persist saved stacks.
+  useEffect(() => {
+    if (!hydrated) return;
+    try {
+      localStorage.setItem(SAVED_KEY, JSON.stringify(savedStacks));
+    } catch {
+      /* private mode — fine */
+    }
+  }, [savedStacks, hydrated]);
+
+  const savedTotal = (s: SavedStack) => {
+    if (s.budget === 'free') return 0;
+    return GOALS[s.goal].slots.reduce((sum, slot, i) => {
+      const slug = s.picks[i] ?? pickForBudget(slot, s.budget);
+      const tool = slug ? ALL_TOOLS.find((t) => t.slug === slug) : undefined;
+      return sum + parsePrice(tool?.startingPrice);
+    }, 0);
+  };
+
+  const saveStack = () => {
+    const entry: SavedStack = {
+      id: `${Date.now()}`,
+      name: `${t(`goals.${goal}.label`)} · ${t(`budgets.${budget}.label`)}`,
+      goal,
+      budget,
+      picks,
+      savedAt: new Date().toISOString(),
+    };
+    setSavedStacks((cur) => [entry, ...cur].slice(0, 12));
+    setSaveMsg(true);
+    setTimeout(() => setSaveMsg(false), 2000);
+  };
+
+  const loadStack = (s: SavedStack) => {
+    setGoal(s.goal);
+    setBudget(s.budget);
+    setPicks({ ...s.picks });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const deleteStack = (id: string) => {
+    setSavedStacks((cur) => cur.filter((s) => s.id !== id));
   };
 
   const share = async () => {
@@ -323,6 +464,20 @@ export default function StackBuilderClient() {
           <div className="flex flex-wrap items-center justify-between gap-3">
             <h2 className="text-xl font-bold">{t('yourStack', { budget: budgetLabel, goal: goalLabel })}</h2>
             <div className="flex items-center gap-2">
+              <button
+                onClick={saveStack}
+                className="inline-flex items-center gap-1.5 rounded-xl border border-accent-500/40 bg-accent-500/10 px-3 py-2 text-2xs font-bold text-accent-300 hover:bg-accent-500/20"
+              >
+                <Bookmark className="h-3.5 w-3.5" aria-hidden="true" />
+                {saveMsg ? t('savedFlash') : t('saveStack')}
+              </button>
+              <button
+                onClick={saveAsProject}
+                className="inline-flex items-center gap-1.5 rounded-xl border border-white/10 bg-surface-1 px-3 py-2 text-2xs font-bold text-zinc-300 hover:border-accent-500/40"
+              >
+                {projMsg === 'ok' ? <Check className="h-3.5 w-3.5 text-emerald-400" aria-hidden="true" /> : <FolderKanban className="h-3.5 w-3.5" aria-hidden="true" />}
+                {projMsg === 'ok' ? t('projectCreated') : projMsg === 'full' ? t('projectsFull') : t('saveAsProject')}
+              </button>
               <button
                 onClick={share}
                 className="inline-flex items-center gap-1.5 rounded-xl border border-white/10 bg-surface-1 px-3 py-2 text-2xs font-bold text-zinc-300 hover:border-accent-500/40"
@@ -452,6 +607,48 @@ export default function StackBuilderClient() {
             {t('disclaimer')}
           </p>
         </section>
+
+        {savedStacks.length > 0 && (
+          <section className="mt-12">
+            <h2 className="text-xl font-bold">{t('savedTitle')}</h2>
+            <ul className="mt-4 space-y-2">
+              {savedStacks.map((s) => (
+                <li
+                  key={s.id}
+                  className="flex flex-wrap items-center gap-3 rounded-xl border border-white/10 bg-surface-1 px-4 py-3"
+                >
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-sm font-bold text-zinc-200">{s.name}</p>
+                    <p className="text-2xs text-zinc-500">
+                      {new Date(s.savedAt).toLocaleDateString()}
+                      {s.budget !== 'free' && (
+                        <span className="font-mono tabular-nums text-emerald-400">
+                          {' '}
+                          · ${savedTotal(s).toFixed(0)}/{t('perMonth').replace(' ', '')}
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => loadStack(s)}
+                    className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-2xs font-bold text-zinc-200 hover:border-accent-500/50 hover:text-accent-300"
+                  >
+                    {t('loadStack')}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => deleteStack(s.id)}
+                    className="rounded-lg p-2 text-zinc-600 hover:bg-white/5 hover:text-rose-300"
+                    aria-label={t('deleteStack')}
+                  >
+                    <Trash2 className="h-4 w-4" aria-hidden="true" />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
       </main>
       <Footer />
     </div>

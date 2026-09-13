@@ -6,7 +6,7 @@ const rawKey = process.env.RESEND_API_KEY?.trim().replace(/^["']|["']$/g, '');
 const resend = rawKey ? new Resend(rawKey) : null;
 
 const FROM_EMAIL =
-  process.env.NEWSLETTER_FROM_EMAIL?.trim() || 'CreatorAI Hub <onboarding@resend.dev>';
+  process.env.NEWSLETTER_FROM_EMAIL?.trim() || 'Noxifera <onboarding@resend.dev>';
 
 /**
  * Send the double opt-in confirmation email.

@@ -1,11 +1,11 @@
 {
   "common": {
-    "siteName": "创造者人工智能中心",
-    "tagline": "为视频创作者精选的 AI 工具箱",
-    "metaDescription": "不到一分钟，找到适合你的视频工作的 AI 工具。{count}+ 款面向 YouTube 和 TikTok 创作者的工具——视频剪辑、Shorts 生成器、缩略图制作、语音克隆和脚本助手——每款都标注了我们的实际验证程度。",
-    "ogDescription": "{count} 款为视频创作者准备的 AI 工具，诚实的验证标签、并排对比，还有一个收录已下架工具的「墓园」。",
-    "ogImageAlt": "CreatorAI Hub —— 为视频创作者精选的 AI 工具",
-    "twitterDescription": "{count} 款为视频创作者准备的 AI 工具。我们如实标注测试过的内容。",
+    "siteName": "Noxifera",
+    "tagline": "黑暗中的光 —— 创作者的 AI 平台",
+    "metaDescription": "创作者的 AI 平台。{count}+ 款价格经过核实的 AI 工具、为你搭建工作流的 AI 顾问、并排对比、分步教程，以及订阅优化器。黑暗中的光。",
+    "ogDescription": "{count} 款面向创作者的 AI 工具，诚实的验证标签、AI 顾问、对比、分步教程和订阅优化器。黑暗中的光。",
+    "ogImageAlt": "Noxifera —— 创作者的 AI 平台",
+    "twitterDescription": "{count} 款面向创作者的 AI 工具。价格核实、AI 顾问、教程。黑暗中的光。",
     "skipToContent": "跳到主要内容",
     "all": "全部",
     "free": "免费",
@@ -64,7 +64,7 @@
     "notFoundTitle": "页面未找到",
     "notFoundText": "你访问的页面不存在或已被移动。",
     "languageName": "英语",
-    "poweredByTranslation": "由 CreatorAI 专业翻译引擎翻译",
+    "poweredByTranslation": "由 Noxifera 专业翻译引擎翻译",
     "toggleTheme": "切换主题",
     "switchToLight": "切换到浅色模式",
     "switchToDark": "切换到深色模式",
@@ -97,7 +97,14 @@
     "categoriesLabel": "分类",
     "openMenu": "打开菜单",
     "closeMenu": "关闭菜单",
-    "forFounders": "针对创始人"
+    "forFounders": "针对创始人",
+    "advisor": "顾问",
+    "outcomes": "目标方案",
+    "optimizer": "订阅优化",
+    "playbooks": "工具教程",
+    "workflows": "工作流",
+    "arena": "竞技场",
+    "projects": "项目"
   },
   "footer": {
     "taglineBlurb": "为视频创作者精选的 AI 工具箱。已收录 {count} 款工具，{tested} 款经过实测，每个条目都标注了我们的实际验证程度。",
@@ -135,7 +142,12 @@
     "terms": "服务条款",
     "disclosure": "信息披露",
     "copyright": "© {year} {name}。工具信息来源于公开资料与厂商文档；每个条目的验证程度均有明确标注。",
-    "taglineBlurbNoTest": "为视频创作者精选的 AI 工具箱。已收录 {count} 个工具，价格均经人工核实——每个条目都明确标注了我们的验证程度。"
+    "taglineBlurbNoTest": "为视频创作者精选的 AI 工具箱。已收录 {count} 个工具，价格均经人工核实——每个条目都明确标注了我们的验证程度。",
+    "platform": "平台",
+    "advisor": "AI 顾问",
+    "outcomes": "目标方案",
+    "playbooks": "工具教程",
+    "optimizer": "订阅优化器"
   },
   "home": {
     "heroBadge": "以证据为先，为视频创作者发现好工具",
@@ -178,7 +190,7 @@
     "newsletterEyebrow": "简报",
     "newsletterTitle": "一份更安静、更有用的 AI 简报。",
     "newsletterText": "加入启动名单，获取与创作者相关的价格变动、政策更新和证据发布。简报尚未上线——在上线前不会发送任何确认邮件。",
-    "metaTitle": "CreatorAI Hub —— 面向视频创作者的 AI 工具",
+    "metaTitle": "Noxifera —— 面向视频创作者的 AI 工具",
     "metaDescription": "找到带有清晰验证标签、价格来源和以工作流为导向的 AI 视频工具。",
     "heroSubSeparator": "我们明确区分",
     "heroSubFrom": "和真正",
@@ -188,7 +200,22 @@
       "配音",
       "编辑",
       "缩略图"
-    ]
+    ],
+    "intelEyebrow": "智能层",
+    "intelTitle": "不是目录，而是创作者的操作系统。",
+    "intelSub": "四个把目录变成决策的工具：适合你处境的系统、适合你目标的工作流、受控的开销，以及你正在使用的工具的实战手册。",
+    "intelAdvisorTitle": "AI 顾问",
+    "intelAdvisorText": "回答六个问题——内容、平台、预算、经验、自动化、已有工具——获得一套按阶段拆分的完整系统，含理由、替代方案和每月成本。",
+    "intelAdvisorCta": "搭建我的系统",
+    "intelOutcomesTitle": "目标指南",
+    "intelOutcomesText": "从你想创作的内容开始：播客转 Shorts、无人出镜 YouTube、封面、配音、UGC 广告——每个都配工具、工作流、时间和真实成本。",
+    "intelOutcomesCta": "选一个目标",
+    "intelOptimizerTitle": "订阅优化器",
+    "intelOptimizerText": "输入你付钱的订阅。它找出重复的能力、免费档就够用的订阅、以及更便宜的同功能工具——并算出每月和每年省多少。",
+    "intelOptimizerCta": "找出我的浪费",
+    "intelPlaybooksTitle": "工具实战手册",
+    "intelPlaybooksText": "为主力工具手写的用法系统：配置、可重复的每周工作流、进阶操作，以及悄悄毁掉质量的错误。",
+    "intelPlaybooksCta": "读一份手册"
   },
   "tools": {
     "title": "面向视频创作者的全部 AI 工具",
@@ -331,7 +358,9 @@
     "seeFullComparison": "查看完整对比",
     "pairsWellWith": "搭配推荐",
     "pairsIntro": "创作者常将 {name} 与以下工具搭配使用。",
-    "testedByEditorialShort": "由 {name} 编辑团队实测"
+    "testedByEditorialShort": "由 {name} 编辑团队实测",
+    "playbookLabel": "实战手册",
+    "playbookCta": "阅读手册"
   },
   "news": {
     "title": "AI 资讯流",
@@ -350,7 +379,7 @@
     "modeSupabase": "由刷新管线自动发布",
     "modeLive": "实时——来自真实 RSS 源",
     "modeCurated": "暂无有来源的资讯",
-    "briefingBadge": "创作者 AI 简报——2026 档案",
+    "briefingBadge": "Noxifera 简报 —— 2026 档案",
     "intro": "我们追踪的每一则 2026 年 AI 视频/语音/创作者资讯——自动收录、通过创作者相关度筛选，并在发布前经编辑审核。按月浏览以免一次加载过多，或在整个档案中搜索（支持错别字与同义词）。",
     "latest": "最新",
     "items": "{count} 条",
@@ -362,7 +391,7 @@
     "allTopics": "全部主题",
     "clearAllFilters": "清除全部筛选",
     "readOriginal": "在 {source} 阅读原文",
-    "pipelineNote": "由 CreatorAI Hub 资讯管线自动聚合。",
+    "pipelineNote": "由 Noxifera 资讯管线自动聚合。",
     "summaryNote": "此摘要由 AI 生成。",
     "collectedNote": "此资讯来自其来源资讯流。",
     "moreIn": "更多 {category}",
@@ -378,13 +407,13 @@
   "blog": {
     "title": "博客——AI 工具评测、对比与创作者指南",
     "description": "面向 YouTube 和视频创作者的 AI 工具实测、正面对比与工作流指南。独立测试，2026 年更新。",
-    "heading": "CreatorAI 博客",
+    "heading": "Noxifera 博客",
     "subtitle": "面向视频创作者的实用指南、诚实对比与工作流手册。",
     "editorialNote": "已经编辑审核",
     "draftNote": "自动草稿——尚未审核",
     "relatedTools": "相关工具",
     "backToBlog": "返回博客",
-    "writtenBy": "CreatorAI 编辑团队",
+    "writtenBy": "Noxifera 编辑团队",
     "badge": "创作者指南与评测",
     "draftBadge": "AI 草稿",
     "notFound": "文章未找到",
@@ -398,7 +427,7 @@
     "viewSpecs": "查看 {name} 的规格、价格与功能 →",
     "tryNow": "立即试用 {name}",
     "editorialNoteTitle": "编辑说明",
-    "editorialNoteBody": "由 CreatorAI Hub 编辑团队撰写。实测工具包含已核实的基准测试分数；未实测工具展示的是经官方文档核实的价格与功能。本文部分链接为联盟链接——我们可能在不增加你费用的情况下获得佣金，这绝不会影响我们的结论。",
+    "editorialNoteBody": "由 Noxifera 编辑团队撰写。实测工具包含已核实的基准测试分数；未实测工具展示的是经官方文档核实的价格与功能。本文部分链接为联盟链接——我们可能在不增加你费用的情况下获得佣金，这绝不会影响我们的结论。",
     "fullDisclosure": "完整信息披露",
     "ourMethodology": "我们的方法论"
   },
@@ -439,7 +468,13 @@
     "tryTool": "试用 {name}",
     "footerNote": "已验证工具包含实操编辑评分；未验证工具展示经官方文档核实的价格与功能。部分链接为联盟链接——",
     "readDisclosure": "阅读我们的信息披露",
-    "editorialScore": "编辑评分"
+    "editorialScore": "编辑评分",
+    "addToProject": "添加到项目",
+    "selectProject": "选择项目…",
+    "addedToProject": "已将 {count} 个工具添加到您的项目",
+    "alreadyOnProject": "这些工具已在该项目中",
+    "noProjects": "还没有项目。",
+    "createProject": "创建一个"
   },
   "bestOf": {
     "title": "2026 年度最佳 AI 工具",
@@ -552,7 +587,17 @@
       "供应商无法为分数、排名或获得更好结果的重新测试付费。",
       "如果我们接受付费展示位置，它将被标记为“赞助”并完全排除在评分之外。",
       "如果工具尚未经过测试，我们会这样说，而不是用看似合理的数字来填补空白。"
-    ]
+    ],
+    "resultsHeading": "已发布的基准测试",
+    "resultsSub": "真实测试，完整证据包。在工具真正运行之前，不会发布任何结果。",
+    "evTask": "任务",
+    "evInput": "输入",
+    "evMethodology": "方法",
+    "evScoring": "评分方法",
+    "evModel": "模型",
+    "evOutput": "原始输出",
+    "evEvaluator": "评估人",
+    "evLimitations": "局限性"
   },
   "deals": {
     "title": "优惠与折扣码",
@@ -594,7 +639,7 @@
     "backToTools": "全部工具"
   },
   "changelog": {
-    "title": "CreatorAI Hub 更新动态",
+    "title": "Noxifera 更新动态",
     "description": "产品更新、修复与里程碑。",
     "heading": "更新动态",
     "subtitle": "本站的每一次更新，集中在一个地方。",
@@ -604,7 +649,7 @@
   },
   "about": {
     "title": "关于与方法论",
-    "description": "CreatorAI Hub 如何运作——我们验证什么、不验证什么，以及如何读懂我们的标签。",
+    "description": "Noxifera 如何运作——我们验证什么、不验证什么，以及如何读懂我们的标签。",
     "heading": "关于与方法论",
     "subtitle": "我们如何收录、验证和排名工具。",
     "whatWeDo": "我们做什么",
@@ -613,7 +658,7 @@
   },
   "guide": {
     "title": "快速上手指南",
-    "description": "学习如何使用 CreatorAI Hub 研究、对比并搭建你的 AI 工具栈。",
+    "description": "学习如何使用 Noxifera 研究、对比并搭建你的 AI 工具栈。",
     "heading": "快速上手",
     "subtitle": "从第一次搜索到完整的创作者工具栈。",
     "nextStep": "下一步："
@@ -637,7 +682,7 @@
   },
   "contact": {
     "title": "联系我们",
-    "description": "与 CreatorAI Hub 团队取得联系。",
+    "description": "与 Noxifera 团队取得联系。",
     "heading": "联系我们",
     "subtitle": "我们每封都会读。回复可能需要几天时间。",
     "emailUs": "给我们发邮件",
@@ -669,7 +714,7 @@
     "success": "谢谢——你的工具已进入审核队列。",
     "pending": "已收到提交。我们将在几天内完成审核。",
     "metaTitle": "提交您的人工智能工具",
-    "metaDescription": "将您的 AI 视频工具提交到 CreatorAI Hub 进行编辑审核。通过我们质量标准的工具的免费列表，以及可选的特色展示位置。",
+    "metaDescription": "将您的 AI 视频工具提交到 Noxifera 进行编辑审核。通过我们质量标准的工具的免费列表，以及可选的特色展示位置。",
     "metaSubtitle": "为视频创作者构建人工智能工具？提交以供编辑审查。如果该工具通过了我们的质量标准，则列表为 {free} - 我们在发布之前验证每次提交的价格、功能和官方链接。为我们的实践基准选择的工具经过了全面的 24 点编辑测试。一般审核时间：3-5 天。",
     "freeStrong": "自由的",
     "formToolName": "工具名称",
@@ -679,7 +724,7 @@
     "formEmail": "创始人/联系邮箱",
     "formEmailPh": "你@yourtool.com",
     "badgeLabel": "经过验证的创始人徽章",
-    "badgeBody": "— 我会将 CreatorAI Hub 徽章添加到我们的网站（或在 X 上提及我们），以换取优先审核和我们列表中的永久验证徽章。",
+    "badgeBody": "— 我会将 Noxifera 徽章添加到我们的网站（或在 X 上提及我们），以换取优先审核和我们列表中的永久验证徽章。",
     "submitBtn": "提交验证列表",
     "submitNote": "我们会验证每次提交的价格、功能和官方链接。垃圾邮件、死链接和非利基工具都会被拒绝。",
     "successTitle": "提交已收到！",
@@ -718,7 +763,7 @@
     "totalNotePaid": "根据目录中列出的入门价格汇总 - 实际支出取决于您实际使用的计划和积分。",
     "ctaDeals": "查看免费计划和优惠",
     "disclaimer": "编辑根据目录数据和工作流程进行选择，而不是实际测试结果。您的堆栈保存在此浏览器中，并且 URL 会在您更改时更新，因此您可以共享确切的组合。",
-    "copyTitle": "我的 {budget} 堆栈：{goal} — 来自 CreatorAI Hub",
+    "copyTitle": "我的 {budget} 堆栈：{goal} — 来自 Noxifera",
     "copyRole": "{role}：{name}（{price}）",
     "copyTotal": "预计总额：{total}/月，来自列出的入门价格",
     "copyPlan": "规划你的：/stack-builder",
@@ -746,6 +791,14 @@
       "avatars": {
         "label": "阿凡达主持人",
         "blurb": "合成主持人在镜头前传送您的脚本。"
+      },
+      "longform": {
+        "label": "长视频 YouTube",
+        "blurb": "调研、脚本、配音、剪辑、封面——完整的长视频流水线。"
+      },
+      "ugc": {
+        "label": "AI UGC 广告",
+        "blurb": "用 AI 主播制作的产品广告，投放付费社媒。"
       }
     },
     "slots": {
@@ -836,6 +889,42 @@
           "role": "编辑和润色",
           "hint": "剪切、添加标题并调整输出大小"
         }
+      },
+      "longform": {
+        "scripting": {
+          "role": "脚本与调研",
+          "hint": "选题、大纲与完整脚本"
+        },
+        "voiceover": {
+          "role": "配音",
+          "hint": "撑起视频的旁白"
+        },
+        "editing": {
+          "role": "剪辑",
+          "hint": "节奏与最终精修"
+        },
+        "thumbnail": {
+          "role": "封面",
+          "hint": "赢得点击的封面图"
+        }
+      },
+      "ugc": {
+        "scripting": {
+          "role": "广告脚本",
+          "hint": "能通过审核的钩子与卖点"
+        },
+        "presenter": {
+          "role": "AI 主播",
+          "hint": "演绎脚本的面孔"
+        },
+        "design": {
+          "role": "产品画面",
+          "hint": "手机端清晰的产品图与背景"
+        },
+        "polish": {
+          "role": "剪辑与导出",
+          "hint": "字幕、节奏与平台尺寸"
+        }
       }
     },
     "budgets": {
@@ -853,9 +942,17 @@
       }
     },
     "metaTitle": "Creator Workflow Stack Builder — 规划您的 AI 视频工具堆栈",
-    "ogTitle": "Creator Workflow Stack Builder — CreatorAI Hub",
+    "ogTitle": "Creator Workflow Stack Builder — Noxifera",
     "metaDescription": "在几分钟内规划完整的视频创建者工作流程：选择您的目标和预算，为管道中的每个角色分配工具，并将堆栈作为 URL 共享。编辑从目录中挑选——没有发明的乐谱。",
-    "ogDescription": "在几分钟内规划完整的视频创建工作流程并将其作为链接共享。编辑精选、验证徽章和预估入场费用。"
+    "ogDescription": "在几分钟内规划完整的视频创建工作流程并将其作为链接共享。编辑精选、验证徽章和预估入场费用。",
+    "saveStack": "保存配置",
+    "savedFlash": "已保存 ✓",
+    "savedTitle": "已保存的配置",
+    "loadStack": "载入",
+    "deleteStack": "删除配置",
+    "saveAsProject": "另存为新项目",
+    "projectCreated": "已保存为新项目",
+    "projectsFull": "项目数量已达上限（12）"
   },
   "calculators": {
     "title": "免费创作者计算器",
@@ -987,7 +1084,7 @@
     "formNotes": "更新请求或注释（可选）",
     "notesPh": "如果您的定价、口号或功能需要立即更新，请告诉我们...",
     "badgeLabel": "优先审核+反向链接徽章",
-    "badgeBody": "— 我将在我们的登陆页面或新闻发布室嵌入 CreatorAI Hub 徽章，以换取优先编辑基准测试。",
+    "badgeBody": "— 我将在我们的登陆页面或新闻发布室嵌入 Noxifera 徽章，以换取优先编辑基准测试。",
     "claimBtn": "索取官方简介和徽章",
     "successTitle": "已记录索赔",
     "successBody": "我们已收到您对 {tool} 的索赔。我们的团队将在授予徽章之前验证您是否拥有此工具，并且我们将回复 {email}。",
@@ -995,7 +1092,7 @@
     "failGeneric2": "出了点问题。请再试一次。",
     "recorded": "您的索赔已被记录。",
     "metaTitle": "创始人计划 — 索取您的 AI 工具配置文件和嵌入徽章",
-    "metaDescription": "在 CreatorAI Hub 上声明您的 AI 视频工具配置文件的所有权。获取官方创始人验证、直接定价更新以及我们的嵌入式 SVG 反向链接徽章。",
+    "metaDescription": "在 Noxifera 上声明您的 AI 视频工具配置文件的所有权。获取官方创始人验证、直接定价更新以及我们的嵌入式 SVG 反向链接徽章。",
     "ogTitle": "创始人计划 — 索取您的 AI 工具配置文件和嵌入徽章",
     "ogDescription": "声明您的 AI 视频工具配置文件的所有权：官方创始人验证、直接定价更新和可嵌入徽章。"
   },
@@ -1015,7 +1112,83 @@
     "savedSub": "您在浏览目录时添加书签的工具。",
     "nothingSaved": "尚未保存任何内容",
     "nothingSavedSub": "点击任意工具卡上的书签图标即可构建您的个人人工智能工具箱。",
-    "browseTools": "浏览 {count}+ 工具"
+    "browseTools": "浏览 {count}+ 工具",
+    "stacksTab": "配置与方案（{count}）",
+    "stacksHeading": "已保存的配置",
+    "buildNew": "搭建新配置",
+    "stackMeta": "{goal} · {budget}",
+    "openStack": "打开",
+    "delete": "删除",
+    "noStacks": "还没有保存的配置——在 Stack Builder 里搭建一个并保存。",
+    "plansHeading": "你的顾问方案",
+    "runAdvisor": "运行 AI 顾问",
+    "openPlan": "打开",
+    "noPlans": "还没有保存的方案——AI 顾问会根据你的回答个性化一套完整系统。",
+    "workflowsHeading": "已保存的工作流",
+    "noWorkflows": "还没有保存的工作流——打开一个并点保存。",
+    "overviewTab": "概览",
+    "overviewTitle": "你的 AI 系统",
+    "overviewSub": "你保存的所有内容——成本、重叠之处，以及缺失的部分。",
+    "statCost": "预估月成本",
+    "costSub": "{count} 个工具 · 仅付费方案",
+    "statCoverage": "覆盖度",
+    "coverageSub": "{covered} / {total} 个类别",
+    "statOverlap": "工具重叠",
+    "overlapGroupsSub": "{count} 个类别有 2 个以上你的工具",
+    "overlapClean": "没有重复类别",
+    "statMaturity": "工作流成熟度",
+    "flagWorkflows": "工作流",
+    "flagStacks": "工具栈",
+    "flagPlans": "顾问方案",
+    "flagTools": "5+ 已存工具",
+    "overlapTitle": "注意重叠",
+    "overlapGroup": "你有 {count} 个{category}工具：",
+    "overlapHint": "确认是否真的需要两个。",
+    "gapsTitle": "补齐你的系统缺口",
+    "gapsSub": "你尚未覆盖类别的最佳选择。",
+    "freeTool": "免费",
+    "quickTitle": "快捷操作",
+    "quickAdvisor": "AI 顾问",
+    "quickAdvisorDesc": "目标 → 推荐系统",
+    "quickStack": "工具栈构建器",
+    "quickStackDesc": "为目标搭建工具栈",
+    "quickWorkflows": "工作流",
+    "quickWorkflowsDesc": "分步生产流水线",
+    "quickOptimizer": "订阅优化器",
+    "quickOptimizerDesc": "发现重复订阅并节省开支",
+    "emptyTitle": "你的 AI 系统还是空的",
+    "emptySub": "运行 AI 顾问、搭建工具栈或保存工作流——此仪表盘将你的保存转化为可跟踪的计划。",
+    "ctaAdvisor": "运行 AI 顾问",
+    "ctaStack": "搭建工具栈",
+    "ctaWorkflows": "浏览工作流",
+    "radarTab": "雷达",
+    "radarTitle": "你的 AI 雷达",
+    "radarSub": "关注类别、工具和工作流——了解你所在领域的最新动态与趋势。",
+    "personalized": "已个性化",
+    "globalDigest": "全局摘要",
+    "followTitle": "关注",
+    "noFollowsHint": "关注类别、工具或工作流以个性化信息流。",
+    "followCategories": "类别",
+    "followWorkflows": "工作流",
+    "followTools": "工具",
+    "followToolsPlaceholder": "搜索要关注的工具…",
+    "noToolMatches": "无匹配结果。",
+    "follow": "关注",
+    "following": "已关注",
+    "newTitle": "Noxifera 新工具",
+    "newSub": "近期加入目录",
+    "trendingTitle": "趋势",
+    "trendingSub": "创作者们使用最多的",
+    "watchTitle": "你的价格监控",
+    "watchSub": "你关注工具的当前目录价格",
+    "lastReviewed": "更新于 {date}",
+    "wfTitle": "你的工作流",
+    "wfNodes": "步骤",
+    "wfMinutes": "分钟",
+    "wfNone": "关注一个工作流以在此跟踪。",
+    "emptyFeed": "你的雷达很安静——关注点内容以启动信息流。",
+    "badgeNew": "新",
+    "badgeTrending": "趋势"
   },
   "login": {
     "title": "登录",
@@ -1027,7 +1200,7 @@
     "password": "密码",
     "signIn": "登录",
     "error": "登录失败，请检查你的信息。",
-    "welcome": "欢迎来到 CreatorAI 中心",
+    "welcome": "欢迎来到 Noxifera",
     "welcomeSub": "同步您保存的工具、发布评论并尽早获得优惠。无需密码。",
     "authNotConfigured": "身份验证后端尚未配置。在Vercel中添加{url}和{key}，然后运行supabase-launch-upgrade.sql。书签在本地仍然有效。",
     "magicSent": "魔法链接已发送！",
@@ -1037,8 +1210,8 @@
     "byContinuing": "继续操作即表示你同意我们的<terms>服务条款</terms>和<privacy>隐私政策</privacy>。",
     "terms": "条款",
     "privacyPolicy": "隐私政策",
-    "metaDescription": "登录 CreatorAI Hub 以保存工具、同步书签和发布评论。",
-    "metaTitle": "登录 — CreatorAI 中心",
+    "metaDescription": "登录 Noxifera 以保存工具、同步书签和发布评论。",
+    "metaTitle": "登录 — Noxifera",
     "invalidCredentials": "邮箱或密码不正确，请重试。",
     "authErrorGeneric": "身份验证失败，请重试。",
     "magicLinkError": "无法发送登录链接，请重试。",
@@ -1120,9 +1293,9 @@
     "home": "首页"
   },
   "aiStudio": {
-    "metaTitle": "AI Studio — CreatorAI 中心",
-    "metaDescription": "CreatorAI Hub 中内置了一个独立的、隐私第一的工作区，用于实用的创建者实用程序。",
-    "kicker": "CreatorAI Hub / 本机工作区·免费启动访问",
+    "metaTitle": "AI Studio — Noxifera",
+    "metaDescription": "Noxifera 中内置了一个独立的、隐私第一的工作区，用于实用的创建者实用程序。",
+    "kicker": "Noxifera / 本机工作区·免费启动访问",
     "heroTitle1": "进行下一个",
     "heroTitle2": "移动你自己。",
     "heroText": "AI Studio 是一个独立的工作区，用于实用的创作者实用程序——简报、提示、日历和本地媒体任务。没有工具排名。没有隐藏上传。",
@@ -1221,7 +1394,7 @@
     "metaDescriptionOg": "免费只读 JSON API 以及 {count}+ 精选的 AI 视频工具。速率有限，无需密钥。",
     "badge": "公共 API v1 — 免费",
     "heading": "使用我们的工具数据进行构建",
-    "intro": "免费的只读 JSON API，公开所有 {count}+ 精选的 AI 工具 - 名称、类别、经过验证的定价、验证级别、经过验证的基准分数和标签。无需 API 密钥。只需添加归属地以及返回 CreatorAI Hub 的链接即可。",
+    "intro": "免费的只读 JSON API，公开所有 {count}+ 精选的 AI 工具 - 名称、类别、经过验证的定价、验证级别、经过验证的基准分数和标签。无需 API 密钥。只需添加归属地以及返回 Noxifera 的链接即可。",
     "featKeyTitle": "无需钥匙",
     "featKeyDesc": "每个 IP 60 个请求/分钟。为浏览器应用启用 CORS。",
     "featDataTitle": "{count}+ 工具",
@@ -1243,7 +1416,7 @@
     "example": "例子",
     "response": "回复",
     "termsLabel": "条款：",
-    "termsBody": "免费用于具有可见归属的个人和非商业项目（“Data by CreatorAI Hub”+链接）。对于商业用途、批量导出或网络钩子，",
+    "termsBody": "免费用于具有可见归属的个人和非商业项目（“Data by Noxifera”+链接）。对于商业用途、批量导出或网络钩子，",
     "contact": "联系我们",
     "termsEnd": "。"
   },
@@ -1290,11 +1463,12 @@
     "faqUniqueANone": "我们跟踪的任何内容都无法区分 {a} 和 {b} 的功能覆盖范围 - 它们紧密重叠，因此决定取决于工作流程适合度和价格。",
     "faqQUniqueB": "{b} 能做什么而 {a} 不能？",
     "faqUniqueB": "{b} 涵盖了 {list}，而 {a} 则没有。",
-    "faqUniqueBNone": "我们跟踪的任何内容都无法区分 {b} 的功能覆盖范围与 {a} 的功能覆盖范围。"
+    "faqUniqueBNone": "我们跟踪的任何内容都无法区分 {b} 的功能覆盖范围与 {a} 的功能覆盖范围。",
+    "arenaCta": "在 AI 竞技场查看更多替代方案"
   },
   "privacy": {
     "metaTitle": "隐私政策",
-    "metaDescription": "CreatorAI Hub 隐私政策：我们收集哪些数据、我们如何使用这些数据、GDPR 权利和 cookie 使用。",
+    "metaDescription": "Noxifera 隐私政策：我们收集哪些数据、我们如何使用这些数据、GDPR 权利和 cookie 使用。",
     "heading": "隐私政策",
     "updated": "最后更新时间：2026 年 8 月 4 日",
     "s1": "1. 我们是谁",
@@ -1332,7 +1506,7 @@
   },
   "terms": {
     "metaTitle": "服务条款",
-    "metaDescription": "使用 CreatorAI Hub 目录、社区评论、公共 API 和工具提交服务的服务条款。",
+    "metaDescription": "使用 Noxifera 目录、社区评论、公共 API 和工具提交服务的服务条款。",
     "heading": "服务条款",
     "updated": "最后更新时间：2026 年 8 月 4 日",
     "s1": "1. 验收",
@@ -1942,7 +2116,7 @@
       "twitter": "叽叽喳喳",
       "copied": "复制了！",
       "copyLink": "复制链接",
-      "tweetText": "在 CreatorAI Hub 上查看 {title}",
+      "tweetText": "在 Noxifera 上查看 {title}",
       "ariaTwitter": "在 Twitter/X 上分享",
       "ariaCopy": "将链接复制到剪贴板"
     },
@@ -1987,7 +2161,9 @@
       "awaiting": "等待测试",
       "submit": "提交以供编辑审查",
       "scheduled": "预定：{date}",
-      "wantTested": "想要更快地测试工具吗？"
+      "wantTested": "想要更快地测试工具吗？",
+      "yourRequests": "你的申请",
+      "remove": "移除"
     },
     "evidenceCard": {
       "notTested": "未经独立测试",
@@ -2095,6 +2271,409 @@
       "ariaNo": "否，此页面没有帮助",
       "thanksUseful": "谢谢！很高兴这很有用。",
       "thanksNot": "感谢您的反馈 - 我们将改进此页面。"
+    },
+    "benchmarkRequest": {
+      "request": "申请基准测试",
+      "requested": "已申请",
+      "hint": "已加入你的本地列表——编辑团队从这里挑选测试。",
+      "queueLink": "查看列表"
     }
+  },
+  "advisor": {
+    "metaTitle": "AI 顾问 —— 为你的目标搭建工具系统",
+    "metaDescription": "回答 6 个问题，Noxifera 为你构建 AI 系统：分阶段的工具、经过核实的起步价格、替代方案，以及每一步的准确下一步。",
+    "badge": "Noxifera AI 顾问",
+    "title": "你想创作什么？",
+    "intro": "回答六个问题，获得分阶段系统：用什么工具、花多少钱、有哪些替代方案，以及每个阶段的下一步。不是聊天机器人——推荐结果由我们的目录数据计算得出。",
+    "progress": "第 {n} 步，共 {total} 步",
+    "back": "返回",
+    "next": "下一步",
+    "seeSystem": "查看我的系统",
+    "qContent": "什么类型的内容？",
+    "qContentSub": "这决定工作流的阶段。",
+    "contentTypes": {
+      "long-form": {
+        "label": "长视频",
+        "desc": "YouTube 视频，8–30 分钟，出镜或剪辑"
+      },
+      "short-form": {
+        "label": "Shorts / Reels / TikTok",
+        "desc": "60 秒以内的竖版短片"
+      },
+      "faceless": {
+        "label": "无人出镜频道",
+        "desc": "不出镜：AI 配音 + 生成或素材画面"
+      },
+      "podcast": {
+        "label": "播客",
+        "desc": "音频节目 + 社媒切片"
+      },
+      "ugc": {
+        "label": "AI UGC 广告",
+        "desc": "用 AI 主播制作产品广告视频"
+      },
+      "course": {
+        "label": "课程 / 培训",
+        "desc": "结构化课件，含幻灯片与讲师"
+      }
+    },
+    "qPlatform": "发布在哪个平台？",
+    "platform": {
+      "youtube": "YouTube",
+      "tiktok": "TikTok",
+      "instagram": "Instagram",
+      "multichannel": "多个平台"
+    },
+    "qBudget": "每月工具预算？",
+    "qBudgetSub": "系统总价不会超过它。你已经拥有的工具不计入。",
+    "budget": {
+      "free": {
+        "label": "$0 —— 只用免费",
+        "desc": "只用免费档和手动步骤"
+      },
+      "under50": {
+        "label": "$50/月以内",
+        "desc": "合理的起步预算"
+      },
+      "under150": {
+        "label": "$150/月以内",
+        "desc": "可以承受一两个旗舰工具"
+      },
+      "unlimited": {
+        "label": "预算不设限",
+        "desc": "最佳选择，不设上限"
+      }
+    },
+    "qExperience": "你有多会用视频工具？",
+    "experience": {
+      "new": "新手——从没见过剪",
+      "some": "会一点——能剪视频",
+      "pro": "熟练——会用编辑器"
+    },
+    "qAutomation": "工作流要多自动化？",
+    "qAutomationSub": "越自动化，工具（和订阅）越多。",
+    "automation": {
+      "manual": {
+        "label": "手动",
+        "desc": "步骤我自己做；工具只在真正省时间的地方用"
+      },
+      "balanced": {
+        "label": "均衡",
+        "desc": "重复的自动化，创作的部分自己做"
+      },
+      "max": {
+        "label": "最大化",
+        "desc": "能自动化的都自动化"
+      }
+    },
+    "qVoice": "谁来讲？",
+    "qVoiceSub": "只有带旁白的内容才需要回答。",
+    "voice": {
+      "own": "我自己的声音",
+      "ai": "AI 配音就行"
+    },
+    "qExisting": "这些里你已经有哪些？",
+    "qExistingSub": "可选——Noxifera 会复用你已有的工具，而不是推荐新订阅。",
+    "existingPlaceholder": "搜索你已经在用的工具…",
+    "existingNone": "没有 / 我都不用",
+    "yourSystem": "为你推荐系统",
+    "systemSub": "来自 Noxifera 目录的编辑精选——核实的起步价格，绝不虚构测试结果。",
+    "monthly": "预计每月总花费",
+    "monthlyNote": "目录中的起步价格，不含你已有的工具。免费档计为 $0。",
+    "manualStage": "这一步自己做",
+    "curve": "学习曲线",
+    "nextStep": "下一步",
+    "alternatives": "替代方案",
+    "fromExisting": "你已有",
+    "actions": {
+      "save": "保存方案",
+      "saved": "已保存",
+      "buildStack": "生成工具栈",
+      "copy": "复制摘要",
+      "copied": "已复制",
+      "compare": "对比这两个",
+      "restart": "重新开始",
+      "attachToProject": "添加到项目",
+      "selectProject": "选择项目…",
+      "projectAdded": "已将 {count} 个工具添加到您的项目",
+      "projectUpToDate": "这些选择已在该项目中",
+      "noProjects": "还没有项目。",
+      "createProject": "创建一个",
+      "saveAsProject": "另存为新项目",
+      "projectCreated": "已保存为新项目",
+      "projectsFull": "项目数量已达上限（12）"
+    },
+    "savedPlans": "你的已存方案",
+    "savedPlansSub": "保存在此浏览器中。登录后可跨设备同步。",
+    "load": "打开",
+    "deletePlan": "删除",
+    "emptySaved": "还没有保存的方案",
+    "emptySavedSub": "运行顾问并保存你喜欢的系统——它会在这里。",
+    "disclaimer": "推荐结果是基于目录数据（分类、价格、标签）的编辑精选，不是基准测试结果；起步价格可能变化——每个工具页面都标注了我们最近核实的时间。",
+    "stages": {
+      "research": "调研",
+      "script": "脚本",
+      "voice": "配音",
+      "visuals": "画面",
+      "editing": "剪辑",
+      "captions": "字幕",
+      "clipping": "切片",
+      "recording": "录制",
+      "audio-polish": "音频润色",
+      "avatar": "讲师",
+      "thumbnail": "封面",
+      "seo": "SEO 与包装",
+      "distribution": "分发",
+      "design": "设计"
+    }
+  },
+  "outcomes": {
+    "metaTitle": "目标指南 —— 搭建系统，而不只是列表",
+    "metaDescription": "从你想创作的内容开始：播客转 Shorts、无人出镜 YouTube、AI 封面、配音、UGC 广告等——每个目标都配工具、工作流、时间和真实成本。",
+    "indexTitle": "从目标出发，而不是从工具出发",
+    "indexSub": "每份指南都是完整系统：每个环节的工作、对应的工具与理由、可执行的首次工作流，以及由目录计算出的成本——绝不是一堆模糊的链接。",
+    "cardCta": "查看系统",
+    "answers": "回答",
+    "systemTitle": "系统",
+    "systemSub": "来自 Noxifera 目录的编辑精选——每个环节用什么工具、为什么，以及替代方案。",
+    "alternatives": "替代方案",
+    "workflowTitle": "工作流",
+    "workflowSub": "一次真实的首次执行，逐步进行。",
+    "totalMinutes": "首次执行约 {n} 分钟",
+    "costTitle": "成本",
+    "costSub": "按目录中每个工具的入门付费价估算的每月成本。完全免费的环节计为 $0——免费路线是真实的，按需升级。",
+    "perMonth": "每月，估算",
+    "caveatsTitle": "容易出错的点",
+    "advisorCta": "想按你的预算、经验和已有工具个性化？",
+    "advisorBtn": "运行 AI 顾问",
+    "relatedGuides": "相关指南",
+    "relatedOutcomes": "更多目标指南",
+    "faqTitle": "常见问题",
+    "jobsCount": "{n} 个环节 · {m} 款工具",
+    "outcomeLabel": "目标指南"
+  },
+  "optimizer": {
+    "metaTitle": "订阅优化器 —— 找出你的浪费开支",
+    "metaDescription": "输入你的创作者订阅。Noxifera 将它们与目录中的任务类别和价格对比，找出重复订阅、免费档即可覆盖的订阅、以及做同样工作却更便宜的工具——并算出每月和每年能省多少。",
+    "title": "订阅优化器",
+    "intro": "把你付钱的东西填进来。优化器会把每个订阅匹配到目录中的任务类别，并标出创作者浪费钱的三种方式：为同一工作付两次钱、免费档就够用却仍付费、以及比同功能工具付得更多。",
+    "listTitle": "你的订阅",
+    "namePlaceholder": "工具名（例如 ChatGPT Plus）",
+    "customCategory": "类别 —— 目录中没有的工具",
+    "priceLabel": "每月价格（$）",
+    "remove": "删除",
+    "quickAdd": "快速添加",
+    "known": "在目录中",
+    "currentTotal": "当前每月支出",
+    "optimizedTotal": "优化后可达支出",
+    "monthlySavings": "每月可省",
+    "yearlySavings": "每年可省",
+    "findingsTitle": "我们发现了什么",
+    "findingSavings": "省 {n}/月",
+    "noFindings": "没有发现——你的配置已经很精简。",
+    "noFindingsSub": "添加更多订阅，查看重复项和更便宜的替代方案。",
+    "kindDuplicate": "重复",
+    "kindFreeTier": "免费档",
+    "kindCheaper": "更便宜选项",
+    "viewTool": "查看工具",
+    "unanalysed": "{n} 个订阅不在我们的目录中，只能计入总额，无法分析。",
+    "disclaimer": "估算使用目录的起步价。取消什么由你决定——我们只标出重叠部分。",
+    "emptyTitle": "添加你的第一个订阅",
+    "emptySub": "用快速添加，或输入任意工具名和你实际支付的月费。",
+    "projectsTitle": "项目",
+    "selectProject": "选择项目…",
+    "attachToProject": "链接到项目",
+    "saveAsProject": "另存为新项目",
+    "attached": "已将 {count} 个工具添加到您的项目",
+    "upToDate": "这些工具已在该项目中",
+    "created": "已保存为新项目",
+    "projectsFull": "项目数量已达上限（12）",
+    "projectName": "我的订阅"
+  },
+  "playbooks": {
+    "metaTitle": "工具实战手册 —— 真正会用工具",
+    "metaDescription": "为主力创作者工具手写的实战手册：首次配置、标准每周工作流、进阶操作，以及悄悄毁掉质量的错误。",
+    "indexTitle": "工具实战手册",
+    "indexSub": "不是功能列表，而是可运行的系统：配置、可重复的工作流、专业人士的操作、以及要避免的错误。由天天用这些工具的人撰写。",
+    "setup": "首次配置",
+    "workflow": "每周工作流",
+    "proMoves": "进阶操作",
+    "mistakes": "毁掉质量的错误",
+    "faqTitle": "常见问题",
+    "related": "更多手册",
+    "bestFor": "适合",
+    "visit": "查看工具页面",
+    "startingAt": "起步价"
+  },
+  "workflows": {
+    "metaTitle": "工作流构建器 —— 创作者目标的可执行系统",
+    "metaDescription": "为创作者真正执行的流程提供现成流水线：播客转 Shorts、无人出镜视频、UGC 广告、配音、长视频——每一步都配工具、精确提示词、时间和目录中的成本。",
+    "indexTitle": "工作流构建器",
+    "indexSub": "工作流是一套可执行的系统：每一步都写明工具、输入输出、耗时——AI 步骤还附带精确提示词。成本与时间来自目录，是计算出来的，不是拍脑袋估的。",
+    "stepsCount": "{n} 步 · {m} 分钟",
+    "open": "打开工作流",
+    "totalTime": "总时长",
+    "totalCost": "总成本",
+    "perRun": "每次运行，估算",
+    "pipelineTitle": "流水线",
+    "input": "输入",
+    "output": "输出",
+    "prompt": "提示词",
+    "copyPrompt": "复制提示词",
+    "copied": "已复制 ✓",
+    "alternatives": "替代方案",
+    "manualBadge": "人工步骤",
+    "minutesShort": "分钟",
+    "notesTitle": "请记住",
+    "save": "保存",
+    "savedFlash": "已保存 ✓",
+    "duplicate": "复制",
+    "edit": "编辑",
+    "share": "分享",
+    "linkCopied": "链接已复制 ✓",
+    "publish": "复制方案",
+    "planCopied": "方案已复制 ✓",
+    "openStudio": "在 Studio 中打开",
+    "savedWorkflows": "工作流",
+    "noWorkflows": "还没有保存的工作流——打开一个并点保存。",
+    "workflowHeading": "已保存的工作流",
+    "delete": "删除",
+    "projectsTitle": "我的项目",
+    "projectsSub": "将此工作流链接到项目，以便在一个地方跟踪。",
+    "linkProject": "链接到项目",
+    "unlinkProject": "取消链接"
+  },
+  "arena": {
+    "title": "AI 竞技场",
+    "heading": "用真实数据比拼工具",
+    "metaTitle": "AI 竞技场 — 工具对决 | Noxifera",
+    "metaDescription": "AI 创作工具的正面对决：透明评分、价值、裁定与每步替代方案——基于目录真实数据。",
+    "sub": "选择一个类别或生产任务。我们把真实工具摆在一起，用公开公式评分，并加冕胜者。",
+    "valueFootnote": "价值分 = 评分 × 10 × 成本系数：免费 ×1.0，低于 $10 ×0.9，低于 $30 ×0.8，低于 $100 ×0.65，$100 以上 ×0.5。只有存在真实基准测试时才显示实验室分。",
+    "botw": "本周对决",
+    "modeCategory": "类别对决",
+    "modeWorkflow": "工作流对决",
+    "pickCategory": "类别",
+    "pickWorkflow": "工作流",
+    "workflowSub": "生产的每一步与其真实替代方案并排展示。",
+    "scoreLabel": "评分",
+    "valueLabel": "价值",
+    "labLabel": "实验室",
+    "labNone": "暂无实验室数据",
+    "scoreEditorial": "编辑",
+    "scoreCommunity": "社区",
+    "bestForLabel": "最适合",
+    "openTool": "打开",
+    "freeTool": "免费",
+    "verdictCheapest": "最便宜",
+    "verdictTopRated": "评分最高",
+    "verdictBestValue": "最佳价值",
+    "verdictVerified": "价格已验证",
+    "verdictFreeTier": "免费方案",
+    "copyUrl": "复制网址",
+    "copyReport": "复制对决报告",
+    "urlCopied": "已复制网址",
+    "reportCopied": "已复制报告",
+    "step": "步骤",
+    "minUnit": "分钟",
+    "manualStep": "手动步骤",
+    "noAlternatives": "此步骤暂无已列出的替代方案。",
+    "sameCost": "价格相同",
+    "costDelta": "与步骤工具相比 {delta}",
+    "notEnough": "该类别目前目录中的工具还不足以进行对决。"
+  },
+  "projects": {
+    "title": "项目",
+    "metaTitle": "项目 — 你的创作系统 | Noxifera",
+    "metaDescription": "将提示词、工作流、工具、笔记和成本组织成项目——YouTube、播客、通讯、活动、产品发布或内容系列。",
+    "heading": "你的项目",
+    "sub": "每个目标一个容器：你内容背后的提示词、流水线、工具和笔记——附带来自目录的实时成本估算。",
+    "newProject": "新建项目",
+    "projectName": "项目名称",
+    "projectNamePh": "例如：无人脸科技频道",
+    "projectType": "类型",
+    "create": "创建",
+    "cancel": "取消",
+    "type": {
+      "youtube": "YouTube",
+      "podcast": "播客",
+      "newsletter": "通讯",
+      "campaign": "活动",
+      "productLaunch": "产品发布",
+      "series": "内容系列"
+    },
+    "emptyTitle": "还没有项目",
+    "emptySub": "创建一个项目，整理某个目标背后的提示词、工作流和工具。",
+    "backToList": "所有项目",
+    "deleteProject": "删除项目",
+    "updated": "更新于 {date}",
+    "minUnit": "分钟",
+    "promptsTitle": "提示词",
+    "promptTitlePh": "提示词标题",
+    "promptBodyPh": "实际的提示词…",
+    "addPrompt": "添加提示词",
+    "noPrompts": "还没有提示词——添加第一个。",
+    "promptsShort": "提示词",
+    "copyPrompt": "复制提示词",
+    "removePrompt": "移除",
+    "workflowsTitle": "工作流",
+    "toolsTitle": "工具",
+    "toolSearchPh": "搜索要添加的工具…",
+    "noToolMatches": "无匹配结果。",
+    "noTools": "尚未添加工具。",
+    "freeTool": "免费",
+    "toolsShort": "工具",
+    "notesTitle": "笔记",
+    "notesPh": "想法、决定、进展…",
+    "saveNotes": "保存笔记",
+    "notesSaved": "已保存",
+    "historyTitle": "历史",
+    "countLabel": "{count} 个项目",
+    "evProjectCreated": "项目已创建",
+    "evPromptAdded": "已添加提示词",
+    "evPromptRemoved": "已移除提示词",
+    "evToolToggled": "工具已更新",
+    "evWorkflowToggled": "工作流已更新",
+    "evNotesSaved": "笔记已保存",
+    "evToolsAttached": "已添加工具",
+    "templatesTitle": "从模板开始",
+    "templatesSub": "预置套件，附带合适的工作流与工具。",
+    "templatesWorkflowChip": "含工作流",
+    "templatesCreate": "创建项目",
+    "templates": {
+      "faceless-video": {
+        "name": "无人出镜视频套件",
+        "desc": "脚本、配音、合成与包装——完整的无人出镜流程。"
+      },
+      "podcast-repurpose": {
+        "name": "播客再利用套件",
+        "desc": "录制、剪辑，把一个节目剪成 10 多条短视频。"
+      },
+      "shorts-growth": {
+        "name": "Shorts 增长套件",
+        "desc": "剪辑、字幕与精修，冲刺短视频流量。"
+      },
+      "global-dubbing": {
+        "name": "全球配音套件",
+        "desc": "翻译、重配音并为你内容添加新语言字幕。"
+      },
+      "ugc-ads": {
+        "name": "UGC 广告套件",
+        "desc": "虚拟主播与高转化广告创意。"
+      }
+    },
+    "backupTitle": "备份与恢复",
+    "backupSub": "所有内容仅保存在此浏览器中。下载 JSON 备份，可在此或另一个浏览器中恢复。",
+    "backupDownload": "下载备份",
+    "backupRestore": "从文件恢复",
+    "backupRestored": "已恢复 {count} 个部分",
+    "backupInvalid": "该文件不是有效的 Noxifera 备份",
+    "shareLink": "分享项目",
+    "importTitle": "分享的项目",
+    "importSub": "将此分享的项目创建到您的项目中——工具和工作流将被附加。",
+    "importCreate": "创建项目",
+    "importDismiss": "忽略",
+    "coverageOf": "已覆盖 {total} 步中的 {covered} 步",
+    "coverageComplete": "全部步骤已覆盖"
   }
 }

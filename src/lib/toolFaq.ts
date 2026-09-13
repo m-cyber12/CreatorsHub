@@ -59,7 +59,7 @@ export function buildToolFaq(
 
   // 3 — Verification status (the honesty question)
   faqs.push({
-    q: `Has CreatorAI Hub tested ${tool.name} hands-on?`,
+    q: `Has Noxifera tested ${tool.name} hands-on?`,
     a: hasVerifiedScore(tool)
       ? `Yes. We ran ${tool.name} on our standard benchmark brief on ${tool.testedAt} and published the evidence and sub-scores on this page.`
       : tool.verificationLevel === 'pricing-verified'

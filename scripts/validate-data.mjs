@@ -167,7 +167,77 @@ for (const [label, src] of [
   }
 }
 
-// ── report ───────────────────────────────────────────────────────────────
+// ── 6. cross-references (advisor / outcomes / playbooks) ──────────────────
+// The Phase 2+ data files point at catalog tools and blog posts. A typo in a
+// slug would 404 at runtime but typecheck fine, so we verify every reference
+// statically here (the advisor module's header makes this promise).
+const catalogSlugs = new Set(allEntries.map((e) => e.slug));
+const blogSlugs = new Set(
+  [...read('src/data/posts.ts').matchAll(/[\"']?slug[\"']?\s*:\s*[\"']([^\"']+)[\"']/g)].map((m) => m[1])
+);
+
+const refErrors = [];
+const checkSlugRefs = (label, src, pattern, valid, what) => {
+  for (const m of src.matchAll(pattern)) {
+    if (!valid(m[1])) refErrors.push(`${label}: ${what} "${m[1]}" does not exist in the catalog.`);
+  }
+};
+const checkListRefs = (label, src, pattern, valid, what) => {
+  for (const m of src.matchAll(pattern)) {
+    for (const item of [...m[1].matchAll(/'([^']+)'/g)]) {
+      if (!valid(item[1])) refErrors.push(`${label}: ${what} "${item[1]}" is not a valid slug.`);
+    }
+  }
+};
+
+// Advisor: every candidate pair must be a catalog tool with a defined reason key.
+const advisorSrc = read('src/lib/advisor.ts');
+const reasonsStart = advisorSrc.indexOf('const REASONS');
+const reasonsBlock = advisorSrc.slice(reasonsStart, advisorSrc.indexOf('\n};', reasonsStart));
+for (const m of advisorSrc.matchAll(/^\s*\['([a-z0-9-]+)',\s*'([a-z0-9-]+)'\],?\s*$/gm)) {
+  if (!catalogSlugs.has(m[1])) {
+    refErrors.push(`advisor.ts: candidate tool "${m[1]}" is not in the catalog.`);
+  }
+  const keyRe = new RegExp(`(^|\\n)\\s{4}['"]?${m[2]}['"]?\\s*:`);
+  if (!keyRe.test(reasonsBlock)) {
+    refErrors.push(`advisor.ts: reason key "${m[2]}" has no entry in REASONS.`);
+  }
+}
+
+// Outcomes: job tools, alternatives, related blog guides, related outcomes.
+const outcomesSrc = read('src/data/outcomes.ts');
+const outcomeSlugs = new Set(
+  [...outcomesSrc.matchAll(/^    slug: '([^']+)',$/gm)].map((m) => m[1])
+);
+checkSlugRefs('outcomes.ts', outcomesSrc, /tool: '([a-z0-9-]+)'/g, (s) => catalogSlugs.has(s), 'job tool');
+checkListRefs('outcomes.ts', outcomesSrc, /alternatives: \[([^\]]*)\]/g, (s) => catalogSlugs.has(s), 'alternative');
+checkListRefs('outcomes.ts', outcomesSrc, /relatedGuides: \[([^\]]*)\]/g, (s) => blogSlugs.has(s), 'related guide');
+checkListRefs('outcomes.ts', outcomesSrc, /relatedOutcomes: \[([^\]]*)\]/g, (s) => outcomeSlugs.has(s), 'related outcome');
+
+// Playbooks: each entry's slug must be a real catalog tool.
+for (const f of ['opusclip', 'descript', 'elevenlabs', 'capcut', 'runway']) {
+  const src = read(`src/data/playbook-entries/${f}.ts`);
+  for (const m of src.matchAll(/slug: '([a-z0-9-]+)'/g)) {
+    if (!catalogSlugs.has(m[1])) {
+      refErrors.push(`playbook-entries/${f}.ts: slug "${m[1]}" is not in the catalog.`);
+    }
+  }
+}
+
+// Workflows: every node tool and alternative must be a real catalog tool.
+for (const f of ['podcast-to-shorts', 'faceless-video', 'ugc-ads', 'dubbed-content', 'youtube-long-form']) {
+  const src = read(`src/data/workflow-entries/${f}.ts`);
+  checkSlugRefs(`workflow-entries/${f}.ts`, src, /tool: '([a-z0-9-]+)'/g, (s) => catalogSlugs.has(s), 'node tool');
+  checkListRefs(`workflow-entries/${f}.ts`, src, /alternatives: \[([^\]]*)\]/g, (s) => catalogSlugs.has(s), 'alternative');
+}
+
+// Benchmark Lab: published results (if any) must reference real catalog tools.
+// An empty BENCHMARK_RESULTS array is the valid state until real tests exist.
+checkSlugRefs('benchmarks.ts', read('src/data/benchmarks.ts'), /slug: '([a-z0-9-]+)'/g, (s) => catalogSlugs.has(s), 'benchmarked tool');
+
+errors.push(...refErrors);
+
+// ── report ──────────────────────────────────────────────────────────────
 console.log(`Checked ${allEntries.length} catalog entries.`);
 
 if (warnings.length) {

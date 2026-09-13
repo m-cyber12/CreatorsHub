@@ -81,7 +81,7 @@ export default async function DisclosurePage({ params }: { params: Promise<{ loc
           <div className="space-y-4 text-sm leading-relaxed text-zinc-300">
             <p className="rounded-xl border border-emerald-500/25 bg-emerald-500/5 p-4">
               <strong className="text-emerald-300">Current status: we earn nothing.</strong> As of
-              today, CreatorAI Hub has no active affiliate relationship with any of the{' '}
+              today, Noxifera has no active affiliate relationship with any of the{' '}
               {ALL_TOOLS.length} tools listed. Every outbound link goes to the vendor&apos;s plain
               URL and no commission is generated.
             </p>

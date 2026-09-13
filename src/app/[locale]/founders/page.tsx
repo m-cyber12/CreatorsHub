@@ -106,7 +106,7 @@ export default async function FoundersPage({
               <p className="mt-2 text-xs text-zinc-300 leading-relaxed">{t('badgeDesc')}</p>
 
               <div className="mt-6 rounded-2xl bg-black/60 border border-white/10 p-5 flex items-center justify-center">
-                <SmartImage src="/badge/opusclip.svg" alt="Featured on CreatorAI Hub" width={180} height={48} className="max-h-12 w-auto" />
+                <SmartImage src="/badge/opusclip.svg" alt="Featured on Noxifera" width={180} height={48} className="max-h-12 w-auto" />
               </div>
 
               <div className="mt-6">

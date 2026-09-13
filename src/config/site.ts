@@ -3,8 +3,9 @@
  *
  * Audit fix 1.10: SITE_URL was hardcoded in 5+ files (layout, sitemap, robots,
  * api/v1/tools, tool/[slug]). Changing the domain meant a search-and-replace.
- * Everything now reads from here. To move to a custom domain, set
- * NEXT_PUBLIC_SITE_URL in the environment and redeploy — nothing else changes.
+ * Everything now reads from here. To move to a custom domain (e.g.
+ * noxifera.com / noxifera.ai), set NEXT_PUBLIC_SITE_URL in the environment and
+ * redeploy — nothing else changes.
  */
 
 const FALLBACK_URL = 'https://creatorsaicenter.vercel.app';
@@ -12,8 +13,15 @@ const FALLBACK_URL = 'https://creatorsaicenter.vercel.app';
 /** Absolute origin, never with a trailing slash. */
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || FALLBACK_URL).replace(/\/$/, '');
 
-export const SITE_NAME = 'CreatorAI Hub';
-export const SITE_TAGLINE = 'The Curated AI Toolbox for Video Creators';
+/**
+ * NOXIFERA — "Light in the Darkness".
+ *
+ * The platform rebranded from CreatorAI Hub to Noxifera on 2026-09-12.
+ * The final domain (.com vs .ai) is not decided yet, so the name carries no
+ * TLD; everything public (meta, schema, feeds, badge) derives from SITE_NAME.
+ */
+export const SITE_NAME = 'Noxifera';
+export const SITE_TAGLINE = 'Light in the Darkness';
 
 /**
  * Contact email.
@@ -52,5 +60,5 @@ export const SHOW_UNVERIFIED_SCORES = false;
 export const MIN_REVIEWS_FOR_AGGREGATE_RATING = 3;
 
 export const SOCIAL = {
-  twitter: '@creatoraihub',
+  twitter: '@noxifera',
 } as const;

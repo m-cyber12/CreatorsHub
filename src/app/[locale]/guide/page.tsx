@@ -54,7 +54,7 @@ const GUIDE_STEPS = [
     icon: ShieldCheck,
     title: 'Look for the verification badge',
     description:
-      `Every tool on CreatorAI Hub has one of three verification levels. ${testedCount} tools have been hands-on tested by our team with published scores. Others are pricing-verified or listed from public sources. We never show a fake score.`,
+      `Every tool on Noxifera has one of three verification levels. ${testedCount} tools have been hands-on tested by our team with published scores. Others are pricing-verified or listed from public sources. We never show a fake score.`,
     cta: { label: 'See tested tools', href: '/tools?tested=1' },
   },
   {
@@ -112,7 +112,7 @@ export default async function GuidePage({ params }: { params: Promise<{ locale: 
             <span className="block text-accent-400">for your video workflow</span>
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-zinc-400">
-            CreatorAI Hub catalogues {ALL_TOOLS.length} AI tools for video creators — YouTubers,
+            Noxifera catalogues {ALL_TOOLS.length} AI tools for creators — YouTubers,
             TikTokers, podcasters, and editors. Here is how to get the most out of the site in
             under 5 minutes.
           </p>
@@ -172,7 +172,7 @@ export default async function GuidePage({ params }: { params: Promise<{ locale: 
 
         {/* Key stats */}
         <section className="mt-12 rounded-2xl border border-accent-500/20 bg-accent-500/5 p-6">
-          <h2 className="text-lg font-bold">Why CreatorAI Hub?</h2>
+          <h2 className="text-lg font-bold">Why Noxifera?</h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-3">
             <div>
               <div className="font-mono text-2xl font-black text-white">{ALL_TOOLS.length}</div>

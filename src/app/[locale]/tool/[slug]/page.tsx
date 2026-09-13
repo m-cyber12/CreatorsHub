@@ -20,6 +20,7 @@ import { EvidenceCard } from '@/components/EvidenceCard';
 import { ScoreBreakdown } from '@/components/ScoreBreakdown';
 import { PricingPlansSection } from '@/components/PricingPlansSection';
 import { VerificationBadge, NotTestedNotice } from '@/components/VerificationBadge';
+import { BenchmarkRequestButton } from '@/components/BenchmarkRequestButton';
 import { SmartImage } from '@/components/SmartImage';
 import { ToolHeroCover } from '@/components/ToolHeroCover';
 import { ToolVideoDemoSection } from '@/components/ToolVideoDemoSection';
@@ -31,11 +32,14 @@ import { buildToolFaq } from '@/lib/toolFaq';
 import {
   ExternalLink,
   ArrowLeft,
+  ArrowRight,
+  BookOpen,
   CalendarCheck,
   Tag,
   DollarSign,
   Award,
 } from 'lucide-react';
+import { getPlaybook } from '@/data/playbooks';
 
 // v3.5: admin edits are live within ~30s (revalidatePath on save makes it instant).
 export const dynamicParams = true;
@@ -405,7 +409,12 @@ export default async function ToolDetailPage({
           identical hardcoded card claiming "Hands-on + Vendor Data" appeared
           on all 200 pages, including 153 machine-generated entries.
         */}
-        {tested ? <EvidenceCard tool={tool} /> : <NotTestedNotice toolName={tool.name} />}
+        {tested ? <EvidenceCard tool={tool} /> : (
+          <>
+            <NotTestedNotice toolName={tool.name} />
+            <BenchmarkRequestButton slug={tool.slug} toolName={tool.name} />
+          </>
+        )}
 
         {/* Price-check evidence: parsed plans + official source + note. */}
         {tool.verificationLevel === 'pricing-verified' && <PricingPlansSection tool={tool} />}
@@ -650,6 +659,42 @@ export default async function ToolDetailPage({
             </div>
           </section>
         )}
+
+        {/* Playbook — flagship tools have a hand-written "how to actually use it" system */}
+        {(() => {
+          const playbook = getPlaybook(tool.slug);
+          if (!playbook) return null;
+          return (
+            <section className="mt-6 rounded-2xl border border-accent-500/30 bg-gradient-to-br from-accent-500/10 via-surface-1 to-ember-500/5 p-6">
+              <div className="flex flex-wrap items-start justify-between gap-4">
+                <div className="min-w-0">
+                  <p className="flex items-center gap-2 text-2xs font-bold uppercase tracking-wider text-accent-300">
+                    <BookOpen className="h-3.5 w-3.5" aria-hidden="true" /> {t('playbookLabel')}
+                  </p>
+                  <h2 className="mt-2 text-lg font-black">{playbook.title}</h2>
+                  <p className="mt-1 max-w-xl text-sm leading-relaxed text-zinc-400">{playbook.oneLiner}</p>
+                  <div className="mt-3 flex flex-wrap gap-1.5">
+                    {playbook.bestFor.slice(0, 3).map((b) => (
+                      <span
+                        key={b}
+                        className="rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 text-2xs font-semibold text-zinc-400"
+                      >
+                        {b}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <Link
+                  href={`/playbooks/${playbook.slug}`}
+                  className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-accent-500 px-4 py-2.5 text-2xs font-bold text-black transition-opacity hover:opacity-90"
+                >
+                  {t('playbookCta')}
+                  <ArrowRight className="h-3.5 w-3.5 rtl:rotate-180" aria-hidden="true" />
+                </Link>
+              </div>
+            </section>
+          );
+        })()}
 
         {replaces.length > 0 && (
           <section className="mt-6 rounded-2xl border border-white/10 bg-surface-1 p-5">

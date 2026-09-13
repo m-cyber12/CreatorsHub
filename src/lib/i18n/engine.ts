@@ -1,6 +1,6 @@
 /**
  * ─────────────────────────────────────────────────────────────────────────
- *  CreatorAI professional translation engine
+ *  Noxifera professional translation engine
  *  (i18n, 2026-08-07)
  *
  *  This is NOT a machine-glossary translator. It is an LLM-powered
@@ -279,7 +279,7 @@ function translateWithOpenRouter(system: string, user: string, apiKey: string, m
     user,
     {
       'HTTP-Referer': 'https://creatorsaicenter.vercel.app',
-      'X-Title': 'CreatorAI Hub',
+      'X-Title': 'Noxifera',
     }
   );
 }

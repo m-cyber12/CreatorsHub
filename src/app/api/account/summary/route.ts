@@ -73,7 +73,7 @@ export async function GET(request: Request) {
       verificationLevel: t.verificationLevel,
       isFeatured: t.isFeatured,
       hasFounderBadge: t.hasFounderBadge,
-      badgeSnippet: `<a href="${SITE_URL}/tool/${t.slug}" target="_blank" rel="noopener">\n  <img src="${SITE_URL}/badge/${t.slug}.svg" alt="Featured on CreatorAI Hub" />\n</a>`,
+      badgeSnippet: `<a href="${SITE_URL}/tool/${t.slug}" target="_blank" rel="noopener">\n  <img src="${SITE_URL}/badge/${t.slug}.svg" alt="Featured on Noxifera" />\n</a>`,
     })),
   });
 }

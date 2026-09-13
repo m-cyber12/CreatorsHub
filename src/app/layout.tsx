@@ -1,5 +1,12 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, JetBrains_Mono, Vazirmatn, Noto_Sans_Arabic, Noto_Sans_SC } from 'next/font/google';
+import {
+  Cinzel,
+  Inter,
+  JetBrains_Mono,
+  Vazirmatn,
+  Noto_Sans_Arabic,
+  Noto_Sans_SC,
+} from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { getLocale, getTranslations } from 'next-intl/server';
@@ -11,6 +18,14 @@ import { ALL_TOOLS } from '@/data/tools';
 const sans = Inter({
   subsets: ['latin'],
   variable: '--font-sans',
+  display: 'swap',
+});
+
+/** Brand serif — the NOXIFERA wordmark and display moments (Noxifera 1.0). */
+const display = Cinzel({
+  subsets: ['latin'],
+  weight: ['600', '700', '900'],
+  variable: '--font-display',
   display: 'swap',
 });
 
@@ -42,7 +57,7 @@ const chinese = Noto_Sans_SC({
 });
 
 export const viewport: Viewport = {
-  themeColor: '#05060A',
+  themeColor: '#0F1019',
   width: 'device-width',
   initialScale: 1,
 };
@@ -83,9 +98,9 @@ export async function generateMetadata(): Promise<Metadata> {
       locale,
       images: [
         {
-          url: '/og-optimized.png',
-          width: 1200,
-          height: 630,
+          url: '/og-noxifera.png',
+          width: 1424,
+          height: 752,
           alt: `${SITE_NAME} — ${t('ogImageAlt')}`,
         },
       ],
@@ -94,7 +109,7 @@ export async function generateMetadata(): Promise<Metadata> {
       card: 'summary_large_image',
       title: `${SITE_NAME} — ${t('tagline')}`,
       description: t('twitterDescription', { count: toolCount }),
-      images: ['/brand-cover.png'],
+      images: ['/og-noxifera.png'],
     },
     icons: {
       icon: [
@@ -114,7 +129,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html
       lang={locale}
       dir={dir}
-      className={`${sans.variable} ${mono.variable} ${persian.variable} ${arabic.variable} ${chinese.variable}`}
+      className={`${sans.variable} ${mono.variable} ${display.variable} ${persian.variable} ${arabic.variable} ${chinese.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -128,7 +143,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               name: SITE_NAME,
               url: SITE_URL,
               logo: `${SITE_URL}/logo.svg`,
-              description: 'Curated directory of AI tools for video creators, with transparent verification levels.',
+              slogan: 'Light in the Darkness',
+              description:
+                'The AI platform for creators: discover, compare and benchmark AI tools with verified pricing, then build the workflow system that fits your goal.',
               contactPoint: { '@type': 'ContactPoint', email: CONTACT_EMAIL, contactType: 'customer support' },
             }),
           }}

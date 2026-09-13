@@ -15,7 +15,7 @@ export default function GlobalError({
     <html lang="en">
       <body style={{ margin: 0, background: '#0E0F12', color: '#fff', fontFamily: 'system-ui, sans-serif' }}>
         <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: 24 }}>
-          <h1 style={{ fontSize: 28, fontWeight: 900 }}>CreatorAI Hub hit an unexpected error</h1>
+          <h1 style={{ fontSize: 28, fontWeight: 900 }}>Noxifera hit an unexpected error</h1>
           <p style={{ color: '#a1a1aa', maxWidth: 480, lineHeight: 1.6 }}>
             Please try again. If it keeps happening, the team can be reached via the contact page
             once the site recovers.

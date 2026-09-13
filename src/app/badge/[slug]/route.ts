@@ -6,7 +6,7 @@ import { SITE_NAME } from '@/config/site';
  *
  * Founders embed this on their own site:
  *   <a href="https://…/tool/their-tool">
- *     <img src="https://…/badge/their-tool.svg" alt="Featured on CreatorAI Hub">
+ *     <img src="https://…/badge/their-tool.svg" alt="Featured on Noxifera">
  *   </a>
  *
  * Each install is a dofollow link from a real SaaS domain, which is the only
@@ -56,7 +56,7 @@ export async function GET(_request: Request, { params }: { params: Promise<{ slu
   <text x="20" y="24" font-family="system-ui,-apple-system,'Segoe UI',sans-serif"
         font-size="9" font-weight="700" letter-spacing="1.4" fill="${accent}">${label}</text>
   <text x="20" y="43" font-family="system-ui,-apple-system,'Segoe UI',sans-serif"
-        font-size="16" font-weight="800" fill="#F4F4F5">CreatorAI Hub</text>
+        font-size="16" font-weight="800" fill="#F4F4F5">Noxifera</text>
   <text x="20" y="56" font-family="system-ui,-apple-system,'Segoe UI',sans-serif"
         font-size="9" fill="#71717A">${esc(tool.category)}</text>
 

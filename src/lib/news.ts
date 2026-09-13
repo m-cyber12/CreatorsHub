@@ -133,7 +133,7 @@ async function fetchSource(source: NewsSource): Promise<NewsItem[]> {
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       headers: {
         'user-agent':
-          'CreatorAIHub-NewsBot/1.0 (+https://creatorsaicenter.vercel.app/about)',
+          'Noxifera-NewsBot/1.0 (+https://creatorsaicenter.vercel.app/about)',
         accept: 'application/rss+xml, application/atom+xml, application/xml, text/xml, */*',
       },
       cache: 'no-store',

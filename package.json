@@ -1,5 +1,5 @@
 {
-  "name": "creator-ai-hub",
+  "name": "noxifera",
   "version": "0.3.0",
   "private": true,
   "description": "Curated AI tools directory for YouTubers, editors, and video creators — with transparent verification levels.",
@@ -16,9 +16,10 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\" \"*.{json,js,ts}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\"",
     "validate:data": "node scripts/validate-data.mjs",
+    "check:keys": "node scripts/check-keys.mjs",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "verify": "npm run typecheck && npm run lint && npm run validate:data && npm run test",
+    "verify": "npm run typecheck && npm run lint && npm run validate:data && npm run check:keys && npm run test",
     "curate": "node scripts/auto-curate.mjs",
     "generate:blog": "node scripts/generate-blog.mjs",
     "translate:ui": "tsx scripts/translate.mts --ui",

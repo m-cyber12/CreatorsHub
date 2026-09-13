@@ -21,19 +21,19 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Neutral graphite surfaces — replaces the purple-tinted near-black.
-        // Audit fix 4.1 — now driven by CSS variables so light/dark mode
-        // can override them without duplicating every utility class.
+        // Noxifera surfaces — dark navy, matching the brand key art
+        // (#13131F-ish). Audit fix 4.1 — driven by CSS variables so
+        // light/dark mode can override them without duplication.
         surface: {
-          0: 'var(--surface-0, #0E0F12)',
-          1: 'var(--surface-1, #15171C)',
-          2: 'var(--surface-2, #1C1F26)',
-          3: 'var(--surface-3, #252932)',
+          0: 'var(--surface-0, #0F1019)',
+          1: 'var(--surface-1, #161827)',
+          2: 'var(--surface-2, #1D2033)',
+          3: 'var(--surface-3, #262A40)',
         },
         background: 'var(--surface-0, #0E0F12)',
         foreground: 'var(--foreground, #F4F4F5)',
 
-        // Single accent: signal amber, borrowed from timeline/scope UI.
+        // Single accent: signal amber — the Noxifera flame gold.
         // v2.1 (Infinity Gauntlet easter egg): values read from CSS variables
         // so the whole palette can flip yellow→red site-wide on the snap.
         accent: {
@@ -44,6 +44,19 @@ const config: Config = {
           500: 'var(--accent-500, #E8AE1C)',
           600: 'var(--accent-600, #C08A0F)',
           700: 'var(--accent-700, #8F650B)',
+        },
+
+        // Ember — the flame ramp under the brand (gold → ember orange).
+        // Noxifera 1.0: replaced the off-brand fuchsia/cyan secondary hues in
+        // brand surfaces with this warm ramp.
+        ember: {
+          100: '#FBE3B0',
+          200: '#F8CF7E',
+          300: '#F3B45C',
+          400: '#EF9A3E',
+          500: '#E8722A',
+          600: '#C9571C',
+          700: '#9E4313',
         },
 
         // Retained so existing purple utility classes keep compiling during
@@ -64,6 +77,8 @@ const config: Config = {
       fontFamily: {
         sans: ['var(--font-sans)', ...defaultTheme.fontFamily.sans],
         mono: ['var(--font-mono)', ...defaultTheme.fontFamily.mono],
+        /** Brand serif (Cinzel) — wordmark and display moments only. */
+        display: ['var(--font-display)', 'Georgia', 'serif'],
       },
 
       /**

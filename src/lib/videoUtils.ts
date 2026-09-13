@@ -1,5 +1,5 @@
 /**
- * Video Utilities for CreatorAI Hub
+ * Video Utilities for Noxifera
  * Handles robust detection and formatting for direct videos (MP4/WebM), YouTube, and Vimeo.
  */
 
