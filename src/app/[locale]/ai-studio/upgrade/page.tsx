@@ -9,7 +9,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'aiStudio' });
   return {
-    title: `${t('upMetaTitle')} | CreatorAI Hub`,
+    title: `${t('upMetaTitle')}`,
     description: t('upMetaDesc'),
     alternates: { canonical: '/ai-studio/upgrade' },
   };

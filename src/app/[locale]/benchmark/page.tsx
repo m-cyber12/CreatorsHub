@@ -4,9 +4,10 @@ import Link from '@/i18n/navigation';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { ALL_TOOLS, TESTED_TOOLS, hasVerifiedScore } from '@/data/tools';
+import { BENCHMARK_RESULTS, BENCHMARK_METRICS } from '@/data/benchmarks';
 import { BenchmarkLeaderboard } from '@/components/BenchmarkLeaderboard';
 import { TestingQueueWidget } from '@/components/TestingQueueWidget';
-import { FlaskConical, Timer, Ruler, DollarSign, ShieldCheck } from 'lucide-react';
+import { FlaskConical, Timer, Ruler, DollarSign, ShieldCheck, ArrowUpRight } from 'lucide-react';
 
 export async function generateMetadata({
   params,
@@ -116,6 +117,108 @@ export default async function BenchmarkPage({ params }: { params: Promise<{ loca
         {testedCount > 0 && (
           <section className="mt-10">
             <BenchmarkLeaderboard tools={TESTED_TOOLS} />
+          </section>
+        )}
+
+        {/* Published benchmark results — rendered ONLY when real tests exist.
+            BENCHMARK_RESULTS is empty by design until hands-on tests are run
+            (roadmap: "Do not publish fake precision"). */}
+        {BENCHMARK_RESULTS.length > 0 && (
+          <section className="mt-10">
+            <h2 className="text-2xl font-bold">{t('resultsHeading')}</h2>
+            <p className="mt-2 text-sm text-zinc-400">{t('resultsSub')}</p>
+            <div className="mt-6 space-y-8">
+              {BENCHMARK_RESULTS.map((r) => (
+                <article key={r.id} className="rounded-3xl border border-white/10 bg-surface-1 p-6 sm:p-8">
+                  <div className="flex flex-wrap items-baseline gap-3">
+                    <h3 className="text-lg font-bold text-white">{r.title}</h3>
+                    <span className="font-mono text-2xs text-zinc-500">{r.date}</span>
+                  </div>
+
+                  <dl className="mt-4 grid gap-4 sm:grid-cols-2 text-sm">
+                    <div>
+                      <dt className="text-2xs font-bold uppercase tracking-wider text-zinc-500">{t('evTask')}</dt>
+                      <dd className="mt-0.5 text-zinc-300">{r.task}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-2xs font-bold uppercase tracking-wider text-zinc-500">{t('evInput')}</dt>
+                      <dd className="mt-0.5 text-zinc-300">{r.input}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-2xs font-bold uppercase tracking-wider text-zinc-500">{t('evMethodology')}</dt>
+                      <dd className="mt-0.5 text-zinc-300">{r.methodology}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-2xs font-bold uppercase tracking-wider text-zinc-500">{t('evScoring')}</dt>
+                      <dd className="mt-0.5 text-zinc-300">{r.scoring}</dd>
+                    </div>
+                  </dl>
+
+                  {/* Per-tool scores */}
+                  <div className="mt-5 space-y-4">
+                    {r.tools.map((toolRes) => {
+                      const tool = ALL_TOOLS.find((x) => x.slug === toolRes.slug);
+                      return (
+                        <div key={toolRes.slug} className="rounded-2xl border border-white/10 bg-zinc-900/50 p-5">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <Link
+                              href={`/tool/${toolRes.slug}`}
+                              className="text-sm font-bold text-white hover:text-accent-300"
+                            >
+                              {tool?.name ?? toolRes.slug}
+                            </Link>
+                            {toolRes.modelVersion && (
+                              <span className="rounded bg-zinc-800 px-2 py-0.5 font-mono text-2xs text-zinc-400">
+                                {t('evModel')}: {toolRes.modelVersion}
+                              </span>
+                            )}
+                            <span className="ml-auto font-mono text-lg font-black text-accent-300">
+                              {toolRes.overall.toFixed(1)}
+                              <span className="text-2xs font-normal text-zinc-500">/10</span>
+                            </span>
+                          </div>
+                          <div className="mt-3 grid grid-cols-5 gap-2">
+                            {BENCHMARK_METRICS.map((metric) => {
+                              const v = toolRes.scores[metric];
+                              return (
+                                <div key={metric} className="rounded-lg bg-surface-2/60 p-2 text-center">
+                                  <p className="text-2xs text-zinc-500">
+                                    {t(`metric${metric.charAt(0).toUpperCase()}${metric.slice(1)}`)}
+                                  </p>
+                                  <p className="mt-0.5 font-mono text-sm font-bold text-white">
+                                    {typeof v === 'number' ? v.toFixed(0) : '—'}
+                                  </p>
+                                </div>
+                              );
+                            })}
+                          </div>
+                          {toolRes.outputUrl && (
+                            <a
+                              href={toolRes.outputUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="mt-2 inline-flex items-center gap-1 text-2xs font-bold text-accent-400 hover:underline"
+                            >
+                              {t('evOutput')} <ArrowUpRight className="h-3 w-3" />
+                            </a>
+                          )}
+                          {toolRes.notes && <p className="mt-2 text-2xs leading-relaxed text-zinc-400">{toolRes.notes}</p>}
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  <div className="mt-5 space-y-2 border-t border-white/5 pt-4 text-2xs leading-relaxed text-zinc-500">
+                    <p>
+                      <strong className="text-zinc-400">{t('evEvaluator')}:</strong> {r.evaluator}
+                    </p>
+                    <p>
+                      <strong className="text-zinc-400">{t('evLimitations')}:</strong> {r.limitations}
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </div>
           </section>
         )}
 

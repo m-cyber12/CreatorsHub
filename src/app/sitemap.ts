@@ -5,6 +5,9 @@ import { BLOG_POSTS } from '@/data/posts';
 import { SITE_URL } from '@/config/site';
 import { REAL_CATEGORIES, categorySlug } from '@/lib/categories';
 import { COMPARISON_PAIRS } from '@/lib/comparisons';
+import { OUTCOMES } from '@/data/outcomes';
+import { PLAYBOOKS } from '@/data/playbooks';
+import { WORKFLOWS } from '@/data/workflows';
 import { PAGE_SIZE } from '@/lib/toolFilters';
 
 /**
@@ -40,8 +43,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/best-of`, changeFrequency: 'weekly', priority: 0.8, lastModified: buildDate },
     { url: `${SITE_URL}/compare`, changeFrequency: 'weekly', priority: 0.7, lastModified: buildDate },
     { url: `${SITE_URL}/benchmark`, changeFrequency: 'weekly', priority: 0.8, lastModified: buildDate },
+    { url: `${SITE_URL}/arena`, changeFrequency: 'weekly', priority: 0.8, lastModified: buildDate },
+    { url: `${SITE_URL}/projects`, changeFrequency: 'monthly', priority: 0.6, lastModified: buildDate },
     { url: `${SITE_URL}/graveyard`, changeFrequency: 'weekly', priority: 0.7, lastModified: buildDate },
     { url: `${SITE_URL}/stack-builder`, changeFrequency: 'weekly', priority: 0.7, lastModified: buildDate },
+    { url: `${SITE_URL}/advisor`, changeFrequency: 'weekly', priority: 0.9, lastModified: buildDate },
+    { url: `${SITE_URL}/outcomes`, changeFrequency: 'weekly', priority: 0.9, lastModified: buildDate },
+    { url: `${SITE_URL}/optimizer`, changeFrequency: 'monthly', priority: 0.8, lastModified: buildDate },
+    { url: `${SITE_URL}/playbooks`, changeFrequency: 'monthly', priority: 0.8, lastModified: buildDate },
+    { url: `${SITE_URL}/workflows`, changeFrequency: 'monthly', priority: 0.8, lastModified: buildDate },
     { url: `${SITE_URL}/trending`, changeFrequency: 'daily', priority: 0.8, lastModified: buildDate },
     { url: `${SITE_URL}/changelog`, changeFrequency: 'weekly', priority: 0.8, lastModified: buildDate },
     { url: `${SITE_URL}/calculators`, changeFrequency: 'weekly', priority: 0.7, lastModified: buildDate },
@@ -106,6 +116,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
+  // Outcome guides, playbooks and workflow pipelines (detail pages).
+  const outcomeRoutes: MetadataRoute.Sitemap = OUTCOMES.map((o) => ({
+    url: `${SITE_URL}/outcomes/${o.slug}`,
+    changeFrequency: 'monthly',
+    priority: 0.8,
+    lastModified: buildDate,
+  }));
+  const playbookRoutes: MetadataRoute.Sitemap = PLAYBOOKS.map((p) => ({
+    url: `${SITE_URL}/playbooks/${p.slug}`,
+    changeFrequency: 'monthly',
+    priority: 0.7,
+    lastModified: buildDate,
+  }));
+  const workflowRoutes: MetadataRoute.Sitemap = WORKFLOWS.map((w) => ({
+    url: `${SITE_URL}/workflows/${w.slug}`,
+    changeFrequency: 'monthly',
+    priority: 0.7,
+    lastModified: buildDate,
+  }));
+
   // RSS feeds (audit fix 3.2).
   const rssRoutes: MetadataRoute.Sitemap = [
     { url: `${SITE_URL}/feed.xml`, changeFrequency: 'daily', priority: 0.5, lastModified: buildDate },
@@ -120,6 +150,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...alternativeRoutes,
     ...compareRoutes,
     ...blogRoutes,
+    ...outcomeRoutes,
+    ...playbookRoutes,
+    ...workflowRoutes,
     ...rssRoutes,
   ];
 }

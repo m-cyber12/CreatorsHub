@@ -39,13 +39,13 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       type: 'article',
       publishedTime: post.isoDate,
       url: `/blog/${post.slug}`,
-      images: [{ url: `${SITE_URL}/og-optimized.png`, width: 1200, height: 630, alt: post.title }],
+      images: [{ url: `${SITE_URL}/og-noxifera.png`, width: 1424, height: 752, alt: post.title }],
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description: post.excerpt,
-      images: [`${SITE_URL}/brand-cover.png`],
+      images: [`${SITE_URL}/og-noxifera.png`],
     },
   };
 }
@@ -66,7 +66,7 @@ export default async function BlogPostDetail({ params }: { params: Params }) {
     '@type': 'Article',
     headline: post.title,
     description: post.excerpt,
-    image: `${SITE_URL}/og-optimized.png`,
+    image: `${SITE_URL}/og-noxifera.png`,
     datePublished: post.isoDate,
     dateModified: post.isoDate,
     author: { '@type': 'Organization', name: `${SITE_NAME} Editorial Team`, url: `${SITE_URL}/about` },

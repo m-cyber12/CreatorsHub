@@ -468,7 +468,7 @@ export function SubmitForm({
                     <Check className="h-3 w-3 text-fuchsia-400" /> Pinned to Category top for 6 Months
                   </li>
                   <li className="flex items-center gap-1.5">
-                    <Check className="h-3 w-3 text-fuchsia-400" /> Featured in weekly CreatorAI Newsletter
+                    <Check className="h-3 w-3 text-fuchsia-400" /> Featured in the weekly Noxifera briefing
                   </li>
                   <li className="flex items-center gap-1.5">
                     <Check className="h-3 w-3 text-fuchsia-400" /> Guaranteed publish in &lt; 24 hours

@@ -1,12 +1,13 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from '@/i18n/navigation';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { ToolCard } from '@/components/ToolCard';
 import { CompareBar } from '@/components/CompareBar';
+import { SmartImage } from '@/components/SmartImage';
 import { useAuth, useBookmarks } from '@/context/AppProviders';
 import { supabase } from '@/lib/supabase';
 import { ALL_TOOLS } from '@/data/tools';
@@ -22,10 +23,20 @@ import {
   Copy,
   Check,
   Clock,
+  GitBranch,
   Layers,
   Flame,
   ArrowRight,
+  Trash2,
+  Gauge,
+  Wallet,
+  TrendingUp,
+  Puzzle,
+  Radar,
 } from 'lucide-react';
+import { runAdvisor } from '@/lib/advisor';
+import { computeStackHealth } from '@/lib/stackHealth';
+import { RadarTab } from './RadarTab';
 
 interface AccountSummary {
   email: string;
@@ -65,9 +76,62 @@ export default function AccountPage() {
   const { user, loading, signOut } = useAuth();
   const { bookmarks } = useBookmarks();
 
-  const [activeTab, setActiveTab] = useState<'bookmarks' | 'subscription' | 'founder' | 'orders'>('bookmarks');
+  const [activeTab, setActiveTab] = useState<'overview' | 'radar' | 'bookmarks' | 'stacks' | 'subscription' | 'founder' | 'orders'>('overview');
   const [summary, setSummary] = useState<AccountSummary | null>(null);
   const [copiedSnippet, setCopiedSnippet] = useState<string | null>(null);
+
+  // Local workspace (guest-friendly): saved stacks + advisor plans.
+  const [savedStacks, setSavedStacks] = useState<Array<{ id: string; name: string; goal: string; budget: string; picks: Record<number, string>; savedAt: string }>>([]);
+  const [advisorPlans, setAdvisorPlans] = useState<Array<{ id: string; name: string; answers: Record<string, string>; savedAt: string }>>([]);
+  const [savedWorkflows, setSavedWorkflows] = useState<Array<{ id: string; name: string; slug: string; picks: Record<string, string>; savedAt: string }>>([]);
+  const [wsLoaded, setWsLoaded] = useState(false);
+
+  useEffect(() => {
+    try {
+      const s = localStorage.getItem('noxifera_saved_stacks');
+      if (s) setSavedStacks(JSON.parse(s).filter((x: { id?: string }) => x && typeof x.id === 'string'));
+      const p = localStorage.getItem('noxifera_advisor_saves');
+      if (p) setAdvisorPlans(JSON.parse(p).filter((x: { id?: string }) => x && typeof x.id === 'string'));
+      const w = localStorage.getItem('noxifera_workflows');
+      if (w) setSavedWorkflows(JSON.parse(w).filter((x: { id?: string }) => x && typeof x.id === 'string'));
+    } catch {
+      /* corrupted storage — show empty */
+    }
+    setWsLoaded(true);
+  }, []);
+
+  const deleteSavedWorkflow = (id: string) =>
+    setSavedWorkflows((cur) => {
+      const next = cur.filter((s) => s.id !== id);
+      try {
+        localStorage.setItem('noxifera_workflows', JSON.stringify(next));
+      } catch {
+        /* fine */
+      }
+      return next;
+    });
+
+  const deleteSavedStack = (id: string) =>
+    setSavedStacks((cur) => {
+      const next = cur.filter((s) => s.id !== id);
+      try {
+        localStorage.setItem('noxifera_saved_stacks', JSON.stringify(next));
+      } catch {
+        /* fine */
+      }
+      return next;
+    });
+
+  const deleteAdvisorPlan = (id: string) =>
+    setAdvisorPlans((cur) => {
+      const next = cur.filter((s) => s.id !== id);
+      try {
+        localStorage.setItem('noxifera_advisor_saves', JSON.stringify(next));
+      } catch {
+        /* fine */
+      }
+      return next;
+    });
 
   useEffect(() => {
     // The summary API is session-verified (no ?email= identity): attach the
@@ -98,6 +162,20 @@ export default function AccountPage() {
   const saved = bookmarks
     .map((slug) => ALL_TOOLS.find((t) => t.slug === slug))
     .filter((t): t is NonNullable<typeof t> => Boolean(t));
+
+  // Personal Dashboard (roadmap §42 #12) — deterministic, computed from the
+  // same localStorage sources the other tabs read. Empty on first paint
+  // (matches SSR), filled by the workspace effect above.
+  const health = useMemo(
+    () =>
+      computeStackHealth({
+        savedToolSlugs: bookmarks,
+        savedStacks,
+        savedWorkflows,
+        savedPlanCount: advisorPlans.length,
+      }),
+    [bookmarks, savedStacks, savedWorkflows, advisorPlans]
+  );
 
   const copyCode = (slug: string, snippet: string) => {
     navigator.clipboard.writeText(snippet);
@@ -214,6 +292,32 @@ export default function AccountPage() {
         <div className="mb-8 flex items-center gap-2 overflow-x-auto border-b border-white/10 pb-3 scrollbar-none">
           <button
             type="button"
+            onClick={() => setActiveTab('overview')}
+            className={`inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-bold transition-all ${
+              activeTab === 'overview'
+                ? 'bg-accent-500 text-black shadow-md'
+                : 'text-zinc-400 hover:bg-white/5 hover:text-white'
+            }`}
+          >
+            <Gauge className="h-4 w-4" />
+            <span>{t('overviewTab')}</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab('radar')}
+            className={`inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-bold transition-all ${
+              activeTab === 'radar'
+                ? 'bg-accent-500 text-black shadow-md'
+                : 'text-zinc-400 hover:bg-white/5 hover:text-white'
+            }`}
+          >
+            <Radar className="h-4 w-4" />
+            <span>{t('radarTab')}</span>
+          </button>
+
+          <button
+            type="button"
             onClick={() => setActiveTab('bookmarks')}
             className={`inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-bold transition-all ${
               activeTab === 'bookmarks'
@@ -223,6 +327,21 @@ export default function AccountPage() {
           >
             <Bookmark className="h-4 w-4" />
             <span>Saved Tools ({saved.length})</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab('stacks')}
+            className={`inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-bold transition-all ${
+              activeTab === 'stacks'
+                ? 'bg-accent-500 text-black shadow-md'
+                : 'text-zinc-400 hover:bg-white/5 hover:text-white'
+            }`}
+          >
+            <Layers className="h-4 w-4" />
+            <span>
+              {t('stacksTab', { count: String(savedStacks.length + advisorPlans.length + savedWorkflows.length) })}
+            </span>
           </button>
 
           <button
@@ -265,6 +384,229 @@ export default function AccountPage() {
           </button>
         </div>
 
+        {/* Tab 0: Personal Dashboard (roadmap §42 #12) */}
+        {activeTab === 'overview' && (
+          <div className="space-y-8">
+            <div>
+              <h2 className="text-lg font-bold text-white">{t('overviewTitle')}</h2>
+              <p className="text-xs text-zinc-400">{t('overviewSub')}</p>
+            </div>
+
+            {health.tools.length === 0 ? (
+              <div className="flex flex-col items-center rounded-3xl border border-dashed border-white/10 bg-surface-1 py-16 text-center">
+                <div className="mb-3 text-4xl">🧭</div>
+                <h3 className="text-base font-bold">{t('emptyTitle')}</h3>
+                <p className="mt-1 max-w-md text-xs text-zinc-500">{t('emptySub')}</p>
+                <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
+                  <Link
+                    href="/advisor"
+                    className="inline-flex items-center gap-1.5 rounded-xl bg-accent-500 px-5 py-2.5 text-xs font-bold text-black hover:bg-accent-400 transition-colors shadow-lg"
+                  >
+                    <Sparkles className="h-3.5 w-3.5" /> {t('ctaAdvisor')}
+                  </Link>
+                  <Link
+                    href="/stack-builder"
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-white/10 bg-surface-2 px-5 py-2.5 text-xs font-bold text-zinc-200 hover:border-white/25 hover:text-white transition-colors"
+                  >
+                    <Layers className="h-3.5 w-3.5" /> {t('ctaStack')}
+                  </Link>
+                  <Link
+                    href="/workflows"
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-white/10 bg-surface-2 px-5 py-2.5 text-xs font-bold text-zinc-200 hover:border-white/25 hover:text-white transition-colors"
+                  >
+                    <GitBranch className="h-3.5 w-3.5" /> {t('ctaWorkflows')}
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              <>
+                {/* System stats */}
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                  <div className="rounded-2xl border border-white/10 bg-surface-1 p-4">
+                    <span className="flex items-center gap-1.5 text-2xs font-bold uppercase tracking-wider text-zinc-500">
+                      <Wallet className="h-3.5 w-3.5 text-emerald-400" /> {t('statCost')}
+                    </span>
+                    <p className="mt-1 font-mono text-xl font-black text-emerald-300">
+                      ${health.monthlyCost.toFixed(2)}
+                      <span className="text-2xs font-normal text-zinc-500">/mo</span>
+                    </p>
+                    <p className="mt-1 text-2xs text-zinc-500">
+                      {t('costSub', { count: String(health.tools.length) })}
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl border border-white/10 bg-surface-1 p-4">
+                    <span className="flex items-center gap-1.5 text-2xs font-bold uppercase tracking-wider text-zinc-500">
+                      <TrendingUp className="h-3.5 w-3.5 text-cyan-400" /> {t('statCoverage')}
+                    </span>
+                    <p className="mt-1 font-mono text-xl font-black text-cyan-300">{health.coverage}%</p>
+                    <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+                      <div
+                        className="h-full bg-cyan-400 transition-all duration-500"
+                        style={{ width: `${health.coverage}%` }}
+                      />
+                    </div>
+                    <p className="mt-1.5 text-2xs text-zinc-500">
+                      {t('coverageSub', {
+                        covered: String(health.categoriesCovered.length),
+                        total: String(health.totalCategories),
+                      })}
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl border border-white/10 bg-surface-1 p-4">
+                    <span className="flex items-center gap-1.5 text-2xs font-bold uppercase tracking-wider text-zinc-500">
+                      <Puzzle className="h-3.5 w-3.5 text-amber-400" /> {t('statOverlap')}
+                    </span>
+                    <p
+                      className={`mt-1 font-mono text-xl font-black ${
+                        health.redundancy > 0 ? 'text-amber-300' : 'text-emerald-300'
+                      }`}
+                    >
+                      {health.redundancy}%
+                    </p>
+                    <p className="mt-1 text-2xs text-zinc-500">
+                      {health.redundantGroups.length > 0
+                        ? t('overlapGroupsSub', { count: String(health.redundantGroups.length) })
+                        : t('overlapClean')}
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl border border-white/10 bg-surface-1 p-4">
+                    <span className="flex items-center gap-1.5 text-2xs font-bold uppercase tracking-wider text-zinc-500">
+                      <Gauge className="h-3.5 w-3.5 text-fuchsia-400" /> {t('statMaturity')}
+                    </span>
+                    <p className="mt-1 font-mono text-xl font-black text-fuchsia-300">
+                      {health.maturity}
+                      <span className="text-2xs font-normal text-zinc-500">/100</span>
+                    </p>
+                    <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+                      <div
+                        className="h-full bg-fuchsia-400 transition-all duration-500"
+                        style={{ width: `${health.maturity}%` }}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Maturity breakdown */}
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    { on: health.maturityFlags.hasWorkflows, label: t('flagWorkflows'), pts: 40 },
+                    { on: health.maturityFlags.hasStacks, label: t('flagStacks'), pts: 25 },
+                    { on: health.maturityFlags.hasPlans, label: t('flagPlans'), pts: 20 },
+                    { on: health.maturityFlags.hasSavedTools, label: t('flagTools'), pts: 15 },
+                  ].map((f) => (
+                    <span
+                      key={f.label}
+                      className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-2xs font-bold ${
+                        f.on
+                          ? 'border-fuchsia-400/40 bg-fuchsia-400/10 text-fuchsia-300'
+                          : 'border-white/10 bg-white/5 text-zinc-500'
+                      }`}
+                    >
+                      {f.on ? '✓' : '·'} {f.label}
+                      <span className="font-mono opacity-70">+{f.pts}</span>
+                    </span>
+                  ))}
+                </div>
+
+                {/* Overlap warnings */}
+                {health.redundantGroups.length > 0 && (
+                  <div className="rounded-3xl border border-amber-400/20 bg-amber-400/5 p-6">
+                    <h3 className="flex items-center gap-2 text-sm font-bold text-amber-300">
+                      <Puzzle className="h-4 w-4" /> {t('overlapTitle')}
+                    </h3>
+                    <ul className="mt-3 space-y-2">
+                      {health.redundantGroups.map((g) => (
+                        <li key={g.category} className="text-xs leading-relaxed text-zinc-300">
+                          {t('overlapGroup', { count: String(g.tools.length), category: g.category })}{' '}
+                          <span className="font-bold text-white">
+                            {g.tools.map((x) => x.name).join(' + ')}
+                          </span>
+                          <span className="text-zinc-500"> — {t('overlapHint')}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Gap recommendations */}
+                {health.recommended.length > 0 && (
+                  <div>
+                    <h3 className="text-sm font-bold text-white">{t('gapsTitle')}</h3>
+                    <p className="mt-0.5 text-2xs text-zinc-500">{t('gapsSub')}</p>
+                    <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                      {health.recommended.map((rec) => (
+                        <Link
+                          key={rec.tool.slug}
+                          href={`/tool/${rec.tool.slug}`}
+                          className="group rounded-2xl border border-white/10 bg-surface-1 p-4 transition-all hover:border-accent-500/50"
+                        >
+                          <div className="flex items-center gap-2">
+                            <SmartImage
+                              src={rec.tool.logo}
+                              alt=""
+                              width={24}
+                              height={24}
+                              label={rec.tool.name.slice(0, 1)}
+                              className="h-6 w-6 rounded-md border border-white/10 object-cover"
+                            />
+                            <p className="min-w-0 truncate text-xs font-bold text-white group-hover:text-accent-300">
+                              {rec.tool.name}
+                            </p>
+                          </div>
+                          <p className="mt-1.5 text-2xs font-bold uppercase tracking-wider text-zinc-500">
+                            {rec.category}
+                          </p>
+                          <p className="mt-1.5 line-clamp-2 text-2xs leading-relaxed text-zinc-400">
+                            {rec.tool.tagline}
+                          </p>
+                          <p className="mt-2 font-mono text-2xs font-bold text-emerald-400">
+                            {rec.tool.pricing === 'Free'
+                              ? t('freeTool')
+                              : (rec.tool.startingPrice ?? rec.tool.pricing)}
+                          </p>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Quick actions */}
+                <div>
+                  <h3 className="text-sm font-bold text-white">{t('quickTitle')}</h3>
+                  <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                    {[
+                      { href: '/advisor', icon: Sparkles, title: t('quickAdvisor'), desc: t('quickAdvisorDesc') },
+                      { href: '/stack-builder', icon: Layers, title: t('quickStack'), desc: t('quickStackDesc') },
+                      { href: '/workflows', icon: GitBranch, title: t('quickWorkflows'), desc: t('quickWorkflowsDesc') },
+                      { href: '/optimizer', icon: Wallet, title: t('quickOptimizer'), desc: t('quickOptimizerDesc') },
+                    ].map((a) => (
+                      <Link
+                        key={a.href}
+                        href={a.href}
+                        className="group flex items-start gap-3 rounded-2xl border border-white/10 bg-surface-1 p-4 transition-all hover:border-accent-500/50"
+                      >
+                        <a.icon className="mt-0.5 h-4 w-4 shrink-0 text-accent-400" />
+                        <span className="min-w-0">
+                          <span className="flex items-center gap-1 text-xs font-bold text-white group-hover:text-accent-300">
+                            {a.title} <ArrowRight className="h-3 w-3 rtl:rotate-180" />
+                          </span>
+                          <span className="mt-0.5 block text-2xs text-zinc-500">{a.desc}</span>
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        )}
+
+        {/* Tab 0b: Personal AI Radar (roadmap §42 #13) */}
+        {activeTab === 'radar' && <RadarTab />}
+
         {/* Tab 1: Saved Bookmarks */}
         {activeTab === 'bookmarks' && (
           <div>
@@ -297,6 +639,166 @@ export default function AccountPage() {
                 </Link>
               </div>
             )}
+          </div>
+        )}
+
+        {/* Tab: Stacks & Advisor plans */}
+        {activeTab === 'stacks' && (
+          <div className="space-y-10">
+            <div>
+              <div className="mb-4 flex items-center justify-between">
+                <h2 className="text-lg font-bold text-white">{t('stacksHeading')}</h2>
+                <Link href="/stack-builder" className="text-xs font-bold text-accent-400 hover:underline">
+                  {t('buildNew')} →
+                </Link>
+              </div>
+              {savedStacks.length > 0 ? (
+                <ul className="space-y-2">
+                  {savedStacks.map((s) => {
+                    const maxI = Math.max(0, ...Object.keys(s.picks).map(Number));
+                    const pickArr = Array.from({ length: maxI + 1 }, (_, i) => s.picks[i] ?? '');
+                    const href = `/stack-builder?goal=${s.goal}&budget=${s.budget}&pick=${pickArr.join(',')}`;
+                    return (
+                      <li
+                        key={s.id}
+                        className="flex flex-wrap items-center gap-3 rounded-2xl border border-white/10 bg-surface-1 px-5 py-4"
+                      >
+                        <Layers className="h-4 w-4 shrink-0 text-accent-400" />
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate text-sm font-bold text-zinc-100">{s.name}</p>
+                          <p className="text-2xs text-zinc-500">
+                            {t('stackMeta', { goal: s.goal, budget: s.budget })} ·{' '}
+                            {new Date(s.savedAt).toLocaleDateString()}
+                          </p>
+                        </div>
+                        <Link
+                          href={href}
+                          className="inline-flex items-center gap-1 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-2xs font-bold text-zinc-200 hover:border-accent-500/50 hover:text-accent-300"
+                        >
+                          {t('openStack')}
+                          <ArrowRight className="h-3 w-3 rtl:rotate-180" />
+                        </Link>
+                        <button
+                          type="button"
+                          onClick={() => deleteSavedStack(s.id)}
+                          className="rounded-lg p-2 text-zinc-600 hover:bg-white/5 hover:text-rose-300"
+                          aria-label={t('delete')}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              ) : (
+                <div className="rounded-3xl border border-dashed border-white/10 bg-surface-1 py-10 text-center">
+                  <p className="text-xs text-zinc-500">{t('noStacks')}</p>
+                </div>
+              )}
+            </div>
+
+            <div>
+              <div className="mb-4 flex items-center justify-between">
+                <h2 className="text-lg font-bold text-white">{t('plansHeading')}</h2>
+                <Link href="/advisor" className="text-xs font-bold text-accent-400 hover:underline">
+                  {t('runAdvisor')} →
+                </Link>
+              </div>
+              {advisorPlans.length > 0 ? (
+                <ul className="space-y-2">
+                  {advisorPlans.map((p) => {
+                    let cost = 0;
+                    try {
+                      cost = runAdvisor(p.answers as never).monthlyTotal;
+                    } catch {
+                      /* stale answers — skip cost */
+                    }
+                    return (
+                      <li
+                        key={p.id}
+                        className="flex flex-wrap items-center gap-3 rounded-2xl border border-white/10 bg-surface-1 px-5 py-4"
+                      >
+                        <Sparkles className="h-4 w-4 shrink-0 text-accent-400" />
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate text-sm font-bold text-zinc-100">{p.name}</p>
+                          <p className="text-2xs text-zinc-500">
+                            {new Date(p.savedAt).toLocaleDateString()}
+                            {cost > 0 && (
+                              <span className="font-mono tabular-nums text-emerald-400">
+                                {' '}
+                                · ${cost.toFixed(0)}/mo
+                              </span>
+                            )}
+                          </p>
+                        </div>
+                        <Link
+                          href="/advisor"
+                          className="inline-flex items-center gap-1 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-2xs font-bold text-zinc-200 hover:border-accent-500/50 hover:text-accent-300"
+                        >
+                          {t('openPlan')}
+                          <ArrowRight className="h-3 w-3 rtl:rotate-180" />
+                        </Link>
+                        <button
+                          type="button"
+                          onClick={() => deleteAdvisorPlan(p.id)}
+                          className="rounded-lg p-2 text-zinc-600 hover:bg-white/5 hover:text-rose-300"
+                          aria-label={t('delete')}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              ) : (
+                <div className="rounded-3xl border border-dashed border-white/10 bg-surface-1 py-10 text-center">
+                  <p className="text-xs text-zinc-500">{t('noPlans')}</p>
+                </div>
+              )}
+            </div>
+
+            <div>
+              <h2 className="text-lg font-bold text-white">{t('workflowsHeading')}</h2>
+              {savedWorkflows.length > 0 ? (
+                <ul className="mt-4 space-y-2">
+                  {savedWorkflows.map((s) => (
+                    <li
+                      key={s.id}
+                      className="flex flex-wrap items-center gap-3 rounded-2xl border border-white/10 bg-surface-1 px-5 py-4"
+                    >
+                      <GitBranch className="h-4 w-4 shrink-0 text-accent-400" />
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-sm font-bold text-zinc-100">{s.name}</p>
+                        <p className="text-2xs text-zinc-500">{new Date(s.savedAt).toLocaleDateString()}</p>
+                      </div>
+                      <Link
+                        href={`/workflows/${s.slug}${
+                          Object.keys(s.picks).length > 0
+                            ? `?pick=${Object.entries(s.picks).map(([id, sl]) => `${id}:${sl}`).join(',')}`
+                            : ''
+                        }`}
+                        className="inline-flex items-center gap-1 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-2xs font-bold text-zinc-200 hover:border-accent-500/50 hover:text-accent-300"
+                      >
+                        {t('openStack')}
+                        <ArrowRight className="h-3 w-3 rtl:rotate-180" />
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={() => deleteSavedWorkflow(s.id)}
+                        className="rounded-lg p-2 text-zinc-600 hover:bg-white/5 hover:text-rose-300"
+                        aria-label={t('delete')}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div className="mt-4 rounded-3xl border border-dashed border-white/10 bg-surface-1 py-10 text-center">
+                  <p className="text-xs text-zinc-500">{t('noWorkflows')}</p>
+                </div>
+              )}
+            </div>
           </div>
         )}
 

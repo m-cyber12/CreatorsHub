@@ -1,5 +1,5 @@
 /**
- * Plisio Crypto Payment Gateway Client for CreatorAI Hub
+ * Plisio Crypto Payment Gateway Client for Noxifera
  * Documentation: https://plisio.net/documentation
  *
  * SECURITY NOTES (2026-08-12 audit):

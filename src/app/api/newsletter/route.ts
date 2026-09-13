@@ -64,7 +64,7 @@ export async function POST(request: Request) {
 
       if (error && error.code === '23505') {
         return NextResponse.json(
-          { success: true, message: 'You are already subscribed to the CreatorAI Hub newsletter!' },
+          { success: true, message: 'You are already subscribed to the Noxifera briefing!' },
           { status: 200 }
         );
       }
@@ -86,7 +86,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         success: true,
-        message: 'Successfully subscribed to CreatorAI Hub Weekly AI Tool Alerts!',
+        message: 'Successfully subscribed to the Noxifera briefing!',
         // Never ship the confirmation token to a production client — anyone
         // subscribed with a fake address could self-confirm without owning
         // the inbox. Kept for local development only.

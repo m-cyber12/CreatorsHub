@@ -1,5 +1,5 @@
 // Validates that every message key referenced in the code exists in messages/en.json.
-// Run: node scripts/check-keys.mjs   (after each page conversion)
+// Run: node scripts/check-keys.mjs   (also part of `npm run verify`)
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -18,45 +18,47 @@ function walk(dir, acc = []) {
 
 const files = walk(join(ROOT, 'src'));
 
+// Resolve a possibly-dotted namespace + possibly-dotted key against en.json.
+// The namespace comes FIRST (e.g. t = useTranslations('advisor.actions');
+// t('label') → en['advisor']['actions']['label']).
+function resolvePath(parts) {
+  let node = en;
+  for (const part of parts) {
+    if (node == null || typeof node !== 'object') return undefined;
+    node = node[part];
+  }
+  return node;
+}
+
 const problems = [];
 for (const file of files) {
   const src = readFileSync(file, 'utf8');
   if (!/useTranslations|getTranslations/.test(src)) continue;
 
-  // namespace → variable names
+  // variable → set of namespaces. A variable may legitimately hold different
+  // namespaces in different scopes of the same file (e.g. `tc` used for
+  // 'common' in generateMetadata and 'categories' in the component), so we
+  // accept a key if it resolves under ANY of the variable's namespaces.
   const nsVar = new Map();
-  for (const m of src.matchAll(/useTranslations\(\s*'([\w.]+)'\s*\)/g)) {
-    // find the variable it's assigned to: scan backwards for "const X ="
-    const before = src.slice(0, m.index);
-    const vm = [...before.matchAll(/const\s+(\w+)\s*=\s*$/g)];
-    if (vm.length) nsVar.set(vm[vm.length - 1][1], m[1]);
-  }
-  for (const m of src.matchAll(/getTranslations\(\s*\{\s*locale[^}]*namespace:\s*'([\w.]+)'\s*\}\s*\)/g)) {
-    const before = src.slice(0, m.index);
-    const vm = [...before.matchAll(/const\s+(\w+)\s*=\s*await\s*$/g)];
-    if (vm.length) nsVar.set(vm[vm.length - 1][1], m[1]);
+  for (const m of src.matchAll(
+    /const\s+(\w+)\s*=\s*(?:await\s+)?(?:useTranslations|getTranslations)\(\s*(?:\{[^}]*?namespace:\s*'([\w.]+)'\s*\}|'([\w.]+)')/g
+  )) {
+    const ns = m[2] ?? m[3];
+    if (!nsVar.has(m[1])) nsVar.set(m[1], new Set());
+    nsVar.get(m[1]).add(ns);
   }
   if (nsVar.size === 0) continue;
 
   const lineNo = (idx) => src.slice(0, idx).split('\n').length;
-  for (const [v, ns] of nsVar) {
-    // t('key') or t.raw('key') usages, but only within the scope of this file where v is in scope.
+  for (const [v, namespaces] of nsVar) {
+    // t('key') or t.raw('key') usages within this file.
     const re = new RegExp(`[^\\w.]${v}(?:\\.raw)?\\(\\s*'([^']+)'`, 'g');
     let m;
     while ((m = re.exec(src))) {
       const key = m[1];
-      if (key.includes('.')) {
-        const [head, ...rest] = key.split('.');
-        let node = en[head];
-        for (const part of rest) node = node?.[part];
-        if (node === undefined) problems.push(`${file}:${lineNo(m.index)}  ${ns}.${key}  (${v})`);
-      } else {
-        // Namespace may itself be nested (e.g. 'components.benchmarkLeaderboard').
-        let node = en;
-        for (const part of ns.split('.')) node = node?.[part];
-        if (!(key in (node ?? {}))) {
-          problems.push(`${file}:${lineNo(m.index)}  ${ns}.${key}  (${v})`);
-        }
+      const ok = [...namespaces].some((ns) => resolvePath([...ns.split('.'), ...key.split('.')]) !== undefined);
+      if (!ok) {
+        problems.push(`${file}:${lineNo(m.index)}  [${[...namespaces].join('|')}] .${key}  (${v})`);
       }
     }
   }

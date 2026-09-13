@@ -45,7 +45,7 @@ export function AnnouncementBanner() {
     <div
       role="region"
       aria-label="Announcement"
-      className="relative z-[60] border-b border-accent-500/30 bg-gradient-to-r from-accent-500/15 via-fuchsia-500/10 to-cyan-400/15 px-4 py-2.5"
+      className="relative z-[60] border-b border-accent-500/30 bg-gradient-to-r from-accent-500/15 via-ember-500/10 to-ember-700/15 px-4 py-2.5"
     >
       <div className="mx-auto flex max-w-6xl items-center justify-center gap-2 pr-8 text-center">
         <Megaphone className="h-4 w-4 shrink-0 text-accent-300" aria-hidden="true" />

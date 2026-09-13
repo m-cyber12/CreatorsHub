@@ -1,11 +1,11 @@
 {
   "common": {
-    "siteName": "CreatorAI Hub",
-    "tagline": "The Curated AI Toolbox for Video Creators",
-    "metaDescription": "Find the right AI tool for video work in under a minute. {count}+ tools for YouTube and TikTok creators — video editors, Shorts generators, thumbnail makers, voice cloning and script assistants — each labelled with exactly how far we have verified it.",
-    "ogDescription": "{count} AI tools for video creators, with honest verification labels, side-by-side comparison and a graveyard of tools that no longer exist.",
-    "ogImageAlt": "CreatorAI Hub — curated AI tools for video creators",
-    "twitterDescription": "{count} AI tools for video creators. We label exactly what we have tested.",
+    "siteName": "Noxifera",
+    "tagline": "Light in the Darkness — the AI platform for creators",
+    "metaDescription": "The AI platform for creators. {count}+ AI tools with verified pricing, an AI advisor that builds your workflow, side-by-side comparisons, step-by-step playbooks and a subscription optimizer. Light in the darkness.",
+    "ogDescription": "{count} AI tools for creators with honest verification, an AI advisor, comparisons, playbooks and a subscription optimizer. Light in the darkness.",
+    "ogImageAlt": "Noxifera — the AI platform for creators",
+    "twitterDescription": "{count} AI tools for creators. Verified pricing, AI advisor, playbooks. Light in the darkness.",
     "skipToContent": "Skip to main content",
     "all": "All",
     "free": "Free",
@@ -64,7 +64,7 @@
     "notFoundTitle": "Page not found",
     "notFoundText": "The page you are looking for does not exist or has been moved.",
     "languageName": "English",
-    "poweredByTranslation": "Translated by CreatorAI's professional translation engine",
+    "poweredByTranslation": "Translated by Noxifera's professional translation engine",
     "toggleTheme": "Toggle theme",
     "switchToLight": "Switch to light mode",
     "switchToDark": "Switch to dark mode",
@@ -97,7 +97,14 @@
     "categoriesLabel": "Categories",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
-    "forFounders": "For Founders"
+    "forFounders": "For Founders",
+    "advisor": "Advisor",
+    "outcomes": "Outcomes",
+    "optimizer": "Save on Subscriptions",
+    "playbooks": "Playbooks",
+    "workflows": "Workflows",
+    "arena": "Arena",
+    "projects": "Projects"
   },
   "footer": {
     "taglineBlurb": "The curated AI toolbox for video creators. {count} tools catalogued, {tested} tested hands-on, and every listing labelled with exactly how far we have verified it.",
@@ -135,7 +142,12 @@
     "terms": "Terms",
     "disclosure": "Disclosure",
     "copyright": "© {year} {name}. Tool information is catalogued from public sources and vendor documentation; verification levels are stated on every listing.",
-    "taglineBlurbNoTest": "The curated AI toolbox for video creators. {count} tools catalogued with hand-checked prices — and every listing labelled with exactly how far we have verified it."
+    "taglineBlurbNoTest": "The curated AI toolbox for video creators. {count} tools catalogued with hand-checked prices — and every listing labelled with exactly how far we have verified it.",
+    "platform": "Platform",
+    "advisor": "AI Advisor",
+    "outcomes": "Outcome Guides",
+    "playbooks": "Tool Playbooks",
+    "optimizer": "Subscription Optimizer"
   },
   "home": {
     "heroBadge": "Evidence-first discovery for video creators",
@@ -178,7 +190,7 @@
     "newsletterEyebrow": "The briefing",
     "newsletterTitle": "A quieter, more useful AI briefing.",
     "newsletterText": "Join the launch list for creator-relevant price changes, policy updates, and evidence releases. The newsletter is not live yet — no confirmation email will be sent until it is.",
-    "metaTitle": "CreatorAI Hub — AI tools for video creators",
+    "metaTitle": "Noxifera — AI tools for video creators",
     "metaDescription": "Find AI video tools with clear verification labels, pricing sources, and workflow-first discovery.",
     "rotatingWords": [
       "clips",
@@ -188,7 +200,22 @@
       "thumbnails"
     ],
     "heroSubSeparator": "and we clearly separate",
-    "heroSubFrom": "from tools we have"
+    "heroSubFrom": "from tools we have",
+    "intelEyebrow": "The intelligence layer",
+    "intelTitle": "Not a directory. An operating system for creators.",
+    "intelSub": "Four tools that turn the catalog into decisions: a system for your situation, a workflow for your outcome, your spend under control, and playbooks for the tools you run.",
+    "intelAdvisorTitle": "AI Advisor",
+    "intelAdvisorText": "Answer six questions — content, platform, budget, experience, automation, tools you own — and get a complete per-stage system with reasons, alternatives and the monthly cost.",
+    "intelAdvisorCta": "Build my system",
+    "intelOutcomesTitle": "Outcome guides",
+    "intelOutcomesText": "Start from what you want to make: podcast to shorts, faceless YouTube, thumbnails, voiceover, UGC ads — each with the tools, the workflow, the time and the real cost.",
+    "intelOutcomesCta": "Pick an outcome",
+    "intelOptimizerTitle": "Subscription optimizer",
+    "intelOptimizerText": "Enter what you pay for. It finds duplicate capabilities, free tiers that cover the job, and cheaper same-job tools — with the monthly and yearly savings.",
+    "intelOptimizerCta": "Find my waste",
+    "intelPlaybooksTitle": "Tool playbooks",
+    "intelPlaybooksText": "Hand-written how-to systems for the flagship tools: setup, the repeatable weekly workflow, pro moves, and the mistakes that quietly kill quality.",
+    "intelPlaybooksCta": "Read a playbook"
   },
   "tools": {
     "title": "All AI Tools for Video Creators",
@@ -331,7 +358,9 @@
     "seeFullComparison": "See the full comparison",
     "pairsWellWith": "Pairs Well With",
     "pairsIntro": "Tools creators commonly stack with {name}.",
-    "testedByEditorialShort": "Tested by the {name} editorial team"
+    "testedByEditorialShort": "Tested by the {name} editorial team",
+    "playbookLabel": "Playbook",
+    "playbookCta": "Read the playbook"
   },
   "news": {
     "title": "AI News Feed",
@@ -350,7 +379,7 @@
     "modeSupabase": "Auto-published from our refresh pipeline",
     "modeLive": "Live — sourced from real RSS feeds",
     "modeCurated": "No sourced news yet",
-    "briefingBadge": "Creator AI Briefing — 2026 archive",
+    "briefingBadge": "Noxifera Briefing — 2026 archive",
     "intro": "Every AI video/voice/creator story we track in 2026 — ingested automatically, passed through the creator-relevance gate, and approved by an editor before it appears. Pick a month so the page never dumps everything at once, or search across the whole archive (typo- and synonym-tolerant).",
     "latest": "Latest",
     "items": "{count} items",
@@ -362,7 +391,7 @@
     "allTopics": "All topics",
     "clearAllFilters": "Clear all filters",
     "readOriginal": "Read the original at {source}",
-    "pipelineNote": "Auto-aggregated by the CreatorAI Hub news pipeline.",
+    "pipelineNote": "Auto-aggregated by the Noxifera news pipeline.",
     "summaryNote": "This summary was generated by AI.",
     "collectedNote": "This story was collected from its source feed.",
     "moreIn": "More {category}",
@@ -378,13 +407,13 @@
   "blog": {
     "title": "Blog — AI Tool Reviews, Comparisons & Creator Guides",
     "description": "Hands-on AI tool reviews, head-to-head comparisons, and workflow guides for YouTube and video creators. Independently tested, updated for 2026.",
-    "heading": "The CreatorAI Blog",
+    "heading": "The Noxifera Blog",
     "subtitle": "Practical guides, honest comparisons and workflow playbooks for video creators.",
     "editorialNote": "Editorially reviewed",
     "draftNote": "Auto-drafted — not yet reviewed",
     "relatedTools": "Related tools",
     "backToBlog": "Back to the blog",
-    "writtenBy": "By the CreatorAI editorial team",
+    "writtenBy": "By the Noxifera editorial team",
     "badge": "Creator Guides & Reviews",
     "draftBadge": "AI draft",
     "notFound": "Article Not Found",
@@ -398,7 +427,7 @@
     "viewSpecs": "View {name} specifications, pricing & features →",
     "tryNow": "Try {name} Now",
     "editorialNoteTitle": "Editorial note",
-    "editorialNoteBody": "Written by the CreatorAI Hub editorial team. Hands-on tested tools include verified benchmark scores; unverified tools display pricing and features verified from official documentation. Some links in this article are affiliate links — we may earn a commission at no extra cost to you, and it never influences our verdicts.",
+    "editorialNoteBody": "Written by the Noxifera editorial team. Hands-on tested tools include verified benchmark scores; unverified tools display pricing and features verified from official documentation. Some links in this article are affiliate links — we may earn a commission at no extra cost to you, and it never influences our verdicts.",
     "fullDisclosure": "Full disclosure",
     "ourMethodology": "Our methodology"
   },
@@ -439,7 +468,13 @@
     "tryTool": "Try {name}",
     "footerNote": "Verified tools include hands-on editorial scores. Unverified tools display pricing and features verified from official documentation. Some links are affiliate links —",
     "readDisclosure": "read our disclosure",
-    "editorialScore": "Editorial Score"
+    "editorialScore": "Editorial Score",
+    "addToProject": "Add to project",
+    "selectProject": "Choose a project…",
+    "addedToProject": "{count} tools added to your project",
+    "alreadyOnProject": "Those tools are already on that project",
+    "noProjects": "No projects yet.",
+    "createProject": "Create one"
   },
   "bestOf": {
     "title": "Best AI Tools of 2026",
@@ -552,7 +587,17 @@
         ]
       }
     },
-    "and": "and"
+    "and": "and",
+    "resultsHeading": "Published Benchmarks",
+    "resultsSub": "Real tests, full evidence pack. Nothing is published until tools are actually run.",
+    "evTask": "Task",
+    "evInput": "Input",
+    "evMethodology": "Methodology",
+    "evScoring": "Scoring method",
+    "evModel": "Model",
+    "evOutput": "Raw output",
+    "evEvaluator": "Evaluator",
+    "evLimitations": "Limitations"
   },
   "deals": {
     "title": "Deals & Discount Codes",
@@ -594,7 +639,7 @@
     "backToTools": "All Tools"
   },
   "changelog": {
-    "title": "What's New at CreatorAI Hub",
+    "title": "What's New at Noxifera",
     "description": "Product updates, fixes and milestones.",
     "heading": "What's New",
     "subtitle": "Every update to the hub, in one place.",
@@ -604,7 +649,7 @@
   },
   "about": {
     "title": "About & Methodology",
-    "description": "How CreatorAI Hub works — what we verify, what we don't, and how to read our labels.",
+    "description": "How Noxifera works — what we verify, what we don't, and how to read our labels.",
     "heading": "About & Methodology",
     "subtitle": "How we catalogue, verify and rank tools.",
     "whatWeDo": "What we do",
@@ -613,7 +658,7 @@
   },
   "guide": {
     "title": "Getting Started Guide",
-    "description": "Learn how to use CreatorAI Hub to research, compare and build your AI tool stack.",
+    "description": "Learn how to use Noxifera to research, compare and build your AI tool stack.",
     "heading": "Getting Started",
     "subtitle": "From first search to a full creator stack.",
     "nextStep": "Next:"
@@ -637,7 +682,7 @@
   },
   "contact": {
     "title": "Contact Us",
-    "description": "Get in touch with the CreatorAI Hub team.",
+    "description": "Get in touch with the Noxifera team.",
     "heading": "Contact",
     "subtitle": "We read everything. Replies may take a few days.",
     "emailUs": "Email us",
@@ -669,7 +714,7 @@
     "success": "Thanks — your tool is in the review queue.",
     "pending": "Submission received. We'll review it within a few days.",
     "metaTitle": "Submit Your AI Tool",
-    "metaDescription": "Submit your AI video tool to CreatorAI Hub for editorial review. Free listings for tools that pass our quality bar, with optional featured placement.",
+    "metaDescription": "Submit your AI video tool to Noxifera for editorial review. Free listings for tools that pass our quality bar, with optional featured placement.",
     "metaSubtitle": "Building an AI tool for video creators? Submit it for editorial review. Listings are {free} if the tool passes our quality bar — we verify pricing, features, and official links for every submission before publishing. Tools selected for our Hands-On Benchmark undergo comprehensive 24-point editorial testing. Typical review time: 3–5 days.",
     "freeStrong": "free",
     "formToolName": "Tool Name",
@@ -679,7 +724,7 @@
     "formEmail": "Founder / Contact Email",
     "formEmailPh": "you@yourtool.com",
     "badgeLabel": "Verified Founder Badge",
-    "badgeBody": "— I'll add the CreatorAI Hub badge to our site (or mention us on X) in exchange for priority review and a permanent verified badge on our listing.",
+    "badgeBody": "— I'll add the Noxifera badge to our site (or mention us on X) in exchange for priority review and a permanent verified badge on our listing.",
     "submitBtn": "Submit for Verified Listing",
     "submitNote": "We verify pricing, features, and official links for every submission. Spam, dead links, and off-niche tools are rejected.",
     "successTitle": "Submission received!",
@@ -718,7 +763,7 @@
     "totalNotePaid": "Summed from listed entry prices in the catalog — real spend depends on the plans and credits you actually use.",
     "ctaDeals": "Check free plans & deals",
     "disclaimer": "Editorial picks based on catalog data and workflow fit — not hands-on test results. Your stack is saved in this browser and the URL updates as you change it, so you can share the exact combination.",
-    "copyTitle": "My {budget} stack for: {goal} — via CreatorAI Hub",
+    "copyTitle": "My {budget} stack for: {goal} — via Noxifera",
     "copyRole": "{role}: {name} ({price})",
     "copyTotal": "Estimated total: {total}/mo from listed entry prices",
     "copyPlan": "Plan yours: /stack-builder",
@@ -746,6 +791,14 @@
       "avatars": {
         "label": "Avatar presenter",
         "blurb": "A synthetic presenter delivers your script on camera."
+      },
+      "longform": {
+        "label": "Long-form YouTube",
+        "blurb": "Research, script, voice, edit, thumbnail — a full long-form pipeline."
+      },
+      "ugc": {
+        "label": "AI UGC ads",
+        "blurb": "Product ads with an AI presenter for paid social."
       }
     },
     "slots": {
@@ -836,6 +889,42 @@
           "role": "Editing & polish",
           "hint": "Cut, caption and resize the output"
         }
+      },
+      "longform": {
+        "scripting": {
+          "role": "Scripting & research",
+          "hint": "Ideas, outlines and full scripts"
+        },
+        "voiceover": {
+          "role": "Voiceover",
+          "hint": "Narration that carries the video"
+        },
+        "editing": {
+          "role": "Editing",
+          "hint": "Cuts, pacing and the finishing pass"
+        },
+        "thumbnail": {
+          "role": "Thumbnail",
+          "hint": "The click-worthy image for the title"
+        }
+      },
+      "ugc": {
+        "scripting": {
+          "role": "Ad script",
+          "hint": "Hooks and product claims that pass review"
+        },
+        "presenter": {
+          "role": "AI presenter",
+          "hint": "The face that delivers the script"
+        },
+        "design": {
+          "role": "Product visuals",
+          "hint": "Cutouts and backgrounds that read on mobile"
+        },
+        "polish": {
+          "role": "Edit & export",
+          "hint": "Captions, pacing and platform sizes"
+        }
       }
     },
     "budgets": {
@@ -854,8 +943,16 @@
     },
     "metaTitle": "Creator Workflow Stack Builder — Plan Your AI Video Tool Stack",
     "metaDescription": "Plan a full video-creator workflow in minutes: pick your goal and budget, assign a tool to each role in the pipeline, and share the stack as a URL. Editorial picks from the catalog — no invented scores.",
-    "ogTitle": "Creator Workflow Stack Builder — CreatorAI Hub",
-    "ogDescription": "Plan a full video-creator workflow in minutes and share it as a link. Editorial picks, verification badges, and estimated entry costs."
+    "ogTitle": "Creator Workflow Stack Builder — Noxifera",
+    "ogDescription": "Plan a full video-creator workflow in minutes and share it as a link. Editorial picks, verification badges, and estimated entry costs.",
+    "saveStack": "Save stack",
+    "savedFlash": "Saved ✓",
+    "savedTitle": "Your saved stacks",
+    "loadStack": "Load",
+    "deleteStack": "Delete stack",
+    "saveAsProject": "Save as new project",
+    "projectCreated": "Saved as a new project",
+    "projectsFull": "Project limit reached (12)"
   },
   "calculators": {
     "title": "Free Creator Calculators",
@@ -987,7 +1084,7 @@
     "formNotes": "Update Request or Note (Optional)",
     "notesPh": "Let us know if your pricing, tagline, or features need immediate updating...",
     "badgeLabel": "Priority Review + Backlink Badge",
-    "badgeBody": "— I will embed the CreatorAI Hub badge on our landing page or press room in exchange for priority editorial benchmark testing.",
+    "badgeBody": "— I will embed the Noxifera badge on our landing page or press room in exchange for priority editorial benchmark testing.",
     "claimBtn": "Claim Official Profile & Badge",
     "successTitle": "Claim Recorded",
     "successBody": "We have your claim for {tool}. Our team will verify you own this tool before granting a badge, and we will reply to {email}.",
@@ -995,7 +1092,7 @@
     "failGeneric2": "Something went wrong. Please try again.",
     "recorded": "Your claim has been recorded.",
     "metaTitle": "Founder Program — Claim Your AI Tool Profile & Embed Badge",
-    "metaDescription": "Claim ownership of your AI video tool profile on CreatorAI Hub. Get official founder verification, direct pricing updates, and our embeddable SVG backlink badge.",
+    "metaDescription": "Claim ownership of your AI video tool profile on Noxifera. Get official founder verification, direct pricing updates, and our embeddable SVG backlink badge.",
     "ogTitle": "Founder Program — Claim Your AI Tool Profile & Embed Badge",
     "ogDescription": "Claim ownership of your AI video tool profile: official founder verification, direct pricing updates, and an embeddable badge."
   },
@@ -1015,7 +1112,83 @@
     "savedSub": "Tools you bookmarked while browsing the directory.",
     "nothingSaved": "Nothing saved yet",
     "nothingSavedSub": "Tap the bookmark icon on any tool card to build your personal AI toolbox.",
-    "browseTools": "Browse {count}+ Tools"
+    "browseTools": "Browse {count}+ Tools",
+    "stacksTab": "Stacks & Plans ({count})",
+    "stacksHeading": "Your saved stacks",
+    "buildNew": "Build a new stack",
+    "stackMeta": "{goal} · {budget}",
+    "openStack": "Open",
+    "delete": "Delete",
+    "noStacks": "No saved stacks yet — build one in the Stack Builder and hit Save.",
+    "plansHeading": "Your advisor plans",
+    "runAdvisor": "Run the AI Advisor",
+    "openPlan": "Open",
+    "noPlans": "No saved plans yet — the AI Advisor personalises a full system to your answers.",
+    "workflowsHeading": "Your saved workflows",
+    "noWorkflows": "No saved workflows yet — open one and hit Save.",
+    "overviewTab": "Overview",
+    "overviewTitle": "Your AI System",
+    "overviewSub": "Everything you've saved — what it costs, where it overlaps, and what's missing.",
+    "statCost": "Est. monthly cost",
+    "costSub": "{count} tools · paid plans only",
+    "statCoverage": "Coverage",
+    "coverageSub": "{covered} of {total} categories",
+    "statOverlap": "Tool overlap",
+    "overlapGroupsSub": "{count} categories with 2+ of your tools",
+    "overlapClean": "No duplicate categories",
+    "statMaturity": "Workflow maturity",
+    "flagWorkflows": "Workflows",
+    "flagStacks": "Stacks",
+    "flagPlans": "Advisor plans",
+    "flagTools": "5+ saved tools",
+    "overlapTitle": "Watch for overlap",
+    "overlapGroup": "You have {count} {category} tools:",
+    "overlapHint": "check whether you really need both.",
+    "gapsTitle": "Fill the gaps in your system",
+    "gapsSub": "Top pick for categories you don't cover yet.",
+    "freeTool": "Free",
+    "quickTitle": "Quick actions",
+    "quickAdvisor": "AI Advisor",
+    "quickAdvisorDesc": "Goal → recommended system",
+    "quickStack": "Stack Builder",
+    "quickStackDesc": "Build a tool stack for a goal",
+    "quickWorkflows": "Workflows",
+    "quickWorkflowsDesc": "Step-by-step production pipelines",
+    "quickOptimizer": "Subscription Optimizer",
+    "quickOptimizerDesc": "Find duplicate subscriptions & savings",
+    "emptyTitle": "Your AI system is empty",
+    "emptySub": "Run the AI Advisor, build a stack, or save a workflow — this dashboard turns what you save into a plan you can track.",
+    "ctaAdvisor": "Run the AI Advisor",
+    "ctaStack": "Build a stack",
+    "ctaWorkflows": "Browse workflows",
+    "radarTab": "Radar",
+    "radarTitle": "Your AI Radar",
+    "radarSub": "Follow categories, tools and workflows — see what's new and trending in your world.",
+    "personalized": "Personalized",
+    "globalDigest": "Global digest",
+    "followTitle": "Follow",
+    "noFollowsHint": "Follow a category, tool or workflow to personalize the feed.",
+    "followCategories": "Categories",
+    "followWorkflows": "Workflows",
+    "followTools": "Tools",
+    "followToolsPlaceholder": "Search tools to follow…",
+    "noToolMatches": "No matches.",
+    "follow": "Follow",
+    "following": "Following",
+    "newTitle": "New on Noxifera",
+    "newSub": "Recently added to the catalog",
+    "trendingTitle": "Trending",
+    "trendingSub": "What creators are using most",
+    "watchTitle": "Your price watch",
+    "watchSub": "Current catalog price for the tools you follow",
+    "lastReviewed": "Reviewed {date}",
+    "wfTitle": "Your workflows",
+    "wfNodes": "steps",
+    "wfMinutes": "min",
+    "wfNone": "Follow a workflow to track it here.",
+    "emptyFeed": "Your radar is quiet — follow something to start the feed.",
+    "badgeNew": "New",
+    "badgeTrending": "Trending"
   },
   "login": {
     "title": "Sign In",
@@ -1027,7 +1200,7 @@
     "password": "Password",
     "signIn": "Sign in",
     "error": "Could not sign in. Check your details.",
-    "welcome": "Welcome to CreatorAI Hub",
+    "welcome": "Welcome to Noxifera",
     "welcomeSub": "Sync your saved tools, post reviews, and get early access to deals. No password needed.",
     "authNotConfigured": "Auth backend not configured yet. Add {url} and {key} in Vercel, then run supabase-launch-upgrade.sql. Bookmarks still work locally.",
     "magicSent": "Magic link sent!",
@@ -1037,8 +1210,8 @@
     "byContinuing": "By continuing you agree to our <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>.",
     "terms": "Terms",
     "privacyPolicy": "Privacy Policy",
-    "metaTitle": "Sign In — CreatorAI Hub",
-    "metaDescription": "Sign in to CreatorAI Hub to save tools, sync bookmarks, and post reviews.",
+    "metaTitle": "Sign In — Noxifera",
+    "metaDescription": "Sign in to Noxifera to save tools, sync bookmarks, and post reviews.",
     "invalidCredentials": "Incorrect email or password. Please try again.",
     "authErrorGeneric": "Authentication failed. Please try again.",
     "magicLinkError": "Could not send the sign-in link. Please try again.",
@@ -1120,9 +1293,9 @@
     "home": "Home"
   },
   "aiStudio": {
-    "metaTitle": "AI Studio — CreatorAI Hub",
-    "metaDescription": "A separate, privacy-first workspace for practical creator utilities built into CreatorAI Hub.",
-    "kicker": "CreatorAI Hub / Native workspace · free launch access",
+    "metaTitle": "AI Studio — Noxifera",
+    "metaDescription": "A separate, privacy-first workspace for practical creator utilities built into Noxifera.",
+    "kicker": "Noxifera / Native workspace · free launch access",
     "heroTitle1": "Make the next",
     "heroTitle2": "move yourself.",
     "heroText": "AI Studio is a separate workspace for practical creator utilities — briefs, prompts, calendars, and local media tasks. No tool rankings. No hidden uploads.",
@@ -1201,10 +1374,10 @@
     "viEyebrow": "Media utilities / local metadata",
     "viHeading": "Video Inspector",
     "viDesc": "Read dimensions, duration, and aspect ratio; check simple platform fit; and extract a poster frame without uploading your video.",
-    "upMetaTitle": "AI Studio Launch Access — CreatorAI Hub",
-    "upMetaDesc": "Free launch access to CreatorAI Hub AI Studio utilities.",
+    "upMetaTitle": "AI Studio Launch Access — Noxifera",
+    "upMetaDesc": "Free launch access to Noxifera AI Studio utilities.",
     "upHeading": "Everything is free during launch.",
-    "upSubtitle": "All CreatorAI Hub Studio utilities are currently open with no sign-in, usage cap, or payment requirement. Build, edit, inspect, and export directly in your browser.",
+    "upSubtitle": "All Noxifera Studio utilities are currently open with no sign-in, usage cap, or payment requirement. Build, edit, inspect, and export directly in your browser.",
     "upEyebrow": "AI Studio / launch access",
     "upCardTitle": "Studio Launch Access",
     "upCardSub": "All eight utilities · unlimited free use",
@@ -1221,7 +1394,7 @@
     "metaDescriptionOg": "Free read-only JSON API with {count}+ curated AI video tools. Rate-limited, no key required.",
     "badge": "Public API v1 — Free",
     "heading": "Build with our tools data",
-    "intro": "A free, read-only JSON API exposing all {count}+ curated AI tools — names, categories, verified pricing, verification levels, verified benchmark scores, and tags. No API key required. Just add attribution with a link back to CreatorAI Hub.",
+    "intro": "A free, read-only JSON API exposing all {count}+ curated AI tools — names, categories, verified pricing, verification levels, verified benchmark scores, and tags. No API key required. Just add attribution with a link back to Noxifera.",
     "featKeyTitle": "No key required",
     "featKeyDesc": "60 requests/min per IP. CORS enabled for browser apps.",
     "featDataTitle": "{count}+ tools",
@@ -1243,7 +1416,7 @@
     "example": "Example",
     "response": "Response",
     "termsLabel": "Terms:",
-    "termsBody": "Free for personal and non-commercial projects with visible attribution (“Data by CreatorAI Hub” + link). For commercial usage, bulk exports, or webhooks, ",
+    "termsBody": "Free for personal and non-commercial projects with visible attribution (“Data by Noxifera” + link). For commercial usage, bulk exports, or webhooks, ",
     "contact": "contact us",
     "termsEnd": "."
   },
@@ -1290,11 +1463,12 @@
     "faqUniqueANone": "Nothing we track distinguishes {a}'s feature coverage from {b}'s — they overlap closely, so the decision comes down to workflow fit and price.",
     "faqQUniqueB": "What can {b} do that {a} cannot?",
     "faqUniqueB": "{b} covers {list}, which {a} does not.",
-    "faqUniqueBNone": "Nothing we track distinguishes {b}'s feature coverage from {a}'s."
+    "faqUniqueBNone": "Nothing we track distinguishes {b}'s feature coverage from {a}'s.",
+    "arenaCta": "See more alternatives in the AI Arena"
   },
   "privacy": {
     "metaTitle": "Privacy Policy",
-    "metaDescription": "CreatorAI Hub privacy policy: what data we collect, how we use it, GDPR rights, and cookie usage.",
+    "metaDescription": "Noxifera privacy policy: what data we collect, how we use it, GDPR rights, and cookie usage.",
     "heading": "Privacy Policy",
     "updated": "Last updated: August 4, 2026",
     "s1": "1. Who we are",
@@ -1332,7 +1506,7 @@
   },
   "terms": {
     "metaTitle": "Terms of Service",
-    "metaDescription": "Terms of service for using the CreatorAI Hub directory, community reviews, public API, and tool submission service.",
+    "metaDescription": "Terms of service for using the Noxifera directory, community reviews, public API, and tool submission service.",
     "heading": "Terms of Service",
     "updated": "Last updated: August 4, 2026",
     "s1": "1. Acceptance",
@@ -1942,7 +2116,7 @@
       "twitter": "Twitter",
       "copied": "Copied!",
       "copyLink": "Copy link",
-      "tweetText": "Check out {title} on CreatorAI Hub",
+      "tweetText": "Check out {title} on Noxifera",
       "ariaTwitter": "Share on Twitter/X",
       "ariaCopy": "Copy link to clipboard"
     },
@@ -1987,7 +2161,9 @@
       "awaiting": "Awaiting test",
       "submit": "Submit it for editorial review",
       "scheduled": "Scheduled: {date}",
-      "wantTested": "Want a tool tested sooner?"
+      "wantTested": "Want a tool tested sooner?",
+      "yourRequests": "Your requests",
+      "remove": "Remove"
     },
     "evidenceCard": {
       "notTested": "Not Independently Tested",
@@ -2095,6 +2271,409 @@
       "ariaNo": "No, this page was not helpful",
       "thanksUseful": "Thanks! Glad this was useful.",
       "thanksNot": "Thanks for the feedback — we will improve this page."
+    },
+    "benchmarkRequest": {
+      "request": "Request a benchmark",
+      "requested": "Requested for testing",
+      "hint": "Added to your local queue — the editorial team picks tests from here.",
+      "queueLink": "See the queue"
     }
+  },
+  "advisor": {
+    "metaTitle": "AI Advisor — get a tool system for your goal",
+    "metaDescription": "Answer 6 questions and Noxifera builds your AI system: stage-by-stage tools, verified starting prices, alternatives, learning curves and the exact next step for each stage.",
+    "badge": "Noxifera AI Advisor",
+    "title": "What do you want to make?",
+    "intro": "Answer six questions and get a stage-by-stage system: the tools, what they cost, the alternatives, and the exact next step at every stage. No chatbot — the recommendations are computed from our catalog data.",
+    "progress": "Step {n} of {total}",
+    "back": "Back",
+    "next": "Next",
+    "seeSystem": "Show my system",
+    "qContent": "What kind of content?",
+    "qContentSub": "This picks the workflow stages.",
+    "contentTypes": {
+      "long-form": {
+        "label": "Long-form video",
+        "desc": "YouTube videos, 8–30 min, talking head or edited"
+      },
+      "short-form": {
+        "label": "Shorts / Reels / TikTok",
+        "desc": "Vertical clips under 60 seconds, clip or create"
+      },
+      "faceless": {
+        "label": "Faceless channel",
+        "desc": "No on-camera presence: AI voice + generated or stock visuals"
+      },
+      "podcast": {
+        "label": "Podcast",
+        "desc": "Audio-first episodes with clips for social"
+      },
+      "ugc": {
+        "label": "AI UGC ads",
+        "desc": "Product ad videos with AI presenters"
+      },
+      "course": {
+        "label": "Course / training",
+        "desc": "Structured lessons with slides and a presenter"
+      }
+    },
+    "qPlatform": "Where will it live?",
+    "platform": {
+      "youtube": "YouTube",
+      "tiktok": "TikTok",
+      "instagram": "Instagram",
+      "multichannel": "Multiple platforms"
+    },
+    "qBudget": "Monthly budget for tools?",
+    "qBudgetSub": "Your system will never exceed it. Tools you already own don't count.",
+    "budget": {
+      "free": {
+        "label": "$0 — free only",
+        "desc": "Free tiers and manual steps only"
+      },
+      "under50": {
+        "label": "Under $50/mo",
+        "desc": "The sensible starter budget"
+      },
+      "under150": {
+        "label": "Under $150/mo",
+        "desc": "Room for a flagship tool or two"
+      },
+      "unlimited": {
+        "label": "Budget is not a constraint",
+        "desc": "Best-in-class picks, no cap"
+      }
+    },
+    "qExperience": "How experienced are you with video tools?",
+    "experience": {
+      "new": "New — I have never edited",
+      "some": "Some — I can cut a video",
+      "pro": "Pro — I know my way around an editor"
+    },
+    "qAutomation": "How automated should the pipeline be?",
+    "qAutomationSub": "More automation means more tools (and subscriptions).",
+    "automation": {
+      "manual": {
+        "label": "Manual",
+        "desc": "I do the steps myself; tools only where they save real time"
+      },
+      "balanced": {
+        "label": "Balanced",
+        "desc": "Automate the repetitive parts, keep the creative parts mine"
+      },
+      "max": {
+        "label": "Maximum",
+        "desc": "Automate everything that can be automated"
+      }
+    },
+    "qVoice": "Who speaks?",
+    "qVoiceSub": "Only matters for content that has narration.",
+    "voice": {
+      "own": "My own voice",
+      "ai": "AI voice is fine"
+    },
+    "qExisting": "Which of these do you already have?",
+    "qExistingSub": "Optional — Noxifera reuses tools you already own instead of recommending new subscriptions.",
+    "existingPlaceholder": "Search tools you already use…",
+    "existingNone": "None / I don't use any of these",
+    "yourSystem": "Your recommended system",
+    "systemSub": "Editorial picks from the Noxifera catalog — verified starting prices, never test claims.",
+    "monthly": "Estimated monthly total",
+    "monthlyNote": "Starting prices from the catalog, excluding tools you already own. Free tiers count as $0.",
+    "manualStage": "Do this by hand",
+    "curve": "Learning curve",
+    "nextStep": "Next step",
+    "alternatives": "Alternatives",
+    "fromExisting": "You already have this",
+    "actions": {
+      "save": "Save this plan",
+      "saved": "Plan saved",
+      "buildStack": "Build Stack",
+      "copy": "Copy summary",
+      "copied": "Copied",
+      "compare": "Compare these two",
+      "restart": "Start over",
+      "attachToProject": "Add to project",
+      "selectProject": "Choose a project…",
+      "projectAdded": "{count} tools added to your project",
+      "projectUpToDate": "Those picks are already on that project",
+      "noProjects": "No projects yet.",
+      "createProject": "Create one",
+      "saveAsProject": "Save as new project",
+      "projectCreated": "Saved as a new project",
+      "projectsFull": "Project limit reached (12)"
+    },
+    "savedPlans": "Your saved plans",
+    "savedPlansSub": "Stored in this browser. Sign in to sync across devices later.",
+    "load": "Open",
+    "deletePlan": "Delete",
+    "emptySaved": "No saved plans yet",
+    "emptySavedSub": "Run the advisor and save the system you like — it will live here.",
+    "disclaimer": "Recommendations are editorial picks computed from catalog data (categories, pricing, tags). They are not benchmark results, and starting prices can change — each tool page shows when we last checked it.",
+    "stages": {
+      "research": "Research",
+      "script": "Script",
+      "voice": "Voice",
+      "visuals": "Visuals",
+      "editing": "Editing",
+      "captions": "Captions",
+      "clipping": "Clipping",
+      "recording": "Recording",
+      "audio-polish": "Audio polish",
+      "avatar": "Presenter",
+      "thumbnail": "Thumbnail",
+      "seo": "SEO & packaging",
+      "distribution": "Distribution",
+      "design": "Design"
+    }
+  },
+  "outcomes": {
+    "metaTitle": "Outcome guides — build the system, not just the list",
+    "metaDescription": "Start from what you want to make: podcast to shorts, faceless YouTube, AI thumbnails, voiceover, UGC ads and more — each with the tools, the workflow, the time and the real cost.",
+    "indexTitle": "Start from the outcome, not the tool",
+    "indexSub": "Every guide is a complete system: the jobs, the tool for each job with the reason, a realistic first-run workflow, and the cost computed from our catalog — never a vague list of links.",
+    "cardCta": "See the system",
+    "answers": "Answers",
+    "systemTitle": "The system",
+    "systemSub": "Editorial picks from the Noxifera catalog — the tool for each job, why, and the alternatives.",
+    "alternatives": "Alternatives",
+    "workflowTitle": "The workflow",
+    "workflowSub": "A realistic first run, step by step.",
+    "totalMinutes": "≈ {n} min first run",
+    "costTitle": "What it costs",
+    "costSub": "Estimated monthly cost at each tool's entry paid price from the catalog. Fully free jobs count as $0 — the free path is real, you scale up as needed.",
+    "perMonth": "per month, estimated",
+    "caveatsTitle": "What goes wrong",
+    "advisorCta": "Want this personalised to your budget, experience and the tools you already own?",
+    "advisorBtn": "Run the AI Advisor",
+    "relatedGuides": "Related guides",
+    "relatedOutcomes": "More outcome guides",
+    "faqTitle": "Common questions",
+    "jobsCount": "{n} jobs · {m} tools",
+    "outcomeLabel": "Outcome guide"
+  },
+  "optimizer": {
+    "metaTitle": "Subscription optimizer — find your wasted spend",
+    "metaDescription": "Enter your creator subscriptions. Noxifera compares them against catalog job categories and pricing to find duplicates, free tiers that cover the job, and cheaper same-job tools — with the monthly and yearly savings.",
+    "title": "Subscription optimizer",
+    "intro": "Paste in what you pay for. The optimizer matches each subscription to the job category in our catalog and flags the three ways creators waste money: paying twice for the same job, paying where a free tier covers it, and paying more than a same-job tool.",
+    "listTitle": "Your subscriptions",
+    "namePlaceholder": "Tool name (e.g. ChatGPT Plus)",
+    "customCategory": "Category — tools not in the catalog",
+    "priceLabel": "Monthly price ($)",
+    "remove": "Remove",
+    "quickAdd": "Quick add",
+    "known": "in catalog",
+    "currentTotal": "Current monthly spend",
+    "optimizedTotal": "Possible optimized spend",
+    "monthlySavings": "possible / month",
+    "yearlySavings": "possible / year",
+    "findingsTitle": "What we found",
+    "findingSavings": "saves {n}/mo",
+    "noFindings": "No findings — your stack looks lean.",
+    "noFindingsSub": "Add more subscriptions to see duplicates and cheaper alternatives.",
+    "kindDuplicate": "Duplicate",
+    "kindFreeTier": "Free tier",
+    "kindCheaper": "Cheaper option",
+    "viewTool": "View tool",
+    "unanalysed": "{n} subscription(s) are not in our catalog, so we can only count them, not analyse them.",
+    "disclaimer": "Estimates use the catalog's starting prices. You decide what to cancel — we only surface the overlaps.",
+    "emptyTitle": "Add your first subscription",
+    "emptySub": "Use the quick-add chips, or type any tool name with the monthly price you actually pay.",
+    "projectsTitle": "Projects",
+    "selectProject": "Choose a project…",
+    "attachToProject": "Attach to project",
+    "saveAsProject": "Save as new project",
+    "attached": "{count} tools attached to your project",
+    "upToDate": "Those tools are already on that project",
+    "created": "Saved as a new project",
+    "projectsFull": "Project limit reached (12)",
+    "projectName": "My subscriptions"
+  },
+  "playbooks": {
+    "metaTitle": "Tool playbooks — how to actually use the tools",
+    "metaDescription": "Hand-written playbooks for the flagship creator tools: first-time setup, the standard weekly workflow, pro moves, and the mistakes that quietly kill quality.",
+    "indexTitle": "Tool playbooks",
+    "indexSub": "Not feature lists — the working system: setup, the repeatable workflow, the moves that separate pros from the rest, and the mistakes to avoid. Written by people who use the tools daily.",
+    "setup": "First-time setup",
+    "workflow": "The weekly workflow",
+    "proMoves": "Pro moves",
+    "mistakes": "Mistakes that kill quality",
+    "faqTitle": "Common questions",
+    "related": "More playbooks",
+    "bestFor": "Best for",
+    "visit": "Visit tool page",
+    "startingAt": "Starting at"
+  },
+  "workflows": {
+    "metaTitle": "Workflow builder — executable systems for creator goals",
+    "metaDescription": "Ready-made pipelines for the jobs creators actually run: podcast to shorts, faceless video, UGC ads, dubbing and long-form — each step with the tool, the exact prompt, the time and the cost from our catalog.",
+    "indexTitle": "Workflow builder",
+    "indexSub": "A workflow is an executable system: every step names the tool, what goes in and out, how long it takes, and — for AI steps — the exact prompt. Costs and times come from the catalog, computed, not estimated by vibes.",
+    "stepsCount": "{n} steps · {m} min",
+    "open": "Open workflow",
+    "totalTime": "Total time",
+    "totalCost": "Total cost",
+    "perRun": "per run, estimated",
+    "pipelineTitle": "The pipeline",
+    "input": "Input",
+    "output": "Output",
+    "prompt": "Prompt",
+    "copyPrompt": "Copy prompt",
+    "copied": "Copied ✓",
+    "alternatives": "Alternatives",
+    "manualBadge": "Manual step",
+    "minutesShort": "min",
+    "notesTitle": "Keep in mind",
+    "save": "Save",
+    "savedFlash": "Saved ✓",
+    "duplicate": "Duplicate",
+    "edit": "Edit",
+    "share": "Share",
+    "linkCopied": "Link copied ✓",
+    "publish": "Copy plan",
+    "planCopied": "Plan copied ✓",
+    "openStudio": "Open in Studio",
+    "savedWorkflows": "Workflows",
+    "noWorkflows": "No saved workflows yet — open one and hit Save.",
+    "workflowHeading": "Your saved workflows",
+    "delete": "Delete",
+    "projectsTitle": "My projects",
+    "projectsSub": "Link this workflow to a project to track it in one place.",
+    "linkProject": "Link to project",
+    "unlinkProject": "Unlink"
+  },
+  "arena": {
+    "title": "AI Arena",
+    "heading": "Tool Battles, With Real Data",
+    "metaTitle": "AI Arena — Tool Battles | Noxifera",
+    "metaDescription": "Head-to-head battles between AI creator tools: transparent scores, value, verdicts and per-step workflow alternatives — built from real catalog data.",
+    "sub": "Pick a category or a production task. We line up the real tools, score them with a published formula, and crown the winners.",
+    "valueFootnote": "Value score = rating × 10 × cost factor: Free ×1.0, under $10 ×0.9, under $30 ×0.8, under $100 ×0.65, $100+ ×0.5. Lab scores appear only when a real benchmark exists.",
+    "botw": "Battle of the Week",
+    "modeCategory": "Category Battle",
+    "modeWorkflow": "Workflow Battles",
+    "pickCategory": "Category",
+    "pickWorkflow": "Workflow",
+    "workflowSub": "Every step of the production pipeline, with its real alternatives, side by side.",
+    "scoreLabel": "Score",
+    "valueLabel": "Value",
+    "labLabel": "Lab",
+    "labNone": "no lab data yet",
+    "scoreEditorial": "editorial",
+    "scoreCommunity": "community",
+    "bestForLabel": "Best for",
+    "openTool": "Open",
+    "freeTool": "Free",
+    "verdictCheapest": "Cheapest",
+    "verdictTopRated": "Top rated",
+    "verdictBestValue": "Best value",
+    "verdictVerified": "Price verified",
+    "verdictFreeTier": "Free tier",
+    "copyUrl": "Copy URL",
+    "copyReport": "Copy battle report",
+    "urlCopied": "URL copied",
+    "reportCopied": "Report copied",
+    "step": "Step",
+    "minUnit": "min",
+    "manualStep": "Manual step",
+    "noAlternatives": "No listed alternatives for this step.",
+    "sameCost": "same price",
+    "costDelta": "{delta} vs the step tool",
+    "notEnough": "Not enough catalogued tools in this category for a battle yet."
+  },
+  "projects": {
+    "title": "Projects",
+    "metaTitle": "Projects — Your Creator Systems | Noxifera",
+    "metaDescription": "Organize prompts, workflows, tools, notes and costs into projects — YouTube, podcast, newsletter, campaign, product launch or content series.",
+    "heading": "Your Projects",
+    "sub": "One container per goal: the prompts, pipelines, tools and notes behind your content — with live cost estimates from the catalog.",
+    "newProject": "New project",
+    "projectName": "Project name",
+    "projectNamePh": "e.g. Faceless tech channel",
+    "projectType": "Type",
+    "create": "Create",
+    "cancel": "Cancel",
+    "type": {
+      "youtube": "YouTube",
+      "podcast": "Podcast",
+      "newsletter": "Newsletter",
+      "campaign": "Campaign",
+      "productLaunch": "Product launch",
+      "series": "Content series"
+    },
+    "emptyTitle": "No projects yet",
+    "emptySub": "Create a project to organize the prompts, workflows and tools behind a goal.",
+    "backToList": "All projects",
+    "deleteProject": "Delete project",
+    "updated": "Updated {date}",
+    "minUnit": "min",
+    "promptsTitle": "Prompts",
+    "promptTitlePh": "Prompt title",
+    "promptBodyPh": "The actual prompt…",
+    "addPrompt": "Add prompt",
+    "noPrompts": "No prompts yet — add your first one.",
+    "promptsShort": "prompts",
+    "copyPrompt": "Copy prompt",
+    "removePrompt": "Remove",
+    "workflowsTitle": "Workflows",
+    "toolsTitle": "Tools",
+    "toolSearchPh": "Search tools to attach…",
+    "noToolMatches": "No matches.",
+    "noTools": "No tools attached yet.",
+    "freeTool": "Free",
+    "toolsShort": "tools",
+    "notesTitle": "Notes",
+    "notesPh": "Ideas, decisions, status…",
+    "saveNotes": "Save notes",
+    "notesSaved": "Saved",
+    "historyTitle": "History",
+    "countLabel": "{count} projects",
+    "evProjectCreated": "Project created",
+    "evPromptAdded": "Prompt added",
+    "evPromptRemoved": "Prompt removed",
+    "evToolToggled": "Tools updated",
+    "evWorkflowToggled": "Workflows updated",
+    "evNotesSaved": "Notes saved",
+    "evToolsAttached": "Tools attached",
+    "templatesTitle": "Start from a template",
+    "templatesSub": "Prebuilt kits with the right workflow and tools attached.",
+    "templatesWorkflowChip": "workflow included",
+    "templatesCreate": "Create project",
+    "templates": {
+      "faceless-video": {
+        "name": "Faceless Video Kit",
+        "desc": "Script, voice, assembly and packaging — the full faceless pipeline."
+      },
+      "podcast-repurpose": {
+        "name": "Podcast Repurpose Kit",
+        "desc": "Record, edit and cut one episode into 10+ short clips."
+      },
+      "shorts-growth": {
+        "name": "Shorts Growth Kit",
+        "desc": "Clip, caption and fine-tune for short-form reach."
+      },
+      "global-dubbing": {
+        "name": "Global Dubbing Kit",
+        "desc": "Translate, re-voice and subtitle your content in new languages."
+      },
+      "ugc-ads": {
+        "name": "UGC Ads Kit",
+        "desc": "Virtual presenters and ad creatives that convert."
+      }
+    },
+    "backupTitle": "Backup & restore",
+    "backupSub": "Everything is stored in this browser only. Download a JSON backup and restore it here or in another browser.",
+    "backupDownload": "Download backup",
+    "backupRestore": "Restore from file",
+    "backupRestored": "Restored {count} sections",
+    "backupInvalid": "That file is not a valid Noxifera backup",
+    "shareLink": "Share project",
+    "importTitle": "Shared project",
+    "importSub": "Create this shared project in your Projects — tools and workflows will be attached.",
+    "importCreate": "Create project",
+    "importDismiss": "Dismiss",
+    "coverageOf": "Covered {covered} of {total} steps",
+    "coverageComplete": "All steps covered"
   }
 }

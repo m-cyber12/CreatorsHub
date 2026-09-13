@@ -46,7 +46,7 @@ export async function POST(request: Request) {
         return NextResponse.json({
           embedded: true,
           confidence: 'high',
-          statusText: '✅ Official CreatorAI Hub badge found on website!',
+          statusText: '✅ Official Noxifera badge found on website!',
         });
       } else if (hasGeneralBadge) {
         return NextResponse.json({

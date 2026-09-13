@@ -104,18 +104,23 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
     try { localStorage.removeItem('cah_local_user'); } catch {}
   }, []);
 
-  // --- bookmarks ---
+  // --- bookmarks (key migrated from 'cah_bookmarks' during the Noxifera rebrand;
+  // the legacy key is read once so existing users keep their saved tools) ---
   const [bookmarks, setBookmarks] = useState<string[]>([]);
   useEffect(() => {
     try {
-      const raw = localStorage.getItem('cah_bookmarks');
+      let raw = localStorage.getItem('noxifera_bookmarks');
+      if (!raw) raw = localStorage.getItem('cah_bookmarks');
       if (raw) setBookmarks(JSON.parse(raw));
     } catch {}
   }, []);
 
   const persistBookmarks = (next: string[]) => {
     setBookmarks(next);
-    try { localStorage.setItem('cah_bookmarks', JSON.stringify(next)); } catch {}
+    try {
+      localStorage.setItem('noxifera_bookmarks', JSON.stringify(next));
+      localStorage.removeItem('cah_bookmarks');
+    } catch {}
     if (supabase && user) {
       supabase.from('user_bookmarks').upsert({ user_id: user.id, slugs: next }, { onConflict: 'user_id' }).then(() => {});
     }

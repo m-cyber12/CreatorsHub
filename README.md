@@ -1,8 +1,16 @@
-# CreatorAI Hub
+# Noxifera
 
-A specialist directory of AI tools for video creators — YouTubers, editors, podcasters and
-short-form creators — built with **Next.js 15 (App Router)**, **TypeScript**, **Tailwind CSS** and
-**Supabase**.
+The intelligence layer for AI creators. A verified catalog of 200+ creator tools, plus the
+operating system built on top of it: the **AI Advisor** (a scope-specific system builder, not a
+chatbot), **outcome guides** (workflow + cost for the thing you want to make), **tool playbooks**,
+the **Stack Builder**, and the **Subscription Optimizer**. Built with **Next.js 15 (App Router)**,
+**TypeScript**, **Tailwind CSS** and **Supabase**.
+
+> **Noxifera rebrand (2026-09)** — the platform launched as "CreatorAI Hub" and is now
+> Noxifera. The rebrand, brand system (Flame Stone, ember palette, "Light in the Darkness"
+> story) and the v3 intelligence-layer roadmap live in
+> [`noxifera updates/NOXIFERA_Roadmap.md`](./noxifera%20updates/NOXIFERA_Roadmap.md) and
+> [`NOXIFERA-EXECUTION-PLAN.md`](./NOXIFERA-EXECUTION-PLAN.md).
 
 > **v2 remediation (2026-08-04)** — the full response to the critique review is documented in
 > [`CHANGES-2026-08-04-v2.md`](./CHANGES-2026-08-04-v2.md): integrity fixes (fake promo codes

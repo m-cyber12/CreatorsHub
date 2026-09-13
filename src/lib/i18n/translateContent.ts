@@ -64,7 +64,7 @@ const KNOWN_PROTECTED = [
   'OpenAI', 'ChatGPT', 'Sora', 'Midjourney', 'Stable Diffusion', 'Runway',
   'ElevenLabs', 'Synthesia', 'HeyGen', 'Descript', 'CapCut', 'Canva', 'Adobe',
   'Premiere Pro', 'After Effects', 'Final Cut Pro', 'DaVinci Resolve', 'OBS',
-  'CreatorAI Hub', 'Google', 'Meta', 'Apple', 'Microsoft',
+  'Noxifera', 'Google', 'Meta', 'Apple', 'Microsoft',
 ];
 
 export interface EntitySource {

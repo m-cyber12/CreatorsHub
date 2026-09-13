@@ -46,7 +46,7 @@ export const DEFAULT_CONTENT: SiteContent = {
   homeNewsletterTitle: 'A quieter, more useful AI briefing.',
   homeNewsletterText:
     'Join the launch list for creator-relevant price changes, policy updates, and evidence releases. The newsletter is not live yet — no confirmation email will be sent until it is.',
-  studioKicker: 'CreatorAI Hub / Native workspace · free launch access',
+  studioKicker: 'Noxifera / Native workspace · free launch access',
   studioHeroTitle1: 'Make the next',
   studioHeroTitle2: 'move yourself.',
   studioHeroText:

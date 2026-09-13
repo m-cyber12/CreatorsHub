@@ -1,5 +1,5 @@
 /**
- * Payment & Wallet Configuration for CreatorAI Hub
+ * Payment & Wallet Configuration for Noxifera
  */
 
 export const PAYMENT_CONFIG = {
@@ -57,7 +57,7 @@ export const PAYMENT_CONFIG = {
       features: [
         'Top 3 Featured slot on the Homepage for 6 Months',
         'Pinned to the top of your category page for 6 Months',
-        'Featured spotlight in CreatorAI Hub weekly newsletter',
+        'Featured spotlight in the Noxifera weekly newsletter',
         'Guaranteed review & live publication in < 24 hours',
         'Glowing golden border & "Featured" badge on all cards',
         'Social media announcement & priority indexing',

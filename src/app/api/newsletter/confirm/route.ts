@@ -22,7 +22,7 @@ function page(title: string, message: string, ok = true) {
 </style></head>
 <body><div class="card">
   <h1>${title}</h1><p>${message}</p>
-  <a href="${SITE_URL}">Back to CreatorAI Hub</a>
+  <a href="${SITE_URL}">Back to Noxifera</a>
 </div></body></html>`;
   return new NextResponse(html, {
     status: ok ? 200 : 400,

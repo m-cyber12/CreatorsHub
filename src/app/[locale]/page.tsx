@@ -2,13 +2,17 @@ import type { Metadata } from 'next';
 import Link from '@/i18n/navigation';
 import {
   ArrowRight,
+  BookOpen,
   ClipboardCheck,
+  Compass,
+  Flame,
   LayoutGrid,
   Rocket,
   Scale,
   Search,
   ShieldCheck,
   Sparkles,
+  Wallet,
 } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Header } from '@/components/Header';
@@ -51,9 +55,9 @@ export async function generateMetadata({ params }: { params: LocaleParams }): Pr
       locale,
       images: [
         {
-          url: '/og-optimized.png',
-          width: 1200,
-          height: 630,
+          url: '/og-noxifera.png',
+          width: 1424,
+          height: 752,
           alt: `${SITE_NAME} — ${tc('ogImageAlt')}`,
         },
       ],
@@ -62,7 +66,7 @@ export async function generateMetadata({ params }: { params: LocaleParams }): Pr
       card: 'summary_large_image',
       title: `${t('metaTitle')}`,
       description: tc('twitterDescription', { count }),
-      images: ['/brand-cover.png'],
+      images: ['/og-noxifera.png'],
     },
   };
 }
@@ -320,6 +324,68 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
               <span className="mt-4 inline-flex items-center gap-1.5 text-2xs font-bold text-accent-300">
                 {step.cta}
                 <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 rtl-flip group-hover:translate-x-1 rtl:group-hover:-translate-x-1" aria-hidden="true" />
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* INTELLIGENCE LAYER — the platform's differentiator */}
+      <section className="mx-auto max-w-6xl px-4 py-14">
+        <div data-reveal className="mb-8 max-w-2xl">
+          <p className="eyebrow-line text-2xs font-bold uppercase tracking-widest text-accent-400">
+            {t('intelEyebrow')}
+          </p>
+          <h2 className="mt-3 text-3xl font-black sm:text-4xl">{t('intelTitle')}</h2>
+          <p className="mt-2 text-sm text-zinc-400">{t('intelSub')}</p>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            {
+              icon: Compass,
+              title: t('intelAdvisorTitle'),
+              text: t('intelAdvisorText'),
+              href: '/advisor',
+              cta: t('intelAdvisorCta'),
+            },
+            {
+              icon: Flame,
+              title: t('intelOutcomesTitle'),
+              text: t('intelOutcomesText'),
+              href: '/outcomes',
+              cta: t('intelOutcomesCta'),
+            },
+            {
+              icon: Wallet,
+              title: t('intelOptimizerTitle'),
+              text: t('intelOptimizerText'),
+              href: '/optimizer',
+              cta: t('intelOptimizerCta'),
+            },
+            {
+              icon: BookOpen,
+              title: t('intelPlaybooksTitle'),
+              text: t('intelPlaybooksText'),
+              href: '/playbooks',
+              cta: t('intelPlaybooksCta'),
+            },
+          ].map((card, i) => (
+            <Link
+              key={card.href}
+              href={card.href}
+              data-reveal
+              data-reveal-delay={String(i * 110)}
+              className="glass-panel group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-accent-500/40 hover:shadow-[0_24px_70px_-24px_rgba(247,201,72,0.45)]"
+            >
+              <card.icon className="h-6 w-6 text-accent-400" aria-hidden="true" />
+              <h3 className="mt-4 text-base font-black">{card.title}</h3>
+              <p className="mt-2 text-2xs leading-relaxed text-zinc-400">{card.text}</p>
+              <span className="mt-4 inline-flex items-center gap-1.5 text-2xs font-bold text-accent-300">
+                {card.cta}
+                <ArrowRight
+                  className="h-3.5 w-3.5 transition-transform duration-300 rtl-flip group-hover:translate-x-1 rtl:group-hover:-translate-x-1"
+                  aria-hidden="true"
+                />
               </span>
             </Link>
           ))}

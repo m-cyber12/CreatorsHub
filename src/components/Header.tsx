@@ -2,12 +2,13 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Link from '@/i18n/navigation';
-import { Menu, X, Zap, User as UserIcon, LogOut, Bookmark, ChevronDown } from 'lucide-react';
+import { Menu, X, Compass, User as UserIcon, LogOut, Bookmark, ChevronDown, Flame } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useAuth, useBookmarks } from '@/context/AppProviders';
 import { REAL_CATEGORIES, categorySlug } from '@/lib/categories';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
+import { NoxiferaWordmark } from '@/components/brand';
 
 export function Header() {
   const t = useTranslations('header');
@@ -21,18 +22,24 @@ export function Header() {
   ];
 
   const navLinks = [
-    { href: '/ai-studio', label: t('aiStudio') },
-    { href: '/methodology', label: t('methodology') },
-    { href: '/guide', label: t('gettingStarted') },
-    { href: '/blog', label: t('guides') },
+    { href: '/advisor', label: t('advisor'), icon: Compass, highlight: true },
+    { href: '/outcomes', label: t('outcomes'), icon: Flame },
+    { href: '/ai-studio', label: t('aiStudio'), icon: null },
+    { href: '/methodology', label: t('methodology'), icon: null },
+    { href: '/guide', label: t('gettingStarted'), icon: null },
+    { href: '/blog', label: t('guides'), icon: null },
   ];
 
   const moreLinks = [
-    { href: '/founders', label: t('forFounders') },
+    { href: '/workflows', label: t('workflows') },
+    { href: '/projects', label: t('projects') },
+    { href: '/optimizer', label: t('optimizer') },
+    { href: '/playbooks', label: t('playbooks') },
+    { href: '/benchmark', label: t('benchmark') },
+    { href: '/arena', label: t('arena') },
     { href: '/best-of', label: t('bestOf') },
     { href: '/deals', label: t('deals') },
     { href: '/calculators', label: t('calculators') },
-    { href: '/benchmark', label: t('benchmark') },
     { href: '/changelog', label: t('whatsNew') },
     { href: '/news', label: t('news') },
     { href: '/graveyard', label: t('graveyard') },
@@ -116,23 +123,16 @@ export function Header() {
     >
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-accent-500 via-fuchsia-500 to-cyan-400 transition-[width] duration-150 ease-out"
+        className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-accent-400 via-ember-400 to-ember-500 transition-[width] duration-150 ease-out"
         style={{ width: `${progress * 100}%`, boxShadow: '0 0 12px rgba(247,201,72,0.8)' }}
       />
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-2 px-4">
         <Link
           href="/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group flex shrink-0 items-center gap-2"
-          aria-label="CreatorAI Hub — home (opens in a new tab)"
+          className="group flex shrink-0 items-center"
+          aria-label="Noxifera — home"
         >
-          <span className="relative flex h-8 w-8 items-center justify-center rounded-lg bg-accent-500 shadow-[0_0_18px_rgba(247,201,72,0.45)] transition-shadow group-hover:shadow-[0_0_26px_rgba(247,201,72,0.7)]">
-            <Zap className="h-4 w-4 text-black" aria-hidden="true" />
-          </span>
-          <span className="hidden text-lg font-bold text-white sm:block">
-            CreatorAI <span className="text-gradient-amber">Hub</span>
-          </span>
+          <NoxiferaWordmark />
         </Link>
 
         <nav className="hidden items-center gap-1 xl:flex" aria-label="Main">
@@ -179,8 +179,13 @@ export function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-zinc-400 transition-colors hover:bg-white/5 hover:text-white"
+              className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-white/5 ${
+                'highlight' in link && link.highlight
+                  ? 'text-accent-300 hover:text-accent-200'
+                  : 'text-zinc-400 hover:text-white'
+              }`}
             >
+              {link.icon && <link.icon className="h-3.5 w-3.5" aria-hidden="true" />}
               <span>{link.label}</span>
               {link.href === '/ai-studio' && (
                 <span className="rounded-full border border-cyan-400/40 bg-cyan-400/10 px-1.5 py-0.2 font-mono text-[9px] font-extrabold uppercase tracking-wider text-cyan-300">
@@ -323,9 +328,16 @@ export function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-300 hover:bg-white/5 hover:text-white"
+                className={`flex items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-white/5 ${
+                  'highlight' in link && link.highlight
+                    ? 'text-accent-300 hover:text-accent-200'
+                    : 'text-zinc-300 hover:text-white'
+                }`}
               >
-                <span>{link.label}</span>
+                <span className="inline-flex items-center gap-2">
+                  {link.icon && <link.icon className="h-4 w-4" aria-hidden="true" />}
+                  {link.label}
+                </span>
                 {link.href === '/ai-studio' && (
                   <span className="rounded-full border border-cyan-400/40 bg-cyan-400/10 px-2 py-0.5 font-mono text-[9px] font-extrabold uppercase tracking-wider text-cyan-300">
                     BETA

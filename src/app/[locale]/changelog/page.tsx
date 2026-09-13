@@ -66,6 +66,52 @@ export default async function ChangelogPage({ params }: { params: Promise<{ loca
           </div>
         </div>
 
+        {/* Platform updates — product releases, distinct from catalog news */}
+        <section className="mt-12">
+          <div className="mb-6 flex items-center justify-between">
+            <h2 className="text-xl font-bold flex items-center gap-2">
+              <Sparkles className="h-5 w-5 text-accent-400" />
+              <span>Platform updates — Noxifera v3 “Operating System”</span>
+            </h2>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {[
+              {
+                title: 'AI Advisor',
+                href: '/advisor',
+                text: 'Answer six questions — content, platform, budget, experience, automation, tools you already own — and get a complete per-stage system with the reason for every pick, alternatives, learning curve and the monthly cost. Plans save locally and build straight into the Stack Builder.',
+              },
+              {
+                title: 'Outcome guides',
+                href: '/outcomes',
+                text: 'Eight hand-written systems that start from what you want to make — podcast to shorts, faceless YouTube, AI thumbnails, voiceover, UGC ads, podcasts and dubbed content. Jobs, workflow time, caveats, and costs computed from the catalog.',
+              },
+              {
+                title: 'Subscription optimizer',
+                href: '/optimizer',
+                text: 'Enter the subscriptions you pay for. It flags duplicate capabilities, paid tools whose free tier covers the job, and cheaper same-job tools — with the monthly and yearly savings, computed from catalog categories and pricing.',
+              },
+              {
+                title: 'Tool playbooks + saved stacks',
+                href: '/playbooks',
+                text: 'Hand-written playbooks for OpusClip, Descript, ElevenLabs, CapCut and Runway — setup, the weekly workflow, pro moves, mistakes. The Stack Builder and AI Advisor now save your work to your dashboard.',
+              },
+            ].map((u) => (
+              <Link
+                key={u.href + u.title}
+                href={u.href}
+                className="group rounded-2xl border border-white/10 bg-surface-1 p-5 transition-colors hover:border-accent-500/40"
+              >
+                <div className="flex items-center justify-between">
+                  <h3 className="text-sm font-bold group-hover:text-accent-300">{u.title}</h3>
+                  <ArrowRight className="h-4 w-4 text-accent-400 rtl:rotate-180" />
+                </div>
+                <p className="mt-2 text-2xs leading-relaxed text-zinc-400">{u.text}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+
         {/* Section 1: This Week's Hands-On Tests & Price Checks */}
         <section className="mt-12">
           <div className="flex items-center justify-between mb-6">

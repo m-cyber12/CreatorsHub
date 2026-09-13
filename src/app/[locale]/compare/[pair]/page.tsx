@@ -11,7 +11,7 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { VerificationBadge } from '@/components/VerificationBadge';
 import { SmartImage } from '@/components/SmartImage';
-import { ExternalLink, Check, Minus } from 'lucide-react';
+import { ExternalLink, Check, Minus, Swords } from 'lucide-react';
 
 /**
  * Audit fix 3.1 — /compare/[a]-vs-[b] static comparison pages.
@@ -241,6 +241,17 @@ export default async function ComparePairPage({
           {cheaper ? t('cheaperIntro', { name: cheaper.name }) : t('similarIntro')}
           {t('introTail')}
         </p>
+
+        {/* Cross-link: this is a 1v1; the Arena adds the rest of the category. */}
+        <div className="mt-4 flex items-center gap-2.5 rounded-xl border border-accent-500/20 bg-accent-500/5 px-4 py-3">
+          <Swords className="h-4 w-4 shrink-0 text-accent-400" aria-hidden="true" />
+          <Link
+            href={`/arena?cat=${encodeURIComponent(a.category)}`}
+            className="text-xs font-bold text-zinc-300 transition-colors hover:text-accent-300"
+          >
+            {t('arenaCta')}
+          </Link>
+        </div>
 
         {!aTested && !bTested && (
           <p className="mt-4 rounded-xl border border-white/10 bg-surface-1 px-4 py-3 text-sm text-zinc-400">

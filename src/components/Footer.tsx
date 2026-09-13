@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { ALL_TOOLS, hasVerifiedScore } from '@/data/tools';
 import { SITE_NAME } from '@/config/site';
 import { REAL_CATEGORIES, categorySlug, getCategoryTools } from '@/lib/categories';
+import { NoxiferaWordmark } from '@/components/brand';
 
 /**
  * Footer — fully localized (i18n, 2026-08-07).
@@ -34,8 +35,10 @@ export function Footer() {
     <footer className="footer-glow border-t border-white/5 bg-black px-4 py-12">
       <div className="mx-auto grid max-w-7xl grid-cols-2 gap-8 text-2xs md:grid-cols-6">
         <div className="col-span-2">
-          <h2 className="mb-3 font-bold text-white">{SITE_NAME}</h2>
-          <p className="mb-3 leading-relaxed text-zinc-500">
+          <h2 className="mb-3">
+            <NoxiferaWordmark />
+          </h2>
+          <p className="mb-3 mt-3 leading-relaxed text-zinc-500">
             {/* 2026-08-12 audit: advertising "0 tested hands-on" to every
                 visitor is self-harming marketing until the first evidence
                 packs ship — use the benchmark-in-progress copy while 0. */}
@@ -61,6 +64,17 @@ export function Footer() {
         </div>
 
         <div>
+          <h2 className="mb-3 font-bold text-white">{t('platform')}</h2>
+          <ul className="space-y-2 text-zinc-500">
+            <li><Link href="/advisor" className="hover:text-accent-400">{t('advisor')}</Link></li>
+            <li><Link href="/outcomes" className="hover:text-accent-400">{t('outcomes')}</Link></li>
+            <li><Link href="/stack-builder" className="hover:text-accent-400">{t('stackBuilder')}</Link></li>
+            <li><Link href="/playbooks" className="hover:text-accent-400">{t('playbooks')}</Link></li>
+            <li><Link href="/optimizer" className="hover:text-accent-400">{t('optimizer')}</Link></li>
+          </ul>
+        </div>
+
+        <div>
           <h2 className="mb-3 font-bold text-white">{t('directory')}</h2>
           <ul className="space-y-2 text-zinc-500">
             <li><Link href="/tools" className="hover:text-accent-400">{t('allTools')}</Link></li>
@@ -68,7 +82,6 @@ export function Footer() {
             <li><Link href="/tools?tested=1" className="hover:text-accent-400">{t('testedTools')}</Link></li>
             <li><Link href="/trending" className="hover:text-accent-400">{t('trendingSaved')}</Link></li>
             <li><Link href="/compare" className="hover:text-accent-400">{t('compare')}</Link></li>
-            <li><Link href="/stack-builder" className="hover:text-accent-400">{t('stackBuilder')}</Link></li>
           </ul>
         </div>
 

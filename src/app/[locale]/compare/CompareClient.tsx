@@ -7,8 +7,9 @@ import { Footer } from '@/components/Footer';
 import { CustomSelect } from '@/components/CustomSelect';
 import { ALL_TOOLS, Tool, hasVerifiedScore, computeOverall } from '@/data/tools';
 import { byRankDesc } from '@/lib/ranking';
+import { attachTools, loadProjects, type NoxiferaProject } from '@/lib/projects';
 import { VerificationBadge } from '@/components/VerificationBadge';
-import { Sparkles, Star, ExternalLink, Trophy, Plus, X, Flame } from 'lucide-react';
+import { Sparkles, Star, ExternalLink, Trophy, Plus, X, Flame, Check, FolderKanban } from 'lucide-react';
 import Link from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 
@@ -23,6 +24,24 @@ export function CompareClient({ initialTools }: { initialTools: Tool[] }) {
   // Audit fix 2.1 — initial selection is resolved server-side and passed in as
   // a prop, so the table renders in the SSR HTML (crawlable). No useSearchParams.
   const [selected, setSelected] = useState<Tool[]>(initialTools.slice(0, 3));
+  const [projects, setProjects] = useState<NoxiferaProject[]>([]);
+  const [attachTarget, setAttachTarget] = useState('');
+  const [attachMsg, setAttachMsg] = useState<string | null>(null);
+
+  // Hydrate projects once (client-only).
+  React.useEffect(() => {
+    setProjects(loadProjects());
+  }, []);
+
+  /** Attach the tools being compared to a project (non-destructive). */
+  const attachToProject = () => {
+    if (!attachTarget) return;
+    const { added } = attachTools(attachTarget, selected.map((t) => t.slug), new Date().toISOString());
+    setProjects(loadProjects());
+    const msg = added > 0 ? tr('addedToProject', { count: added }) : tr('alreadyOnProject');
+    setAttachMsg(msg);
+    window.setTimeout(() => setAttachMsg(null), 2500);
+  };
 
   const options = useMemo(
     () => [...ALL_TOOLS].sort((a, b) => a.name.localeCompare(b.name)).map((t) => ({ value: t.slug, label: t.name, category: t.category })),
@@ -204,6 +223,45 @@ export function CompareClient({ initialTools }: { initialTools: Tool[] }) {
               </div>
             </div>
           </div>
+          {/* Add to project (upgrade #27) */}
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
+            <select
+              value={attachTarget}
+              onChange={(e) => setAttachTarget(e.target.value)}
+              aria-label={tr('selectProject')}
+              className="max-w-44 rounded-xl border border-white/15 bg-zinc-900 px-3 py-2.5 text-2xs font-bold text-zinc-200 focus:border-accent-500/60 focus:outline-none"
+            >
+              <option value="">{tr('selectProject')}</option>
+              {projects.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.name}
+                </option>
+              ))}
+            </select>
+            <button
+              type="button"
+              onClick={attachToProject}
+              disabled={!attachTarget}
+              className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-zinc-900 px-4 py-2.5 text-2xs font-bold text-zinc-200 transition-colors hover:border-accent-500/50 disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              {attachMsg ? (
+                <Check className="h-3.5 w-3.5 text-emerald-400" />
+              ) : (
+                <FolderKanban className="h-3.5 w-3.5" />
+              )}
+              {tr('addToProject')}
+            </button>
+            {attachMsg && <span className="text-2xs font-semibold text-emerald-300">{attachMsg}</span>}
+            {projects.length === 0 && (
+              <span className="text-2xs text-zinc-500">
+                {tr('noProjects')}{' '}
+                <Link href="/projects" className="font-bold text-accent-400 hover:text-accent-300">
+                  {tr('createProject')}
+                </Link>
+              </span>
+            )}
+          </div>
+
           <p className="mt-4 text-center text-2xs text-zinc-500">
             {tr('footerNote')}{' '}
             <Link href="/disclosure" className="underline hover:text-zinc-300">{tr('readDisclosure')}</Link>.
