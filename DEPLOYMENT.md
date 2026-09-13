@@ -29,7 +29,19 @@ flood `click_log` to burn your Supabase quota, and spam the newsletter table.
 4. Run `supabase/migrations/0005_news_items.sql` (news storage)
 5. Run `supabase/migrations/0006_news_editorial_gate.sql` (news review queue —
    nothing reaches `/news` without an admin approval click)
-6. Verify — every row should be `SELECT`-only for anon/authenticated:
+6. Run any later migrations **in numeric order**, ending with the newest file
+   in `supabase/migrations/`. As of this release the tail is:
+   - `0019_community_qa.sql` — scoped Q&A tables (`community_posts`,
+     `community_reports`) + approved-only read policy + helpful-vote RPC.
+     Until it runs, Q&A sections render their empty states and posting
+     returns 503 — nothing is ever shown unmoderated.
+   - `0020_analytics_events.sql` — first-party event store
+     (`analytics_events` + `analytics_daily` view) for the admin Activity
+     tab. Until it runs, the beacon accepts events but stores nothing
+     (`{ok:true, stored:false}`) and the dashboard labels each section
+     unavailable instead of showing zeros.
+   Both are idempotent (`if not exists` / `or replace`) and safe to re-run.
+7. Verify — every row should be `SELECT`-only for anon/authenticated:
 
 ```sql
 select tablename, policyname, cmd, roles

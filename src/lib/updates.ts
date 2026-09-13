@@ -71,6 +71,52 @@ export interface PriceChangePoint {
   date: string;
 }
 
+export interface PriceHistoryRow {
+  tool_slug: string;
+  starting_price: string | null;
+  noticed_at: string;
+}
+
+/**
+ * Pure grouping: newest-first `price_history` rows → one change event per
+ * price difference. A change is dated at its DETECTION row (the newer
+ * point): the day editors recorded the new price. Equal consecutive
+ * prices and single points emit nothing — a change claim always maps to
+ * two real recorded rows. Lives here (not in priceChanges.ts) so the
+ * vitest suite, which cannot import `server-only` modules, can pin it.
+ */
+export function extractPriceChanges(
+  rows: PriceHistoryRow[],
+  names: Map<string, string>,
+  limit = 50
+): PriceChangePoint[] {
+  const seen = new Map<string, { price: string | null; date: string }>();
+  const changes: PriceChangePoint[] = [];
+
+  for (const row of rows) {
+    const slug = row.tool_slug;
+    const price = row.starting_price;
+    const prev = seen.get(slug);
+    if (!prev) {
+      seen.set(slug, { price, date: row.noticed_at.slice(0, 10) });
+      continue;
+    }
+    if (prev.price !== price) {
+      changes.push({
+        slug,
+        toolName: names.get(slug) ?? slug,
+        from: price,
+        to: prev.price,
+        date: prev.date,
+      });
+      // Keep scanning older rows: a tool may have changed twice.
+      seen.set(slug, { price, date: row.noticed_at.slice(0, 10) });
+    }
+    if (changes.length >= limit) break;
+  }
+  return changes;
+}
+
 const MAX_CATALOG_EVENTS = 120;
 
 function dayOf(iso: string): string {
