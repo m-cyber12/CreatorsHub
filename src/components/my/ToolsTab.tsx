@@ -103,7 +103,10 @@ function ToolRow({
         {record.history.length > 1 && (
           <button
             type="button"
-            onClick={() => setHistoryOpen((v) => !v)}
+            onClick={() => {
+              if (!historyOpen) track('saved_tool_revisited', { slug: record.slug });
+              setHistoryOpen((v) => !v);
+            }}
             aria-expanded={historyOpen}
             className="inline-flex items-center gap-1 font-bold text-zinc-400 hover:text-white"
           >

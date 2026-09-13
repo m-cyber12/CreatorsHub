@@ -21,6 +21,7 @@ import { SmartImage } from '@/components/SmartImage';
 import { VerificationBadge } from '@/components/VerificationBadge';
 import { WORKFLOWS, type WorkflowClientData } from '@/data/workflows';
 import { loadProjects, toggleWorkflow, type NoxiferaProject } from '@/lib/projects';
+import { track } from '@/lib/analytics';
 
 const SAVED_KEY = 'noxifera_workflows';
 /** Playbook slugs that have a real /workflows page. Anything else (custom /my
@@ -121,6 +122,7 @@ export function WorkflowClient({ data }: { data: WorkflowClientData }) {
       savedAt: new Date().toISOString(),
     };
     setSaved((cur) => [entry, ...cur].slice(0, 12));
+    track('workflow_saved', { slug: data.slug, steps: Object.keys(picks).length });
     flash('save');
   };
 

@@ -7,11 +7,12 @@
  * Every call is fire-and-forget and safe on server (no-op without window).
  * Events track USEFUL actions, never vanity page views:
  *
- *   Discovery:  tool_view (via tool pages), search (already in search-log)
+ *   Discovery:  tool_view, workflow_opened, updates_visit/_return_visit,
+ *               search (in search-log, intent parsed server-side for admin)
  *   Decision:   compare_opened, advisor_completed, alternative_clicked
- *   Build:      stack_saved, workflow_cloned, workflow_saved, tool_saved
+ *   Build:      stack_saved, workflow_saved/duplicated, tool_saved
  *   Return:     saved_tool_revisited, update_viewed, experiment_recorded
- *   Community:  question_created, answer_created, helpful_vote
+ *   Community:  question/answer/tip/showcase_created, helpful_vote
  *   Workspace:  stack_created/duplicated/deleted, workflow_created/...,
  *               comparison_opened/deleted, experiment_created/...,
  *               alert_acknowledged, workspace_imported
@@ -20,47 +21,9 @@
  * or free text.
  */
 
-export type AnalyticsEvent =
-  | 'tool_saved'
-  | 'tool_unsaved'
-  | 'tool_status_changed'
-  | 'go_click'
-  | 'stack_saved'
-  | 'stack_created'
-  | 'stack_duplicated'
-  | 'stack_deleted'
-  | 'stack_cloned'
-  | 'stack_opened_in_builder'
-  | 'workflow_saved'
-  | 'workflow_created'
-  | 'workflow_duplicated'
-  | 'workflow_deleted'
-  | 'workflow_cloned'
-  | 'comparison_saved'
-  | 'comparison_opened'
-  | 'comparison_deleted'
-  | 'compare_added'
-  | 'compare_removed'
-  | 'advisor_completed'
-  | 'advisor_plan_saved'
-  | 'alternative_clicked'
-  | 'compare_opened'
-  | 'experiment_recorded'
-  | 'experiment_created'
-  | 'experiment_status_changed'
-  | 'experiment_deleted'
-  | 'alert_acknowledged'
-  | 'alerts_acknowledged_all'
-  | 'workspace_imported'
-  | 'saved_tool_revisited'
-  | 'update_viewed'
-  | 'question_created'
-  | 'answer_created'
-  | 'helpful_vote'
-  | 'feedback_submitted'
-  | 'benchmark_requested'
-  | 'preferences_saved'
-  | 'preferences_used_in_advisor';
+import { type AnalyticsEvent } from './analyticsEvents';
+
+export type { AnalyticsEvent };
 
 type EventProps = Record<string, string | number | boolean | undefined>;
 
@@ -68,18 +31,30 @@ type EventProps = Record<string, string | number | boolean | undefined>;
 export function track(event: AnalyticsEvent, props?: EventProps): void {
   try {
     if (typeof window === 'undefined') return;
+    const clean: Record<string, string | number | boolean> = {};
+    if (props) {
+      for (const [k, v] of Object.entries(props)) {
+        if (v !== undefined) clean[k] = v;
+      }
+    }
     // Dynamic import keeps the analytics chunk out of the critical path.
     void import('@vercel/analytics')
       .then(({ track: vaTrack }) => {
-        const clean: Record<string, string | number | boolean> = {};
-        if (props) {
-          for (const [k, v] of Object.entries(props)) {
-            if (v !== undefined) clean[k] = v;
-          }
-        }
         vaTrack(event, clean);
       })
       .catch(() => undefined);
+    // First-party mirror (P4): same event, same clean props, no identifiers.
+    // Powers the admin activity dashboard without any new vendor.
+    try {
+      void fetch('/api/beacon', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ event, path: window.location.pathname.slice(0, 300), props: clean }),
+        keepalive: true,
+      }).catch(() => undefined);
+    } catch {
+      /* beacon must never break the product */
+    }
   } catch {
     /* analytics must never break the product */
   }

@@ -113,7 +113,9 @@
     "workflows": "Flujos",
     "arena": "Arena",
     "projects": "Proyectos",
-    "myNoxifera": "Mi NOXIFERA"
+    "myNoxifera": "Mi NOXIFERA",
+    "updates": "Novedades",
+    "updatesBadge": "Novedades ({count})"
   },
   "footer": {
     "taglineBlurb": "La caja de herramientas de IA curada para creadores de vídeo. {count} herramientas catalogadas, {tested} probadas a fondo, y cada ficha etiquetada con el nivel exacto de verificación.",
@@ -156,7 +158,8 @@
     "advisor": "Asesor de IA",
     "outcomes": "Guías por resultado",
     "playbooks": "Guías de herramientas",
-    "optimizer": "Optimizador de suscripciones"
+    "optimizer": "Optimizador de suscripciones",
+    "whatChanged": "Qué ha cambiado"
   },
   "home": {
     "heroBadge": "Descubrimiento basado en evidencias para creadores de vídeo",
@@ -552,7 +555,8 @@
         "verification-upgraded": "Ahora verificado",
         "tool-retired": "Herramienta retirada",
         "tool-unlisted": "Ya no aparece"
-      }
+      },
+      "viewFeed": "Ver tu feed de novedades"
     },
     "preferences": {
       "title": "Preferencias de creador",
@@ -871,7 +875,8 @@
     "subtitle": "Cada actualización del hub, en un solo lugar.",
     "typeFeature": "Función",
     "typeFix": "Corrección",
-    "typeMilestone": "Hito"
+    "typeMilestone": "Hito",
+    "updatesLink": "Ver novedades de tus herramientas"
   },
   "about": {
     "title": "Acerca de y metodología",
@@ -2039,7 +2044,59 @@
     "videoUrlInvalid": "Esto parece un enlace de YouTube/Vimeo; no funcionan como videos flotantes. En su lugar, pegue una URL directa de archivo .mp4/.webm.",
     "image16x9Hint": "Consejo: sube una imagen de 16:9 (por ejemplo, 1280×720) para que llene la portada limpiamente.",
     "tabOrders": "Pedidos e Ingresos",
-    "tabClaims": "Reclamaciones de Fundadores"
+    "tabClaims": "Reclamaciones de Fundadores",
+    "tabActivity": "Actividad",
+    "tabCommunity": "Comunidad",
+    "tabHealth": "Salud",
+    "communityPending": "P&R pendientes",
+    "reportsOpen": "Denuncias abiertas",
+    "activityFailed": "No se pudo cargar la analítica.",
+    "activityLoading": "Cargando analítica…",
+    "activityTitle": "Actividad",
+    "activityNotConfigured": "Almacenamiento analítico no configurado en este despliegue — los eventos solo van a Vercel Analytics.",
+    "activityIntro": "Eventos de producto propios de los últimos {days} días. Sin identificadores — solo slugs, conteos y enums.",
+    "eventsUnavailable": "Tabla de eventos no disponible — ejecuta la migración 0020_analytics_events.sql.",
+    "searchesTitle": "Búsquedas",
+    "searchesTotal": "{count} búsquedas en los últimos 30 días",
+    "topSearches": "Búsquedas principales",
+    "searchesEmpty": "Sin búsquedas registradas.",
+    "zeroResultTitle": "Búsquedas sin resultados",
+    "zeroEmpty": "Ninguna búsqueda sin resultados — cada consulta encontró algo.",
+    "intentTitle": "Intención de búsqueda",
+    "intentNote": "Búsquedas recientes analizadas en el servidor con el parser P2 — sin rastreo extra.",
+    "intentOutcomes": "Guías de resultado coincidentes",
+    "toolsTitle": "Herramientas más vistas",
+    "toolsEmpty": "Sin vistas de herramientas registradas.",
+    "truncatedNote": "Muestra limitada a 5.000 vistas — los conteos son cotas inferiores.",
+    "communityTitle": "P&R de la comunidad",
+    "communityNotConfigured": "Faltan las tablas de comunidad — ejecuta la migración 0019_community_qa.sql.",
+    "communityIntro": "Las nuevas preguntas, respuestas, trucos y ejemplos esperan moderación. Aprobar = publicar, eliminar = borrar (las denuncias se borran con el aporte).",
+    "communityModerated": "Aporte {status}.",
+    "pendingTitle": "Pendientes ({count})",
+    "pendingEmpty": "Nada pendiente — la cola está vacía.",
+    "openPage": "Abrir página",
+    "reportsTitle": "Denuncias ({count})",
+    "reportsEmpty": "Sin denuncias.",
+    "reportedPostGone": "Este aporte ya fue eliminado.",
+    "healthTitle": "Salud del catálogo",
+    "healthIntro": "Colas de mantenimiento en vivo. La antigüedad de precios se calcula desde el catálogo; enlaces y seguimiento requieren sus tablas.",
+    "reviewCommunity": "P&R pendientes",
+    "reviewReports": "Denuncias",
+    "reviewReviews": "Reseñas pendientes",
+    "brokenTitle": "Enlaces rotos ({count})",
+    "healthNotConfigured": "Tabla no disponible en este despliegue.",
+    "brokenEmpty": "Sin enlaces rotos en la última revisión.",
+    "lastRun": "Última revisión: {date}",
+    "staleTitle": "Precios desactualizados",
+    "staleIntro": "Los precios de más de {days} días deberían reverificarse en la página del vendedor.",
+    "neverChecked": "Nunca verificados ({count})",
+    "staleEmpty": "Ninguno — todo está fresco.",
+    "staleCount": "Desactualizados ({count})",
+    "missingSource": "Falta URL fuente del precio ({count})",
+    "trackingTitle": "Seguimiento de precios",
+    "trackedTools": "{tracked} de {total} herramientas con precios registrados",
+    "pointsRecorded": "{count} precios registrados",
+    "lastRecorded": "Último registro: {date}"
   },
   "studio": {
     "browserOnly": "Sólo navegador · sin API",
@@ -2385,7 +2442,7 @@
       "listedTip": "Catalogado a partir de información pública. No hemos probado esta herramienta de forma práctica, por lo que no publicamos una puntuación para ella.",
       "notTestedHeading": "Aún no hemos probado el {name} de forma práctica",
       "notTestedBody": "Esta entrada está catalogada desde la página de precios y documentación pública del proveedor. Debido a que no hemos ejecutado {name} según nuestro resumen estándar, deliberadamente no publicamos una puntuación editorial: un número que no pudiéramos defender valdría menos que ningún número.",
-      "wantTested": "¿Quiere probar esta herramienta antes? {tellUs}: priorizamos la cola según la demanda de los lectores. Ver {methodology}.",
+      "wantTested": "¿Quiere probar esta herramienta antes? ",
       "testingMethodology": "nuestra metodología de prueba",
       "wantTestedMid": "— priorizamos la cola según la demanda de los lectores. Ver",
       "wantTestedEnd": "."
@@ -2934,5 +2991,118 @@
     "importDismiss": "Descartar",
     "coverageOf": "{covered} de {total} pasos cubiertos",
     "coverageComplete": "Todos los pasos cubiertos"
+  },
+  "updates": {
+    "metaTitle": "Qué ha cambiado · NOXIFERA",
+    "metaDescription": "Cambios de precio, nuevas verificaciones, retiradas y resultados de benchmarks — para todo el catálogo y tus herramientas guardadas.",
+    "badge": "Novedades",
+    "title": "Qué ha cambiado",
+    "subtitle": "Cada cambio fechado del catálogo — más un feed personal para tus herramientas, stacks y flujos guardados. Guardado en tu dispositivo, sin cuenta.",
+    "tabsLabel": "Feeds de novedades",
+    "tabs": {
+      "forYou": "Para ti",
+      "catalog": "Catálogo"
+    },
+    "lastVisit": "Última visita: {date}",
+    "neverVisited": "Primera visita aquí — todo lo de abajo es nuevo para ti.",
+    "markRead": "Marcar todo como leído",
+    "unread": "Nuevo",
+    "kinds": {
+      "price-changed": "Cambio de precio",
+      "pricing-model-changed": "Modelo de precios cambiado",
+      "verification-upgraded": "Verificado",
+      "tool-added": "Nueva herramienta",
+      "tool-retired": "Retirada",
+      "tool-unlisted": "Eliminada",
+      "benchmark-published": "Benchmark"
+    },
+    "priceDetail": "Precio: {change}",
+    "openAlerts": {
+      "title": "Alertas abiertas",
+      "intro": "Diferencias actuales entre tus instantáneas guardadas y el catálogo.",
+      "empty": "Todo tranquilo",
+      "emptyHint": "Cuando una herramienta guardada cambie de precio o salga del catálogo, lo verás aquí.",
+      "viewAll": "Ver todas las alertas"
+    },
+    "yourTools": {
+      "title": "Novedades de tus herramientas",
+      "empty": "Nada fechado todavía",
+      "emptyHint": "Los cambios fechados de tus herramientas guardadas, miembros de stacks y herramientas de flujos aparecerán aquí.",
+      "emptyCta": "Explorar herramientas"
+    },
+    "stackUpdates": {
+      "title": "Novedades de stacks"
+    },
+    "filterLabel": "Filtrar por tipo de cambio",
+    "filters": {
+      "all": "Todos"
+    },
+    "priceNote": "El seguimiento de precios aún no está conectado en este despliegue, así que los cambios registrados no pueden aparecer aquí.",
+    "catalog": {
+      "empty": "Aún no hay cambios de este tipo",
+      "emptyHint": "Aquí solo aparecen cambios fechados y verificables — nunca se inventa nada."
+    },
+    "changelogLink": "Las noticias de la plataforma están en el Changelog"
+  },
+  "intent": {
+    "title": "Así lo hemos entendido",
+    "chips": {
+      "under": "Menos de {budget}",
+      "freeOnly": "Solo gratis",
+      "cheapFirst": "Más baratos primero"
+    },
+    "clear": "Borrar búsqueda",
+    "matching": "Coincidencias: {words}",
+    "compareCta": "Comparar lado a lado",
+    "outcomesTitle": "Hecho exactamente para esto",
+    "stackText": "¿Buscas una configuración completa en lugar de una sola herramienta?",
+    "stackCta": "Crear este stack",
+    "zeroTitle": "Ninguna herramienta cumple todo eso",
+    "zeroHint": "Prueba sin presupuesto o empieza con una guía de arriba.",
+    "budgetNote": "Los presupuestos se comparan con los precios iniciales publicados en USD.",
+    "usageNote": "Algunas coincidencias se facturan por uso (minuto, imagen) y no se pueden comparar con un presupuesto mensual — {count} ocultas."
+  },
+  "qa": {
+    "heading": "Preguntas y trucos",
+    "subline": "{count} aportes de la comunidad",
+    "beFirst": "Aún no hay preguntas — haz la primera.",
+    "askCta": "Preguntar o compartir",
+    "kinds": {
+      "question": "Pregunta",
+      "tip": "Truco",
+      "showcase": "Ejemplo",
+      "answer": "Respuesta"
+    },
+    "titleLabel": "Título",
+    "titlePh": "Resume tu pregunta o truco…",
+    "bodyLabel": "Detalles",
+    "bodyPh": "Describe lo que probaste, lo que funcionó o lo que necesitas…",
+    "answerPh": "Escribe tu respuesta…",
+    "nameLabel": "Nombre (opcional)",
+    "namePh": "Creador anónimo",
+    "submit": "Enviar",
+    "submitting": "Enviando…",
+    "cancel": "Cancelar",
+    "pendingNotice": "Gracias — en moderación, visible tras su aprobación.",
+    "loading": "Cargando aportes…",
+    "questionsTitle": "Preguntas",
+    "tipsTitle": "Trucos",
+    "showcasesTitle": "Ejemplos",
+    "answersTitle": "Respuestas",
+    "answerCta": "Escribir una respuesta",
+    "helpful": "Útil ({count})",
+    "helpfulDone": "Marcado como útil",
+    "report": "Denunciar",
+    "reportTitle": "Denunciar este aporte",
+    "reasons": {
+      "spam": "Spam",
+      "abuse": "Abuso",
+      "misinformation": "Desinformación",
+      "other": "Otro"
+    },
+    "reportDone": "Denunciado — gracias",
+    "emptyQuestions": "Aún no hay preguntas.",
+    "emptyTips": "Aún no hay trucos.",
+    "emptyShowcases": "Aún no hay ejemplos."
   }
 }

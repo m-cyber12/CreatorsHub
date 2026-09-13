@@ -25,9 +25,15 @@ import {
   Tag,
   Coins,
   ShieldCheck,
+  Activity,
+  MessagesSquare,
+  HeartPulse,
 } from 'lucide-react';
+import { ActivityTab } from '@/components/admin/ActivityTab';
+import { CommunityTab } from '@/components/admin/CommunityTab';
+import { HealthTab } from '@/components/admin/HealthTab';
 
-type Tab = 'overview' | 'orders' | 'claims' | 'submissions' | 'reviews' | 'news' | 'announcement' | 'i18n' | 'preview' | 'tools' | 'blog' | 'deals';
+type Tab = 'overview' | 'orders' | 'claims' | 'submissions' | 'reviews' | 'news' | 'announcement' | 'i18n' | 'preview' | 'tools' | 'blog' | 'deals' | 'activity' | 'community' | 'health';
 
 interface AdminStats {
   catalog: { total: number; handsOnTested: number; pricingVerified: number; listedOnly: number };
@@ -35,6 +41,8 @@ interface AdminStats {
     configured: boolean;
     submissionsPending: number;
     reviewsPending: number;
+    communityPending?: number;
+    communityReports?: number;
     newsPending: number;
     newsApproved: number;
     newsletterConfirmed: number;
@@ -119,6 +127,9 @@ const TABS: { id: Tab; labelKey: string; icon: typeof Inbox }[] = [
   { id: 'tools', labelKey: 'tabTools', icon: Wrench },
   { id: 'blog', labelKey: 'tabBlog', icon: FileText },
   { id: 'deals', labelKey: 'tabDeals', icon: Tag },
+  { id: 'activity', labelKey: 'tabActivity', icon: Activity },
+  { id: 'community', labelKey: 'tabCommunity', icon: MessagesSquare },
+  { id: 'health', labelKey: 'tabHealth', icon: HeartPulse },
 ];
 
 export default function AdminPage() {
@@ -890,6 +901,8 @@ export default function AdminPage() {
     { label: t('listedOnly'), value: stats?.catalog?.listedOnly ?? 0, tint: 'text-zinc-400' },
     { label: t('submissionsPending'), value: stats?.db?.submissionsPending ?? 0, tint: 'text-accent-300', db: true },
     { label: t('reviewsPending'), value: stats?.db?.reviewsPending ?? 0, tint: 'text-accent-300', db: true },
+    { label: t('communityPending'), value: stats?.db?.communityPending ?? 0, tint: 'text-accent-300', db: true },
+    { label: t('reportsOpen'), value: stats?.db?.communityReports ?? 0, tint: 'text-amber-300', db: true },
     { label: t('newsAuto'), value: stats?.db?.newsApproved ?? 0, tint: 'text-emerald-300', db: true },
     { label: t('newsLive'), value: stats?.db?.newsApproved ?? 0, tint: 'text-emerald-300', db: true },
     { label: t('newsletterConfirmed'), value: stats?.db?.newsletterConfirmed ?? 0, tint: 'text-emerald-300', db: true },
@@ -1480,6 +1493,12 @@ export default function AdminPage() {
           )}
 
           {/* News feed — v3 auto-published, read-only monitoring */}
+          {tab === 'activity' && <ActivityTab />}
+
+          {tab === 'community' && <CommunityTab csrf={csrf} />}
+
+          {tab === 'health' && <HealthTab />}
+
           {tab === 'news' && (
             <section>
               <div className="mb-4 flex flex-wrap items-center justify-between gap-3">

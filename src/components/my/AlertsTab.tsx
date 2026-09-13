@@ -74,6 +74,12 @@ export function AlertsTab() {
         >
           <CircleCheck className="h-3.5 w-3.5" aria-hidden="true" /> {t('alerts.acknowledgeAll')}
         </button>
+        <Link
+          href="/updates"
+          className="inline-flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-bold text-accent-300 hover:underline"
+        >
+          {t('alerts.viewFeed')}
+        </Link>
       </div>
       <ul className="mt-4 space-y-3">
         {alerts.map((a, i) => (

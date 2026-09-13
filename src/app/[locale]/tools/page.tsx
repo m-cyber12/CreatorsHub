@@ -6,6 +6,7 @@ import { Footer } from '@/components/Footer';
 import { ToolCard } from '@/components/ToolCard';
 import { CompareBar } from '@/components/CompareBar';
 import { ToolsFilterBar } from './ToolsFilterBar';
+import { IntentPanel } from '@/components/IntentPanel';
 import { Pagination } from '@/components/Pagination';
 import { ALL_TOOLS } from '@/data/tools';
 import { SITE_URL } from '@/config/site';
@@ -19,6 +20,7 @@ import {
   buildToolsHref,
   PAGE_SIZE,
 } from '@/lib/toolFilters';
+import { intentSearch } from '@/lib/intent';
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 type LocaleParams = Promise<{ locale: string }>;
@@ -84,7 +86,13 @@ export default async function ToolsPage({
 
   const query = parseToolQuery(await searchParams);
   const effectiveTools = await getEffectiveTools();
-  const filtered = filterTools(query, effectiveTools);
+  // Intent-first search (P2): facets apply as usual, then the query is
+  // interpreted (budget, free/cheap, versus, outcomes, stack). Queries with
+  // no intent signal keep the previous substring behavior untouched.
+  const faceted = filterTools({ ...query, q: '' }, effectiveTools);
+  const intentResult = query.q.trim() ? intentSearch(query.q, faceted) : null;
+  const useIntent = intentResult !== null && intentResult.intent.hasSignal;
+  const filtered = useIntent && intentResult ? intentResult.tools : filterTools(query, effectiveTools);
   const { items, page, totalPages, total } = paginate(filtered, query.page, PAGE_SIZE);
   const facets = facetCounts(effectiveTools);
   const localizedItems = await localizeTools(items, locale);
@@ -144,6 +152,16 @@ export default async function ToolsPage({
           </p>
 
           <ToolsFilterBar query={query} facets={facets} resultCount={total} />
+
+          {useIntent && intentResult && (
+            <IntentPanel
+              intent={intentResult.intent}
+              query={query.q}
+              resultCount={total}
+              usagePricedHidden={intentResult.usagePricedHidden}
+              clearHref={buildToolsHref({ ...query, q: '' }, 1)}
+            />
+          )}
 
           {items.length === 0 ? (
             <div className="mt-12 rounded-2xl border border-white/10 bg-surface-1 p-10 text-center">

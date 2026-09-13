@@ -12,6 +12,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from '@/i18n/navigation';
+import { track } from '@/lib/analytics';
 import {
   Compass,
   Sparkles,
@@ -161,17 +162,17 @@ export function AdvisorClient() {
 
   const complete = () => {
     if (!content) return;
-    setResult(
-      runAdvisor({
-        content,
-        platform,
-        budget,
-        experience,
-        automation,
-        useOwnVoice,
-        existingTools: existing,
-      })
-    );
+    const computed = runAdvisor({
+      content,
+      platform,
+      budget,
+      experience,
+      automation,
+      useOwnVoice,
+      existingTools: existing,
+    });
+    setResult(computed);
+    track('advisor_completed', { content, platform, budget, stages: computed.stages.length });
     window.scrollTo({ top: 0 });
   };
 
@@ -205,6 +206,7 @@ export function AdvisorClient() {
       savedAt: new Date().toISOString(),
     };
     persistSaved([plan, ...saved]);
+    track('advisor_plan_saved', { stages: result.stages.length });
     setFlash(t('actions.saved'));
     setTimeout(() => setFlash(null), 2000);
   };

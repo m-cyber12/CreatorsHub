@@ -26,6 +26,8 @@ export async function GET() {
     configured: Boolean(supabaseAdmin),
     submissionsPending: 0,
     reviewsPending: 0,
+    communityPending: 0,
+    communityReports: 0,
     newsPending: 0,
     newsApproved: 0,
     newsletterConfirmed: 0,
@@ -43,6 +45,12 @@ export async function GET() {
     try {
       db.submissionsPending = await count('submissions', 'status', 'pending');
       db.reviewsPending = await count('reviews', 'status', 'pending');
+      try {
+        db.communityPending = await count('community_posts', 'status', 'pending');
+        db.communityReports = await count('community_reports');
+      } catch {
+        /* pre-migration 0019: keep zeros */
+      }
       db.newsPending = await count('news_items', 'approved', false);
       db.newsApproved = await count('news_items', 'approved', true);
       db.newsletterConfirmed = await count('newsletter_subscribers', 'confirmed', true);

@@ -5,6 +5,7 @@ import { type Tool } from '@/data/tools';
 import { localizeTools } from '@/lib/i18n/content';
 import { getEffectiveTools } from '@/lib/contentOverrides';
 import { CompareClient } from './CompareClient';
+import { TrackView } from '@/components/TrackView';
 
 type LocaleParams = Promise<{ locale: string }>;
 
@@ -80,6 +81,7 @@ export default async function ComparePage({
 
   return (
     <Suspense>
+      <TrackView event="compare_opened" count={localized.length} />
       <CompareClient initialTools={localized} />
     </Suspense>
   );

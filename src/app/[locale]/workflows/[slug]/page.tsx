@@ -5,6 +5,8 @@ import Link from '@/i18n/navigation';
 import { ArrowRight, GitBranch, Lightbulb } from 'lucide-react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { CommunityQA } from '@/components/CommunityQA';
+import { TrackView } from '@/components/TrackView';
 import { WORKFLOWS, getWorkflow, workflowMinutes, workflowForClient } from '@/data/workflows';
 import { absoluteUrl } from '@/config/site';
 import { WorkflowClient } from './WorkflowClient';
@@ -71,6 +73,7 @@ export default async function WorkflowPage({
     <div className="min-h-screen bg-surface-0 text-white">
       <Header />
       <main id="main" className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
+        <TrackView event="workflow_opened" slug={workflow.slug} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -126,6 +129,7 @@ export default async function WorkflowPage({
             ))}
           </div>
         </section>
+        <CommunityQA entityType="workflow" entitySlug={workflow.slug} />
       </main>
       <Footer />
     </div>

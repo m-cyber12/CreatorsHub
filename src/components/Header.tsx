@@ -9,6 +9,7 @@ import { REAL_CATEGORIES, categorySlug } from '@/lib/categories';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { NoxiferaWordmark } from '@/components/brand';
+import { UpdatesBell } from '@/components/UpdatesBell';
 
 export function Header() {
   const t = useTranslations('header');
@@ -41,6 +42,7 @@ export function Header() {
     { href: '/best-of', label: t('bestOf') },
     { href: '/deals', label: t('deals') },
     { href: '/calculators', label: t('calculators') },
+    { href: '/updates', label: t('updates') },
     { href: '/changelog', label: t('whatsNew') },
     { href: '/news', label: t('news') },
     { href: '/graveyard', label: t('graveyard') },
@@ -242,6 +244,8 @@ export function Header() {
               </span>
             )}
           </Link>
+
+          <UpdatesBell />
 
           <ThemeToggle />
 

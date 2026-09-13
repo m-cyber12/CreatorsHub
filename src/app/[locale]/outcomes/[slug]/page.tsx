@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { CommunityQA } from '@/components/CommunityQA';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Link from '@/i18n/navigation';
 import {
@@ -300,6 +301,8 @@ export default async function OutcomePage({
             ))}
           </div>
         </section>
+
+        <CommunityQA entityType="outcome" entitySlug={outcome.slug} />
 
         {/* Related */}
         {(guides.length > 0 || related.length > 0) && (

@@ -105,6 +105,7 @@ export function Footer() {
             <li><Link href="/benchmark" className="hover:text-accent-400">{t('benchmarkLab')}</Link></li>
             <li><Link href="/calculators" className="hover:text-accent-400">{t('freeCalculators')}</Link></li>
             <li><Link href="/deals" className="hover:text-accent-400">{t('dealsCodes')}</Link></li>
+            <li><Link href="/updates" className="hover:text-accent-400">{t('whatChanged')}</Link></li>
             <li><Link href="/changelog" className="hover:text-accent-400">{t('whatsNew')}</Link></li>
             <li><Link href="/graveyard" className="hover:text-accent-400">{t('toolGraveyard')}</Link></li>
             <li><Link href="/blog" className="hover:text-accent-400">{t('guides')}</Link></li>

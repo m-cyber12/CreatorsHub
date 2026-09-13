@@ -44,6 +44,7 @@ import { VerificationBadge } from '@/components/VerificationBadge';
 import { ALL_TOOLS, type Tool } from '@/data/tools';
 import { attachTools, createProject, toggleWorkflow, type ProjectType } from '@/lib/projects';
 import { STACK_GOAL_TO_WORKFLOW } from '@/lib/workspace';
+import { track } from '@/lib/analytics';
 
 type GoalKey =
   | 'faceless'
@@ -365,6 +366,7 @@ export default function StackBuilderClient() {
       savedAt: new Date().toISOString(),
     };
     setSavedStacks((cur) => [entry, ...cur].slice(0, 12));
+    track('stack_saved', { goal, budget, tools: Object.keys(picks).length });
     setSaveMsg(true);
     setTimeout(() => setSaveMsg(false), 2000);
   };

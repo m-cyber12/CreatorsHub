@@ -113,7 +113,9 @@
     "workflows": "Workflows",
     "arena": "Arena",
     "projects": "Projects",
-    "myNoxifera": "My NOXIFERA"
+    "myNoxifera": "My NOXIFERA",
+    "updates": "Updates",
+    "updatesBadge": "Updates ({count})"
   },
   "footer": {
     "taglineBlurb": "The curated AI toolbox for video creators. {count} tools catalogued, {tested} tested hands-on, and every listing labelled with exactly how far we have verified it.",
@@ -156,7 +158,8 @@
     "advisor": "AI Advisor",
     "outcomes": "Outcome Guides",
     "playbooks": "Tool Playbooks",
-    "optimizer": "Subscription Optimizer"
+    "optimizer": "Subscription Optimizer",
+    "whatChanged": "What changed"
   },
   "home": {
     "heroBadge": "Evidence-first discovery for video creators",
@@ -552,7 +555,8 @@
         "verification-upgraded": "Now verified",
         "tool-retired": "Tool retired",
         "tool-unlisted": "No longer listed"
-      }
+      },
+      "viewFeed": "Open your update feed"
     },
     "preferences": {
       "title": "Creator preferences",
@@ -871,7 +875,8 @@
     "subtitle": "Every update to the hub, in one place.",
     "typeFeature": "Feature",
     "typeFix": "Fix",
-    "typeMilestone": "Milestone"
+    "typeMilestone": "Milestone",
+    "updatesLink": "See what's new for your saved tools"
   },
   "about": {
     "title": "About & Methodology",
@@ -2039,7 +2044,59 @@
     "videoUrlInvalid": "This looks like a YouTube/Vimeo link — those do not work as hover videos. Paste a direct .mp4/.webm file URL instead.",
     "image16x9Hint": "Tip: upload a 16:9 image (e.g. 1280×720) so it fills the cover cleanly.",
     "tabOrders": "Orders & Revenue",
-    "tabClaims": "Founder Claims"
+    "tabClaims": "Founder Claims",
+    "tabActivity": "Activity",
+    "tabCommunity": "Community",
+    "tabHealth": "Health",
+    "communityPending": "Q&A pending",
+    "reportsOpen": "Open reports",
+    "activityFailed": "Could not load analytics.",
+    "activityLoading": "Loading analytics…",
+    "activityTitle": "Activity",
+    "activityNotConfigured": "Analytics storage is not configured on this deployment — events are only going to Vercel Analytics.",
+    "activityIntro": "First-party product events for the last {days} days. No identifiers are stored — slugs, counts and enums only.",
+    "eventsUnavailable": "Event table unavailable — run migration 0020_analytics_events.sql, then events appear here.",
+    "searchesTitle": "Searches",
+    "searchesTotal": "{count} searches in the last 30 days",
+    "topSearches": "Top searches",
+    "searchesEmpty": "No searches recorded yet.",
+    "zeroResultTitle": "Zero-result searches",
+    "zeroEmpty": "No zero-result searches — every query found something.",
+    "intentTitle": "Search intent",
+    "intentNote": "Recent searches parsed server-side with the P2 intent parser — no extra tracking involved.",
+    "intentOutcomes": "Matched outcome guides",
+    "toolsTitle": "Most viewed tools",
+    "toolsEmpty": "No tool views recorded yet.",
+    "truncatedNote": "Sample capped at 5,000 views — counts are a lower bound.",
+    "communityTitle": "Community Q&A",
+    "communityNotConfigured": "Community tables are missing — run migration 0019_community_qa.sql.",
+    "communityIntro": "New questions, answers, tips and showcases arrive held for moderation. Approve to publish, remove to delete (reports on a removed post are deleted with it).",
+    "communityModerated": "Post {status}.",
+    "pendingTitle": "Pending ({count})",
+    "pendingEmpty": "Nothing waiting — the queue is clear.",
+    "openPage": "Open page",
+    "reportsTitle": "Reports ({count})",
+    "reportsEmpty": "No reports filed.",
+    "reportedPostGone": "This post was already removed.",
+    "healthTitle": "Catalog health",
+    "healthIntro": "Live maintenance queues. Stale-pricing numbers are computed from the catalog itself; link and tracking sections need their tables.",
+    "reviewCommunity": "Q&A pending",
+    "reviewReports": "Reports",
+    "reviewReviews": "Reviews pending",
+    "brokenTitle": "Broken links ({count})",
+    "healthNotConfigured": "Table unavailable on this deployment.",
+    "brokenEmpty": "No broken links in the latest check.",
+    "lastRun": "Last check: {date}",
+    "staleTitle": "Stale pricing data",
+    "staleIntro": "Pricing older than {days} days should be re-checked against the vendor page.",
+    "neverChecked": "Never checked ({count})",
+    "staleEmpty": "None — everything here is fresh.",
+    "staleCount": "Stale ({count})",
+    "missingSource": "Missing pricing source URL ({count})",
+    "trackingTitle": "Price tracking",
+    "trackedTools": "{tracked} of {total} tools have recorded price points",
+    "pointsRecorded": "{count} price points recorded",
+    "lastRecorded": "Last recorded: {date}"
   },
   "studio": {
     "browserOnly": "Browser-only · no API",
@@ -2934,5 +2991,118 @@
     "importDismiss": "Dismiss",
     "coverageOf": "Covered {covered} of {total} steps",
     "coverageComplete": "All steps covered"
+  },
+  "updates": {
+    "metaTitle": "What changed · NOXIFERA",
+    "metaDescription": "Price changes, new verifications, retirements and benchmark results — for the whole catalog and for the tools you saved.",
+    "badge": "Return feed",
+    "title": "What changed",
+    "subtitle": "Every dated change in the catalog — plus a personal feed for the tools, stacks and workflows you saved. Stored on your device, no account needed.",
+    "tabsLabel": "Update feeds",
+    "tabs": {
+      "forYou": "For you",
+      "catalog": "Catalog"
+    },
+    "lastVisit": "Last visit: {date}",
+    "neverVisited": "First visit here — everything below is new to you.",
+    "markRead": "Mark all read",
+    "unread": "New",
+    "kinds": {
+      "price-changed": "Price change",
+      "pricing-model-changed": "Pricing model change",
+      "verification-upgraded": "Verified",
+      "tool-added": "New tool",
+      "tool-retired": "Retired",
+      "tool-unlisted": "Removed",
+      "benchmark-published": "Benchmark"
+    },
+    "priceDetail": "Price: {change}",
+    "openAlerts": {
+      "title": "Open alerts",
+      "intro": "Live differences between your saved snapshots and the catalog, right now.",
+      "empty": "All quiet",
+      "emptyHint": "When a saved tool changes price or leaves the catalog, you will see it here.",
+      "viewAll": "Open all alerts"
+    },
+    "yourTools": {
+      "title": "Updates on your tools",
+      "empty": "Nothing dated yet",
+      "emptyHint": "Dated changes to your saved tools, stack members and workflow tools will appear here.",
+      "emptyCta": "Browse tools"
+    },
+    "stackUpdates": {
+      "title": "Stack updates"
+    },
+    "filterLabel": "Filter by change type",
+    "filters": {
+      "all": "All"
+    },
+    "priceNote": "Price tracking is not connected on this deployment yet, so recorded price changes cannot appear here.",
+    "catalog": {
+      "empty": "No changes of this type yet",
+      "emptyHint": "Only dated, verifiable changes appear here — nothing is ever invented."
+    },
+    "changelogLink": "Platform news lives in the Changelog"
+  },
+  "intent": {
+    "title": "We read that as",
+    "chips": {
+      "under": "Under {budget}",
+      "freeOnly": "Free only",
+      "cheapFirst": "Cheapest first"
+    },
+    "clear": "Clear search",
+    "matching": "Matching: {words}",
+    "compareCta": "Compare side by side",
+    "outcomesTitle": "Built for exactly this",
+    "stackText": "Looking for a full setup instead of one tool?",
+    "stackCta": "Build this stack",
+    "zeroTitle": "No tools match all of that",
+    "zeroHint": "Try removing the budget, or start from a guide above.",
+    "budgetNote": "Budgets are compared against listed USD starting prices.",
+    "usageNote": "Some matching tools bill per use (minute, image) and can’t be compared to a monthly budget — {count} hidden."
+  },
+  "qa": {
+    "heading": "Questions & tips",
+    "subline": "{count} community posts",
+    "beFirst": "No questions yet — be the first to ask.",
+    "askCta": "Ask or share",
+    "kinds": {
+      "question": "Question",
+      "tip": "Tip",
+      "showcase": "Showcase",
+      "answer": "Answer"
+    },
+    "titleLabel": "Title",
+    "titlePh": "Summarize your question or tip…",
+    "bodyLabel": "Details",
+    "bodyPh": "Describe what you tried, what worked, or what you need…",
+    "answerPh": "Write your answer…",
+    "nameLabel": "Name (optional)",
+    "namePh": "Anonymous Creator",
+    "submit": "Submit",
+    "submitting": "Submitting…",
+    "cancel": "Cancel",
+    "pendingNotice": "Thanks — held for moderation, visible once approved.",
+    "loading": "Loading community posts…",
+    "questionsTitle": "Questions",
+    "tipsTitle": "Tips",
+    "showcasesTitle": "Showcases",
+    "answersTitle": "Answers",
+    "answerCta": "Write an answer",
+    "helpful": "Helpful ({count})",
+    "helpfulDone": "Marked helpful",
+    "report": "Report",
+    "reportTitle": "Report this post",
+    "reasons": {
+      "spam": "Spam",
+      "abuse": "Abuse",
+      "misinformation": "Misinformation",
+      "other": "Other"
+    },
+    "reportDone": "Reported — thanks",
+    "emptyQuestions": "No questions yet.",
+    "emptyTips": "No tips yet.",
+    "emptyShowcases": "No showcases yet."
   }
 }
