@@ -78,7 +78,7 @@ test.describe('tool detail', () => {
     await page.goto('/tool/opusclip');
     await expect(page.getByRole('heading', { level: 1, name: /OpusClip/i })).toBeVisible();
     await expect(page.getByText(/Not yet tested/i).first()).toBeVisible();
-    await expect(page.getByText(/Has CreatorAI Hub tested OpusClip hands-on\?/)).toBeVisible();
+    await expect(page.getByText(/Has Noxifera tested OpusClip hands-on\?/)).toBeVisible();
   });
 
   test('offers only a contextual Studio handoff for compatible categories', async ({ page }) => {
