@@ -42,7 +42,7 @@ test.describe('AI Studio free launch access', () => {
     await page.goto('/ai-studio/prompt-builder');
     await page.getByLabel('Main subject or message').fill('A creator making a clear cooking tutorial');
     await page.getByRole('button', { name: /Generate prompt set/i }).click();
-    await expect(page.getByText(/Free Runs Left Today|Studio Pro|Free Usage|Generated/i).first()).toBeVisible();
+    await expect(page.getByText(/Daily AI runs|Upgrade to Pro|Unlock Pro|ready|left/i).first()).toBeVisible();
   });
 
   test('keeps local image selection available for image tools', async ({ page }) => {
@@ -54,7 +54,7 @@ test.describe('AI Studio free launch access', () => {
     });
     await expect(page.getByText('1 × 1')).toBeVisible();
     await page.getByRole('button', { name: /Resize & download/i }).click();
-    await expect(page.getByText(/Free Runs|Resized|Downloaded|Studio/i).first()).toBeVisible();
+    await expect(page.getByText(/Free & unlimited|Resized|Downloaded|Studio/i).first()).toBeVisible();
   });
 });
 
