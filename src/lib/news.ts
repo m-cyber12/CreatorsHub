@@ -26,6 +26,7 @@ import { filterRelevant } from '@/lib/newsRelevance';
  */
 
 const FETCH_TIMEOUT_MS = 6_000;
+const ENRICH_TIMEOUT_MS = 12_000;
 // v3: deeper archive — pull as much 2026 news as the feeds provide so the
 // archive reaches back to the start of the year (feeds only serve recent
 // items; the daily cron keeps accumulating older ones in Supabase).
@@ -63,78 +64,186 @@ const fullTextCache = new Map<string, string>();
 
 /** Convert extracted HTML into plain paragraphs (\n\n separated). */
 function htmlToPlain(html: string): string {
-  return html
-    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
-    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
-    .replace(/<(p|div|h[1-6]|li|blockquote|br)[^>]*>/gi, '\n')
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/&nbsp;|&#160;|&#x?A0;/gi, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#0?39;|&apos;/g, "'")
-    .replace(/\n{3,}/g, '\n\n')
-    .replace(/[ \t]+/g, ' ')
-    .trim();
+  if (!html) return '';
+  let s = html;
+  // Remove unwanted sections first
+  s = s.replace(/<script[\s\S]*?<\/script>/gi, ' ');
+  s = s.replace(/<style[\s\S]*?<\/style>/gi, ' ');
+  s = s.replace(/<noscript[\s\S]*?<\/noscript>/gi, ' ');
+  s = s.replace(/<!--[\s\S]*?-->/g, ' ');
+  // Try to keep structure
+  s = s.replace(/<\/(p|div|h[1-6]|li|blockquote|tr)>/gi, '\n\n');
+  s = s.replace(/<(br|hr)[^>]*>/gi, '\n');
+  s = s.replace(/<li[^>]*>/gi, '\n• ');
+  // Strip remaining tags
+  s = s.replace(/<[^>]+>/g, ' ');
+  // Decode entities
+  s = s.replace(/&nbsp;|&#160;|&#xA0;/gi, ' ');
+  s = s.replace(/&amp;/g, '&');
+  s = s.replace(/&lt;/g, '<');
+  s = s.replace(/&gt;/g, '>');
+  s = s.replace(/&quot;/g, '"');
+  s = s.replace(/&#0?39;|&apos;|&#x27;/g, "'");
+  s = s.replace(/&#822[01];/g, '"');
+  s = s.replace(/&#821[67];/g, "'");
+  s = s.replace(/&#8211;/g, '–');
+  s = s.replace(/&#8212;/g, '—');
+  s = s.replace(/&#8230;/g, '…');
+  // Collapse whitespace but keep paragraph breaks
+  s = s.replace(/[ \t]+/g, ' ');
+  s = s.replace(/\n[ \t]+/g, '\n');
+  s = s.replace(/\n{3,}/g, '\n\n');
+  // Remove boilerplate lines like "The article ... appeared first on"
+  s = s.replace(/The article .* appeared first on .*\.?/gi, '');
+  s = s.replace(/This story originally appeared on .*\.?/gi, '');
+  s = s.replace(/Read more at .*$/gim, '');
+  return s.trim();
+}
+
+/** Fallback raw fetch + heuristic extraction when @extractus fails */
+async function fetchRawArticleText(url: string): Promise<string> {
+  try {
+    const res = await fetch(url, {
+      signal: AbortSignal.timeout(ENRICH_TIMEOUT_MS),
+      headers: {
+        'user-agent': `Noxifera-NewsBot/1.0 (+${SITE_URL}/about)`,
+        accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'accept-language': 'en-US,en;q=0.9',
+      },
+      cache: 'no-store',
+    });
+    if (!res.ok) return '';
+    const html = await res.text();
+    if (!html || html.length < 500) return '';
+
+    // Heuristic: try to extract <article>...</article> first
+    const articleMatch = html.match(/<article[^>]*>([\s\S]*?)<\/article>/i);
+    let candidate = articleMatch ? articleMatch[1] : '';
+
+    // If no article tag, try common content containers
+    if (!candidate) {
+      const contentDiv = html.match(
+        /<div[^>]*class=["'][^"']*(?:post-content|entry-content|article-content|story-content|content-body|td-post-content)[^"']*["'][^>]*>([\s\S]*?)<\/div>/i
+      );
+      if (contentDiv) candidate = contentDiv[1];
+    }
+
+    // Fallback to body
+    if (!candidate) {
+      const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+      candidate = bodyMatch ? bodyMatch[1] : html;
+    }
+
+    const plain = htmlToPlain(candidate);
+    // Filter out very short or nav-heavy results
+    if (plain.length < 300) return '';
+    // Remove excessive repeated lines (often nav)
+    const lines = plain.split('\n').filter((l) => l.trim().length > 20);
+    if (lines.length < 2) return '';
+    return plain;
+  } catch {
+    return '';
+  }
 }
 
 /**
- * If the item body is too short to be a real article (<600 chars), fetch the
+ * If the item body is too short to be a real article (<800 chars), fetch the
  * source URL and extract the full text. Never throws — returns the item
  * unchanged on failure. Runs at ingest/live-fetch time, not per page view.
  */
-const FULL_TEXT_MIN = 600;
-async function enrichFullText(item: NewsItem): Promise<NewsItem> {
+const FULL_TEXT_MIN = 800;
+
+export async function enrichFullText(item: NewsItem): Promise<NewsItem> {
   if (item.content.length >= FULL_TEXT_MIN) return item;
   const cached = fullTextCache.get(item.sourceUrl);
   if (cached) {
-    item.content = cached;
+    if (cached.length > item.content.length) {
+      item.content = cached;
+      if (item.excerpt.length < 120) item.excerpt = cached.slice(0, 320);
+    }
     return item;
   }
+
+  // 1) Try @extractus
   try {
     const art = await extract(item.sourceUrl);
     const text = art?.content ? htmlToPlain(art.content) : '';
-    if (text.length > FULL_TEXT_MIN && text.length > item.content.length) {
+    if (text.length > 300 && text.length > item.content.length) {
       fullTextCache.set(item.sourceUrl, text);
       item.content = text;
-      // Keep the excerpt a real preview (no AI summary needed).
       if (item.excerpt.length < 120) item.excerpt = text.slice(0, 320);
+      if (text.length >= FULL_TEXT_MIN) return item;
     }
   } catch {
-    // article unreachable — keep whatever the feed gave us
+    // continue to fallback
   }
+
+  // 2) Fallback raw fetch
+  try {
+    const rawText = await fetchRawArticleText(item.sourceUrl);
+    if (rawText.length > 300 && rawText.length > item.content.length) {
+      fullTextCache.set(item.sourceUrl, rawText);
+      item.content = rawText;
+      if (item.excerpt.length < 120) item.excerpt = rawText.slice(0, 320);
+    }
+  } catch {
+    // keep original
+  }
+
   return item;
 }
 
 /**
  * Best-effort: enrich up to `max` items with full text, bounded so a page
- * render can never hang on many slow fetches. Runs sequentially with a small
- * cap; anything skipped keeps the feed's own content.
+ * render can never hang on many slow fetches. Runs with concurrency.
  */
-async function enrichMany(items: NewsItem[], max = 25): Promise<NewsItem[]> {
-  let done = 0;
-  const out: NewsItem[] = [];
-  for (const item of items) {
-    if (done >= max) {
-      out.push(item);
-      continue;
+export async function enrichMany(items: NewsItem[], max = 25): Promise<NewsItem[]> {
+  const toEnrich = items.slice(0, max);
+  const rest = items.slice(max);
+
+  // Concurrency limited parallel enrichment
+  const CONCURRENCY = 4;
+  const enriched: NewsItem[] = [];
+  let idx = 0;
+
+  async function worker() {
+    while (idx < toEnrich.length) {
+      const current = idx++;
+      const item = toEnrich[current];
+      // Only enrich short ones
+      if (item.content.length >= FULL_TEXT_MIN) {
+        enriched[current] = item;
+        continue;
+      }
+      try {
+        const enrichedItem = await enrichFullText(item);
+        enriched[current] = enrichedItem;
+      } catch {
+        enriched[current] = item;
+      }
+      // Polite delay between fetches per worker
+      await new Promise((r) => setTimeout(r, 200));
     }
-    out.push(await enrichFullText(item));
-    done++;
-    await new Promise((r) => setTimeout(r, 150)); // polite to publishers
   }
-  return out;
+
+  const workers = Array.from({ length: Math.min(CONCURRENCY, toEnrich.length) }, () => worker());
+  await Promise.all(workers);
+
+  // Fill any gaps (if worker didn't run due to concurrency race)
+  for (let i = 0; i < toEnrich.length; i++) {
+    if (!enriched[i]) enriched[i] = toEnrich[i];
+  }
+
+  return [...enriched, ...rest];
 }
 
-/** Fetch one feed, returning normalized items (never throws). *//** Fetch one feed, returning normalized items (never throws). */
+/** Fetch one feed, returning normalized items (never throws). */
 async function fetchSource(source: NewsSource): Promise<NewsItem[]> {
   try {
     const res = await fetch(source.url, {
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
       headers: {
-        'user-agent':
-          `Noxifera-NewsBot/1.0 (+${SITE_URL}/about)`,
+        'user-agent': `Noxifera-NewsBot/1.0 (+${SITE_URL}/about)`,
         accept: 'application/rss+xml, application/atom+xml, application/xml, text/xml, */*',
       },
       cache: 'no-store',
@@ -151,7 +260,6 @@ async function fetchSource(source: NewsSource): Promise<NewsItem[]> {
   }
 }
 
-/** Fetch all configured sources in parallel, merged + deduped by slug. */
 /**
  * v3 backfill: fetch AI news from GNews with a date range back to the start
  * of 2026 (free tier: 100 requests/day, ~10 items per request). Optional —
@@ -249,8 +357,6 @@ export async function getNews(): Promise<{ items: NewsItem[]; mode: 'supabase' |
   // 1) Persisted snapshot from the cron refresh (the production "auto" path).
   if (supabaseAdmin) {
     try {
-      // v3: no manual approval gate — items are inserted approved=true by the
-      // ingester. The relevance filter below double-checks every survivor.
       const { data, error } = await supabaseAdmin
         .from('news_items')
         .select('*')
@@ -260,8 +366,6 @@ export async function getNews(): Promise<{ items: NewsItem[]; mode: 'supabase' |
       if (!error && data && data.length > 0) {
         const items: NewsItem[] = data.map((r) => ({
           slug: r.slug,
-          // v2.9: defensively strip any CDATA markers that leaked into rows
-          // stored before the parser fix.
           title: String(r.title).replace(/<!\[CDATA\[|\]\]>/g, '').trim(),
           excerpt: r.excerpt,
           content: r.content,
@@ -273,14 +377,24 @@ export async function getNews(): Promise<{ items: NewsItem[]; mode: 'supabase' |
           image: r.image || undefined,
           aiSummarized: r.ai_summarized === true,
         }));
-        // Defence in depth: even an old persisted snapshot can never surface
-        // off-topic stories (critique §7) — the gate runs at read time too.
-        // Audit fix 2.6: the approved feed no longer merges in the hand-written
-        // CURATED_NEWS. The curated seed is not independently sourced, so it
-        // must never be presented as approved news — it only appears as a
-        // clearly-labelled fallback in 'curated' mode below.
         const relevant = filterRelevant(items);
-        if (relevant.length > 0) return { items: relevant, mode: 'supabase' };
+        if (relevant.length > 0) {
+          // v3.4 fix: if DB rows have short content (<800), enrich on read
+          // for the latest 15 items (best-effort, bounded). This heals old
+          // short rows without requiring a DB migration.
+          const shortCount = relevant.slice(0, 15).filter((i) => i.content.length < FULL_TEXT_MIN).length;
+          if (shortCount > 0) {
+            try {
+              const enriched = await enrichMany(relevant.slice(0, 15), Math.min(shortCount, 8));
+              const enrichedMap = new Map(enriched.map((e) => [e.slug, e]));
+              const merged = relevant.map((orig) => enrichedMap.get(orig.slug) || orig);
+              return { items: merged, mode: 'supabase' };
+            } catch {
+              // fall through to non-enriched
+            }
+          }
+          return { items: relevant, mode: 'supabase' };
+        }
       }
     } catch {
       // fall through to live/curated
@@ -288,13 +402,10 @@ export async function getNews(): Promise<{ items: NewsItem[]; mode: 'supabase' |
   }
 
   // 2) Live RSS fetch (may fail offline / at build time — that's fine).
-  //    v3: ONLY real, sourced items are shown. The hand-written sample
-  //    stories were removed — fabricated news, even labelled, was worse than
-  //    an empty feed on a site whose whole value is honest verification.
   try {
     const live = filterRelevant(await fetchLiveNews());
     if (live.length > 0) {
-      const sorted = await enrichMany(dedupeSort(live).slice(0, 30), 25);
+      const sorted = await enrichMany(dedupeSort(live).slice(0, 30), 20);
       return { items: sorted, mode: 'live' };
     }
   } catch {
@@ -305,7 +416,7 @@ export async function getNews(): Promise<{ items: NewsItem[]; mode: 'supabase' |
   return { items: [], mode: 'empty' };
 }
 
-function dedupeSort(items: NewsItem[]): NewsItem[] {
+export function dedupeSort(items: NewsItem[]): NewsItem[] {
   const seen = new Set<string>();
   const out: NewsItem[] = [];
   for (const item of [...items].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))) {
@@ -338,7 +449,6 @@ export function groupNewsByCategory(items: NewsItem[]): Map<string, NewsItem[]> 
     list.push(item);
     map.set(cat, list);
   }
-  // Sort keys by the canonical order, then alphabetically, then by newest item.
   const keys = [...map.keys()].sort((a, b) => {
     const ia = order.indexOf(a);
     const ib = order.indexOf(b);

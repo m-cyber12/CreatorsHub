@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { isAdminAuthorized, requireCsrf } from '@/lib/adminAuth';
 import { runNewsIngest } from '@/lib/newsIngest';
 import { autoTranslateNews } from '@/lib/i18n/translateContent';
+import { isNewsEnabled } from '@/lib/newsSettings';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 300;
@@ -17,6 +18,12 @@ export async function POST(request: Request) {
   }
   if (!(await requireCsrf(request))) {
     return NextResponse.json({ error: 'Invalid or missing CSRF token' }, { status: 403 });
+  }
+  if (!(await isNewsEnabled())) {
+    return NextResponse.json(
+      { ok: false, enabled: false, note: 'News ingestion is disabled via toggle. Enable it first.' },
+      { status: 200 }
+    );
   }
   const result = await runNewsIngest();
 

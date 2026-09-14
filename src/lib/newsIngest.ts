@@ -1,5 +1,5 @@
 import 'server-only';
-import { fetchLiveNews } from '@/lib/news';
+import { fetchLiveNews, enrichMany } from '@/lib/news';
 import { filterRelevant } from '@/lib/newsRelevance';
 import { supabaseAdmin } from '@/lib/supabaseAdmin';
 import type { NewsItem } from '@/data/news';
@@ -9,10 +9,11 @@ import type { NewsItem } from '@/data/news';
  * (/api/news/refresh) AND by the admin panel's "Ingest now" button
  * (/api/admin/news/refresh).
  *
- * Fetch → creator-relevance gate → optional AI summary → insert as LIVE
+ * Fetch → creator-relevance gate → FULL-TEXT ENRICHMENT → insert as LIVE
  * (approved = true). v3 (2026-08-08): the manual approval gate was removed —
  * items that pass the automated relevance gate publish automatically.
- * Existing rows are never overwritten.
+ * v3.4: now enriches full text at ingest time (not just at read time) and
+ * updates existing short rows when a longer version is available.
  */
 
 export interface IngestResult {
@@ -20,6 +21,7 @@ export interface IngestResult {
   fetched: number;
   kept: number;
   insertedNew: number;
+  updated: number;
   /** The items that passed the gate this run (i18n: auto-translate hook). */
   items?: NewsItem[];
   aiSummarized: number;
@@ -34,6 +36,7 @@ export async function runNewsIngest(): Promise<IngestResult> {
       fetched: 0,
       kept: 0,
       insertedNew: 0,
+      updated: 0,
       aiSummarized: 0,
       note: 'No live news could be fetched from the configured sources.',
     };
@@ -46,15 +49,24 @@ export async function runNewsIngest(): Promise<IngestResult> {
       fetched: live.length,
       kept: 0,
       insertedNew: 0,
+      updated: 0,
       aiSummarized: 0,
       note: 'Feeds fetched, but nothing passed the creator-relevance gate.',
     };
   }
 
-  // v3.2: no AI summarization — articles are shown in full (enriched during
-  // the live fetch by @extractus/article-extractor). Excerpt stays the feed's
-  // own description as a preview.
-  const items = relevantLive.map((item) => ({ ...item, aiSummarized: false }));
+  // v3.4: ENRICH at ingest time - this is the fix for incomplete news
+  // Previously enrichment only happened in getNews() live mode, so supabase
+  // rows were stored with 240-char excerpts forever.
+  // Now we enrich up to 50 newest items with full article text.
+  let enrichedItems: NewsItem[];
+  try {
+    enrichedItems = await enrichMany(relevantLive, 50);
+  } catch {
+    enrichedItems = relevantLive;
+  }
+
+  const items = enrichedItems.map((item) => ({ ...item, aiSummarized: false }));
 
   if (!supabaseAdmin) {
     return {
@@ -62,6 +74,7 @@ export async function runNewsIngest(): Promise<IngestResult> {
       fetched: items.length,
       kept: relevantLive.length,
       insertedNew: 0,
+      updated: 0,
       aiSummarized: 0,
       note: 'SUPABASE_SERVICE_ROLE_KEY is not configured — nothing was persisted.',
     };
@@ -79,14 +92,19 @@ export async function runNewsIngest(): Promise<IngestResult> {
     category: i.category,
     image: i.image || null,
     ai_summarized: i.aiSummarized,
-    approved: true, // auto-publish (v3 — no manual approval gate)
+    approved: true,
   }));
 
   let insertedNew = 0;
+  let updated = 0;
+
+  // v3.4: Two-phase upsert - first try to insert new, then update short existing rows
+  // Phase 1: Insert new slugs only (ignore duplicates)
   for (let i = 0; i < rows.length; i += 50) {
+    const chunk = rows.slice(i, i + 50);
     const { data, error } = await supabaseAdmin
       .from('news_items')
-      .upsert(rows.slice(i, i + 50), { onConflict: 'slug', ignoreDuplicates: true })
+      .upsert(chunk, { onConflict: 'slug', ignoreDuplicates: true })
       .select('slug');
     if (error) {
       return {
@@ -94,6 +112,7 @@ export async function runNewsIngest(): Promise<IngestResult> {
         fetched: items.length,
         kept: relevantLive.length,
         insertedNew,
+        updated,
         aiSummarized: 0,
         note: error.message,
       };
@@ -101,14 +120,55 @@ export async function runNewsIngest(): Promise<IngestResult> {
     insertedNew += data?.length ?? 0;
   }
 
+  // Phase 2: For existing rows that are short (<800 chars), update if we have longer content
+  // This heals old incomplete rows
+  try {
+    const existingSlugs = rows.map((r) => r.slug);
+    // Fetch existing short rows
+    const { data: existingRows } = await supabaseAdmin
+      .from('news_items')
+      .select('slug, content')
+      .in('slug', existingSlugs);
+
+    if (existingRows && existingRows.length > 0) {
+      const shortExisting = new Map<string, number>();
+      for (const er of existingRows) {
+        const len = String(er.content || '').length;
+        if (len < 800) shortExisting.set(er.slug, len);
+      }
+
+      const toUpdate = rows.filter((r) => {
+        const oldLen = shortExisting.get(r.slug);
+        return oldLen !== undefined && r.content.length > oldLen + 200;
+      });
+
+      for (let i = 0; i < toUpdate.length; i += 20) {
+        const chunk = toUpdate.slice(i, i + 20);
+        for (const row of chunk) {
+          const { error } = await supabaseAdmin
+            .from('news_items')
+            .update({
+              content: row.content,
+              excerpt: row.excerpt,
+              title: row.title,
+            })
+            .eq('slug', row.slug);
+          if (!error) updated++;
+        }
+      }
+    }
+  } catch {
+    // Non-critical - don't fail ingest if update phase fails
+  }
+
   return {
     ok: true,
     fetched: items.length,
     kept: relevantLive.length,
     insertedNew,
+    updated,
     items,
     aiSummarized: 0,
-    note:
-      'New items that passed the relevance gate were published automatically (v3). Full text is enriched from the source article when the feed only gives an excerpt.',
+    note: `New: ${insertedNew}, Updated short rows: ${updated}. Full text enriched via @extractus/article-extractor + fallback raw fetch.`,
   };
 }

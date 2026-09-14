@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { runNewsIngest } from '@/lib/newsIngest';
 import { autoTranslateNews } from '@/lib/i18n/translateContent';
+import { isNewsEnabled } from '@/lib/newsSettings';
 
 /**
  * AI News Aggregator — auto-refresh (idea #13).
@@ -34,6 +35,13 @@ export async function GET(request: Request) {
   }
   if (!token || token !== secret) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  if (!(await isNewsEnabled())) {
+    return NextResponse.json(
+      { ok: true, enabled: false, note: 'News ingestion is disabled via admin toggle (news_enabled=false).' },
+      { status: 200 }
+    );
   }
 
   const result = await runNewsIngest();

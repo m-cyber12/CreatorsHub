@@ -83,12 +83,24 @@ interface NewsRow {
   slug: string;
   title: string;
   excerpt: string;
+  content?: string;
   source: string;
   source_url: string;
   category: string;
   published_at: string;
   approved: boolean;
   ai_summarized: boolean;
+  image?: string;
+  iso_date?: string;
+}
+
+interface NewsCommentAdmin {
+  id: string;
+  news_slug: string;
+  author_name: string;
+  body: string;
+  status: string;
+  created_at: string;
 }
 
 interface Submission {
@@ -146,6 +158,11 @@ export default function AdminPage() {
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [news, setNews] = useState<NewsRow[]>([]);
+  const [newsEnabled, setNewsEnabled] = useState<boolean>(true);
+  const [newsBusy, setNewsBusy] = useState(false);
+  const [newsEditor, setNewsEditor] = useState<null | { mode: 'edit' | 'new'; slug: string }>(null);
+  const [newsForm, setNewsForm] = useState({ title: '', slug: '', excerpt: '', content: '', category: 'Industry', image: '', published_at: new Date().toISOString().slice(0, 10) });
+  const [newsComments, setNewsComments] = useState<NewsCommentAdmin[]>([]);
   const [stats, setStats] = useState<AdminStats | null>(null);
   const [ingestBusy, setIngestBusy] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -236,7 +253,7 @@ export default function AdminPage() {
   const loadAll = useCallback(async (silent = false) => {
     if (!silent) setLoading(true);
     try {
-      const [subRes, revRes, newsRes, setRes, i18nRes, statsRes, contentRes, toolsRes, postsRes, dealsRes, ordersRes, claimsRes] = await Promise.all([
+      const [subRes, revRes, newsRes, setRes, i18nRes, statsRes, contentRes, toolsRes, postsRes, dealsRes, ordersRes, claimsRes, newsSettingsRes, newsCommentsRes] = await Promise.all([
         fetch('/api/admin/submissions'),
         fetch('/api/admin/reviews'),
         fetch('/api/admin/news'),
@@ -249,6 +266,8 @@ export default function AdminPage() {
         fetch('/api/admin/deals'),
         fetch('/api/admin/orders'),
         fetch('/api/admin/founders'),
+        fetch('/api/admin/news/settings'),
+        fetch('/api/admin/news/comments'),
       ]);
       if (claimsRes.ok) {
         const cl = await claimsRes.json();
@@ -304,6 +323,18 @@ export default function AdminPage() {
           announcement_desc: s.announcement_desc ?? '',
           announcement_enabled: s.announcement_enabled ?? 'false',
         });
+      }
+      if (newsSettingsRes?.ok) {
+        try {
+          const ns = await newsSettingsRes.json();
+          if (typeof ns.enabled === 'boolean') setNewsEnabled(ns.enabled);
+        } catch {}
+      }
+      if (newsCommentsRes?.ok) {
+        try {
+          const nc = await newsCommentsRes.json();
+          if (Array.isArray(nc)) setNewsComments(nc);
+        } catch {}
       }
     } catch {
       if (!silent) flash('err', t('loadFailed'));
@@ -495,6 +526,125 @@ export default function AdminPage() {
       flash('err', err instanceof Error ? err.message : t('ingestFailed'));
     } finally {
       setIngestBusy(false);
+    }
+  };
+
+  // ── news v2 real-site ───────────────────────────────────────────────
+  const toggleNewsEnabled = async (next: boolean) => {
+    setNewsBusy(true);
+    try {
+      const res = await fetch('/api/admin/news/settings', {
+        method: 'PUT',
+        headers: mutHeaders(),
+        body: JSON.stringify({ enabled: next }),
+      });
+      const d = await res.json();
+      if (!res.ok) throw new Error(d.error || 'Failed');
+      setNewsEnabled(!!d.enabled);
+      flash('ok', next ? 'News feed enabled — cron will ingest.' : 'News feed disabled — cron paused.');
+    } catch (e) {
+      flash('err', e instanceof Error ? e.message : 'Toggle failed');
+    } finally {
+      setNewsBusy(false);
+    }
+  };
+
+  const openNewsEditor = (row: NewsRow | null) => {
+    if (!row) {
+      setNewsEditor({ mode: 'new', slug: '' });
+      setNewsForm({ title: '', slug: '', excerpt: '', content: '', category: 'Industry', image: '', published_at: new Date().toISOString().slice(0, 10) });
+      return;
+    }
+    setNewsEditor({ mode: 'edit', slug: row.slug });
+    setNewsForm({
+      title: row.title,
+      slug: row.slug,
+      excerpt: row.excerpt,
+      content: row.content || '',
+      category: row.category || 'Industry',
+      image: row.image || '',
+      published_at: (row.published_at || row.iso_date || '').slice(0, 10),
+    });
+  };
+
+  const saveNews = async () => {
+    if (!newsForm.title.trim() || !newsForm.slug.trim() || !newsForm.content.trim()) {
+      flash('err', 'Title, slug, content required');
+      return;
+    }
+    setNewsBusy(true);
+    try {
+      const cleanSlug = newsForm.slug.trim().toLowerCase().replace(/[^a-z0-9-]+/g, '-').replace(/(^-|-$)/g, '');
+      const payload = {
+        title: newsForm.title.trim(),
+        slug: cleanSlug,
+        excerpt: newsForm.excerpt.trim(),
+        content: newsForm.content.trim(),
+        category: newsForm.category.trim() || 'Industry',
+        image: newsForm.image.trim() || null,
+        published_at: newsForm.published_at || new Date().toISOString(),
+      };
+      const res = newsEditor?.mode === 'edit'
+        ? await fetch('/api/admin/news', { method: 'PUT', headers: mutHeaders(), body: JSON.stringify({ slug: newsEditor.slug, ...payload }) })
+        : await fetch('/api/admin/news', { method: 'POST', headers: mutHeaders(), body: JSON.stringify(payload) });
+      const d = await res.json();
+      if (!res.ok) throw new Error(d.error || 'Save failed');
+      flash('ok', newsEditor?.mode === 'edit' ? 'News updated' : 'News created');
+      setNewsEditor(null);
+      await loadAll();
+    } catch (e) {
+      flash('err', e instanceof Error ? e.message : 'Save failed');
+    } finally {
+      setNewsBusy(false);
+    }
+  };
+
+  const deleteNews = async (slug: string) => {
+    if (!confirm(`Delete news "${slug}"?`)) return;
+    setNewsBusy(true);
+    try {
+      const res = await fetch('/api/admin/news', { method: 'DELETE', headers: mutHeaders(), body: JSON.stringify({ slug }) });
+      const d = await res.json();
+      if (!res.ok) throw new Error(d.error || 'Delete failed');
+      flash('ok', 'News deleted');
+      await loadAll();
+    } catch (e) {
+      flash('err', e instanceof Error ? e.message : 'Delete failed');
+    } finally {
+      setNewsBusy(false);
+    }
+  };
+
+  const deleteAllNews = async () => {
+    if (!confirm('DELETE ALL NEWS? This cannot be undone!')) return;
+    if (!confirm('Really delete ALL news rows?')) return;
+    setNewsBusy(true);
+    try {
+      const res = await fetch('/api/admin/news', { method: 'DELETE', headers: mutHeaders(), body: JSON.stringify({ all: true }) });
+      const d = await res.json();
+      if (!res.ok) throw new Error(d.error || 'Delete-all failed');
+      flash('ok', `All news deleted (${d.deleted ?? 0} rows)`);
+      await loadAll();
+    } catch (e) {
+      flash('err', e instanceof Error ? e.message : 'Delete-all failed');
+    } finally {
+      setNewsBusy(false);
+    }
+  };
+
+  const moderateNewsComment = async (id: string, status: 'approved' | 'rejected' | 'deleted') => {
+    try {
+      const res = await fetch('/api/admin/news/comments', {
+        method: status === 'deleted' ? 'DELETE' : 'PATCH',
+        headers: mutHeaders(),
+        body: JSON.stringify({ id, status }),
+      });
+      const d = await res.json();
+      if (!res.ok) throw new Error(d.error || 'Action failed');
+      flash('ok', status === 'deleted' ? 'Comment deleted' : `Comment ${status}`);
+      await loadAll();
+    } catch (e) {
+      flash('err', e instanceof Error ? e.message : 'Action failed');
     }
   };
 
@@ -1501,74 +1651,141 @@ export default function AdminPage() {
 
           {tab === 'news' && (
             <section>
+              {/* header + toggle */}
               <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-                <h2 className="text-lg font-bold">
-                  {t('newsFeedHeading')}{' '}
-                  <span className="ml-1 rounded-full bg-emerald-500/15 px-2 py-0.5 font-mono text-2xs font-bold tabular-nums text-emerald-300">
-                    {t('autoPublished')}
-                  </span>
-                </h2>
+                <div>
+                  <h2 className="text-lg font-bold flex items-center gap-2">
+                    News — Real Site Mode
+                    <span className={`rounded-full px-2 py-0.5 text-2xs font-bold ${newsEnabled ? 'bg-emerald-500/15 text-emerald-300' : 'bg-rose-500/15 text-rose-300'}`}>
+                      {newsEnabled ? 'ENABLED' : 'DISABLED'}
+                    </span>
+                  </h2>
+                  <p className="text-2xs text-zinc-500 mt-1">No external source links. Full content stored locally. Comments moderated here.</p>
+                </div>
                 <div className="flex flex-wrap items-center gap-2">
-                  <button
-                    onClick={ingestNow}
-                    disabled={ingestBusy}
-                    className="inline-flex items-center gap-1.5 rounded-lg bg-accent-500 px-3 py-1.5 text-2xs font-bold text-black disabled:opacity-50"
-                  >
-                    {ingestBusy ? <Loader2 className="h-3 w-3 animate-spin" aria-hidden="true" /> : <Download className="h-3 w-3" aria-hidden="true" />}
-                    {t('ingestNow')}
+                  <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-surface-1 px-3 py-2">
+                    <span className="text-2xs font-bold text-zinc-400">Feed</span>
+                    <button
+                      onClick={() => toggleNewsEnabled(!newsEnabled)}
+                      disabled={newsBusy}
+                      className={`relative inline-flex h-5 w-10 items-center rounded-full transition ${newsEnabled ? 'bg-emerald-500' : 'bg-zinc-600'}`}
+                      aria-label="Toggle news feed"
+                    >
+                      <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition ${newsEnabled ? 'translate-x-5' : 'translate-x-1'}`} />
+                    </button>
+                    <span className="text-2xs text-zinc-400">{newsBusy ? '...' : newsEnabled ? 'ON — cron active' : 'OFF — cron paused'}</span>
+                  </div>
+                  <button onClick={ingestNow} disabled={ingestBusy || !newsEnabled} className="inline-flex items-center gap-1.5 rounded-lg bg-accent-500 px-3 py-2 text-2xs font-bold text-black disabled:opacity-40">
+                    {ingestBusy ? <Loader2 className="h-3 w-3 animate-spin" /> : <Download className="h-3 w-3" />} Ingest Now
+                  </button>
+                  <button onClick={() => openNewsEditor(null)} className="inline-flex items-center gap-1.5 rounded-lg bg-white text-black px-3 py-2 text-2xs font-bold">
+                    + New Article
+                  </button>
+                  <button onClick={deleteAllNews} disabled={newsBusy || news.length===0} className="inline-flex items-center gap-1.5 rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-2xs font-bold text-rose-300 disabled:opacity-40">
+                    🗑 Delete All ({news.length})
                   </button>
                 </div>
               </div>
-              <p className="mb-4 text-2xs leading-relaxed text-zinc-500">
-                {t.rich('newsIntro', {
-                  news: (chunks) => <code className="rounded bg-surface-2 px-1">{chunks}</code>,
-                })}
-              </p>
 
+              {/* editor modal */}
+              {newsEditor && (
+                <div className="mb-6 rounded-2xl border border-white/10 bg-surface-1 p-6">
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-bold">{newsEditor.mode === 'edit' ? 'Edit News' : 'New News'} — {newsEditor.mode==='edit' ? newsEditor.slug : 'draft'}</h3>
+                    <button onClick={()=>setNewsEditor(null)} className="text-2xs text-zinc-400 hover:text-white">Cancel</button>
+                  </div>
+                  <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                    <div className="sm:col-span-2">
+                      <label className="text-2xs font-semibold text-zinc-400">Title *</label>
+                      <input value={newsForm.title} onChange={e=>setNewsForm({...newsForm,title:e.target.value})} className="mt-1 w-full rounded-xl border border-white/10 bg-surface-2 px-3 py-2 text-sm text-white" />
+                    </div>
+                    <div>
+                      <label className="text-2xs font-semibold text-zinc-400">Slug *</label>
+                      <input value={newsForm.slug} onChange={e=>setNewsForm({...newsForm,slug:e.target.value})} className="mt-1 w-full rounded-xl border border-white/10 bg-surface-2 px-3 py-2 text-sm text-white" placeholder="elevenlabs-music-v2-5" />
+                    </div>
+                    <div>
+                      <label className="text-2xs font-semibold text-zinc-400">Category</label>
+                      <input value={newsForm.category} onChange={e=>setNewsForm({...newsForm,category:e.target.value})} className="mt-1 w-full rounded-xl border border-white/10 bg-surface-2 px-3 py-2 text-sm text-white" />
+                    </div>
+                    <div>
+                      <label className="text-2xs font-semibold text-zinc-400">Image URL</label>
+                      <input value={newsForm.image} onChange={e=>setNewsForm({...newsForm,image:e.target.value})} className="mt-1 w-full rounded-xl border border-white/10 bg-surface-2 px-3 py-2 text-sm text-white" placeholder="https://..." />
+                    </div>
+                    <div>
+                      <label className="text-2xs font-semibold text-zinc-400">Published Date</label>
+                      <input type="date" value={newsForm.published_at} onChange={e=>setNewsForm({...newsForm,published_at:e.target.value})} className="mt-1 w-full rounded-xl border border-white/10 bg-surface-2 px-3 py-2 text-sm text-white" />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="text-2xs font-semibold text-zinc-400">Excerpt (short summary)</label>
+                      <textarea rows={2} value={newsForm.excerpt} onChange={e=>setNewsForm({...newsForm,excerpt:e.target.value})} className="mt-1 w-full rounded-xl border border-white/10 bg-surface-2 px-3 py-2 text-sm text-white" />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="text-2xs font-semibold text-zinc-400">Full Content * (no source links)</label>
+                      <textarea rows={12} value={newsForm.content} onChange={e=>setNewsForm({...newsForm,content:e.target.value})} className="mt-1 w-full rounded-xl border border-white/10 bg-surface-2 px-3 py-2 font-mono text-xs text-white" placeholder="Write full article here..." />
+                      <p className="mt-1 text-2xs text-zinc-500">{newsForm.content.length} chars — will be split by blank lines on frontend</p>
+                    </div>
+                  </div>
+                  <div className="mt-4 flex gap-2">
+                    <button onClick={saveNews} disabled={newsBusy} className="rounded-xl bg-accent-500 px-5 py-2 text-2xs font-bold text-black disabled:opacity-50">
+                      {newsBusy ? 'Saving...' : newsEditor.mode==='edit' ? 'Update Article' : 'Create Article'}
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* news list */}
               {news.length === 0 ? (
-                <p className="rounded-xl border border-white/10 bg-surface-1 p-6 text-sm text-zinc-500">
-                  {t.rich('noNewsYet', {
-                    code: (chunks) => <code className="rounded bg-surface-2 px-1">{chunks}</code>,
-                  })}
-                </p>
+                <p className="rounded-xl border border-white/10 bg-surface-1 p-6 text-sm text-zinc-500">No news yet. Click “Ingest Now” or create manually.</p>
               ) : (
                 <ul className="space-y-3">
                   {news.map((n) => (
                     <li key={n.slug} className="rounded-xl border border-white/10 bg-surface-1 p-5">
                       <div className="flex flex-wrap items-start justify-between gap-3">
                         <div className="min-w-0 max-w-2xl">
-                          <div className="flex flex-wrap items-center gap-2">
+                          <div className="flex items-center gap-2">
                             <h3 className="font-bold text-white">{n.title}</h3>
-                            {n.ai_summarized && (
-                              <span className="rounded-md bg-cyan-500/15 px-2 py-0.5 text-2xs font-bold text-cyan-300">
-                                {t('aiSummary')}
-                              </span>
-                            )}
+                            <span className="rounded bg-zinc-700 px-1.5 py-0.5 text-2xs text-zinc-300">{n.category}</span>
+                            <span className="text-2xs text-zinc-500">{new Date(n.published_at).toLocaleDateString()}</span>
                           </div>
-                          <p className="mt-1 text-2xs leading-relaxed text-zinc-400">{n.excerpt}</p>
-                          <p className="mt-1.5 text-2xs text-zinc-500">
-                            {n.source} · {n.category} ·{' '}
-                            {new Date(n.published_at).toLocaleDateString()} ·{' '}
-                            <a
-                              href={n.source_url}
-                              target="_blank"
-                              rel="noopener noreferrer nofollow"
-                              className="inline-flex items-center gap-1 text-accent-400 hover:text-accent-300"
-                            >
-                              {t('original')} <ExternalLink className="h-3 w-3" aria-hidden="true" />
-                            </a>
-                          </p>
+                          <p className="mt-1 line-clamp-2 text-2xs text-zinc-400">{n.excerpt}</p>
+                          <p className="mt-1 text-2xs text-zinc-500">{n.content ? `${n.content.length} chars` : 'no content'} {n.image ? '· has image' : ''}</p>
                         </div>
                         <div className="flex shrink-0 items-center gap-2">
-                          <span className="rounded-md bg-emerald-500/15 px-2 py-1 text-2xs font-bold text-emerald-300">
-                            {t('live')}
-                          </span>
+                          <button onClick={()=>openNewsEditor(n)} className="rounded-lg bg-surface-2 border border-white/10 px-3 py-1.5 text-2xs font-bold text-zinc-300">Edit</button>
+                          <button onClick={()=>deleteNews(n.slug)} className="rounded-lg border border-rose-500/20 bg-rose-500/10 px-3 py-1.5 text-2xs font-bold text-rose-300">Delete</button>
                         </div>
                       </div>
                     </li>
                   ))}
                 </ul>
               )}
+
+              {/* comments moderation */}
+              <div className="mt-10">
+                <h3 className="text-base font-bold mb-3">Comments Moderation ({newsComments.length})</h3>
+                {newsComments.length===0 ? (
+                  <p className="rounded-xl border border-white/10 bg-surface-1 p-4 text-2xs text-zinc-500">No comments yet.</p>
+                ) : (
+                  <ul className="space-y-2">
+                    {newsComments.map(c=>(
+                      <li key={c.id} className="rounded-xl border border-white/10 bg-surface-1 p-4">
+                        <div className="flex justify-between gap-3">
+                          <div className="min-w-0">
+                            <p className="text-2xs font-bold text-white">{c.author_name} · <span className="text-zinc-500">{c.news_slug}</span> · {new Date(c.created_at).toLocaleString()}</p>
+                            <p className="mt-1 text-xs text-zinc-300">{c.body}</p>
+                            <span className={`mt-2 inline-block rounded px-2 py-0.5 text-2xs font-bold ${c.status==='approved'?'bg-emerald-500/15 text-emerald-300': c.status==='pending'?'bg-amber-500/15 text-amber-300':'bg-rose-500/15 text-rose-300'}`}>{c.status}</span>
+                          </div>
+                          <div className="flex shrink-0 flex-col gap-1">
+                            {c.status!=='approved' && <button onClick={()=>moderateNewsComment(c.id,'approved')} className="rounded bg-emerald-500 px-3 py-1 text-2xs font-bold text-black">Approve</button>}
+                            {c.status!=='rejected' && <button onClick={()=>moderateNewsComment(c.id,'rejected')} className="rounded border border-white/10 px-3 py-1 text-2xs font-bold text-zinc-300">Reject</button>}
+                            <button onClick={()=>moderateNewsComment(c.id,'deleted')} className="rounded border border-rose-500/20 bg-rose-500/10 px-3 py-1 text-2xs font-bold text-rose-300">Delete</button>
+                          </div>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
             </section>
           )}
 
