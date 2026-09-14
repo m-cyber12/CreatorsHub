@@ -12,14 +12,17 @@ export function ToolHeroCover({
   logo,
   coverImage,
   previewVideoUrl,
+  demoVideoUrl,
 }: {
   slug: string;
   name: string;
   logo?: string;
   coverImage?: string;
   previewVideoUrl?: string;
+  demoVideoUrl?: string;
 }) {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const videoUrl = demoVideoUrl || previewVideoUrl;
 
   return (
     <>
@@ -39,7 +42,7 @@ export function ToolHeroCover({
         )}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface-0 via-black/30 to-transparent" />
 
-        {previewVideoUrl && (
+        {videoUrl && (
           <div className="absolute inset-0 flex items-center justify-center">
             <button
               type="button"
@@ -53,12 +56,12 @@ export function ToolHeroCover({
         )}
       </div>
 
-      {previewVideoUrl && (
+      {videoUrl && (
         <VideoModal
           isOpen={isVideoModalOpen}
           onClose={() => setIsVideoModalOpen(false)}
           toolName={name}
-          videoUrl={previewVideoUrl}
+          videoUrl={videoUrl}
         />
       )}
     </>

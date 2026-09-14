@@ -811,7 +811,7 @@ export default function AdminPage() {
         category: 'Video Generation', pricing: 'Free', startingPrice: '',
         description: '', longDescription: '', pageIntro: '', bestFor: '',
         tags: '', verificationLevel: 'listed-only', isFeatured: false, isEditorsChoice: false,
-        affiliateUrl: '', affiliateProgram: '', previewVideoUrl: '',
+        affiliateUrl: '', affiliateProgram: '', previewVideoUrl: '', demoVideoUrl: '',
       });
       return;
     }
@@ -828,6 +828,7 @@ export default function AdminPage() {
       isFeatured: !!tool.isFeatured, isEditorsChoice: !!tool.isEditorsChoice,
       affiliateUrl: String(tool.affiliateUrl ?? ''), affiliateProgram: String(tool.affiliateProgram ?? ''),
       previewVideoUrl: String(tool.previewVideoUrl ?? ''),
+      demoVideoUrl: String(tool.demoVideoUrl ?? ''),
     });
   };
 
@@ -856,6 +857,7 @@ export default function AdminPage() {
         affiliateUrl: String(toolForm.affiliateUrl ?? '').trim(),
         affiliateProgram: String(toolForm.affiliateProgram ?? ''),
         previewVideoUrl: String(toolForm.previewVideoUrl ?? '').trim(),
+        demoVideoUrl: String(toolForm.demoVideoUrl ?? '').trim(),
       };
       const cleanSlug = slug.trim().toLowerCase().replace(/[^a-z0-9-]+/g, '-').replace(/(^-|-$)/g, '');
       const res =
@@ -876,10 +878,10 @@ export default function AdminPage() {
 
   const [uploading, setUploading] = useState<string | null>(null); // 'logo' | 'coverImage'
 
-  const uploadImage = async (field: 'logo' | 'coverImage' | 'previewVideoUrl') => {
+  const uploadImage = async (field: 'logo' | 'coverImage' | 'previewVideoUrl' | 'demoVideoUrl') => {
     const input = document.createElement('input');
     input.type = 'file';
-    input.accept = field === 'previewVideoUrl' ? 'video/*' : 'image/*';
+    input.accept = field === 'previewVideoUrl' || field === 'demoVideoUrl' ? 'video/*' : 'image/*';
     input.onchange = async () => {
       const file = input.files?.[0];
       if (!file) return;
@@ -1101,7 +1103,9 @@ export default function AdminPage() {
     withLogo: tools.filter((tool) => String(tool.logo ?? '').trim()).length,
     withCover: tools.filter((tool) => String(tool.coverImage ?? '').trim()).length,
     withAffiliate: tools.filter((tool) => String(tool.affiliateUrl ?? '').trim()).length,
-    withVideo: tools.filter((tool) => String(tool.previewVideoUrl ?? '').trim()).length,
+    withPreview: tools.filter((tool) => String(tool.previewVideoUrl ?? '').trim()).length,
+    withDemo: tools.filter((tool) => String(tool.demoVideoUrl ?? '').trim()).length,
+    withVideo: tools.filter((tool) => String(tool.previewVideoUrl ?? '').trim() || String(tool.demoVideoUrl ?? '').trim()).length,
     edited: tools.filter((tool) => (tool.overriddenFields?.length ?? 0) > 0).length,
   };
 
@@ -1121,14 +1125,14 @@ export default function AdminPage() {
 
   const exportToolsCsv = () => {
     const rows: Array<Array<string | number>> = [
-      ['#', 'name', 'slug', 'category', 'pricing', 'price', 'url', 'go_link', 'affiliate_url', 'affiliate_program', 'logo', 'cover', 'video', 'edited_fields'],
+      ['#', 'name', 'slug', 'category', 'pricing', 'price', 'url', 'go_link', 'affiliate_url', 'affiliate_program', 'logo', 'cover', 'preview_video', 'demo_video', 'edited_fields'],
       ...tools.map((tool, i) => [
         i + 1,
         String(tool.name ?? ''), String(tool.slug ?? ''), String(tool.category ?? ''),
         String(tool.pricing ?? ''), String(tool.startingPrice ?? ''), String(tool.url ?? ''),
         `${SITE_URL}/go/${tool.slug}`,
         String(tool.affiliateUrl ?? ''), String(tool.affiliateProgram ?? ''),
-        String(tool.logo ?? ''), String(tool.coverImage ?? ''), String(tool.previewVideoUrl ?? ''),
+        String(tool.logo ?? ''), String(tool.coverImage ?? ''), String(tool.previewVideoUrl ?? ''), String(tool.demoVideoUrl ?? ''),
         (tool.overriddenFields?.length ?? 0) > 0 ? 'edited' : '',
       ]),
     ];
@@ -1239,12 +1243,13 @@ export default function AdminPage() {
                       </div>
                     ))}
                   </div>
-                  <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-5">
+                  <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-6">
                     {[
                       [t('compLogo'), completeness.withLogo, tools.length],
                       [t('compCover'), completeness.withCover, tools.length],
                       [t('compAffiliate'), completeness.withAffiliate, tools.length],
-                      [t('compVideo'), completeness.withVideo, tools.length],
+                      ['Preview', completeness.withPreview, tools.length],
+                      ['Demo', completeness.withDemo, tools.length],
                       [t('compEdited'), completeness.edited, tools.length],
                     ].map(([label, val, total]) => (
                       <div key={label as string} className="rounded-xl border border-white/10 bg-surface-1 px-3 py-2">
@@ -2146,71 +2151,110 @@ export default function AdminPage() {
                     </div>
                   </div>
 
-                  <p className="mt-5 text-2xs font-bold uppercase tracking-wider text-zinc-500">{t('videoSection')}</p>
-                  <div className="mt-2">
-                    <label htmlFor="tf-previewVideoUrl" className="block text-2xs font-semibold text-zinc-400">
-                      {t('fieldVideoUrl')}{' '}
-                      <span className="font-normal text-zinc-600">({t('videoHint')})</span>
-                    </label>
-                    <div className="mt-1 flex items-start gap-2">
-                      <input
-                        id="tf-previewVideoUrl"
-                        value={String(toolForm.previewVideoUrl ?? '')}
-                        onChange={(e) => setToolForm({ ...toolForm, previewVideoUrl: e.target.value })}
-                        placeholder="https://your-cdn.com/tool-demo.mp4"
-                        className="w-full rounded-xl border border-white/10 bg-surface-2 px-3 py-2 text-sm text-white placeholder-zinc-500 focus:border-accent-500 focus:outline-none"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => uploadImage('previewVideoUrl')}
-                        disabled={uploading !== null}
-                        className="shrink-0 rounded-xl border border-white/10 bg-surface-2 px-3 py-2 text-2xs font-bold text-accent-300 hover:bg-white/5 disabled:opacity-50"
-                      >
-                        {uploading === 'previewVideoUrl' ? t('uploading') : t('uploadVideo')}
-                      </button>
+                  <p className="mt-5 text-2xs font-bold uppercase tracking-wider text-zinc-500">{t('videoSection')} — Preview (hover) vs Demo (detail)</p>
+                  <div className="mt-2 grid gap-4 sm:grid-cols-2">
+                    <div>
+                      <label htmlFor="tf-previewVideoUrl" className="block text-2xs font-semibold text-zinc-400">
+                        Preview — short mp4 (card hover only){' '}
+                        <span className="font-normal text-zinc-600">(hover preview, motion graphic)</span>
+                      </label>
+                      <div className="mt-1 flex items-start gap-2">
+                        <input
+                          id="tf-previewVideoUrl"
+                          value={String(toolForm.previewVideoUrl ?? '')}
+                          onChange={(e) => setToolForm({ ...toolForm, previewVideoUrl: e.target.value })}
+                          placeholder="https://your-cdn.com/tool-preview.mp4"
+                          className="w-full rounded-xl border border-white/10 bg-surface-2 px-3 py-2 text-sm text-white placeholder-zinc-500 focus:border-accent-500 focus:outline-none"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => uploadImage('previewVideoUrl')}
+                          disabled={uploading !== null}
+                          className="shrink-0 rounded-xl border border-white/10 bg-surface-2 px-3 py-2 text-2xs font-bold text-accent-300 hover:bg-white/5 disabled:opacity-50"
+                        >
+                          {uploading === 'previewVideoUrl' ? t('uploading') : t('uploadVideo')}
+                        </button>
+                      </div>
+                      <p className="mt-1 text-2xs leading-relaxed text-zinc-500">Short loop, muted, plays on card hover. Keep small (motion graphic from cover).</p>
+                      {String(toolForm.previewVideoUrl ?? '') && !/youtu\.be\/|youtube\.com\/|vimeo\.com\//.test(String(toolForm.previewVideoUrl ?? '')) && (
+                        <video
+                          src={String(toolForm.previewVideoUrl)}
+                          muted
+                          loop
+                          playsInline
+                          controls
+                          className="mt-2 max-h-40 w-full rounded-xl border border-white/10 bg-black/40 object-contain"
+                          onError={(e) => {
+                            (e.currentTarget as HTMLVideoElement).style.display = 'none';
+                          }}
+                        />
+                      )}
                     </div>
-                    <p className="mt-1 text-2xs leading-relaxed text-zinc-500">{t('videoNote')}</p>
-                    {String(toolForm.previewVideoUrl ?? '') && !/youtu\.be\/|youtube\.com\/|vimeo\.com\//.test(String(toolForm.previewVideoUrl ?? '')) && (
-                      <video
-                        src={String(toolForm.previewVideoUrl)}
-                        muted
-                        loop
-                        playsInline
-                        controls
-                        className="mt-2 max-h-40 w-full rounded-xl border border-white/10 bg-black/40 object-contain"
-                        onError={(e) => {
-                          (e.currentTarget as HTMLVideoElement).style.display = 'none';
-                        }}
-                      />
-                    )}
-                    {/youtu\.be\/|youtube\.com\//.test(String(toolForm.previewVideoUrl ?? '')) && (
-                      <div className="mt-2 overflow-hidden rounded-xl border border-white/10 bg-black">
-                        <iframe
-                          src={`https://www.youtube.com/embed/${String(toolForm.previewVideoUrl).match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/|v\/))([a-zA-Z0-9_-]{11})/i)?.[1] || ''}?rel=0&modestbranding=1&playsinline=1`}
-                          title="YouTube Video Preview"
-                          className="h-44 w-full border-0"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
+                    <div>
+                      <label htmlFor="tf-demoVideoUrl" className="block text-2xs font-semibold text-zinc-400">
+                        Demo — YouTube/Vimeo/mp4 (detail page + modal){' '}
+                        <span className="font-normal text-zinc-600">(real test video)</span>
+                      </label>
+                      <div className="mt-1 flex items-start gap-2">
+                        <input
+                          id="tf-demoVideoUrl"
+                          value={String(toolForm.demoVideoUrl ?? '')}
+                          onChange={(e) => setToolForm({ ...toolForm, demoVideoUrl: e.target.value })}
+                          placeholder="https://www.youtube.com/watch?v=..."
+                          className="w-full rounded-xl border border-white/10 bg-surface-2 px-3 py-2 text-sm text-white placeholder-zinc-500 focus:border-accent-500 focus:outline-none"
                         />
-                        <p className="border-t border-white/10 bg-surface-2/60 px-3 py-1.5 text-2xs text-emerald-300">
-                          ✓ YouTube embed detected (plays interactively on tool page with demo badge on cards)
-                        </p>
+                        <button
+                          type="button"
+                          onClick={() => uploadImage('demoVideoUrl')}
+                          disabled={uploading !== null}
+                          className="shrink-0 rounded-xl border border-white/10 bg-surface-2 px-3 py-2 text-2xs font-bold text-accent-300 hover:bg-white/5 disabled:opacity-50"
+                        >
+                          {uploading === 'demoVideoUrl' ? t('uploading') : t('uploadVideo')}
+                        </button>
                       </div>
-                    )}
-                    {/vimeo\.com\//.test(String(toolForm.previewVideoUrl ?? '')) && (
-                      <div className="mt-2 overflow-hidden rounded-xl border border-white/10 bg-black">
-                        <iframe
-                          src={`https://player.vimeo.com/video/${String(toolForm.previewVideoUrl).match(/vimeo\.com\/(\d+)/)?.[1] || ''}`}
-                          title="Vimeo Video Preview"
-                          className="h-44 w-full border-0"
-                          allow="autoplay; fullscreen; picture-in-picture"
-                          allowFullScreen
+                      <p className="mt-1 text-2xs leading-relaxed text-zinc-500">Real demo/test video from YouTube. Shown on /tool/[slug] and in Demo Video modal. Does NOT affect hover preview.</p>
+                      {String(toolForm.demoVideoUrl ?? '') && !/youtu\.be\/|youtube\.com\/|vimeo\.com\//.test(String(toolForm.demoVideoUrl ?? '')) && (
+                        <video
+                          src={String(toolForm.demoVideoUrl)}
+                          muted
+                          loop
+                          playsInline
+                          controls
+                          className="mt-2 max-h-40 w-full rounded-xl border border-white/10 bg-black/40 object-contain"
+                          onError={(e) => {
+                            (e.currentTarget as HTMLVideoElement).style.display = 'none';
+                          }}
                         />
-                        <p className="border-t border-white/10 bg-surface-2/60 px-3 py-1.5 text-2xs text-emerald-300">
-                          ✓ Vimeo embed detected (plays interactively on tool page with demo badge on cards)
-                        </p>
-                      </div>
-                    )}
+                      )}
+                      {/youtu\.be\/|youtube\.com\//.test(String(toolForm.demoVideoUrl ?? '')) && (
+                        <div className="mt-2 overflow-hidden rounded-xl border border-white/10 bg-black">
+                          <iframe
+                            src={`https://www.youtube.com/embed/${String(toolForm.demoVideoUrl).match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/|v\/))([a-zA-Z0-9_-]{11})/i)?.[1] || ''}?rel=0&modestbranding=1&playsinline=1`}
+                            title="YouTube Demo Preview"
+                            className="h-44 w-full border-0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                          />
+                          <p className="border-t border-white/10 bg-surface-2/60 px-3 py-1.5 text-2xs text-emerald-300">
+                            ✓ YouTube demo embed (shown on tool detail page)
+                          </p>
+                        </div>
+                      )}
+                      {/vimeo\.com\//.test(String(toolForm.demoVideoUrl ?? '')) && (
+                        <div className="mt-2 overflow-hidden rounded-xl border border-white/10 bg-black">
+                          <iframe
+                            src={`https://player.vimeo.com/video/${String(toolForm.demoVideoUrl).match(/vimeo\.com\/(\d+)/)?.[1] || ''}`}
+                            title="Vimeo Demo Preview"
+                            className="h-44 w-full border-0"
+                            allow="autoplay; fullscreen; picture-in-picture"
+                            allowFullScreen
+                          />
+                          <p className="border-t border-white/10 bg-surface-2/60 px-3 py-1.5 text-2xs text-emerald-300">
+                            ✓ Vimeo demo embed (shown on tool detail page)
+                          </p>
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   <p className="mt-5 text-2xs font-bold uppercase tracking-wider text-zinc-500">{t('toolDescription')}</p>

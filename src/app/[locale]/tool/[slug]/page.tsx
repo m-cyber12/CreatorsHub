@@ -285,6 +285,7 @@ export default async function ToolDetailPage({
             logo={tool.logo}
             coverImage={tool.coverImage}
             previewVideoUrl={tool.previewVideoUrl}
+            demoVideoUrl={tool.demoVideoUrl}
           />
           <div className="relative -mt-16 px-6 pb-6 sm:px-8">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end">
@@ -423,9 +424,9 @@ export default async function ToolDetailPage({
         {/* Price-check evidence: parsed plans + official source + note. */}
         {tool.verificationLevel === 'pricing-verified' && <PricingPlansSection tool={tool} />}
 
-        {/* Dedicated Video Demo & Walkthrough section */}
-        {tool.previewVideoUrl && (
-          <ToolVideoDemoSection toolName={tool.name} videoUrl={tool.previewVideoUrl} />
+        {/* Dedicated Video Demo & Walkthrough section — uses demoVideoUrl (real test video), NOT preview */}
+        {(tool.demoVideoUrl || tool.previewVideoUrl) && (
+          <ToolVideoDemoSection toolName={tool.name} videoUrl={tool.demoVideoUrl || tool.previewVideoUrl!} />
         )}
 
         {/* A contextual handoff only — this does not rank or recommend the current external tool. */}

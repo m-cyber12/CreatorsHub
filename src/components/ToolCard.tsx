@@ -10,13 +10,7 @@ import { SmartImage } from '@/components/SmartImage';
 import { CoverArt } from '@/components/CoverArt';
 import { VideoModal } from '@/components/VideoModal';
 import { useCompare } from '@/context/AppProviders';
-import {
-  isDirectVideoUrl,
-  isYouTubeUrl,
-  isVimeoUrl,
-  getYouTubeEmbedUrl,
-  getVimeoEmbedUrl,
-} from '@/lib/videoUtils';
+import { isDirectVideoUrl } from '@/lib/videoUtils';
 
 interface ToolCardProps {
   tool: Tool;
@@ -56,21 +50,16 @@ export function ToolCard({ tool, index = 0 }: ToolCardProps) {
   const isCompared = compareList.includes(tool.slug);
 
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [videoError, setVideoError] = useState(false);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
 
-  const hasDirectVideo = Boolean(tool.previewVideoUrl && isDirectVideoUrl(tool.previewVideoUrl));
-  const isYouTube = Boolean(tool.previewVideoUrl && isYouTubeUrl(tool.previewVideoUrl));
-  const isVimeo = Boolean(tool.previewVideoUrl && isVimeoUrl(tool.previewVideoUrl));
-  const hasExternalVideo = isYouTube || isVimeo;
-  const hasVideo = Boolean(tool.previewVideoUrl);
-
-  const embedUrl = isYouTube
-    ? getYouTubeEmbedUrl(tool.previewVideoUrl, true)
-    : isVimeo
-    ? getVimeoEmbedUrl(tool.previewVideoUrl, true)
-    : null;
+  // Preview = short mp4/webm motion graphic from cover, played on card hover ONLY
+  const hasPreviewVideo = Boolean(tool.previewVideoUrl && isDirectVideoUrl(tool.previewVideoUrl));
+  // Demo = real test video (YouTube/Vimeo/mp4) shown on detail page + modal, NOT on hover
+  const hasDemoVideo = Boolean(tool.demoVideoUrl);
+  const modalVideoUrl = tool.demoVideoUrl || undefined;
 
   // Optimized 3D tilt + cursor glare with requestAnimationFrame
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -105,25 +94,29 @@ export function ToolCard({ tool, index = 0 }: ToolCardProps) {
 
   const handleMouseEnterCard = useCallback(() => {
     setIsHovered(true);
-    if (!hasDirectVideo || videoError) return;
+    if (!hasPreviewVideo || videoError) return;
     const video = videoRef.current;
     if (!video) return;
-    // Unified preview: try to play direct mp4 on hover, muted loop
+
     if (video.paused) {
-      const p = video.play();
-      if (p !== undefined) p.catch(() => {});
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => setIsVideoPlaying(true))
+          .catch(() => setIsVideoPlaying(false));
+      }
     }
-  }, [hasDirectVideo, videoError]);
+  }, [hasPreviewVideo, videoError]);
 
   const handleMouseLeaveCard = useCallback(() => {
     setIsHovered(false);
-    if (!hasDirectVideo) return;
+    if (!hasPreviewVideo) return;
     const video = videoRef.current;
     if (video) {
       video.pause();
-      try { video.currentTime = 0; } catch {}
+      setIsVideoPlaying(false);
     }
-  }, [hasDirectVideo]);
+  }, [hasPreviewVideo]);
 
   return (
     <>
@@ -140,7 +133,7 @@ export function ToolCard({ tool, index = 0 }: ToolCardProps) {
           className="card-enter relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-surface-1 transition-[border-color,box-shadow] duration-300 group-hover:border-accent-500/40 group-hover:shadow-[0_20px_60px_-16px_rgba(139,92,246,0.4),0_0_24px_-6px_rgba(247,201,72,0.25)]"
           data-delay={index % 6}
         >
-          {/* Cover with video preview & fallback art */}
+          {/* Cover with preview video & fallback art */}
           <div
             className="relative block aspect-[16/9] overflow-hidden bg-surface-2 group/cover cursor-pointer"
             onMouseEnter={handleMouseEnterCard}
@@ -171,8 +164,8 @@ export function ToolCard({ tool, index = 0 }: ToolCardProps) {
               )}
             </Link>
 
-            {/* Unified Video Preview on hover — direct mp4 OR YouTube/Vimeo iframe */}
-            {hasDirectVideo && !videoError && (
+            {/* Preview video on hover — short motion graphic from cover, NOT demo */}
+            {hasPreviewVideo && !videoError && (
               <video
                 ref={videoRef}
                 src={tool.previewVideoUrl}
@@ -180,29 +173,22 @@ export function ToolCard({ tool, index = 0 }: ToolCardProps) {
                 loop
                 playsInline
                 preload="metadata"
-                onError={() => setVideoError(true)}
+                onPlaying={() => setIsVideoPlaying(true)}
+                onPause={() => setIsVideoPlaying(false)}
+                onError={() => {
+                  setVideoError(true);
+                  setIsVideoPlaying(false);
+                }}
                 className={`pointer-events-none absolute inset-0 z-[1] h-full w-full object-cover transition-opacity duration-300 ${
-                  isHovered ? 'opacity-100' : 'opacity-0'
+                  isVideoPlaying ? 'opacity-100' : 'opacity-0'
                 }`}
-              />
+              >
+                <track kind="captions" />
+              </video>
             )}
 
-            {/* External YouTube / Vimeo hover demo — same z-layer, same trigger */}
-            {hasExternalVideo && isHovered && embedUrl && !videoError && (
-              <div className="absolute inset-0 z-[1] overflow-hidden bg-black pointer-events-none">
-                <iframe
-                  src={embedUrl}
-                  title={`${tool.name} demo`}
-                  className="h-full w-full border-0"
-                  allow="autoplay; encrypted-media; picture-in-picture"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
-              </div>
-            )}
-
-            {/* Video Lightbox trigger button */}
-            {hasVideo && (
+            {/* Demo badge — only if real demo video exists, does NOT trigger preview */}
+            {hasDemoVideo && (
               <button
                 type="button"
                 onClick={(e) => {
@@ -211,7 +197,7 @@ export function ToolCard({ tool, index = 0 }: ToolCardProps) {
                   setIsVideoModalOpen(true);
                 }}
                 className="absolute left-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-lg border border-accent-500/40 bg-black/80 px-2.5 py-1 text-2xs font-bold text-accent-300 shadow-lg backdrop-blur-md transition-all hover:scale-105 hover:bg-accent-500 hover:text-black"
-                aria-label={`Play video demo for ${tool.name}`}
+                aria-label={`Play demo video for ${tool.name}`}
               >
                 <Play className="h-3 w-3 fill-current text-current" />
                 <span>Demo Video</span>
@@ -340,13 +326,13 @@ export function ToolCard({ tool, index = 0 }: ToolCardProps) {
         </article>
       </div>
 
-      {/* Video Modal */}
-      {hasVideo && (
+      {/* Demo Video Modal — uses demoVideoUrl (real YouTube test video), NOT preview */}
+      {hasDemoVideo && modalVideoUrl && (
         <VideoModal
           isOpen={isVideoModalOpen}
           onClose={() => setIsVideoModalOpen(false)}
           toolName={tool.name}
-          videoUrl={tool.previewVideoUrl}
+          videoUrl={modalVideoUrl}
           toolUrl={tool.url}
         />
       )}
