@@ -109,7 +109,7 @@ function mergeTool(tool: Tool, o: ToolOverride): Tool {
   const pick: (keyof Tool)[] = [
     'name', 'tagline', 'description', 'longDescription', 'pageIntro', 'bestFor',
     'url', 'logo', 'coverImage', 'previewVideoUrl', 'category', 'pricing', 'startingPrice', 'tags', 'metrics',
-    'verificationLevel', 'isFeatured', 'isEditorsChoice', 'isNew',
+    'verificationLevel', 'isFeatured', 'isEditorsChoice', 'isNew', 'isTrending', 'hasFounderBadge',
     'pricingSourceUrl', 'pricingCheckedAt', 'descriptionSource',
     'affiliateUrl', 'affiliateProgram',
   ];

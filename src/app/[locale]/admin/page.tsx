@@ -444,7 +444,7 @@ export default function AdminPage() {
       });
       const d = await res.json();
       if (!res.ok) throw new Error(d.error || 'Update failed');
-      flash('ok', `${slug}: ${flag} is now ${!currentVal ? 'ON (فعال)' : 'OFF (غیرفعال)'}`);
+      flash('ok', `${slug}: ${flag} is now ${!currentVal ? 'ON' : 'OFF'}`);
       await loadAll();
     } catch (err: unknown) {
       flash('err', err instanceof Error ? err.message : 'Update failed');
@@ -1438,7 +1438,7 @@ export default function AdminPage() {
                           {c.notes && <p className="mt-1 text-2xs italic text-zinc-400">&ldquo;{c.notes}&rdquo;</p>}
                           <p className="mt-1.5 text-2xs text-zinc-500">
                             Date: {new Date(c.created_at).toLocaleString()} · Will embed badge:{' '}
-                            {c.will_embed_badge ? 'Yes (بله)' : 'No'}
+                            {c.will_embed_badge ? 'Yes' : 'No'}
                           </p>
 
                           <div className="mt-3 flex flex-wrap items-center gap-2">
@@ -2186,7 +2186,7 @@ export default function AdminPage() {
                     {/youtu\.be\/|youtube\.com\//.test(String(toolForm.previewVideoUrl ?? '')) && (
                       <div className="mt-2 overflow-hidden rounded-xl border border-white/10 bg-black">
                         <iframe
-                          src={`https://www.youtube-nocookie.com/embed/${String(toolForm.previewVideoUrl).match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/|v\/))([a-zA-Z0-9_-]{11})/i)?.[1] || ''}`}
+                          src={`https://www.youtube.com/embed/${String(toolForm.previewVideoUrl).match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/|v\/))([a-zA-Z0-9_-]{11})/i)?.[1] || ''}?rel=0&modestbranding=1&playsinline=1`}
                           title="YouTube Video Preview"
                           className="h-44 w-full border-0"
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

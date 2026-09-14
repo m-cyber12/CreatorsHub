@@ -205,9 +205,12 @@ export function ToolCard({ tool, index = 0 }: ToolCardProps) {
                 <iframe
                   src={embedUrl}
                   title={`${tool.name} preview`}
-                  className="h-full w-full border-0 scale-125 opacity-90"
-                  allow="autoplay; encrypted-media"
+                  className="h-full w-full border-0 opacity-95"
+                  allow="autoplay; encrypted-media; picture-in-picture"
+                  loading="lazy"
                 />
+                {/* subtle gradient to keep pricing badge readable */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
               </div>
             )}
 

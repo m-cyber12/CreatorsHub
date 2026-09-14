@@ -35,7 +35,16 @@ export function getYouTubeEmbedUrl(url?: string | null, autoplay = true): string
   const id = getYouTubeVideoId(url);
   if (!id) return null;
   const autoParam = autoplay ? '1' : '0';
-  return `https://www.youtube-nocookie.com/embed/${id}?autoplay=${autoParam}&enablejsapi=1&rel=0&modestbranding=1&playsinline=1&mute=${autoplay ? 1 : 0}`;
+  const muteParam = autoplay ? '1' : '0';
+  // Use youtube.com (not nocookie) — nocookie blocks many videos with "Video unavailable"
+  // youtube.com is more permissive and handles age-restricted / ad-supported videos better.
+  // For hover previews we loop via playlist param; for modal we keep controls.
+  const loopPart = autoplay ? `&loop=1&playlist=${id}` : '';
+  const base = `https://www.youtube.com/embed/${id}?autoplay=${autoParam}&mute=${muteParam}&rel=0&modestbranding=1&playsinline=1&controls=1&iv_load_policy=3&enablejsapi=1${loopPart}`;
+  if (typeof window !== 'undefined' && window.location?.origin) {
+    return `${base}&origin=${encodeURIComponent(window.location.origin)}`;
+  }
+  return base;
 }
 
 export function getYouTubeThumbnail(url?: string | null): string | null {
@@ -59,7 +68,8 @@ export function getVimeoEmbedUrl(url?: string | null, autoplay = true): string |
   const id = getVimeoVideoId(url);
   if (!id) return null;
   const autoParam = autoplay ? '1' : '0';
-  return `https://player.vimeo.com/video/${id}?autoplay=${autoParam}&muted=${autoplay ? 1 : 0}&responsive=1`;
+  const loopPart = autoplay ? '&loop=1&background=1' : '';
+  return `https://player.vimeo.com/video/${id}?autoplay=${autoParam}&muted=${autoplay ? 1 : 0}&responsive=1${loopPart}`;
 }
 
 export function isDirectVideoUrl(url?: string | null): boolean {
