@@ -56,7 +56,6 @@ export function ToolCard({ tool, index = 0 }: ToolCardProps) {
   const isCompared = compareList.includes(tool.slug);
 
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [videoError, setVideoError] = useState(false);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
@@ -109,14 +108,10 @@ export function ToolCard({ tool, index = 0 }: ToolCardProps) {
     if (!hasDirectVideo || videoError) return;
     const video = videoRef.current;
     if (!video) return;
-
+    // Unified preview: try to play direct mp4 on hover, muted loop
     if (video.paused) {
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => setIsVideoPlaying(true))
-          .catch(() => setIsVideoPlaying(false));
-      }
+      const p = video.play();
+      if (p !== undefined) p.catch(() => {});
     }
   }, [hasDirectVideo, videoError]);
 
@@ -126,7 +121,7 @@ export function ToolCard({ tool, index = 0 }: ToolCardProps) {
     const video = videoRef.current;
     if (video) {
       video.pause();
-      setIsVideoPlaying(false);
+      try { video.currentTime = 0; } catch {}
     }
   }, [hasDirectVideo]);
 
@@ -176,7 +171,7 @@ export function ToolCard({ tool, index = 0 }: ToolCardProps) {
               )}
             </Link>
 
-            {/* Direct Video preview on hover */}
+            {/* Unified Video Preview on hover — direct mp4 OR YouTube/Vimeo iframe */}
             {hasDirectVideo && !videoError && (
               <video
                 ref={videoRef}
@@ -185,31 +180,23 @@ export function ToolCard({ tool, index = 0 }: ToolCardProps) {
                 loop
                 playsInline
                 preload="metadata"
-                onPlaying={() => setIsVideoPlaying(true)}
-                onPause={() => setIsVideoPlaying(false)}
-                onError={() => {
-                  setVideoError(true);
-                  setIsVideoPlaying(false);
-                }}
+                onError={() => setVideoError(true)}
                 className={`pointer-events-none absolute inset-0 z-[1] h-full w-full object-cover transition-opacity duration-300 ${
-                  isVideoPlaying ? 'opacity-100' : 'opacity-0'
+                  isHovered ? 'opacity-100' : 'opacity-0'
                 }`}
-              >
-                <track kind="captions" />
-              </video>
+              />
             )}
 
-            {/* External YouTube / Vimeo hover embed preview */}
-            {hasExternalVideo && isHovered && embedUrl && (
-              <div className="absolute inset-0 z-[1] overflow-hidden bg-black pointer-events-none transition-opacity duration-300">
+            {/* External YouTube / Vimeo hover demo — same z-layer, same trigger */}
+            {hasExternalVideo && isHovered && embedUrl && !videoError && (
+              <div className="absolute inset-0 z-[1] overflow-hidden bg-black pointer-events-none">
                 <iframe
                   src={embedUrl}
-                  title={`${tool.name} preview`}
-                  className="h-full w-full border-0 opacity-95"
+                  title={`${tool.name} demo`}
+                  className="h-full w-full border-0"
                   allow="autoplay; encrypted-media; picture-in-picture"
                   loading="lazy"
                 />
-                {/* subtle gradient to keep pricing badge readable */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
               </div>
             )}

@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
+import type { Metadata } from 'next';
 import { routing } from '@/i18n/routing';
 import { AppProviders } from '@/context/AppProviders';
 import { ThemeProvider } from '@/components/ThemeProvider';
@@ -9,6 +10,27 @@ import { AnnouncementBanner } from '@/components/AnnouncementBanner';
 import { SmoothScroll } from '@/components/SmoothScroll';
 import { SkipLink } from '@/components/SkipLink';
 import { HomeAnimations } from '@/components/HomeAnimations';
+import { SITE_URL } from '@/config/site';
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  // Build hreflang map for current path — x-default + all locales
+  // Next-intl middleware already emits Link headers, but adding <link> tags in HTML
+  // gives maximum compatibility with crawlers that ignore headers.
+  const languages: Record<string, string> = { 'x-default': SITE_URL };
+  for (const l of routing.locales) {
+    const basePath = locale === routing.defaultLocale ? '' : `/${locale}`;
+    // We can't know the exact current path here without headers, so we emit
+    // root alternates; per-page alternates are added in individual page metadata
+    // where canonical is known. This ensures at least home has HTML hreflang.
+    languages[l] = l === routing.defaultLocale ? SITE_URL : `${SITE_URL}/${l}`;
+  }
+  return {
+    alternates: {
+      languages,
+    },
+  };
+}
 
 /**
  * Locale layout — everything that must exist inside <html> for every

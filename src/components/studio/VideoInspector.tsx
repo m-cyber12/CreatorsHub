@@ -105,7 +105,6 @@ export function VideoInspector() {
                 setMeta({ w: v.videoWidth, h: v.videoHeight, duration: v.duration });
               }}
             >
-              <track kind="captions" />
             </video>
             {meta && (
               <div className="studio-fit-grid">

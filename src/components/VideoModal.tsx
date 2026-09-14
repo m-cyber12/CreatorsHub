@@ -25,13 +25,39 @@ export function VideoModal({
   videoUrl,
   toolUrl,
 }: VideoModalProps) {
+  const closeBtnRef = React.useRef<HTMLButtonElement>(null);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
+      // Simple focus trap: keep focus inside modal
+      if (e.key === 'Tab' && isOpen) {
+        const modal = document.querySelector('[data-video-modal]') as HTMLElement | null;
+        if (!modal) return;
+        const focusable = modal.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
     };
     if (isOpen) {
       document.body.style.overflow = 'hidden';
       window.addEventListener('keydown', handleKeyDown);
+      // Focus close button for a11y
+      setTimeout(() => closeBtnRef.current?.focus(), 50);
     }
     return () => {
       document.body.style.overflow = '';
@@ -61,7 +87,7 @@ export function VideoModal({
       />
 
       {/* Modal Card */}
-      <div className="relative z-10 w-full max-w-4xl overflow-hidden rounded-3xl border border-white/15 bg-surface-1 shadow-2xl">
+      <div data-video-modal className="relative z-10 w-full max-w-4xl overflow-hidden rounded-3xl border border-white/15 bg-surface-1 shadow-2xl">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-white/10 px-6 py-4">
           <div className="flex items-center gap-2.5 min-w-0">
@@ -90,6 +116,7 @@ export function VideoModal({
               </a>
             )}
             <button
+              ref={closeBtnRef}
               type="button"
               onClick={onClose}
               className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-surface-2 text-zinc-400 transition-colors hover:border-white/20 hover:text-white"
@@ -119,7 +146,6 @@ export function VideoModal({
               preload="auto"
               className="h-full w-full object-contain"
             >
-              <track kind="captions" />
             </video>
           ) : (
             <div className="flex h-full w-full flex-col items-center justify-center p-6 text-center text-zinc-400">

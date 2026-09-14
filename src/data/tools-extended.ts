@@ -14,9 +14,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Generation",
     "pricing": "Paid",
     "startingPrice": "$20/mo",
-    "rating": 4.8,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": true,
     "isEditorsChoice": true,
     "isTrending": true,
@@ -29,8 +28,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "OpenAI"
     ],
     "metrics": "1080p Generations",
-    "launchDate": "2024-12-09",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2024-12-09"
   },
   {
     "id": "101",
@@ -43,9 +41,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Generation",
     "pricing": "Paid",
     "startingPrice": "$19.99/mo",
-    "rating": 4.8,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": true,
     "isEditorsChoice": false,
     "isTrending": true,
@@ -58,8 +55,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Google"
     ],
     "metrics": "Native Audio Gen",
-    "launchDate": "2024-05-14",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2024-05-14"
   },
   {
     "id": "102",
@@ -72,9 +68,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Generation",
     "pricing": "Freemium",
     "startingPrice": "$10/mo",
-    "rating": 4.6,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": true,
@@ -87,8 +82,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Shorts"
     ],
     "metrics": "Viral Pikaffects",
-    "launchDate": "2023-11-28",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-11-28"
   },
   {
     "id": "103",
@@ -101,9 +95,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Generation",
     "pricing": "Freemium",
     "startingPrice": "$9.99/mo",
-    "rating": 4.7,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": true,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -116,8 +109,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Realism"
     ],
     "metrics": "Ray Model Engine",
-    "launchDate": "2024-06-12",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2024-06-12"
   },
   {
     "id": "104",
@@ -130,9 +122,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Generation",
     "pricing": "Freemium",
     "startingPrice": "$6.99/mo",
-    "rating": 4.7,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": true,
@@ -145,8 +136,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Long Clips"
     ],
     "metrics": "2-Min Generations",
-    "launchDate": "2024-06-06",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2024-06-06"
   },
   {
     "id": "105",
@@ -159,9 +149,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Generation",
     "pricing": "Freemium",
     "startingPrice": "$9.99/mo",
-    "rating": 4.5,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -174,8 +163,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "MiniMax"
     ],
     "metrics": "Director Controls",
-    "launchDate": "2024-09-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2024-09-01"
   },
   {
     "id": "106",
@@ -188,9 +176,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Generation",
     "pricing": "Freemium",
     "startingPrice": "$10/mo",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -203,8 +190,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Art"
     ],
     "metrics": "Perceptual Engine",
-    "launchDate": "2024-03-05",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2024-03-05"
   },
   {
     "id": "107",
@@ -217,9 +203,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Generation",
     "pricing": "Freemium",
     "startingPrice": "$8/mo",
-    "rating": 4.4,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -232,8 +217,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Story"
     ],
     "metrics": "Multi-Ref Consistency",
-    "launchDate": "2024-07-30",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2024-07-30"
   },
   {
     "id": "108",
@@ -246,9 +230,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Generation",
     "pricing": "Freemium",
     "startingPrice": "$10/mo",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -261,8 +244,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Fast"
     ],
     "metrics": "Viral Templates",
-    "launchDate": "2024-01-15",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2024-01-15"
   },
   {
     "id": "109",
@@ -275,9 +257,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Generation",
     "pricing": "Freemium",
     "startingPrice": "$15/mo",
-    "rating": 4.5,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": true,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -290,8 +271,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Pitch Decks"
     ],
     "metrics": "Script to Screen",
-    "launchDate": "2024-02-27",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2024-02-27"
   },
   {
     "id": "110",
@@ -304,9 +284,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Generation",
     "pricing": "Paid",
     "startingPrice": "$5/mo",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -319,8 +298,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Art"
     ],
     "metrics": "Audio Reactive",
-    "launchDate": "2022-11-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2022-11-01"
   },
   {
     "id": "111",
@@ -333,9 +311,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Generation",
     "pricing": "Freemium",
     "startingPrice": "$10/mo",
-    "rating": 4.6,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": true,
@@ -348,8 +325,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Ideation"
     ],
     "metrics": "Realtime Canvas",
-    "launchDate": "2023-10-10",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-10-10"
   },
   {
     "id": "112",
@@ -362,9 +338,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Generation",
     "pricing": "Freemium",
     "startingPrice": "$10/mo",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -377,8 +352,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Research"
     ],
     "metrics": "Open Weights",
-    "launchDate": "2024-10-22",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2024-10-22"
   },
   {
     "id": "113",
@@ -391,9 +365,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Generation",
     "pricing": "Freemium",
     "startingPrice": "$9/mo",
-    "rating": 4.5,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": true,
@@ -406,8 +379,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Social"
     ],
     "metrics": "50+ Camera Presets",
-    "launchDate": "2024-04-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2024-04-01"
   },
   {
     "id": "114",
@@ -420,9 +392,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Generation",
     "pricing": "Paid",
     "startingPrice": "$14.99/mo",
-    "rating": 4.4,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -435,8 +406,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "HD"
     ],
     "metrics": "Clean Training Data",
-    "launchDate": "2025-07-08",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2025-07-08"
   },
   {
     "id": "115",
@@ -449,9 +419,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Generation",
     "pricing": "Paid",
     "startingPrice": "$19/mo",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -464,8 +433,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Stems"
     ],
     "metrics": "Stem-Synced Motion",
-    "launchDate": "2023-03-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-03-01"
   },
   {
     "id": "116",
@@ -478,9 +446,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Faceless Video",
     "pricing": "Freemium",
     "startingPrice": "$28/mo",
-    "rating": 4.5,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -493,8 +460,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Subtitles"
     ],
     "metrics": "80+ Languages",
-    "launchDate": "2021-12-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2021-12-01"
   },
   {
     "id": "117",
@@ -507,9 +473,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Generation",
     "pricing": "Freemium",
     "startingPrice": "$19/mo",
-    "rating": 4.4,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -522,8 +487,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Marketing"
     ],
     "metrics": "Brand Templates",
-    "launchDate": "2017-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2017-01-01"
   },
   {
     "id": "118",
@@ -536,9 +500,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Generation",
     "pricing": "Freemium",
     "startingPrice": "$15/mo",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -551,8 +514,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Templates"
     ],
     "metrics": "Animation Engine",
-    "launchDate": "2021-06-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2021-06-01"
   },
   {
     "id": "119",
@@ -565,9 +527,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Generation",
     "pricing": "Freemium",
     "startingPrice": "$9.99/mo",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": true,
@@ -580,8 +541,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Physics"
     ],
     "metrics": "Motion Transfer",
-    "launchDate": "2024-03-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2024-03-01"
   },
   {
     "id": "120",
@@ -594,9 +554,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Generation",
     "pricing": "Paid",
     "startingPrice": "$9.99/mo",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -609,8 +568,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Discord"
     ],
     "metrics": "20+ Styles",
-    "launchDate": "2023-08-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-08-01"
   },
   {
     "id": "121",
@@ -623,9 +581,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Generation",
     "pricing": "Freemium",
     "startingPrice": "$10/mo",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -638,8 +595,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Aggregator"
     ],
     "metrics": "All Models In One",
-    "launchDate": "2024-10-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2024-10-01"
   },
   {
     "id": "122",
@@ -652,9 +608,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Generation",
     "pricing": "Freemium",
     "startingPrice": "$11.9/mo",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -667,8 +622,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "4K"
     ],
     "metrics": "4K Enhancement",
-    "launchDate": "2024-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2024-01-01"
   },
   {
     "id": "123",
@@ -680,9 +634,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "logo": "https://www.google.com/s2/favicons?domain=stability.ai&sz=128",
     "category": "Video Generation",
     "pricing": "Free",
-    "rating": 4.1,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -695,8 +648,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Research"
     ],
     "metrics": "Open Weights",
-    "launchDate": "2023-11-21",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-11-21"
   },
   {
     "id": "124",
@@ -708,9 +660,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "logo": "https://www.google.com/s2/favicons?domain=hunyuan.tencent.com&sz=128",
     "category": "Video Generation",
     "pricing": "Free",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -723,8 +674,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Developers"
     ],
     "metrics": "Open Foundation",
-    "launchDate": "2024-12-03",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2024-12-03"
   },
   {
     "id": "125",
@@ -736,9 +686,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "logo": "https://www.google.com/s2/favicons?domain=wan.video&sz=128",
     "category": "Video Generation",
     "pricing": "Free",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -751,8 +700,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Alibaba"
     ],
     "metrics": "Runs on 8GB VRAM",
-    "launchDate": "2025-02-26",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2025-02-26"
   },
   {
     "id": "126",
@@ -765,9 +713,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Generation",
     "pricing": "Paid",
     "startingPrice": "$9/mo",
-    "rating": 4.5,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -780,8 +727,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "ByteDance"
     ],
     "metrics": "#1 Arena Ranked",
-    "launchDate": "2025-06-11",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2025-06-11"
   },
   {
     "id": "127",
@@ -794,9 +740,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Generation",
     "pricing": "Freemium",
     "startingPrice": "$10/mo",
-    "rating": 4.4,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -809,8 +754,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Expressive"
     ],
     "metrics": "Character-3 Model",
-    "launchDate": "2024-06-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2024-06-01"
   },
   {
     "id": "128",
@@ -823,9 +767,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Generation",
     "pricing": "Freemium",
     "startingPrice": "$7.99/mo",
-    "rating": 4.1,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -838,8 +781,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Immersive"
     ],
     "metrics": "Depth Animation",
-    "launchDate": "2023-05-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-05-01"
   },
   {
     "id": "129",
@@ -852,9 +794,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Editing & VFX",
     "pricing": "Paid",
     "startingPrice": "$299 one-time",
-    "rating": 4.7,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": true,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -867,8 +808,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Denoise"
     ],
     "metrics": "8K Upscale",
-    "launchDate": "2020-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2020-01-01"
   },
   {
     "id": "130",
@@ -881,9 +821,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Editing & VFX",
     "pricing": "Freemium",
     "startingPrice": "$9.99/mo",
-    "rating": 4.6,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": true,
@@ -896,8 +835,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Mobile"
     ],
     "metrics": "AI Eye Contact",
-    "launchDate": "2021-09-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2021-09-01"
   },
   {
     "id": "131",
@@ -910,9 +848,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Editing & VFX",
     "pricing": "Freemium",
     "startingPrice": "$16/mo",
-    "rating": 4.5,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -925,8 +862,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Teams"
     ],
     "metrics": "Team Workspaces",
-    "launchDate": "2017-09-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2017-09-01"
   },
   {
     "id": "132",
@@ -939,9 +875,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Editing & VFX",
     "pricing": "Freemium",
     "startingPrice": "$9.99/mo",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -954,8 +889,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Marketing"
     ],
     "metrics": "4M+ Stock Assets",
-    "launchDate": "2019-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2019-01-01"
   },
   {
     "id": "133",
@@ -968,9 +902,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Editing & VFX",
     "pricing": "Paid",
     "startingPrice": "$15/mo",
-    "rating": 4.6,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": true,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -983,8 +916,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Export XML"
     ],
     "metrics": "Auto Rough Cut",
-    "launchDate": "2022-06-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2022-06-01"
   },
   {
     "id": "134",
@@ -997,9 +929,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Editing & VFX",
     "pricing": "Paid",
     "startingPrice": "$17/mo",
-    "rating": 4.4,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1012,8 +943,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Speed"
     ],
     "metrics": "10x Faster Cuts",
-    "launchDate": "2020-04-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2020-04-01"
   },
   {
     "id": "135",
@@ -1026,9 +956,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Editing & VFX",
     "pricing": "Paid",
     "startingPrice": "$29/mo",
-    "rating": 4.6,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1041,8 +970,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Auto Edit"
     ],
     "metrics": "Multi-Cam Auto Cut",
-    "launchDate": "2022-03-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2022-03-01"
   },
   {
     "id": "136",
@@ -1055,9 +983,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Editing & VFX",
     "pricing": "Freemium",
     "startingPrice": "$15/mo",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1070,8 +997,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Punch-In"
     ],
     "metrics": "Music Auto-Duck",
-    "launchDate": "2020-09-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2020-09-01"
   },
   {
     "id": "137",
@@ -1084,9 +1010,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Editing & VFX",
     "pricing": "Freemium",
     "startingPrice": "$69.99/yr",
-    "rating": 4.4,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1099,8 +1024,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Effects"
     ],
     "metrics": "AI Object Tools",
-    "launchDate": "2001-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2001-01-01"
   },
   {
     "id": "138",
@@ -1113,9 +1037,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Editing & VFX",
     "pricing": "Freemium",
     "startingPrice": "$9/video",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1128,8 +1051,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "GIFs"
     ],
     "metrics": "Zero Green Screen",
-    "launchDate": "2020-03-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2020-03-01"
   },
   {
     "id": "139",
@@ -1142,9 +1064,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Editing & VFX",
     "pricing": "Freemium",
     "startingPrice": "$5/mo",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1157,8 +1078,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "API"
     ],
     "metrics": "Full API Suite",
-    "launchDate": "2018-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2018-01-01"
   },
   {
     "id": "140",
@@ -1171,9 +1091,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Repurposing",
     "pricing": "Freemium",
     "startingPrice": "$16/mo",
-    "rating": 4.6,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": true,
@@ -1186,8 +1105,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Captions"
     ],
     "metrics": "1-Click 10 Clips",
-    "launchDate": "2021-11-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2021-11-01"
   },
   {
     "id": "141",
@@ -1200,9 +1118,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Repurposing",
     "pricing": "Freemium",
     "startingPrice": "$9.90/mo",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1215,8 +1132,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Vertical Crop"
     ],
     "metrics": "YouTube Native",
-    "launchDate": "2022-12-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2022-12-01"
   },
   {
     "id": "142",
@@ -1229,9 +1145,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Repurposing",
     "pricing": "Freemium",
     "startingPrice": "$12/mo",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1244,8 +1159,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Emojis"
     ],
     "metrics": "Twitch Integrated",
-    "launchDate": "2022-08-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2022-08-01"
   },
   {
     "id": "143",
@@ -1258,9 +1172,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Repurposing",
     "pricing": "Paid",
     "startingPrice": "$29/mo",
-    "rating": 4.1,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1273,8 +1186,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Micro Video"
     ],
     "metrics": "B2B Focused",
-    "launchDate": "2020-06-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2020-06-01"
   },
   {
     "id": "144",
@@ -1287,9 +1199,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Repurposing",
     "pricing": "Freemium",
     "startingPrice": "$14.99/mo",
-    "rating": 4.4,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1302,8 +1213,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Kick"
     ],
     "metrics": "Auto Highlight Detect",
-    "launchDate": "2021-03-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2021-03-01"
   },
   {
     "id": "145",
@@ -1316,9 +1226,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Repurposing",
     "pricing": "Paid",
     "startingPrice": "$15.99/mo",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1331,8 +1240,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Facecam"
     ],
     "metrics": "Local Processing",
-    "launchDate": "2022-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2022-01-01"
   },
   {
     "id": "146",
@@ -1345,9 +1253,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Faceless Video",
     "pricing": "Paid",
     "startingPrice": "$39/mo",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1360,8 +1267,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "AI Voice"
     ],
     "metrics": "Prompt to TikTok",
-    "launchDate": "2023-11-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-11-01"
   },
   {
     "id": "147",
@@ -1374,9 +1280,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Faceless Video",
     "pricing": "Paid",
     "startingPrice": "$19/mo",
-    "rating": 4.1,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1389,8 +1294,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Scale"
     ],
     "metrics": "Bulk Generation",
-    "launchDate": "2023-10-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-10-01"
   },
   {
     "id": "148",
@@ -1403,9 +1307,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Faceless Video",
     "pricing": "Freemium",
     "startingPrice": "$19.5/mo",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1418,8 +1321,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Ads"
     ],
     "metrics": "Ad-Ready Output",
-    "launchDate": "2023-06-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-06-01"
   },
   {
     "id": "149",
@@ -1432,9 +1334,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Faceless Video",
     "pricing": "Paid",
     "startingPrice": "$49/mo",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1447,8 +1348,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Topic Research"
     ],
     "metrics": "Full Pipeline",
-    "launchDate": "2023-02-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-02-01"
   },
   {
     "id": "150",
@@ -1461,9 +1361,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Repurposing",
     "pricing": "Freemium",
     "startingPrice": "$12.95/mo",
-    "rating": 4.4,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1476,8 +1375,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Captions"
     ],
     "metrics": "Podcast Native",
-    "launchDate": "2017-10-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2017-10-01"
   },
   {
     "id": "151",
@@ -1490,9 +1388,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Video Repurposing",
     "pricing": "Paid",
     "startingPrice": "$29/mo",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1505,8 +1402,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Social Copy"
     ],
     "metrics": "Episode to Assets",
-    "launchDate": "2020-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2020-01-01"
   },
   {
     "id": "152",
@@ -1519,9 +1415,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Translation & Dubbing",
     "pricing": "Paid",
     "startingPrice": "$60/mo",
-    "rating": 4.7,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": true,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1534,8 +1429,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Localization"
     ],
     "metrics": "130+ Languages",
-    "launchDate": "2022-10-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2022-10-01"
   },
   {
     "id": "153",
@@ -1548,9 +1442,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Translation & Dubbing",
     "pricing": "Paid",
     "startingPrice": "Custom",
-    "rating": 4.4,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1563,8 +1456,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Broadcast"
     ],
     "metrics": "Broadcast Grade",
-    "launchDate": "2017-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2017-01-01"
   },
   {
     "id": "154",
@@ -1577,9 +1469,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Translation & Dubbing",
     "pricing": "Freemium",
     "startingPrice": "$15/mo",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1592,8 +1483,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Collaboration"
     ],
     "metrics": "Instant Dubs",
-    "launchDate": "2021-08-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2021-08-01"
   },
   {
     "id": "155",
@@ -1606,9 +1496,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Voice & Audio",
     "pricing": "Freemium",
     "startingPrice": "$139/yr",
-    "rating": 4.4,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1621,8 +1510,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Cross-Platform"
     ],
     "metrics": "900+ Voices",
-    "launchDate": "2017-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2017-01-01"
   },
   {
     "id": "156",
@@ -1635,9 +1523,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Voice & Audio",
     "pricing": "Paid",
     "startingPrice": "$49/mo",
-    "rating": 4.5,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1650,8 +1537,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Teams"
     ],
     "metrics": "Studio Quality",
-    "launchDate": "2018-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2018-01-01"
   },
   {
     "id": "157",
@@ -1664,9 +1550,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Voice & Audio",
     "pricing": "Freemium",
     "startingPrice": "$11.99/mo",
-    "rating": 4.5,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1679,8 +1564,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Text Editing"
     ],
     "metrics": "Magic Dust Enhance",
-    "launchDate": "2020-09-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2020-09-01"
   },
   {
     "id": "158",
@@ -1693,9 +1577,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Voice & Audio",
     "pricing": "Freemium",
     "startingPrice": "$15/mo",
-    "rating": 4.7,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": true,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1708,8 +1591,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Transcription"
     ],
     "metrics": "Local 4K Tracks",
-    "launchDate": "2019-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2019-01-01"
   },
   {
     "id": "159",
@@ -1722,9 +1604,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Voice & Audio",
     "pricing": "Paid",
     "startingPrice": "$20/pack",
-    "rating": 4.6,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1737,8 +1618,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "DJs"
     ],
     "metrics": "10-Stem Split",
-    "launchDate": "2020-06-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2020-06-01"
   },
   {
     "id": "160",
@@ -1751,9 +1631,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Voice & Audio",
     "pricing": "Freemium",
     "startingPrice": "$45/yr",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1766,8 +1645,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Soundboard"
     ],
     "metrics": "Real-Time FX",
-    "launchDate": "2014-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2014-01-01"
   },
   {
     "id": "161",
@@ -1780,9 +1658,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Voice & Audio",
     "pricing": "Freemium",
     "startingPrice": "$9.99/mo",
-    "rating": 4.4,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1795,8 +1672,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Community"
     ],
     "metrics": "#1 Open TTS",
-    "launchDate": "2024-05-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2024-05-01"
   },
   {
     "id": "162",
@@ -1809,9 +1685,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Voice & Audio",
     "pricing": "Freemium",
     "startingPrice": "$5/mo",
-    "rating": 4.5,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1824,8 +1699,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "API"
     ],
     "metrics": "40ms Latency",
-    "launchDate": "2024-05-29",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2024-05-29"
   },
   {
     "id": "163",
@@ -1838,9 +1712,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Voice & Audio",
     "pricing": "Freemium",
     "startingPrice": "$9.99/mo",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1853,8 +1726,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Artists"
     ],
     "metrics": "Artist Voice Bank",
-    "launchDate": "2023-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-01-01"
   },
   {
     "id": "164",
@@ -1867,9 +1739,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Voice & Audio",
     "pricing": "Freemium",
     "startingPrice": "$5.99/mo",
-    "rating": 4.6,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1882,8 +1753,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Practice"
     ],
     "metrics": "Real-time Stems",
-    "launchDate": "2019-11-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2019-11-01"
   },
   {
     "id": "165",
@@ -1896,9 +1766,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Translation & Dubbing",
     "pricing": "Paid",
     "startingPrice": "$25/mo",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1911,8 +1780,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Emotion"
     ],
     "metrics": "Live Dubbing",
-    "launchDate": "2023-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-01-01"
   },
   {
     "id": "166",
@@ -1924,9 +1792,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "logo": "https://www.google.com/s2/favicons?domain=deepdub.ai&sz=128",
     "category": "Translation & Dubbing",
     "pricing": "Paid",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1939,8 +1806,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "QA"
     ],
     "metrics": "Streamer Grade",
-    "launchDate": "2019-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2019-01-01"
   },
   {
     "id": "167",
@@ -1953,9 +1819,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Translation & Dubbing",
     "pricing": "Paid",
     "startingPrice": "$16/mo",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -1968,8 +1833,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Redub"
     ],
     "metrics": "Pro Lip Sync",
-    "launchDate": "2023-05-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-05-01"
   },
   {
     "id": "168",
@@ -1982,9 +1846,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Music & SFX",
     "pricing": "Freemium",
     "startingPrice": "$10/mo",
-    "rating": 4.7,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": true,
     "isEditorsChoice": false,
     "isTrending": true,
@@ -1997,8 +1860,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Text to Music"
     ],
     "metrics": "Full Songs in 60s",
-    "launchDate": "2023-07-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-07-01"
   },
   {
     "id": "169",
@@ -2011,9 +1873,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Music & SFX",
     "pricing": "Freemium",
     "startingPrice": "$10/mo",
-    "rating": 4.6,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": true,
@@ -2026,8 +1887,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Hi-Fi"
     ],
     "metrics": "Studio Fidelity",
-    "launchDate": "2024-04-10",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2024-04-10"
   },
   {
     "id": "170",
@@ -2040,9 +1900,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Music & SFX",
     "pricing": "Paid",
     "startingPrice": "$16.99/mo",
-    "rating": 4.4,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -2055,8 +1914,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Sync"
     ],
     "metrics": "Unlimited License",
-    "launchDate": "2020-02-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2020-02-01"
   },
   {
     "id": "171",
@@ -2069,9 +1927,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Music & SFX",
     "pricing": "Freemium",
     "startingPrice": "€15/mo",
-    "rating": 4.4,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -2084,8 +1941,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "250+ Styles"
     ],
     "metrics": "MIDI Export",
-    "launchDate": "2016-02-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2016-02-01"
   },
   {
     "id": "172",
@@ -2098,9 +1954,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Music & SFX",
     "pricing": "Freemium",
     "startingPrice": "$14/mo",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -2113,8 +1968,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Royalty-Free"
     ],
     "metrics": "Realtime Generation",
-    "launchDate": "2017-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2017-01-01"
   },
   {
     "id": "173",
@@ -2127,9 +1981,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Music & SFX",
     "pricing": "Paid",
     "startingPrice": "$6/mo",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -2142,8 +1995,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Scoring"
     ],
     "metrics": "Emotion Timeline",
-    "launchDate": "2021-04-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2021-04-01"
   },
   {
     "id": "174",
@@ -2156,9 +2008,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Music & SFX",
     "pricing": "Freemium",
     "startingPrice": "$9.99/mo",
-    "rating": 4.1,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -2171,8 +2022,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Brands"
     ],
     "metrics": "Stems Included",
-    "launchDate": "2021-11-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2021-11-01"
   },
   {
     "id": "175",
@@ -2185,9 +2035,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Music & SFX",
     "pricing": "Freemium",
     "startingPrice": "$5.99/mo",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -2200,8 +2049,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Video Match"
     ],
     "metrics": "Video-Matched",
-    "launchDate": "2019-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2019-01-01"
   },
   {
     "id": "176",
@@ -2214,9 +2062,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Music & SFX",
     "pricing": "Freemium",
     "startingPrice": "$11.99/mo",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -2229,8 +2076,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "3-Min Tracks"
     ],
     "metrics": "SFX + Music",
-    "launchDate": "2023-09-13",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-09-13"
   },
   {
     "id": "177",
@@ -2243,9 +2089,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Music & SFX",
     "pricing": "Freemium",
     "startingPrice": "$5/mo",
-    "rating": 4.5,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -2258,8 +2103,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Text to SFX"
     ],
     "metrics": "Text to Foley",
-    "launchDate": "2024-06-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2024-06-01"
   },
   {
     "id": "178",
@@ -2272,9 +2116,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "AI Avatars",
     "pricing": "Paid",
     "startingPrice": "$24/mo",
-    "rating": 4.4,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -2287,8 +2130,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Stock Avatars"
     ],
     "metrics": "100+ Avatars",
-    "launchDate": "2016-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2016-01-01"
   },
   {
     "id": "179",
@@ -2301,9 +2143,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "AI Avatars",
     "pricing": "Freemium",
     "startingPrice": "$22.5/mo",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -2316,8 +2157,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Voice Clone"
     ],
     "metrics": "1500+ Templates",
-    "launchDate": "2022-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2022-01-01"
   },
   {
     "id": "180",
@@ -2330,9 +2170,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "AI Avatars",
     "pricing": "Freemium",
     "startingPrice": "$29/mo",
-    "rating": 4.1,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -2345,8 +2184,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Support"
     ],
     "metrics": "Realtime Agents",
-    "launchDate": "2020-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2020-01-01"
   },
   {
     "id": "181",
@@ -2359,9 +2197,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "AI Avatars",
     "pricing": "Paid",
     "startingPrice": "$39/mo",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -2374,8 +2211,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Social"
     ],
     "metrics": "Creator Clones",
-    "launchDate": "2023-04-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-04-01"
   },
   {
     "id": "182",
@@ -2388,9 +2224,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "AI Avatars",
     "pricing": "Paid",
     "startingPrice": "$59/mo",
-    "rating": 4.4,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -2403,8 +2238,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "API"
     ],
     "metrics": "1-to-1000 Videos",
-    "launchDate": "2021-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2021-01-01"
   },
   {
     "id": "183",
@@ -2417,9 +2251,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "AI Avatars",
     "pricing": "Freemium",
     "startingPrice": "$39/mo",
-    "rating": 4.1,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -2432,8 +2265,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Sales"
     ],
     "metrics": "Bulk Personalization",
-    "launchDate": "2021-06-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2021-06-01"
   },
   {
     "id": "184",
@@ -2446,9 +2278,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "AI Avatars",
     "pricing": "Paid",
     "startingPrice": "$30/mo",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -2461,8 +2292,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Marketing"
     ],
     "metrics": "4K Face Swap",
-    "launchDate": "2022-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2022-01-01"
   },
   {
     "id": "185",
@@ -2475,9 +2305,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Thumbnails & Design",
     "pricing": "Paid",
     "startingPrice": "$10/mo",
-    "rating": 4.8,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": true,
     "isEditorsChoice": true,
     "isTrending": true,
@@ -2490,8 +2319,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "V7"
     ],
     "metrics": "Omni Reference",
-    "launchDate": "2022-07-12",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2022-07-12"
   },
   {
     "id": "186",
@@ -2504,9 +2332,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Thumbnails & Design",
     "pricing": "Freemium",
     "startingPrice": "$8/mo",
-    "rating": 4.6,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": true,
@@ -2519,8 +2346,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Logos"
     ],
     "metrics": "Perfect Text",
-    "launchDate": "2023-08-22",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-08-22"
   },
   {
     "id": "187",
@@ -2533,9 +2359,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Thumbnails & Design",
     "pricing": "Freemium",
     "startingPrice": "$12/mo",
-    "rating": 4.6,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": true,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -2548,8 +2373,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Game Art"
     ],
     "metrics": "Custom Models",
-    "launchDate": "2022-12-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2022-12-01"
   },
   {
     "id": "188",
@@ -2562,9 +2386,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Thumbnails & Design",
     "pricing": "Freemium",
     "startingPrice": "$4.99/mo",
-    "rating": 4.5,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -2577,8 +2400,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Generative Fill"
     ],
     "metrics": "CC Integrated",
-    "launchDate": "2023-03-21",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-03-21"
   },
   {
     "id": "189",
@@ -2591,9 +2413,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Thumbnails & Design",
     "pricing": "Freemium",
     "startingPrice": "$0.025/img",
-    "rating": 4.7,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": true,
@@ -2606,8 +2427,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "API"
     ],
     "metrics": "SOTA Open Model",
-    "launchDate": "2024-08-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2024-08-01"
   },
   {
     "id": "190",
@@ -2620,9 +2440,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Thumbnails & Design",
     "pricing": "Freemium",
     "startingPrice": "$12/mo",
-    "rating": 4.5,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -2635,8 +2454,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Design"
     ],
     "metrics": "Vector Native",
-    "launchDate": "2023-05-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-05-01"
   },
   {
     "id": "191",
@@ -2649,9 +2467,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Thumbnails & Design",
     "pricing": "Freemium",
     "startingPrice": "$12.99/mo",
-    "rating": 4.6,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -2664,8 +2481,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Mobile"
     ],
     "metrics": "1-Tap Cutout",
-    "launchDate": "2019-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2019-01-01"
   },
   {
     "id": "192",
@@ -2678,9 +2494,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Thumbnails & Design",
     "pricing": "Freemium",
     "startingPrice": "$9/mo",
-    "rating": 4.5,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -2693,8 +2508,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Batch"
     ],
     "metrics": "5s Processing",
-    "launchDate": "2018-12-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2018-12-01"
   },
   {
     "id": "193",
@@ -2707,9 +2521,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Thumbnails & Design",
     "pricing": "Freemium",
     "startingPrice": "$8.99/mo",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -2722,8 +2535,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Templates"
     ],
     "metrics": "All-in-One",
-    "launchDate": "2012-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2012-01-01"
   },
   {
     "id": "194",
@@ -2736,9 +2548,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Thumbnails & Design",
     "pricing": "Freemium",
     "startingPrice": "$7.99/mo",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -2751,8 +2562,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Design"
     ],
     "metrics": "Browser Native",
-    "launchDate": "2008-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2008-01-01"
   },
   {
     "id": "195",
@@ -2765,9 +2575,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Thumbnails & Design",
     "pricing": "Paid",
     "startingPrice": "$15/mo",
-    "rating": 4.5,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -2780,8 +2589,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Analytics"
     ],
     "metrics": "Auto Rotation",
-    "launchDate": "2021-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2021-01-01"
   },
   {
     "id": "196",
@@ -2794,9 +2602,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Thumbnails & Design",
     "pricing": "Paid",
     "startingPrice": "$39/mo",
-    "rating": 4.6,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -2809,8 +2616,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Pro"
     ],
     "metrics": "16x Upscale",
-    "launchDate": "2023-11-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-11-01"
   },
   {
     "id": "197",
@@ -2822,9 +2628,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "logo": "https://www.google.com/s2/favicons?domain=upscayl.org&sz=128",
     "category": "Thumbnails & Design",
     "pricing": "Free",
-    "rating": 4.4,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -2837,8 +2642,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Privacy"
     ],
     "metrics": "100% Offline",
-    "launchDate": "2022-08-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2022-08-01"
   },
   {
     "id": "198",
@@ -2851,9 +2655,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "AI Agents & Assistants",
     "pricing": "Freemium",
     "startingPrice": "$19.99/mo",
-    "rating": 4.7,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": true,
     "isEditorsChoice": false,
     "isTrending": true,
@@ -2866,8 +2669,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Google"
     ],
     "metrics": "1M Token Context",
-    "launchDate": "2023-12-06",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-12-06"
   },
   {
     "id": "199",
@@ -2880,9 +2682,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "AI Agents & Assistants",
     "pricing": "Freemium",
     "startingPrice": "$20/mo",
-    "rating": 4.7,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": true,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -2895,8 +2696,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Live Web"
     ],
     "metrics": "Cited Answers",
-    "launchDate": "2022-08-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2022-08-01"
   },
   {
     "id": "200",
@@ -2909,9 +2709,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Scripting & Writing",
     "pricing": "Freemium",
     "startingPrice": "$10/mo",
-    "rating": 4.4,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -2924,8 +2723,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Organize"
     ],
     "metrics": "Workspace Native",
-    "launchDate": "2023-02-22",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-02-22"
   },
   {
     "id": "201",
@@ -2938,9 +2736,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Scripting & Writing",
     "pricing": "Freemium",
     "startingPrice": "$12/mo",
-    "rating": 4.5,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -2953,8 +2750,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Everywhere"
     ],
     "metrics": "500K+ Apps",
-    "launchDate": "2009-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2009-01-01"
   },
   {
     "id": "202",
@@ -2967,9 +2763,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Scripting & Writing",
     "pricing": "Freemium",
     "startingPrice": "$9.95/mo",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -2982,8 +2777,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Rewrite"
     ],
     "metrics": "9 Rewrite Modes",
-    "launchDate": "2017-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2017-01-01"
   },
   {
     "id": "203",
@@ -2996,9 +2790,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Scripting & Writing",
     "pricing": "Freemium",
     "startingPrice": "$9/mo",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3011,8 +2804,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Hooks"
     ],
     "metrics": "Best Value",
-    "launchDate": "2021-04-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2021-04-01"
   },
   {
     "id": "204",
@@ -3025,9 +2817,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Scripting & Writing",
     "pricing": "Paid",
     "startingPrice": "$19/mo",
-    "rating": 4.4,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3040,8 +2831,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Narrative"
     ],
     "metrics": "Story Engine",
-    "launchDate": "2020-11-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2020-11-01"
   },
   {
     "id": "205",
@@ -3054,9 +2844,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Scripting & Writing",
     "pricing": "Paid",
     "startingPrice": "$39/mo",
-    "rating": 4.5,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3069,8 +2858,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Niche Research"
     ],
     "metrics": "Retention Optimized",
-    "launchDate": "2023-09-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-09-01"
   },
   {
     "id": "206",
@@ -3083,9 +2871,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Scripting & Writing",
     "pricing": "Freemium",
     "startingPrice": "$6.99/mo",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3098,8 +2885,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Sources"
     ],
     "metrics": "Tone Slider",
-    "launchDate": "2020-10-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2020-10-01"
   },
   {
     "id": "207",
@@ -3112,9 +2898,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Scripting & Writing",
     "pricing": "Paid",
     "startingPrice": "$29/mo",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3127,8 +2912,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Brand Voice"
     ],
     "metrics": "Bulk Generation",
-    "launchDate": "2020-08-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2020-08-01"
   },
   {
     "id": "208",
@@ -3141,9 +2925,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "AI Agents & Assistants",
     "pricing": "Freemium",
     "startingPrice": "$30/mo",
-    "rating": 4.5,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": true,
@@ -3156,8 +2939,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Image Gen"
     ],
     "metrics": "Live Trend Data",
-    "launchDate": "2023-11-04",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-11-04"
   },
   {
     "id": "209",
@@ -3169,9 +2951,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "logo": "https://www.google.com/s2/favicons?domain=deepseek.com&sz=128",
     "category": "AI Agents & Assistants",
     "pricing": "Free",
-    "rating": 4.5,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": true,
@@ -3184,8 +2965,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Research"
     ],
     "metrics": "Free Frontier AI",
-    "launchDate": "2023-11-29",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-11-29"
   },
   {
     "id": "210",
@@ -3198,9 +2978,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Scripting & Writing",
     "pricing": "Paid",
     "startingPrice": "$89/mo",
-    "rating": 4.5,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3213,8 +2992,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Optimization"
     ],
     "metrics": "SERP Analyzer",
-    "launchDate": "2017-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2017-01-01"
   },
   {
     "id": "211",
@@ -3227,9 +3005,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Scripting & Writing",
     "pricing": "Paid",
     "startingPrice": "$45/mo",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3242,8 +3019,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Optimization"
     ],
     "metrics": "SERP Questions",
-    "launchDate": "2016-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2016-01-01"
   },
   {
     "id": "212",
@@ -3255,9 +3031,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "logo": "https://www.google.com/s2/favicons?domain=promptbase.com&sz=128",
     "category": "Prompts & Templates",
     "pricing": "Freemium",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3270,8 +3045,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Stable Diffusion"
     ],
     "metrics": "Tested Prompts",
-    "launchDate": "2022-06-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2022-06-01"
   },
   {
     "id": "213",
@@ -3283,9 +3057,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "logo": "https://www.google.com/s2/favicons?domain=prompthero.com&sz=128",
     "category": "Prompts & Templates",
     "pricing": "Free",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3298,8 +3071,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Free"
     ],
     "metrics": "Open Prompt Library",
-    "launchDate": "2022-11-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2022-11-01"
   },
   {
     "id": "214",
@@ -3311,9 +3083,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "logo": "https://www.google.com/s2/favicons?domain=aiprm.com&sz=128",
     "category": "Prompts & Templates",
     "pricing": "Freemium",
-    "rating": 4.1,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3326,8 +3097,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Personas"
     ],
     "metrics": "Template Packs",
-    "launchDate": "2022-11-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2022-11-01"
   },
   {
     "id": "215",
@@ -3339,9 +3109,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "logo": "https://www.google.com/s2/favicons?domain=openai.com&sz=128",
     "category": "Transcription & Captions",
     "pricing": "Free",
-    "rating": 4.7,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": true,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3354,8 +3123,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Free"
     ],
     "metrics": "Open Source King",
-    "launchDate": "2022-09-21",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2022-09-21"
   },
   {
     "id": "216",
@@ -3368,9 +3136,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Transcription & Captions",
     "pricing": "Freemium",
     "startingPrice": "$16.99/mo",
-    "rating": 4.4,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3383,8 +3150,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Real-time"
     ],
     "metrics": "Live Transcribe",
-    "launchDate": "2016-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2016-01-01"
   },
   {
     "id": "217",
@@ -3397,9 +3163,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Transcription & Captions",
     "pricing": "Paid",
     "startingPrice": "$0.25/min",
-    "rating": 4.5,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3412,8 +3177,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Legal"
     ],
     "metrics": "99% Human Accuracy",
-    "launchDate": "2010-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2010-01-01"
   },
   {
     "id": "218",
@@ -3426,9 +3190,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Transcription & Captions",
     "pricing": "Paid",
     "startingPrice": "$52/mo",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3441,8 +3204,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Verified"
     ],
     "metrics": "Newsroom Grade",
-    "launchDate": "2014-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2014-01-01"
   },
   {
     "id": "219",
@@ -3455,9 +3217,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Transcription & Captions",
     "pricing": "Paid",
     "startingPrice": "$10/hr",
-    "rating": 4.4,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3470,8 +3231,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Summaries"
     ],
     "metrics": "40+ Language Sub",
-    "launchDate": "2017-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2017-01-01"
   },
   {
     "id": "220",
@@ -3484,9 +3244,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Transcription & Captions",
     "pricing": "Freemium",
     "startingPrice": "$0.0043/min",
-    "rating": 4.6,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3499,8 +3258,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Developers"
     ],
     "metrics": "Nova-3 Model",
-    "launchDate": "2015-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2015-01-01"
   },
   {
     "id": "221",
@@ -3513,9 +3271,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Transcription & Captions",
     "pricing": "Freemium",
     "startingPrice": "$0.12/hr",
-    "rating": 4.6,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3528,8 +3285,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Universal-2"
     ],
     "metrics": "Auto Chapters",
-    "launchDate": "2017-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2017-01-01"
   },
   {
     "id": "222",
@@ -3542,9 +3298,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Transcription & Captions",
     "pricing": "Paid",
     "startingPrice": "$17/mo",
-    "rating": 4.4,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3557,8 +3312,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "SRT"
     ],
     "metrics": "120+ Languages",
-    "launchDate": "2017-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2017-01-01"
   },
   {
     "id": "223",
@@ -3571,9 +3325,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Transcription & Captions",
     "pricing": "Freemium",
     "startingPrice": "€59 one-time",
-    "rating": 4.6,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3586,8 +3339,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "One-Time"
     ],
     "metrics": "100% On-Device",
-    "launchDate": "2023-02-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-02-01"
   },
   {
     "id": "224",
@@ -3600,9 +3352,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Transcription & Captions",
     "pricing": "Freemium",
     "startingPrice": "$12.9/mo",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3615,8 +3366,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Styles"
     ],
     "metrics": "98% Accuracy",
-    "launchDate": "2021-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2021-01-01"
   },
   {
     "id": "225",
@@ -3629,9 +3379,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Transcription & Captions",
     "pricing": "Paid",
     "startingPrice": "$19/mo",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3644,8 +3393,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Social"
     ],
     "metrics": "Social Optimizer",
-    "launchDate": "2018-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2018-01-01"
   },
   {
     "id": "226",
@@ -3658,9 +3406,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Transcription & Captions",
     "pricing": "Paid",
     "startingPrice": "$12.5/mo",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3673,8 +3420,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Translation"
     ],
     "metrics": "200+ Languages",
-    "launchDate": "2018-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2018-01-01"
   },
   {
     "id": "227",
@@ -3687,9 +3433,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Transcription & Captions",
     "pricing": "Paid",
     "startingPrice": "$10/hr",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3702,8 +3447,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Compliance"
     ],
     "metrics": "EU Compliant",
-    "launchDate": "2017-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2017-01-01"
   },
   {
     "id": "228",
@@ -3716,9 +3460,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "SEO & Analytics",
     "pricing": "Freemium",
     "startingPrice": "$16.58/mo",
-    "rating": 4.6,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": true,
     "isEditorsChoice": false,
     "isTrending": true,
@@ -3731,8 +3474,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Extension"
     ],
     "metrics": "AI Daily Ideas",
-    "launchDate": "2011-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2011-01-01"
   },
   {
     "id": "229",
@@ -3745,9 +3487,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "SEO & Analytics",
     "pricing": "Paid",
     "startingPrice": "$41/mo",
-    "rating": 4.5,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3760,8 +3501,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Titles"
     ],
     "metrics": "Outlier Detection",
-    "launchDate": "2023-08-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-08-01"
   },
   {
     "id": "230",
@@ -3774,9 +3514,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "SEO & Analytics",
     "pricing": "Paid",
     "startingPrice": "$99/yr",
-    "rating": 4.4,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3789,8 +3528,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Outliers"
     ],
     "metrics": "10M+ Video Data",
-    "launchDate": "2024-09-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2024-09-01"
   },
   {
     "id": "231",
@@ -3803,9 +3541,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "SEO & Analytics",
     "pricing": "Paid",
     "startingPrice": "$19/mo",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3818,8 +3555,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Publishing"
     ],
     "metrics": "1-Click Optimize",
-    "launchDate": "2023-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-01-01"
   },
   {
     "id": "232",
@@ -3832,9 +3568,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "SEO & Analytics",
     "pricing": "Freemium",
     "startingPrice": "$9.99/mo",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3847,8 +3582,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Benchmarks"
     ],
     "metrics": "Thumbnail Search",
-    "launchDate": "2024-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2024-01-01"
   },
   {
     "id": "233",
@@ -3861,9 +3595,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "SEO & Analytics",
     "pricing": "Freemium",
     "startingPrice": "$19/mo",
-    "rating": 4.1,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3876,8 +3609,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Metadata"
     ],
     "metrics": "Rank Tracking",
-    "launchDate": "2020-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2020-01-01"
   },
   {
     "id": "234",
@@ -3889,9 +3621,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "logo": "https://www.google.com/s2/favicons?domain=nexlev.io&sz=128",
     "category": "SEO & Analytics",
     "pricing": "Freemium",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3904,8 +3635,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "YouTube"
     ],
     "metrics": "Niche Finder",
-    "launchDate": "2023-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-01-01"
   },
   {
     "id": "235",
@@ -3918,9 +3648,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Automation",
     "pricing": "Freemium",
     "startingPrice": "$22/mo",
-    "rating": 4.5,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3933,8 +3662,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "AI Posts"
     ],
     "metrics": "All-Platform",
-    "launchDate": "2015-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2015-01-01"
   },
   {
     "id": "236",
@@ -3947,9 +3675,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Automation",
     "pricing": "Paid",
     "startingPrice": "$15/mo",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3962,8 +3689,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "E-commerce"
     ],
     "metrics": "AI Copy + Schedule",
-    "launchDate": "2021-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2021-01-01"
   },
   {
     "id": "237",
@@ -3976,9 +3702,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Automation",
     "pricing": "Freemium",
     "startingPrice": "$12/mo",
-    "rating": 4.4,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -3991,8 +3716,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "AI Assist"
     ],
     "metrics": "Bulk Tools",
-    "launchDate": "2015-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2015-01-01"
   },
   {
     "id": "238",
@@ -4005,9 +3729,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Automation",
     "pricing": "Freemium",
     "startingPrice": "$6/mo",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -4020,8 +3743,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Simple"
     ],
     "metrics": "Classic & Clean",
-    "launchDate": "2010-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2010-01-01"
   },
   {
     "id": "239",
@@ -4034,9 +3756,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Automation",
     "pricing": "Paid",
     "startingPrice": "$29/mo",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -4049,8 +3770,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Evergreen"
     ],
     "metrics": "Category Engine",
-    "launchDate": "2016-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2016-01-01"
   },
   {
     "id": "240",
@@ -4063,9 +3783,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Automation",
     "pricing": "Paid",
     "startingPrice": "$29/mo",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -4078,8 +3797,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "No-Code"
     ],
     "metrics": "1-to-10 Content",
-    "launchDate": "2024-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2024-01-01"
   },
   {
     "id": "241",
@@ -4092,9 +3810,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Automation",
     "pricing": "Freemium",
     "startingPrice": "$97/mo",
-    "rating": 4.4,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -4107,8 +3824,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Pipelines"
     ],
     "metrics": "Visual AI Flows",
-    "launchDate": "2023-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-01-01"
   },
   {
     "id": "242",
@@ -4121,9 +3837,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Automation",
     "pricing": "Freemium",
     "startingPrice": "$49.99/mo",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -4136,8 +3851,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Autonomous"
     ],
     "metrics": "Agent Teams",
-    "launchDate": "2023-06-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-06-01"
   },
   {
     "id": "243",
@@ -4150,9 +3864,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Automation",
     "pricing": "Freemium",
     "startingPrice": "$18/mo",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -4165,8 +3878,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Teams"
     ],
     "metrics": "One Workspace",
-    "launchDate": "2020-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2020-01-01"
   },
   {
     "id": "244",
@@ -4179,9 +3891,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Automation",
     "pricing": "Freemium",
     "startingPrice": "$32/mo",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -4194,8 +3905,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Competitor Intel"
     ],
     "metrics": "Brand-Aware Posts",
-    "launchDate": "2021-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2021-01-01"
   },
   {
     "id": "245",
@@ -4208,9 +3918,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "AI Agents & Assistants",
     "pricing": "Freemium",
     "startingPrice": "$19.99/mo",
-    "rating": 4.6,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": true,
@@ -4223,8 +3932,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Sources"
     ],
     "metrics": "Audio Overviews",
-    "launchDate": "2023-07-12",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-07-12"
   },
   {
     "id": "246",
@@ -4237,9 +3945,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Live & Streaming",
     "pricing": "Freemium",
     "startingPrice": "$20/mo",
-    "rating": 4.6,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": true,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -4252,8 +3959,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Overlays"
     ],
     "metrics": "Zero Install",
-    "launchDate": "2018-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2018-01-01"
   },
   {
     "id": "247",
@@ -4266,9 +3972,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Live & Streaming",
     "pricing": "Freemium",
     "startingPrice": "$16/mo",
-    "rating": 4.5,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -4281,8 +3986,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Captions"
     ],
     "metrics": "30+ Destinations",
-    "launchDate": "2015-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2015-01-01"
   },
   {
     "id": "248",
@@ -4295,9 +3999,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Live & Streaming",
     "pricing": "Freemium",
     "startingPrice": "$19/mo",
-    "rating": 4.4,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -4310,8 +4013,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Tips"
     ],
     "metrics": "AI Highlights",
-    "launchDate": "2014-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2014-01-01"
   },
   {
     "id": "249",
@@ -4324,9 +4026,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "Live & Streaming",
     "pricing": "Paid",
     "startingPrice": "$20/mo",
-    "rating": 4.5,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -4339,8 +4040,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Pro Camera"
     ],
     "metrics": "Mac Native Pro",
-    "launchDate": "2016-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2016-01-01"
   },
   {
     "id": "250",
@@ -4352,9 +4052,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "logo": "https://www.google.com/s2/favicons?domain=streamelements.com&sz=128",
     "category": "Live & Streaming",
     "pricing": "Freemium",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -4367,8 +4066,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Twitch"
     ],
     "metrics": "Cloud Scenes",
-    "launchDate": "2017-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2017-01-01"
   },
   {
     "id": "251",
@@ -4381,9 +4079,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "3D & Motion",
     "pricing": "Paid",
     "startingPrice": "$24.99/mo",
-    "rating": 4.6,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": true,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -4396,8 +4093,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Autodesk"
     ],
     "metrics": "Auto VFX Comp",
-    "launchDate": "2023-03-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-03-01"
   },
   {
     "id": "252",
@@ -4410,9 +4106,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "3D & Motion",
     "pricing": "Paid",
     "startingPrice": "$15/mo",
-    "rating": 4.4,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -4425,8 +4120,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "3D Export"
     ],
     "metrics": "Phone MoCap",
-    "launchDate": "2019-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2019-01-01"
   },
   {
     "id": "253",
@@ -4439,9 +4133,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "3D & Motion",
     "pricing": "Freemium",
     "startingPrice": "$99/yr",
-    "rating": 4.5,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -4454,8 +4147,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Characters"
     ],
     "metrics": "Physics Engine",
-    "launchDate": "2019-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2019-01-01"
   },
   {
     "id": "254",
@@ -4468,9 +4160,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "3D & Motion",
     "pricing": "Freemium",
     "startingPrice": "$8/mo",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -4483,8 +4174,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Free Tier"
     ],
     "metrics": "Browser MoCap",
-    "launchDate": "2021-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2021-01-01"
   },
   {
     "id": "255",
@@ -4497,9 +4187,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "3D & Motion",
     "pricing": "Freemium",
     "startingPrice": "$20/mo",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -4512,8 +4201,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Blender"
     ],
     "metrics": "Free Video MoCap",
-    "launchDate": "2014-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2014-01-01"
   },
   {
     "id": "256",
@@ -4526,9 +4214,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "3D & Motion",
     "pricing": "Freemium",
     "startingPrice": "$12/mo",
-    "rating": 4.4,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -4541,8 +4228,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Prompts"
     ],
     "metrics": "Web 3D Native",
-    "launchDate": "2020-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2020-01-01"
   },
   {
     "id": "257",
@@ -4555,9 +4241,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "category": "3D & Motion",
     "pricing": "Freemium",
     "startingPrice": "$16/mo",
-    "rating": 4.5,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": true,
@@ -4570,8 +4255,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Game Assets"
     ],
     "metrics": "60s 3D Models",
-    "launchDate": "2023-10-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-10-01"
   },
   {
     "id": "258",
@@ -4583,9 +4267,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "logo": "https://www.google.com/s2/favicons?domain=deepmotion.com&sz=128",
     "category": "3D & Motion",
     "pricing": "Freemium",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -4598,8 +4281,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Blender"
     ],
     "metrics": "Video Mocap",
-    "launchDate": "2017-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2017-01-01"
   },
   {
     "id": "259",
@@ -4611,9 +4293,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "logo": "https://www.google.com/s2/favicons?domain=kaedim.com&sz=128",
     "category": "3D & Motion",
     "pricing": "Paid",
-    "rating": 4.2,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -4626,8 +4307,7 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Human QA"
     ],
     "metrics": "Game-Ready Meshes",
-    "launchDate": "2022-01-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2022-01-01"
   },
   {
     "id": "260",
@@ -4639,9 +4319,8 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
     "logo": "https://www.google.com/s2/favicons?domain=tripo3d.ai&sz=128",
     "category": "3D & Motion",
     "pricing": "Freemium",
-    "rating": 4.3,
+    "rating": 0,
     "reviewsCount": 0,
-    "ratingLabel": "Editorial Score",
     "isFeatured": false,
     "isEditorsChoice": false,
     "isTrending": false,
@@ -4654,7 +4333,6 @@ export const EXTENDED_TOOLS: ToolSeed[] = [
       "Fast"
     ],
     "metrics": "Seconds to Model",
-    "launchDate": "2023-12-01",
-    "cataloguedAt": "2026-08-01"
+    "launchDate": "2023-12-01"
   }
 ];

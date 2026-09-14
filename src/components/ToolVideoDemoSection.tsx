@@ -72,7 +72,6 @@ export function ToolVideoDemoSection({ toolName, videoUrl }: ToolVideoDemoSectio
             preload="metadata"
             className="h-full w-full object-contain"
           >
-            <track kind="captions" />
           </video>
         ) : (
           <div className="flex h-full w-full flex-col items-center justify-center p-6 text-center text-zinc-400">

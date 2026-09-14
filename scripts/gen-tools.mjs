@@ -211,9 +211,9 @@ const tools = ROWS.map((r, i) => {
     category: CAT[cat],
     pricing: PRICE[pricing],
     ...(price ? { startingPrice: price } : {}),
-    rating,
+    // Audit fix: do not fabricate rating/reviewsCount in generated file — real scores only come from verified-tools.ts
+    rating: 0,
     reviewsCount: 0,
-    ratingLabel: 'Editorial Score',
     isFeatured: flags.includes('F'),
     isEditorsChoice: flags.includes('E'),
     isTrending: flags.includes('T'),
@@ -222,7 +222,6 @@ const tools = ROWS.map((r, i) => {
     tags,
     metrics: metric,
     launchDate: launch,
-    lastReviewed: '2026-08-01',
   };
 });
 

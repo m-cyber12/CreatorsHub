@@ -114,12 +114,28 @@ export function LoginClient({ nextPath = '/account' }: { nextPath?: string }) {
         setErrorMsg(t('invalidCredentials'));
       }
     } else {
-      // Local fallback mode
-      createLocalSession(email.trim());
+      // Local fallback mode — ONLY in development. In production, Supabase
+      // must be configured; otherwise anyone could log in as any email.
+      if (process.env.NODE_ENV === 'development') {
+        createLocalSession(email.trim());
+      } else {
+        setStatus('error');
+        setErrorMsg(t('authNotConfigured') ?? 'Authentication service is not configured. Please contact support.');
+      }
     }
   };
 
   const createLocalSession = (userEmail: string) => {
+    // Guard: never create fake session in production unless explicitly allowed
+    if (process.env.NODE_ENV !== 'development' && userEmail !== 'creator@noxifera.app') {
+      // In production, only the explicit demo button may create a local session
+      // if Supabase is missing — and even that should be blocked. Show error.
+      if (!supabase) {
+        setStatus('error');
+        setErrorMsg(t('authNotConfigured') ?? 'Authentication service is not configured.');
+        return;
+      }
+    }
     const fakeUser = {
       id: `usr_${Date.now()}`,
       email: userEmail,
@@ -158,7 +174,12 @@ export function LoginClient({ nextPath = '/account' }: { nextPath?: string }) {
     setErrorMsg('');
 
     if (!supabase) {
-      createLocalSession(email.trim());
+      if (process.env.NODE_ENV === 'development') {
+        createLocalSession(email.trim());
+      } else {
+        setStatus('error');
+        setErrorMsg(t('authNotConfigured') ?? 'Authentication service is not configured.');
+      }
       return;
     }
 
@@ -346,15 +367,21 @@ export function LoginClient({ nextPath = '/account' }: { nextPath?: string }) {
               </form>
             )}
 
-            {/* Quick Demo Login */}
+            {/* Quick Demo Login — only in development or when Supabase missing */}
             <div className="mt-6 border-t border-white/10 pt-4 text-center">
-              <button
-                type="button"
-                onClick={() => createLocalSession('creator@noxifera.app')}
-                className="text-2xs font-bold text-zinc-400 hover:text-accent-300 underline"
-              >
-                {t('guestDemo')}
-              </button>
+              {process.env.NODE_ENV === 'development' || !supabase ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (process.env.NODE_ENV === 'development' || !supabase) {
+                      createLocalSession('creator@noxifera.app');
+                    }
+                  }}
+                  className="text-2xs font-bold text-zinc-400 hover:text-accent-300 underline"
+                >
+                  {t('guestDemo')} {process.env.NODE_ENV !== 'development' && !supabase ? '(demo mode — auth not configured)' : ''}
+                </button>
+              ) : null}
             </div>
 
             <p className="mt-4 text-center text-2xs leading-relaxed text-zinc-500">

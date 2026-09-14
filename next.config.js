@@ -36,7 +36,7 @@ const securityHeaders = [
       // demo video (Supabase storage MP4) and every YouTube walkthrough
       // embed silently failed — the browser blocked them by default-src.
       "media-src 'self' https://*.supabase.co",
-      "frame-src https://www.youtube.com https://www.youtube-nocookie.com",
+      "frame-src https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com",
       "connect-src 'self' https://*.supabase.co https://vitals.vercel-insights.com https://va.vercel-scripts.com",
       "frame-ancestors 'self'",
       "base-uri 'self'",
@@ -62,8 +62,17 @@ const nextConfig = {
 
   // Audit fix 5.4 — lucide-react was imported as a barrel in every client
   // component, pulling far more icon code into the bundle than was used.
+  // OOM fix: three.js / R3F / postprocessing / gsap are heavy — optimize their
+  // imports so dev server doesn't hold 3.6GB RSS and get killed by OOM.
   experimental: {
-    optimizePackageImports: ['lucide-react'],
+    optimizePackageImports: [
+      'lucide-react',
+      'three',
+      '@react-three/fiber',
+      '@react-three/drei',
+      'postprocessing',
+      'gsap',
+    ],
   },
 
   async headers() {

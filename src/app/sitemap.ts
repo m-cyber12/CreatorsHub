@@ -9,6 +9,7 @@ import { OUTCOMES } from '@/data/outcomes';
 import { PLAYBOOKS } from '@/data/playbooks';
 import { WORKFLOWS } from '@/data/workflows';
 import { PAGE_SIZE } from '@/lib/toolFilters';
+import { routing } from '@/i18n/routing';
 
 /**
  * Audit fixes 3.1, 3.3.
@@ -143,7 +144,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/feed-tools.xml`, changeFrequency: 'daily', priority: 0.5, lastModified: buildDate },
   ];
 
-  return [
+  const baseRoutes = [
     ...staticRoutes,
     ...paginationRoutes,
     ...categoryRoutes,
@@ -156,4 +157,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...workflowRoutes,
     ...rssRoutes,
   ];
+
+  // Audit fix: include all 8 locales in sitemap so crawlers discover them
+  // without relying solely on hreflang Link headers. Default locale (en) stays
+  // at root, others get /{locale} prefix.
+  const localizedRoutes: MetadataRoute.Sitemap = [];
+  for (const locale of routing.locales) {
+    if (locale === routing.defaultLocale) continue;
+    for (const route of baseRoutes) {
+      const path = route.url.replace(SITE_URL, '') || '/';
+      // Skip feeds and paginated query URLs for non-English to avoid duplication
+      if (path.includes('feed') || path.includes('?page=')) continue;
+      localizedRoutes.push({
+        ...route,
+        url: `${SITE_URL}/${locale}${path === '/' ? '' : path}`,
+      });
+    }
+  }
+
+  return [...baseRoutes, ...localizedRoutes];
 }

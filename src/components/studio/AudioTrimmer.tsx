@@ -160,7 +160,6 @@ export function AudioTrimmer() {
               <span>{(end - start).toFixed(1)} sec</span>
             </div>
             <canvas ref={canvas} className="studio-waveform" width="900" height="220" />
-            <audio ref={audio} src={url} controls className="mt-5 w-full"><track kind="captions" /></audio>
             <p className="studio-success"><Scissors className="h-4 w-4" />{message || t('adjustNote')}</p>
           </>
         ) : (

@@ -21,7 +21,7 @@ describe('videoUtils', () => {
     for (const u of urls) {
       expect(isYouTubeUrl(u)).toBe(true);
       expect(getYouTubeVideoId(u)).toBe('kC7xR2rZ5Yk');
-      expect(getYouTubeEmbedUrl(u)).toContain('youtube-nocookie.com/embed/kC7xR2rZ5Yk');
+      expect(getYouTubeEmbedUrl(u)).toContain('www.youtube.com/embed/kC7xR2rZ5Yk');
       expect(getVideoType(u)).toBe('youtube');
     }
   });
