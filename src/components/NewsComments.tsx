@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { useLocale } from 'next-intl';
 import { MessageCircle, Send, Loader2, User } from 'lucide-react';
 
 interface Comment {
@@ -12,6 +13,8 @@ interface Comment {
 }
 
 export function NewsComments({ slug }: { slug: string }) {
+  const locale = useLocale();
+  const isFa = locale === 'fa';
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(true);
   const [posting, setPosting] = useState(false);
@@ -42,11 +45,11 @@ export function NewsComments({ slug }: { slug: string }) {
     setError('');
     setSuccess('');
     if (!name.trim() || name.trim().length < 2) {
-      setError('نام باید حداقل ۲ کاراکتر باشد');
+      setError(isFa ? 'نام باید حداقل ۲ کاراکتر باشد' : 'Name must be at least 2 characters');
       return;
     }
     if (!body.trim() || body.trim().length < 3) {
-      setError('متن کامنت خیلی کوتاه است');
+      setError(isFa ? 'متن کامنت خیلی کوتاه است' : 'Comment is too short');
       return;
     }
     setPosting(true);
@@ -57,13 +60,13 @@ export function NewsComments({ slug }: { slug: string }) {
         body: JSON.stringify({ slug, author_name: name.trim(), body: body.trim() }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'خطا در ارسال');
+      if (!res.ok) throw new Error(data.error || (isFa ? 'خطا در ارسال' : 'Failed to post'));
       setBody('');
-      setSuccess('کامنت شما ثبت شد!');
+      setSuccess(isFa ? 'کامنت شما ثبت شد!' : 'Comment posted!');
       await load();
       setTimeout(() => setSuccess(''), 3000);
     } catch (err: any) {
-      setError(err.message || 'خطا');
+      setError(err.message || (isFa ? 'خطا' : 'Error'));
     } finally {
       setPosting(false);
     }
@@ -73,15 +76,15 @@ export function NewsComments({ slug }: { slug: string }) {
     <section className="mt-12 rounded-2xl border border-white/10 bg-surface-1 p-6">
       <h3 className="flex items-center gap-2 text-lg font-bold text-white">
         <MessageCircle className="h-5 w-5 text-accent-400" />
-        نظرات ({comments.length})
+        {isFa ? `نظرات (${comments.length})` : `Comments (${comments.length})`}
       </h3>
 
       {loading ? (
         <p className="mt-4 flex items-center gap-2 text-sm text-zinc-500">
-          <Loader2 className="h-4 w-4 animate-spin" /> در حال بارگذاری...
+          <Loader2 className="h-4 w-4 animate-spin" /> {isFa ? 'در حال بارگذاری...' : 'Loading...'}
         </p>
       ) : comments.length === 0 ? (
-        <p className="mt-4 text-sm text-zinc-500">هنوز نظری ثبت نشده. اولین نفر باشید!</p>
+        <p className="mt-4 text-sm text-zinc-500">{isFa ? 'هنوز نظری ثبت نشده. اولین نفر باشید!' : 'No comments yet. Be the first!'}</p>
       ) : (
         <ul className="mt-4 space-y-4">
           {comments.map((c) => (
@@ -92,7 +95,7 @@ export function NewsComments({ slug }: { slug: string }) {
                 </span>
                 <span className="font-bold text-white">{c.author_name}</span>
                 <span className="text-zinc-500">
-                  {new Date(c.created_at).toLocaleDateString('fa-IR', {
+                  {new Date(c.created_at).toLocaleDateString(isFa ? 'fa-IR' : locale, {
                     year: 'numeric',
                     month: 'short',
                     day: 'numeric',
@@ -106,12 +109,12 @@ export function NewsComments({ slug }: { slug: string }) {
       )}
 
       <form onSubmit={submit} className="mt-6 space-y-3 border-t border-white/5 pt-6">
-        <h4 className="text-sm font-bold text-white">ثبت نظر</h4>
+        <h4 className="text-sm font-bold text-white">{isFa ? 'ثبت نظر' : 'Leave a comment'}</h4>
         <div className="grid gap-3 sm:grid-cols-2">
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="نام شما"
+            placeholder={isFa ? 'نام شما' : 'Your name'}
             className="w-full rounded-xl border border-white/10 bg-surface-2 px-4 py-2.5 text-sm text-white placeholder-zinc-500 focus:border-accent-500 focus:outline-none"
             maxLength={60}
           />
@@ -119,7 +122,7 @@ export function NewsComments({ slug }: { slug: string }) {
         <textarea
           value={body}
           onChange={(e) => setBody(e.target.value)}
-          placeholder="نظر خود را بنویسید..."
+          placeholder={isFa ? 'نظر خود را بنویسید...' : 'Write your comment...'}
           rows={4}
           className="w-full rounded-xl border border-white/10 bg-surface-2 px-4 py-2.5 text-sm text-white placeholder-zinc-500 focus:border-accent-500 focus:outline-none"
           maxLength={2000}
@@ -132,7 +135,7 @@ export function NewsComments({ slug }: { slug: string }) {
           className="inline-flex items-center gap-2 rounded-xl bg-accent-500 px-5 py-2.5 text-sm font-bold text-black transition-opacity hover:opacity-90 disabled:opacity-60"
         >
           {posting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-          ارسال نظر
+          {isFa ? 'ارسال نظر' : 'Post comment'}
         </button>
       </form>
     </section>

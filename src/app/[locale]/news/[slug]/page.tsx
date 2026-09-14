@@ -36,6 +36,7 @@ export default async function NewsDetail({ params }: Params) {
   const { slug, locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'news' });
+  const tc = await getTranslations({ locale, namespace: 'common' });
   const { items } = await getNews();
   const item = items.find((n) => n.slug === slug);
   if (!item) notFound();
@@ -81,7 +82,7 @@ export default async function NewsDetail({ params }: Params) {
             </span>
             <span className="flex items-center gap-1 text-zinc-500">
               <Clock className="h-3 w-3" aria-hidden="true" />
-              {Math.max(1, Math.ceil(localizedItem.content.length / 800))} دقیقه مطالعه
+              {tc('minRead', { count: Math.max(1, Math.ceil(localizedItem.content.length / 800)) })}
             </span>
           </div>
 

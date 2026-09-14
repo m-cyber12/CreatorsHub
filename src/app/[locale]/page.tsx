@@ -23,6 +23,7 @@ import { NewsletterForm } from '@/components/NewsletterForm';
 import { HomeMarquee } from '@/components/HomeMarquee';
 import { RotatingWord } from '@/components/RotatingWord';
 import { TestingQueueWidget } from '@/components/TestingQueueWidget';
+import { HomeAnimations } from '@/components/HomeAnimations';
 import { ALL_TOOLS, CATEGORIES } from '@/data/tools';
 import { getEffectiveTools } from '@/lib/contentOverrides';
 import { SITE_URL, SITE_NAME } from '@/config/site';
@@ -127,17 +128,17 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
           <div aria-hidden="true" className="bg-noise absolute inset-0 z-[1]" />
 
           <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-1 flex-col items-center justify-center px-4 pb-14 pt-20 text-center">
-            <span className="shine inline-flex items-center gap-2 rounded-full border border-accent-500/30 bg-accent-500/10 px-4 py-1.5 text-2xs font-bold text-accent-300">
+            <span data-hero-badge className="shine inline-flex items-center gap-2 rounded-full border border-accent-500/30 bg-accent-500/10 px-4 py-1.5 text-2xs font-bold text-accent-300">
               <Sparkles className="h-3.5 w-3.5 text-accent-400" aria-hidden="true" />
               {t('heroBadge')}
             </span>
 
-            <h1 className="mt-7 text-4xl font-black leading-[1.08] tracking-tight sm:text-6xl lg:text-7xl">
+            <h1 data-hero-title className="mt-7 text-4xl font-black leading-[1.08] tracking-tight sm:text-6xl lg:text-7xl">
               {content.homeHeroTitle1 || t('heroTitle1')} <br />
               <span className="text-gradient">{content.homeHeroTitleAccent || t('heroTitleAccent')}</span>
             </h1>
 
-            <p className="mx-auto mt-6 max-w-2xl text-sm leading-relaxed text-zinc-300 sm:text-lg">
+            <p data-hero-sub className="mx-auto mt-6 max-w-2xl text-sm leading-relaxed text-zinc-300 sm:text-lg">
               {content.homeHeroSub || (
                 <>
                   {t('heroSub1')} <RotatingWord words={rotatingWords} /> — {t('heroSubSeparator')}{' '}
@@ -147,11 +148,11 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
               )}
             </p>
 
-            <div className="mx-auto mt-9 w-full max-w-2xl">
+            <div data-hero-search className="mx-auto mt-9 w-full max-w-2xl">
               <HomeSearch />
             </div>
 
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+            <div data-hero-cta className="mt-6 flex flex-wrap items-center justify-center gap-3">
               <Link
                 href="/stack-builder"
                 className="cta-glow group inline-flex items-center gap-2 rounded-xl bg-accent-500 px-6 py-3 text-sm font-bold text-black transition-transform hover:scale-[1.03]"
@@ -167,7 +168,7 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
               </Link>
             </div>
 
-            <div className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-2xs text-zinc-500">
+            <div data-hero-chips className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-2xs text-zinc-500">
               <span className="inline-flex items-center gap-1.5">
                 <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" aria-hidden="true" /> {t('trustNoInvented')}
               </span>
@@ -214,18 +215,22 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
                 tint: 'text-fuchsia-400',
                 glow: 'hover:shadow-[0_20px_60px_-20px_rgba(232,121,249,0.45)]',
               },
-            ].map((stat) => (
+            ].map((stat, i) => (
               <div
                 key={stat.label}
+                data-reveal
+                data-reveal-delay={String(i * 90)}
                 className={`glass-panel group rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 ${stat.glow}`}
               >
                 <stat.icon className={`h-5 w-5 ${stat.tint} transition-transform duration-300 group-hover:scale-110`} aria-hidden="true" />
-                <p className="mt-4 font-mono text-3xl font-black tabular-nums">{stat.count}</p>
+                <p className="mt-4 font-mono text-3xl font-black tabular-nums">
+                  <span data-count={String(stat.count)}>{stat.count}</span>
+                </p>
                 <p className="mt-1 text-sm text-zinc-400">{stat.label}</p>
               </div>
             ))}
           </div>
-          <p className="mt-6 text-center text-2xs text-zinc-500">
+          <p data-reveal className="mt-6 text-center text-2xs text-zinc-500">
             {t('benchmarkNote')}{' '}
             <Link className="text-accent-300 underline underline-offset-2 hover:text-accent-200" href="/methodology">
               {t('seeTheStandard')}
@@ -235,20 +240,22 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
 
         <section className="relative mx-auto max-w-6xl px-4 py-10">
           <div className="flex items-end justify-between gap-4">
-            <div>
+            <div data-reveal>
               <p className="eyebrow-line text-2xs font-bold uppercase tracking-widest text-accent-300">
                 {t('startWithOutcome')}
               </p>
               <h2 className="mt-3 text-3xl font-black sm:text-4xl">{t('whatAreYouMaking')}</h2>
             </div>
-            <Link href="/tools" className="hidden text-sm font-semibold text-accent-300 transition-colors hover:text-accent-200 sm:block">
+            <Link data-reveal href="/tools" className="hidden text-sm font-semibold text-accent-300 transition-colors hover:text-accent-200 sm:block">
               {t('allTools')}
             </Link>
           </div>
           <div className="mt-7 flex flex-wrap gap-2.5">
-            {CATEGORIES.filter((c) => c !== 'All').map((category) => (
+            {CATEGORIES.filter((c) => c !== 'All').map((category, i) => (
               <Link
                 key={category}
+                data-reveal
+                data-reveal-delay={String(i * 40)}
                 href={`/tools?category=${encodeURIComponent(category)}`}
                 className="group relative rounded-full border border-white/10 bg-surface-1 px-5 py-2.5 text-sm text-zinc-300 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent-500/60 hover:text-white hover:shadow-[0_10px_30px_-10px_rgba(247,201,72,0.5)]"
               >
@@ -264,10 +271,12 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
 
         <section className="mx-auto max-w-6xl px-4 py-14">
           <div className="grid gap-4 md:grid-cols-3">
-            {STEPS.map((step) => (
+            {STEPS.map((step, i) => (
               <Link
                 key={step.title}
                 href={step.href}
+                data-reveal
+                data-reveal-delay={String(i * 110)}
                 className="glass-panel group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-accent-500/40 hover:shadow-[0_24px_70px_-24px_rgba(139,92,246,0.5)]"
               >
                 <div
@@ -287,7 +296,7 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
         </section>
 
         <section className="mx-auto max-w-6xl px-4 py-14">
-          <div className="mb-8 max-w-2xl">
+          <div data-reveal className="mb-8 max-w-2xl">
             <p className="eyebrow-line text-2xs font-bold uppercase tracking-widest text-accent-400">{t('intelEyebrow')}</p>
             <h2 className="mt-3 text-3xl font-black sm:text-4xl">{t('intelTitle')}</h2>
             <p className="mt-2 text-sm text-zinc-400">{t('intelSub')}</p>
@@ -322,10 +331,12 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
                 href: '/playbooks',
                 cta: t('intelPlaybooksCta'),
               },
-            ].map((card) => (
+            ].map((card, i) => (
               <Link
                 key={card.href}
                 href={card.href}
+                data-reveal
+                data-reveal-delay={String(i * 110)}
                 className="glass-panel group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-accent-500/40 hover:shadow-[0_24px_70px_-24px_rgba(247,201,72,0.45)]"
               >
                 <card.icon className="h-6 w-6 text-accent-400" aria-hidden="true" />
@@ -341,7 +352,7 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
         </section>
 
         <section className="mx-auto max-w-6xl px-4 py-12">
-          <div className="flex items-end justify-between gap-4">
+          <div data-reveal className="flex items-end justify-between gap-4">
             <div>
               <p className="eyebrow-line text-2xs font-bold uppercase tracking-widest text-emerald-400">{t('featuredEyebrow')}</p>
               <h2 className="mt-3 text-3xl font-black sm:text-4xl">{content.homeFeaturedTitle || t('featuredTitle')}</h2>
@@ -353,7 +364,7 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
           </div>
           <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {localizedTools.map((tool, index) => (
-              <div key={tool.slug}>
+              <div key={tool.slug} data-reveal data-reveal-delay={String((index % 3) * 100)}>
                 <ToolCard tool={tool} index={index} priority={index < 3} />
               </div>
             ))}
@@ -361,11 +372,13 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
         </section>
 
         <section className="mx-auto max-w-6xl px-4 py-12">
-          <TestingQueueWidget />
+          <div data-reveal>
+            <TestingQueueWidget />
+          </div>
         </section>
 
         <section className="mx-auto max-w-4xl px-4 py-20">
-          <div className="border-flow relative overflow-hidden p-[1.5px]">
+          <div data-reveal className="border-flow relative overflow-hidden p-[1.5px]">
             <div className="relative rounded-[calc(1.5rem-1.5px)] bg-surface-1/90 px-6 py-14 text-center backdrop-blur-xl sm:px-12">
               <div aria-hidden="true" className="absolute left-1/2 top-0 h-px w-2/3 -translate-x-1/2 bg-gradient-to-r from-transparent via-accent-400/70 to-transparent" />
               <p className="text-2xs font-bold uppercase tracking-[0.25em] text-accent-300">{t('newsletterEyebrow')}</p>
@@ -382,6 +395,7 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
       </main>
 
       <Footer />
+      <HomeAnimations />
     </div>
   );
 }

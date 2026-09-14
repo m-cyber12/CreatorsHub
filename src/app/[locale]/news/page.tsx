@@ -87,7 +87,7 @@ function NewsCard({
             href={`/news/${item.slug}`}
             className="inline-flex items-center gap-1 text-2xs font-bold text-accent-400 transition-colors hover:text-accent-300"
           >
-            ادامه مطلب <Newspaper className="h-3 w-3" />
+            {t('readFullArticle')} <Newspaper className="h-3 w-3" />
           </Link>
         </div>
       </div>
@@ -145,7 +145,7 @@ export default async function NewsPage({
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-zinc-400">{t('intro')}</p>
           <p className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-surface-1 px-3 py-1 text-2xs text-zinc-500">
             <Clock className="h-3 w-3" aria-hidden="true" />
-            {filtered.length} خبر
+            {t('items', { count: filtered.length })}
           </p>
         </div>
 
