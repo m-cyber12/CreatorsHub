@@ -19,7 +19,7 @@
   --accent-700: #8f650b;
   color-scheme: dark;
   position: relative;
-  height: 360svh;
+  min-height: 100svh;
   background: #050403;
   overflow: clip;
 }
@@ -39,8 +39,7 @@
 :global(html.light) .root :global(.hover\:text-white:hover) { color: #fff; }
 
 .stage {
-  position: sticky;
-  top: 0;
+  position: relative;
   height: 100svh;
   overflow: hidden;
   isolation: isolate;
@@ -225,7 +224,7 @@
 
 .character {
   position: relative;
-  height: min(86svh, 940px);
+  height: min(72svh, 780px);
   transform-origin: 50% 100%;
   will-change: transform;
 }
@@ -245,8 +244,16 @@
 .panels {
   position: absolute;
   inset: 0;
+  perspective: 1100px;
+  transform-style: preserve-3d;
   pointer-events: none;
 }
+
+/* Deliberate depth order: interfaces behind the synthetic character,
+   readable hero controls above both. */
+.characterWrap { z-index: 10; }
+.panels { z-index: 5; }
+.copy { z-index: 30; }
 
 .panel {
   position: absolute;
@@ -349,7 +356,7 @@
   z-index: 30;
   display: flex;
   justify-content: center;
-  padding: calc(64px + 2.5svh) 16px 0;
+  padding: calc(58px + 1.5svh) 16px 0;
   pointer-events: none;
   will-change: transform, opacity;
 }
@@ -608,7 +615,7 @@
 
 @media (max-width: 767px) {
   .root {
-    height: 320svh;
+    min-height: 100svh;
   }
 
   .panel {
@@ -627,7 +634,7 @@
   }
 
   .character {
-    height: 60svh;
+    height: 52svh;
   }
 
   .solarGlow {
@@ -686,6 +693,20 @@
     width: 132px;
   }
 
+  /* Keep the badge + headline inside the narrowest viewports (≤380px). */
+  .badge {
+    max-width: 94vw;
+    white-space: normal;
+    text-align: center;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    padding: 6px 12px;
+  }
+
+  .title {
+    font-size: clamp(1.55rem, 1.05rem + 4.6vw, 2rem);
+  }
+
   .sub {
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -721,3 +742,8 @@
     opacity: 0.25;
   }
 }
+
+/* Normal homepage flow: the hero is a single viewport section, not a scene. */
+.root .progress,
+.root .phase,
+.root .cue { display: none; }

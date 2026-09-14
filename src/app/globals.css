@@ -558,6 +558,32 @@ html.light .bg-grid {
   background: linear-gradient(90deg, transparent, rgba(247, 201, 72, 0.5), rgba(139, 92, 246, 0.5), transparent);
 }
 
+/* ── Homepage cinematic palette enforcement ──────────────────────────────
+   The SolarHero redesign is an absolute orange / gold / amber-on-black
+   identity. A few shared, site-wide effects still carry the legacy violet
+   (card tilt glare + hover shadow, footer hairline). Rather than alter those
+   shared components for every page, re-warm them ONLY on the homepage via
+   the `.page-home` scope. Semantic status hues (free=green, error=red,
+   freemium=blue) are intentionally left alone — they are status signals. */
+.page-home .tilt-glare {
+  background: radial-gradient(
+    560px circle at var(--gx, 50%) var(--gy, 50%),
+    rgba(255, 240, 214, 0.12),
+    rgba(232, 174, 28, 0.12) 35%,
+    transparent 56%
+  );
+}
+
+.page-home .tilt-wrap.group:hover > article {
+  box-shadow:
+    0 20px 60px -16px rgba(232, 114, 42, 0.42),
+    0 0 28px -8px rgba(247, 201, 72, 0.34);
+}
+
+.page-home .footer-glow::before {
+  background: linear-gradient(90deg, transparent, rgba(247, 201, 72, 0.55), rgba(232, 114, 42, 0.45), transparent);
+}
+
 /* ── Decorative overlays must never eat clicks (v2.4 bugfix) ───────────── */
 .hero-aurora, .bg-grid, .bg-noise { pointer-events: none; }
 

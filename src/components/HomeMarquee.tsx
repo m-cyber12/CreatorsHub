@@ -70,7 +70,7 @@ export function HomeMarquee() {
             <Link
               key={s}
               href={`/tools?q=${encodeURIComponent(s)}`}
-              className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-white/10 px-3 py-1.5 text-2xs text-zinc-400 transition-colors hover:border-cyan-400/50 hover:text-cyan-300"
+              className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-white/10 px-3 py-1.5 text-2xs text-zinc-400 transition-colors hover:border-ember-400/50 hover:text-ember-300"
             >
               <Search className="h-3 w-3" aria-hidden="true" />
               {s}

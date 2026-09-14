@@ -117,7 +117,7 @@ export function SolarHero({ copy }: { copy: SolarHeroCopy }) {
     const apply = (p: number) => {
       const anims = isMobile ? MOB_ANIMS : DESK_ANIMS;
       const e2 = easeInOut(smooth(p / 0.92));
-      const rise = isMobile ? -0.135 * stageH * e2 : 0.018 * stageH * e2;
+      const rise = 0;
 
       for (let i = 0; i < PANELS.length; i++) {
         const el = panels[i];
@@ -125,7 +125,10 @@ export function SolarHero({ copy }: { copy: SolarHeroCopy }) {
         const def = PANELS[i];
         const a = anims[i];
         const s = isMobile ? def.mStart : def.start;
-        const e = isMobile ? def.mEnd : def.end;
+        const rawEnd = isMobile ? def.mEnd : def.end;
+        // Keep the orbit composition intact: scrolling only nudges panels
+        // toward a nearby pose rather than sending them to a second layout.
+        const e = { ...s, x: s.x + (rawEnd.x - s.x) * 0.18, y: s.y + (rawEnd.y - s.y) * 0.18, r: s.r + (rawEnd.r - s.r) * 0.18, s: s.s + (rawEnd.s - s.s) * 0.12, o: s.o + (rawEnd.o - s.o) * 0.08, z: rawEnd.z };
 
         const local = smooth((p - a.t0) / (a.t1 - a.t0));
         const ez = easeInOut(local);
@@ -134,18 +137,25 @@ export function SolarHero({ copy }: { copy: SolarHeroCopy }) {
         const dx = e.x - s.x;
         const dy = e.y - s.y;
         const len = Math.hypot(dx, dy) || 1;
-        const bowOff = a.bow * Math.sin(Math.PI * ez);
+        const bowOff = a.bow * 0.22 * Math.sin(Math.PI * ez);
         const swirlEnv = Math.sin(Math.PI * Math.min(p / 0.4, 1)) * (1 - ez);
-        const swx = Math.cos(a.swirlPhase + p * 5) * a.swirl * swirlEnv;
-        const swy = Math.sin(a.swirlPhase * 1.3 + p * 4) * a.swirl * swirlEnv;
+        const swx = Math.cos(a.swirlPhase + p * 5) * a.swirl * 0.22 * swirlEnv;
+        const swy = Math.sin(a.swirlPhase * 1.3 + p * 4) * a.swirl * 0.22 * swirlEnv;
         let cxFrac = s.x + dx * ez + (-dy / len) * bowOff + swx;
         let cyFrac = s.y + dy * ez + (dx / len) * bowOff + swy;
 
+        const orbitPhase = a.swirlPhase + i * 0.73;
+        const orbitSpeed = 1.35 + (i % 4) * 0.16;
+        const orbitAmpX = (0.028 + (i % 3) * 0.012) * (isMobile ? 0.72 : 1);
+        const orbitAmpY = (0.035 + ((i + 1) % 4) * 0.01) * (isMobile ? 0.7 : 1);
+        const orbitT = p * Math.PI * 2 * orbitSpeed + orbitPhase;
         // Rotation wobble is zero at both ends so the settle pose is exact.
-        const rot = s.r + (e.r - s.r) * ez + Math.sin(Math.PI * ez) * a.wob;
+        const orbitRot = Math.sin(orbitT * 0.9 + i) * (isMobile ? 4.5 : 7 + (i % 3) * 2);
+        const rot = s.r + (e.r - s.r) * ez + Math.sin(Math.PI * ez) * a.wob * 0.22 + orbitRot;
         const endScale = isMobile ? e.s : e.s * settleFactor;
-        const sc = s.s + (endScale - s.s) * ez;
-        const op = s.o + (e.o - s.o) * ez;
+        const sc = (s.s + (endScale - s.s) * ez) * (1 + Math.sin(orbitT + 1.2) * 0.035);
+        const op = Math.max(0.72, (s.o + (e.o - s.o) * ez) + Math.sin(orbitT * 0.7) * 0.035);
+        const depth = Math.round(Math.sin(orbitT * 0.8 + i * 0.4) * (isMobile ? 18 : 34));
 
         // Precomputed detours part the field around her face. Each bump is
         // zero at both ends, so start and settle poses stay pixel-exact.
@@ -155,11 +165,18 @@ export function SolarHero({ copy }: { copy: SolarHeroCopy }) {
           cyFrac += oy;
         }
 
+        // Each interface has its own short orbital arc. These are deliberately
+        // layered on top of the small pose transition: panels move sideways
+        // and vertically, at different phases and speeds, rather than acting
+        // like one parallax sheet.
+        cxFrac += Math.cos(orbitT) * orbitAmpX;
+        cyFrac += Math.sin(orbitT * 0.82 + i * 0.31) * orbitAmpY;
+
         const ddx = (cxFrac - s.x) * stageW;
         const ddy = (cyFrac - s.y) * stageH;
 
         el.style.transform =
-          `translate(-50%,-50%) translate3d(${ddx.toFixed(1)}px,${ddy.toFixed(1)}px,0) ` +
+          `translate(-50%,-50%) translate3d(${ddx.toFixed(1)}px,${ddy.toFixed(1)}px,${depth}px) ` +
           `rotate(${rot.toFixed(2)}deg) scale(${sc.toFixed(3)})`;
         el.style.opacity = op.toFixed(3);
 
@@ -180,7 +197,7 @@ export function SolarHero({ copy }: { copy: SolarHeroCopy }) {
       // Character: grounded on desktop, rises above the dock on mobile so her
       // face always stays clear of the settled panels.
       if (charRef.current) {
-        const cScale = isMobile ? 1 - 0.05 * e2 : 1 + 0.03 * e2;
+        const cScale = 1;
         charRef.current.style.transform = `translate3d(0,${rise.toFixed(1)}px,0) scale(${cScale.toFixed(4)})`;
       }
       if (glowRef.current) {
@@ -192,10 +209,10 @@ export function SolarHero({ copy }: { copy: SolarHeroCopy }) {
 
       // Copy + cue fade out early; the composition takes over.
       if (copyRef.current) {
-        const cp = clamp01((p - 0.02) / 0.14);
-        copyRef.current.style.opacity = (1 - cp).toFixed(3);
-        copyRef.current.style.transform = `translate3d(0,${(-34 * clamp01(p / 0.16)).toFixed(1)}px,0)`;
-        const hidden = p > 0.2;
+        const cp = 0;
+        copyRef.current.style.opacity = '1';
+        copyRef.current.style.transform = 'translate3d(0,0,0)';
+        const hidden = false;
         if (hidden !== copyHidden) {
           copyHidden = hidden;
           copyRef.current.classList.toggle(styles.copyHidden, hidden);
@@ -220,9 +237,9 @@ export function SolarHero({ copy }: { copy: SolarHeroCopy }) {
     };
 
     const progressFromGeometry = () => {
-      const total = track.offsetHeight - window.innerHeight;
-      if (total <= 0) return 0;
-      return clamp01(-track.getBoundingClientRect().top / total);
+      const rect = track.getBoundingClientRect();
+      // One viewport of gentle response, never a pinned or extended scene.
+      return clamp01(-rect.top / Math.max(window.innerHeight, 1));
     };
 
     // Reduced motion: a single calm composition, no scroll choreography.

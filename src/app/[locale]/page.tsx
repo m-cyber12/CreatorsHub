@@ -123,7 +123,7 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
   };
 
   return (
-    <div className="min-h-screen bg-surface-0 text-white">
+    <div className="page-home min-h-screen bg-surface-0 text-white">
       <Header />
 
       <main id="main">
