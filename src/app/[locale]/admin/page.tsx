@@ -575,9 +575,8 @@ export default function AdminPage() {
     setNewsBusy(true);
     try {
       const cleanSlug = newsForm.slug.trim().toLowerCase().replace(/[^a-z0-9-]+/g, '-').replace(/(^-|-$)/g, '');
-      const payload = {
+      const baseFields = {
         title: newsForm.title.trim(),
-        slug: cleanSlug,
         excerpt: newsForm.excerpt.trim(),
         content: newsForm.content.trim(),
         category: newsForm.category.trim() || 'Industry',
@@ -585,8 +584,8 @@ export default function AdminPage() {
         published_at: newsForm.published_at || new Date().toISOString(),
       };
       const res = newsEditor?.mode === 'edit'
-        ? await fetch('/api/admin/news', { method: 'PUT', headers: mutHeaders(), body: JSON.stringify({ slug: newsEditor.slug, ...payload }) })
-        : await fetch('/api/admin/news', { method: 'POST', headers: mutHeaders(), body: JSON.stringify(payload) });
+        ? await fetch('/api/admin/news', { method: 'PUT', headers: mutHeaders(), body: JSON.stringify({ slug: newsEditor.slug, ...baseFields }) })
+        : await fetch('/api/admin/news', { method: 'POST', headers: mutHeaders(), body: JSON.stringify({ ...baseFields, slug: cleanSlug }) });
       const d = await res.json();
       if (!res.ok) throw new Error(d.error || 'Save failed');
       flash('ok', newsEditor?.mode === 'edit' ? 'News updated' : 'News created');
@@ -1696,32 +1695,32 @@ export default function AdminPage() {
                   </div>
                   <div className="mt-4 grid gap-3 sm:grid-cols-2">
                     <div className="sm:col-span-2">
-                      <label className="text-2xs font-semibold text-zinc-400">Title *</label>
-                      <input value={newsForm.title} onChange={e=>setNewsForm({...newsForm,title:e.target.value})} className="mt-1 w-full rounded-xl border border-white/10 bg-surface-2 px-3 py-2 text-sm text-white" />
+                      <label htmlFor="news-title" className="text-2xs font-semibold text-zinc-400">Title *</label>
+                      <input id="news-title" value={newsForm.title} onChange={e=>setNewsForm({...newsForm,title:e.target.value})} className="mt-1 w-full rounded-xl border border-white/10 bg-surface-2 px-3 py-2 text-sm text-white" />
                     </div>
                     <div>
-                      <label className="text-2xs font-semibold text-zinc-400">Slug *</label>
-                      <input value={newsForm.slug} onChange={e=>setNewsForm({...newsForm,slug:e.target.value})} className="mt-1 w-full rounded-xl border border-white/10 bg-surface-2 px-3 py-2 text-sm text-white" placeholder="elevenlabs-music-v2-5" />
+                      <label htmlFor="news-slug" className="text-2xs font-semibold text-zinc-400">Slug *</label>
+                      <input id="news-slug" value={newsForm.slug} onChange={e=>setNewsForm({...newsForm,slug:e.target.value})} className="mt-1 w-full rounded-xl border border-white/10 bg-surface-2 px-3 py-2 text-sm text-white" placeholder="elevenlabs-music-v2-5" />
                     </div>
                     <div>
-                      <label className="text-2xs font-semibold text-zinc-400">Category</label>
-                      <input value={newsForm.category} onChange={e=>setNewsForm({...newsForm,category:e.target.value})} className="mt-1 w-full rounded-xl border border-white/10 bg-surface-2 px-3 py-2 text-sm text-white" />
+                      <label htmlFor="news-category" className="text-2xs font-semibold text-zinc-400">Category</label>
+                      <input id="news-category" value={newsForm.category} onChange={e=>setNewsForm({...newsForm,category:e.target.value})} className="mt-1 w-full rounded-xl border border-white/10 bg-surface-2 px-3 py-2 text-sm text-white" />
                     </div>
                     <div>
-                      <label className="text-2xs font-semibold text-zinc-400">Image URL</label>
-                      <input value={newsForm.image} onChange={e=>setNewsForm({...newsForm,image:e.target.value})} className="mt-1 w-full rounded-xl border border-white/10 bg-surface-2 px-3 py-2 text-sm text-white" placeholder="https://..." />
+                      <label htmlFor="news-image" className="text-2xs font-semibold text-zinc-400">Image URL</label>
+                      <input id="news-image" value={newsForm.image} onChange={e=>setNewsForm({...newsForm,image:e.target.value})} className="mt-1 w-full rounded-xl border border-white/10 bg-surface-2 px-3 py-2 text-sm text-white" placeholder="https://..." />
                     </div>
                     <div>
-                      <label className="text-2xs font-semibold text-zinc-400">Published Date</label>
-                      <input type="date" value={newsForm.published_at} onChange={e=>setNewsForm({...newsForm,published_at:e.target.value})} className="mt-1 w-full rounded-xl border border-white/10 bg-surface-2 px-3 py-2 text-sm text-white" />
+                      <label htmlFor="news-date" className="text-2xs font-semibold text-zinc-400">Published Date</label>
+                      <input id="news-date" type="date" value={newsForm.published_at} onChange={e=>setNewsForm({...newsForm,published_at:e.target.value})} className="mt-1 w-full rounded-xl border border-white/10 bg-surface-2 px-3 py-2 text-sm text-white" />
                     </div>
                     <div className="sm:col-span-2">
-                      <label className="text-2xs font-semibold text-zinc-400">Excerpt (short summary)</label>
-                      <textarea rows={2} value={newsForm.excerpt} onChange={e=>setNewsForm({...newsForm,excerpt:e.target.value})} className="mt-1 w-full rounded-xl border border-white/10 bg-surface-2 px-3 py-2 text-sm text-white" />
+                      <label htmlFor="news-excerpt" className="text-2xs font-semibold text-zinc-400">Excerpt (short summary)</label>
+                      <textarea id="news-excerpt" rows={2} value={newsForm.excerpt} onChange={e=>setNewsForm({...newsForm,excerpt:e.target.value})} className="mt-1 w-full rounded-xl border border-white/10 bg-surface-2 px-3 py-2 text-sm text-white" />
                     </div>
                     <div className="sm:col-span-2">
-                      <label className="text-2xs font-semibold text-zinc-400">Full Content * (no source links)</label>
-                      <textarea rows={12} value={newsForm.content} onChange={e=>setNewsForm({...newsForm,content:e.target.value})} className="mt-1 w-full rounded-xl border border-white/10 bg-surface-2 px-3 py-2 font-mono text-xs text-white" placeholder="Write full article here..." />
+                      <label htmlFor="news-content" className="text-2xs font-semibold text-zinc-400">Full Content * (no source links)</label>
+                      <textarea id="news-content" rows={12} value={newsForm.content} onChange={e=>setNewsForm({...newsForm,content:e.target.value})} className="mt-1 w-full rounded-xl border border-white/10 bg-surface-2 px-3 py-2 font-mono text-xs text-white" placeholder="Write full article here..." />
                       <p className="mt-1 text-2xs text-zinc-500">{newsForm.content.length} chars — will be split by blank lines on frontend</p>
                     </div>
                   </div>

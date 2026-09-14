@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { MessageCircle, Send, Loader2, User } from 'lucide-react';
 
 interface Comment {
@@ -20,7 +20,7 @@ export function NewsComments({ slug }: { slug: string }) {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  const load = async () => {
+  const load = useCallback(async () => {
     try {
       setLoading(true);
       const res = await fetch(`/api/news/comments?slug=${encodeURIComponent(slug)}`);
@@ -31,11 +31,11 @@ export function NewsComments({ slug }: { slug: string }) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [slug]);
 
   useEffect(() => {
     load();
-  }, [slug]);
+  }, [load]);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
