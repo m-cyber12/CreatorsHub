@@ -23,7 +23,6 @@ import { NewsletterForm } from '@/components/NewsletterForm';
 import { HomeMarquee } from '@/components/HomeMarquee';
 import { RotatingWord } from '@/components/RotatingWord';
 import { TestingQueueWidget } from '@/components/TestingQueueWidget';
-import { HomeAnimations } from '@/components/HomeAnimations';
 import { ALL_TOOLS, CATEGORIES } from '@/data/tools';
 import { getEffectiveTools } from '@/lib/contentOverrides';
 import { SITE_URL, SITE_NAME } from '@/config/site';
@@ -395,7 +394,6 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
       </main>
 
       <Footer />
-      <HomeAnimations />
     </div>
   );
 }

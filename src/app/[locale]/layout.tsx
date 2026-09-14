@@ -8,6 +8,7 @@ import { CookieConsent } from '@/components/CookieConsent';
 import { AnnouncementBanner } from '@/components/AnnouncementBanner';
 import { SmoothScroll } from '@/components/SmoothScroll';
 import { SkipLink } from '@/components/SkipLink';
+import { HomeAnimations } from '@/components/HomeAnimations';
 
 /**
  * Locale layout — everything that must exist inside <html> for every
@@ -43,6 +44,7 @@ export default async function LocaleLayout({
             <AnnouncementBanner />
             {children}
             <CookieConsent />
+            <HomeAnimations />
           </AppProviders>
         </SmoothScroll>
       </ThemeProvider>

@@ -5,7 +5,9 @@ import { newsSlug, type NewsItem } from '@/data/news';
 import { parseFeed, type ParsedFeedEntry } from '@/lib/rss';
 import { extract } from '@extractus/article-extractor';
 import { supabaseAdmin } from '@/lib/supabaseAdmin';
+import { supabase } from '@/lib/supabase';
 import { filterRelevant } from '@/lib/newsRelevance';
+import { isNewsEnabled } from '@/lib/newsSettings';
 
 /**
  * Live news ingestion for the auto-aggregator (idea #13).
@@ -352,9 +354,24 @@ export async function fetchLiveNews(): Promise<NewsItem[]> {
     .slice(0, MAX_LIVE_ITEMS);
 }
 
-/** Try the persisted snapshot, then live, then curated fallback. */
+/** Try the persisted snapshot, then live, then curated fallback.
+ * v2 real-site fix:
+ * - respects news_enabled toggle (if disabled -> empty)
+ * - if Supabase is configured, DB is source of truth: empty DB means empty site (no live fallback) so "Delete All" actually clears the site
+ * - live fallback only when Supabase not configured (local dev without keys)
+ */
 export async function getNews(): Promise<{ items: NewsItem[]; mode: 'supabase' | 'live' | 'empty' }> {
+  // 0) Respect admin toggle
+  try {
+    if (!(await isNewsEnabled())) {
+      return { items: [], mode: 'empty' };
+    }
+  } catch {
+    // if toggle check fails, continue
+  }
+
   // 1) Persisted snapshot from the cron refresh (the production "auto" path).
+  const hasSupabase = !!supabaseAdmin || !!supabase;
   if (supabaseAdmin) {
     try {
       const { data, error } = await supabaseAdmin
@@ -363,45 +380,56 @@ export async function getNews(): Promise<{ items: NewsItem[]; mode: 'supabase' |
         .eq('approved', true)
         .order('published_at', { ascending: false })
         .limit(MAX_LIVE_ITEMS);
-      if (!error && data && data.length > 0) {
-        const items: NewsItem[] = data.map((r) => ({
-          slug: r.slug,
-          title: String(r.title).replace(/<!\[CDATA\[|\]\]>/g, '').trim(),
-          excerpt: r.excerpt,
-          content: r.content,
-          source: r.source,
-          sourceUrl: r.source_url,
-          publishedAt: r.published_at,
-          isoDate: r.iso_date || r.published_at.slice(0, 10),
-          category: r.category,
-          image: r.image || undefined,
-          aiSummarized: r.ai_summarized === true,
-        }));
-        const relevant = filterRelevant(items);
-        if (relevant.length > 0) {
-          // v3.4 fix: if DB rows have short content (<800), enrich on read
-          // for the latest 15 items (best-effort, bounded). This heals old
-          // short rows without requiring a DB migration.
-          const shortCount = relevant.slice(0, 15).filter((i) => i.content.length < FULL_TEXT_MIN).length;
-          if (shortCount > 0) {
-            try {
-              const enriched = await enrichMany(relevant.slice(0, 15), Math.min(shortCount, 8));
-              const enrichedMap = new Map(enriched.map((e) => [e.slug, e]));
-              const merged = relevant.map((orig) => enrichedMap.get(orig.slug) || orig);
-              return { items: merged, mode: 'supabase' };
-            } catch {
-              // fall through to non-enriched
+      if (!error) {
+        if (data && data.length > 0) {
+          const items: NewsItem[] = data.map((r) => ({
+            slug: r.slug,
+            title: String(r.title).replace(/<!\[CDATA\[|\]\]>/g, '').trim(),
+            excerpt: r.excerpt,
+            content: r.content,
+            source: r.source,
+            sourceUrl: r.source_url,
+            publishedAt: r.published_at,
+            isoDate: r.iso_date || r.published_at.slice(0, 10),
+            category: r.category,
+            image: r.image || undefined,
+            aiSummarized: r.ai_summarized === true,
+          }));
+          const relevant = filterRelevant(items);
+          if (relevant.length > 0) {
+            const shortCount = relevant.slice(0, 15).filter((i) => i.content.length < FULL_TEXT_MIN).length;
+            if (shortCount > 0) {
+              try {
+                const enriched = await enrichMany(relevant.slice(0, 15), Math.min(shortCount, 8));
+                const enrichedMap = new Map(enriched.map((e) => [e.slug, e]));
+                const merged = relevant.map((orig) => enrichedMap.get(orig.slug) || orig);
+                return { items: merged, mode: 'supabase' };
+              } catch {
+                // fall through
+              }
             }
+            return { items: relevant, mode: 'supabase' };
           }
-          return { items: relevant, mode: 'supabase' };
+          // DB had rows but none passed relevance -> treat as empty (don't fallback to live when DB configured)
+          return { items: [], mode: 'empty' };
+        }
+        // DB configured but empty -> user deleted all or no data yet -> empty, NOT live fallback
+        if (hasSupabase) {
+          return { items: [], mode: 'empty' };
         }
       }
     } catch {
-      // fall through to live/curated
+      // fall through
     }
   }
 
-  // 2) Live RSS fetch (may fail offline / at build time — that's fine).
+  // If Supabase is configured (even via anon key), we already returned empty above when no rows.
+  // Only fallback to live when Supabase is NOT configured at all (local dev without keys)
+  if (hasSupabase) {
+    return { items: [], mode: 'empty' };
+  }
+
+  // 2) Live RSS fetch (only when Supabase not configured)
   try {
     const live = filterRelevant(await fetchLiveNews());
     if (live.length > 0) {
@@ -412,7 +440,7 @@ export async function getNews(): Promise<{ items: NewsItem[]; mode: 'supabase' |
     // fall through
   }
 
-  // 3) Honest empty state — no fabricated filler.
+  // 3) Honest empty state
   return { items: [], mode: 'empty' };
 }
 
